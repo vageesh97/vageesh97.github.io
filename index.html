@@ -956,25 +956,44 @@ svg.lucide, i[data-lucide], svg {
   .mobile-spine-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
+    min-width: 0;
   }
   .mobile-spine-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     box-shadow: 0 0 8px currentColor;
+    flex-shrink: 0;
   }
   .mobile-spine-title {
     font-family: var(--font-serif);
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: #FDFAF7;
     letter-spacing: -0.01em;
+    white-space: nowrap;
   }
   .mobile-spine-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .mobile-spine-val {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: #FDFAF7;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
   .mobile-spine-chevron {
     width: 16px;
@@ -2479,7 +2498,7 @@ svg.lucide, i[data-lucide], svg {
             <span class="mobile-spine-title">01 // Master Dossier</span>
           </div>
           <div class="mobile-spine-right">
-            <span class="badge-capsule num-mono privacy-blur" id="mobileSpineBadge0">₹0</span>
+            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge0">₹0</span>
             <svg id="mobileSpineChevron0" class="mobile-spine-chevron lucide lucide-chevron-down" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -2790,7 +2809,7 @@ svg.lucide, i[data-lucide], svg {
             <span class="mobile-spine-title">02 // Mutual Funds &amp; SIPs</span>
           </div>
           <div class="mobile-spine-right">
-            <span class="badge-capsule num-mono privacy-blur" id="mobileSpineBadge1">5 Funds</span>
+            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge1">₹0</span>
             <svg id="mobileSpineChevron1" class="mobile-spine-chevron lucide lucide-chevron-down" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -2941,7 +2960,7 @@ svg.lucide, i[data-lucide], svg {
             <span class="mobile-spine-title">03 // Direct Equities</span>
           </div>
           <div class="mobile-spine-right">
-            <span class="badge-capsule num-mono privacy-blur" id="mobileSpineBadge2">13 Equities</span>
+            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge2">₹0</span>
             <svg id="mobileSpineChevron2" class="mobile-spine-chevron lucide lucide-chevron-down" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -3057,7 +3076,7 @@ svg.lucide, i[data-lucide], svg {
             <span class="mobile-spine-title">04 // Sovereign &amp; Gold</span>
           </div>
           <div class="mobile-spine-right">
-            <span class="badge-capsule num-mono privacy-blur" id="mobileSpineBadge3">PPF + Gold</span>
+            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge3">₹0</span>
             <svg id="mobileSpineChevron3" class="mobile-spine-chevron lucide lucide-chevron-down" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -3069,7 +3088,7 @@ svg.lucide, i[data-lucide], svg {
           </div>
           <div style="text-align: right;">
             <div class="dossier-metric-huge num-mono privacy-blur" id="sovereignTotalCorpus">₹0</div>
-            <div class="badge-capsule num-mono privacy-blur" id="sovereignTotalGain">+₹0 (+0.0%)</div>
+            <div class="num-mono privacy-blur" style="font-size: 11px; opacity: 0.8; margin-top: 4px;" id="sovereignTotalGain">+₹0 (+0.0% Net Gain)</div>
           </div>
         </div>
 
@@ -3199,7 +3218,7 @@ svg.lucide, i[data-lucide], svg {
             <span class="mobile-spine-title">05 // FIRE &amp; Projections</span>
           </div>
           <div class="mobile-spine-right">
-            <span class="badge-capsule num-mono privacy-blur" id="mobileSpineBadge4">15Y Target</span>
+            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge4">15Y • FIRE Radar</span>
             <svg id="mobileSpineChevron4" class="mobile-spine-chevron lucide lucide-chevron-down" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
@@ -5132,6 +5151,26 @@ function formatVal(amt, hideSymbol = false) {
   return hideSymbol ? `${prefix}${formatted}` : `${prefix}${cur.symbol}${formatted}`;
 }
 
+function formatValCompact(amt) {
+  if (amt === undefined || amt === null || isNaN(amt)) return '—';
+  const cur = CURRENCIES[AppState.user.currency] || CURRENCIES.INR;
+  const num = Number(amt);
+  const isNegative = num < 0;
+  const converted = Math.abs(num) * cur.rate;
+  const prefix = isNegative ? '-' : '';
+
+  if (AppState.user.currency === 'INR') {
+    if (converted >= 10000000) return `${prefix}${cur.symbol}${(converted / 10000000).toFixed(2)} Cr`;
+    if (converted >= 100000) return `${prefix}${cur.symbol}${(converted / 100000).toFixed(2)}L`;
+    if (converted >= 1000) return `${prefix}${cur.symbol}${(converted / 1000).toFixed(1)}k`;
+    return `${prefix}${cur.symbol}${Math.round(converted)}`;
+  } else {
+    if (converted >= 1000000) return `${prefix}${cur.symbol}${(converted / 1000000).toFixed(2)}M`;
+    if (converted >= 1000) return `${prefix}${cur.symbol}${(converted / 1000).toFixed(1)}k`;
+    return `${prefix}${cur.symbol}${Math.round(converted)}`;
+  }
+}
+
 function formatTimestampDetailed(d = new Date()) {
   const day = d.getDate();
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -6522,11 +6561,13 @@ function renderCompleteDossiers() {
   const mb4 = document.getElementById('mobileSpineBadge4');
 
   const pureStocksCount = (AppState.stocks || []).filter(s => !isGoldEtf(s)).length;
-  if (mb0) mb0.innerText = `${formatVal(metrics.totalNetWorth)}`;
-  if (mb1) mb1.innerText = `${(AppState.mutualFunds || []).length} Funds • ${formatVal(metrics.mfSip)}/mo`;
-  if (mb2) mb2.innerText = `${pureStocksCount} Equities`;
-  if (mb3) mb3.innerText = `${formatVal(metrics.sovereignCur)} • 7.1%`;
-  if (mb4) mb4.innerText = `FIRE Radar`;
+  const mfCount = (AppState.mutualFunds || []).length;
+
+  if (mb0) mb0.innerText = `${formatValCompact(metrics.totalNetWorth)} • Total`;
+  if (mb1) mb1.innerText = `${formatValCompact(metrics.mfCur)} • ${mfCount} Funds`;
+  if (mb2) mb2.innerText = `${formatValCompact(metrics.stCur)} • ${pureStocksCount} Equities`;
+  if (mb3) mb3.innerText = `${formatValCompact(metrics.sovereignCur)} • PPF & Gold`;
+  if (mb4) mb4.innerText = `15Y • FIRE Radar`;
 
   if (AppState.user.privacy) document.body.classList.add('privacy-active');
   else document.body.classList.remove('privacy-active');
