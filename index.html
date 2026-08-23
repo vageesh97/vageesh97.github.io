@@ -195,11 +195,11 @@ svg.lucide, i[data-lucide], svg {
   align-items: center;
   gap: 5px;
   padding: 0;
-  background: transparent;
-  border: none;
+  background: transparent !important;
+  border: none !important;
   font-family: var(--font-mono);
   font-size: 8.5px;
-  color: rgba(253, 250, 247, 0.28);
+  color: rgba(253, 250, 247, 0.35);
   letter-spacing: 0.05em;
   white-space: nowrap;
   user-select: none;
@@ -207,20 +207,20 @@ svg.lucide, i[data-lucide], svg {
   transition: all 0.3s ease;
 }
 .top-left-status.live {
-  background: transparent;
-  border: none;
-  color: rgba(253, 250, 247, 0.45);
+  background: transparent !important;
+  border: none !important;
+  color: rgba(253, 250, 247, 0.5);
 }
 .top-left-status .status-led-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(253, 250, 247, 0.22);
+  background: rgba(253, 250, 247, 0.3);
   box-shadow: none;
 }
 .top-left-status.live .status-led-dot {
   background: #10B981;
-  opacity: 0.75;
+  opacity: 0.85;
   box-shadow: none;
 }
 
@@ -231,6 +231,7 @@ svg.lucide, i[data-lucide], svg {
   padding-left: 0.75rem;
   border-left: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 9.5px;
+  font-family: var(--font-mono);
   color: var(--text-dim);
   flex-shrink: 0;
 }
@@ -247,9 +248,16 @@ svg.lucide, i[data-lucide], svg {
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
+  color: var(--text-dim);
 }
 .pulse-item.up { color: #6ee7b7; }
 .pulse-item.down { color: #fca5a5; }
+#tickerGold, #mobTickerGold {
+  color: var(--text-dim) !important;
+  font-weight: normal !important;
+  background: transparent !important;
+  border: none !important;
+}
 
 .cmd-search-trigger {
   display: flex;
@@ -859,19 +867,20 @@ svg.lucide, i[data-lucide], svg {
   }
   .mobile-status {
     display: inline-flex !important;
-    font-size: 8.5px !important;
-    font-weight: 600 !important;
-    padding: 1px 4px !important;
+    align-items: center !important;
+    font-size: 8px !important;
+    font-weight: 500 !important;
+    padding: 0 !important;
     gap: 4px !important;
     margin-top: 1px !important;
     width: fit-content;
     background: transparent !important;
     border: none !important;
-    color: #ffd180 !important;
+    color: rgba(253, 250, 247, 0.35) !important;
     letter-spacing: 0.04em;
   }
   .mobile-status.live {
-    color: #a7f3d0 !important;
+    color: rgba(253, 250, 247, 0.5) !important;
   }
   .the-header__brand-block {
     display: flex;
@@ -1036,9 +1045,9 @@ svg.lucide, i[data-lucide], svg {
     background: rgba(14, 18, 27, 0.98);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 6px 12px;
+    padding: 5px 12px;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 10px;
     width: 100%;
   }
   .mobile-market-bar-inner {
@@ -1218,6 +1227,58 @@ svg.lucide, i[data-lucide], svg {
     pointer-events: auto;
     transform: translateY(0);
   }
+}
+
+/* Mobile Native Pull-to-Refresh Indicator */
+.mobile-ptr-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 12px;
+  pointer-events: none;
+  transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-ptr-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #FDFAF7;
+  transform: translateY(-24px);
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.mobile-ptr-indicator.active .mobile-ptr-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+.mobile-ptr-icon {
+  width: 13px;
+  height: 13px;
+  color: #6ee7b7;
+  transition: transform 0.2s ease;
+}
+.mobile-ptr-icon.spinning {
+  animation: spinPtr 0.7s linear infinite;
+}
+@keyframes spinPtr {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Dossier Typography & KPIs */
@@ -2229,6 +2290,14 @@ svg.lucide, i[data-lucide], svg {
   <div class="sidebar-arch-ribbon left">WEALTH // REF-2026-X // LAT 28°36'N // LONG 77°12'E</div>
   <div class="sidebar-arch-ribbon right">ARCHIVAL DOSSIER // FINANCIAL SOVEREIGNTY // VER 3.4</div>
 
+  <!-- Mobile Native Pull-to-Refresh Indicator -->
+  <div id="mobilePullToRefresh" class="mobile-ptr-indicator">
+    <div class="mobile-ptr-content">
+      <svg id="mobilePtrIcon" class="mobile-ptr-icon lucide lucide-refresh-cw" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      <span class="mobile-ptr-text" id="mobilePtrText">Pull to refresh...</span>
+    </div>
+  </div>
+
   <!-- ==========================================================================
        MOSBY FILES THE-HEADER & SMART CONTROL DECK
        ========================================================================== -->
@@ -2262,7 +2331,7 @@ svg.lucide, i[data-lucide], svg {
           <span>•</span>
           <span class="pulse-item down" id="tickerSensex">SENSEX 77,541 ▼0.12%</span>
           <span>•</span>
-          <span class="pulse-item" id="tickerGold">GOLD ₹72.1k</span>
+          <span class="pulse-item" id="tickerGold">GOLD ₹1,57,750</span>
         </div>
       </div>
 
@@ -2327,7 +2396,7 @@ svg.lucide, i[data-lucide], svg {
         <span class="ticker-dot">•</span>
         <span class="pulse-item down" id="mobTickerSensex">SENSEX 77,541 ▼0.12%</span>
         <span class="ticker-dot">•</span>
-        <span class="pulse-item" id="mobTickerGold">GOLD ₹72.1k</span>
+        <span class="pulse-item" id="mobTickerGold">GOLD ₹1,57,750</span>
       </div>
     </div>
   </header>
@@ -2801,7 +2870,7 @@ svg.lucide, i[data-lucide], svg {
         </div>
       </div>
 
-      <!-- FOLDER 1: MUTUAL FUNDS & SIPS -->
+      <!-- FOLDER 1: MUTUAL FUNDS & SIP -->
       <div class="mobile-folder-wrapper" id="mobileFolderWrap1" style="--folder-color: var(--color-green);">
         <div class="mobile-folder-spine" onclick="toggleMobileFolder(1)">
           <div class="mobile-spine-left">
@@ -5894,6 +5963,99 @@ function closeMobileDrawer() {
   if (backdrop) backdrop.classList.remove('active');
 }
 
+function initPullToRefresh() {
+  if (typeof window === 'undefined' || !window.addEventListener) return;
+  let startY = 0;
+  let currentY = 0;
+  let isDragging = false;
+  let isRefreshing = false;
+  const THRESHOLD = 75;
+
+  window.addEventListener('touchstart', (e) => {
+    if (window.scrollY <= 5 && e.touches.length === 1 && !isRefreshing) {
+      startY = e.touches[0].clientY;
+      isDragging = true;
+    } else {
+      isDragging = false;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isDragging || isRefreshing || window.scrollY > 5) return;
+    currentY = e.touches[0].clientY;
+    const diff = currentY - startY;
+    if (diff > 0) {
+      const ptrEl = document.getElementById('mobilePullToRefresh');
+      const ptrIcon = document.getElementById('mobilePtrIcon');
+      const ptrText = document.getElementById('mobilePtrText');
+      const height = Math.min(diff * 0.45, 80);
+      if (ptrEl) {
+        ptrEl.style.height = `${height}px`;
+        ptrEl.classList.add('active');
+      }
+      if (diff >= THRESHOLD) {
+        if (ptrText) ptrText.innerText = 'Release to refresh...';
+        if (ptrIcon) ptrIcon.style.transform = 'rotate(180deg)';
+      } else {
+        if (ptrText) ptrText.innerText = 'Pull to refresh...';
+        if (ptrIcon) ptrIcon.style.transform = `rotate(${(diff / THRESHOLD) * 180}deg)`;
+      }
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', async () => {
+    if (!isDragging || isRefreshing) return;
+    const diff = currentY - startY;
+    isDragging = false;
+    const ptrEl = document.getElementById('mobilePullToRefresh');
+    const ptrIcon = document.getElementById('mobilePtrIcon');
+    const ptrText = document.getElementById('mobilePtrText');
+
+    if (diff >= THRESHOLD && window.scrollY <= 5) {
+      isRefreshing = true;
+      triggerHapticFeedback(20);
+      if (ptrText) ptrText.innerText = 'Syncing dossier...';
+      if (ptrIcon) ptrIcon.classList.add('spinning');
+      if (ptrEl) ptrEl.style.height = '54px';
+
+      try {
+        if (typeof syncLivePortfolioData === 'function') {
+          await syncLivePortfolioData(true);
+        } else if (typeof refreshTelemetrySilently === 'function') {
+          await refreshTelemetrySilently();
+        }
+      } catch (err) {
+        console.warn('PTR sync error:', err);
+      }
+
+      setTimeout(() => {
+        if (ptrText) ptrText.innerText = 'Synced ✓';
+        setTimeout(() => {
+          if (ptrEl) {
+            ptrEl.style.height = '0px';
+            ptrEl.classList.remove('active');
+          }
+          if (ptrIcon) {
+            ptrIcon.classList.remove('spinning');
+            ptrIcon.style.transform = 'none';
+          }
+          isRefreshing = false;
+        }, 350);
+      }, 500);
+    } else {
+      if (ptrEl) {
+        ptrEl.style.height = '0px';
+        ptrEl.classList.remove('active');
+      }
+      if (ptrIcon) {
+        ptrIcon.style.transform = 'none';
+      }
+    }
+    startY = 0;
+    currentY = 0;
+  }, { passive: true });
+}
+
 function toggleMFHoldings() {
   mfHoldingsOpen = !mfHoldingsOpen;
   playFolderTone(mfHoldingsOpen ? 450 : 380);
@@ -7629,7 +7791,7 @@ function renderPaletteResults(query) {
 
   const actions = [
     { name: 'Switch to Master Dossier (Tab 01)', action: () => activateFolder(0), icon: 'folder' },
-    { name: 'Switch to Mutual Funds & SIPs (Tab 02)', action: () => activateFolder(1), icon: 'folder' },
+    { name: 'Switch to Mutual Funds & SIP (Tab 02)', action: () => activateFolder(1), icon: 'folder' },
     { name: 'Switch to Direct Equities (Tab 03)', action: () => activateFolder(2), icon: 'folder' },
     { name: 'Switch to Sovereign & Gold Reserves (Tab 04)', action: () => activateFolder(3), icon: 'shield' },
     { name: 'Switch to FIRE & Projections (Tab 05)', action: () => activateFolder(4), icon: 'folder' },
@@ -8593,9 +8755,22 @@ function renderMarketIndicesUI(data) {
   }
 
   if (data.gold) {
-    const str = `GOLD ${data.gold}`;
-    if (gEl) gEl.innerText = str;
-    if (mobGEl) mobGEl.innerText = str;
+    let str = '';
+    if (typeof data.gold === 'object' && data.gold.price) {
+      const goldVal = Math.round(data.gold.price);
+      str = `GOLD ₹${goldVal.toLocaleString('en-IN')}`;
+    } else {
+      const clean = String(data.gold).replace(/\(10g\)/gi, '').trim();
+      str = clean.startsWith('GOLD') ? clean : `GOLD ${clean}`;
+    }
+    if (gEl) {
+      gEl.className = 'pulse-item';
+      gEl.innerText = str;
+    }
+    if (mobGEl) {
+      mobGEl.className = 'pulse-item';
+      mobGEl.innerText = str;
+    }
   }
 }
 
@@ -8616,7 +8791,7 @@ async function fetchLiveMarketIndices() {
       const res = await fetch(`${endpoint}?action=getMarketIndices`);
       if (res.ok) {
         const data = await res.json();
-        if (data && (data.nifty || data.sensex)) {
+        if (data && (data.nifty || data.sensex || data.gold)) {
           renderMarketIndicesUI(data);
           return;
         }
@@ -8646,18 +8821,31 @@ async function fetchLiveMarketIndices() {
     return null;
   }
 
-  // 2. Fetch live NIFTY (%5ENSEI) & SENSEX (%5EBSESN) concurrently without login
+  // 2. Fetch live NIFTY (%5ENSEI), SENSEX (%5EBSESN) & Mumbai Gold (GOLDBEES.NS) concurrently
   try {
-    const [niftyData, sensexData] = await Promise.all([
+    const [niftyData, sensexData, goldBeesData] = await Promise.all([
       fetchSymbolData('%5ENSEI'),
-      fetchSymbolData('%5EBSESN')
+      fetchSymbolData('%5EBSESN'),
+      fetchSymbolData('GOLDBEES.NS')
     ]);
 
-    if (niftyData || sensexData) {
+    let liveGoldObj = null;
+    if (goldBeesData && goldBeesData.price) {
+      // Nippon India Gold BeES tracks 1/100th of 1g of 24K Gold.
+      // 10 Grams (Mumbai Benchmark 24K) = Unit CMP * 1000
+      const mumbai10gPrice = Math.round(goldBeesData.price * 1000);
+      liveGoldObj = {
+        price: mumbai10gPrice,
+        changePct: goldBeesData.changePct,
+        isUp: goldBeesData.isUp
+      };
+    }
+
+    if (niftyData || sensexData || liveGoldObj) {
       const curData = {
         nifty: niftyData || { price: 24252, changePct: "+0.08%", isUp: true },
         sensex: sensexData || { price: 77541, changePct: "-0.12%", isUp: false },
-        gold: '₹72.1k'
+        gold: liveGoldObj || { price: 157750, changePct: "+0.32%", isUp: true }
       };
       renderMarketIndicesUI(curData);
       return;
@@ -8669,12 +8857,12 @@ async function fetchLiveMarketIndices() {
   if (apiKey) {
     try {
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-      const prompt = `Search live Google Finance for today's exact current price and 1-day percentage change for NIFTY 50 (^NSEI) and BSE SENSEX (^BSESN) in India.
+      const prompt = `Search live Google Finance for today's exact current price and 1-day percentage change for NIFTY 50 (^NSEI), BSE SENSEX (^BSESN), and 24K Mumbai Gold Benchmark (10g) in India.
 Return ONLY a valid JSON object without markdown backticks:
 {
   "nifty": { "price": 24850, "changePct": "+0.35%", "isUp": true },
   "sensex": { "price": 81300, "changePct": "+0.28%", "isUp": true },
-  "gold": "₹78.2k"
+  "gold": "₹1,57,750"
 }`;
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -8869,6 +9057,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateAuthVisuals();
   fetchLiveMarketIndices();
   initGlobalMarketClocks();
+  initPullToRefresh();
   if (typeof PongGame !== 'undefined') PongGame.init();
 
   if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
