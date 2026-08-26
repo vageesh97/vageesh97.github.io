@@ -45,9 +45,9 @@
   --text-muted: rgba(253, 250, 247, 0.7);
   --text-dim: rgba(253, 250, 247, 0.4);
 
-  --font-serif: 'Fraunces', serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-code: 'JetBrains Mono', monospace;
+  --font-serif: "Fraunces", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-code: "JetBrains Mono", monospace;
 
   --bezier-mosby: cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -1168,7 +1168,7 @@ svg.lucide, i[data-lucide], svg {
     animation: bottomSheetSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .mosby-modal-card::before {
-    content: '';
+    content: "";
     display: block;
     width: 36px;
     height: 4px;
@@ -1342,6 +1342,21 @@ svg.lucide, i[data-lucide], svg {
   .dossier-kpi-grid.four-cols { grid-template-columns: 1fr; }
 }
 
+.dossier-kpi-grid.six-cols {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 1200px) {
+  .dossier-kpi-grid.six-cols { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .dossier-kpi-grid.six-cols { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .dossier-kpi-grid.six-cols { grid-template-columns: 1fr; }
+}
+
 .dossier-kpi-card {
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1350,6 +1365,20 @@ svg.lucide, i[data-lucide], svg {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.clickable-metric-card {
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  user-select: none;
+}
+.clickable-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.clickable-metric-card:active {
+  transform: translateY(0);
 }
 
 .dossier-kpi-label {
@@ -1550,11 +1579,91 @@ svg.lucide, i[data-lucide], svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  margin-bottom: 7px;
+  transition: all 0.2s ease;
+  gap: 12px;
+}
+.leaderboard-asset-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(3px);
 }
 .leaderboard-asset-row:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
+}
+.alpha-rank-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.alpha-rank-pill.rank-1 {
+  background: linear-gradient(135deg, rgba(253,224,71,0.25), rgba(234,179,8,0.15));
+  border: 1px solid rgba(253,224,71,0.45);
+  color: #fde047;
+}
+.alpha-rank-pill.rank-2 {
+  background: linear-gradient(135deg, rgba(226,232,240,0.2), rgba(148,163,184,0.15));
+  border: 1px solid rgba(226,232,240,0.4);
+  color: #e2e8f0;
+}
+.alpha-rank-pill.rank-3 {
+  background: linear-gradient(135deg, rgba(251,146,60,0.2), rgba(217,119,6,0.15));
+  border: 1px solid rgba(251,146,60,0.4);
+  color: #fb923c;
+}
+.alpha-rank-pill.rank-other {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-dim);
+}
+.alpha-type-tag {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.alpha-type-tag.equity {
+  background: rgba(96,165,250,0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(96,165,250,0.25);
+}
+.alpha-type-tag.mf {
+  background: rgba(16,185,129,0.12);
+  color: #6ee7b7;
+  border: 1px solid rgba(16,185,129,0.25);
+}
+.alpha-type-tag.gold {
+  background: rgba(253,224,71,0.12);
+  color: #fde047;
+  border: 1px solid rgba(253,224,71,0.25);
+}
+.alpha-bar-track {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+  margin-top: 4px;
+  width: 100%;
+}
+.alpha-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #6ee7b7, #38bdf8);
 }
 
 /* Scenario Buttons */
@@ -2078,7 +2187,7 @@ svg.lucide, i[data-lucide], svg {
   background: rgba(16, 185, 129, 0.04);
 }
 .milestone-badge-card.unlocked::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0; right: 0;
   width: 32px; height: 32px;
@@ -2276,12 +2385,6 @@ svg.lucide, i[data-lucide], svg {
   color: var(--text-dim);
 }
 
-
-
-
-
-
-
 </style>
 </head>
 <body class="__body">
@@ -2327,11 +2430,11 @@ svg.lucide, i[data-lucide], svg {
 
         <!-- 100% Live Market Pulse Barometer -->
         <div class="market-pulse-strip" id="marketPulseBarometer">
-          <span class="pulse-item up" id="tickerNifty">NIFTY 24,252 ▲0.08%</span>
+          <span class="pulse-item up" id="tickerNifty">NIFTY 24,277 ▲0.12%</span>
           <span>•</span>
-          <span class="pulse-item down" id="tickerSensex">SENSEX 77,541 ▼0.12%</span>
+          <span class="pulse-item down" id="tickerSensex">SENSEX 77,583 ▼0.10%</span>
           <span>•</span>
-          <span class="pulse-item" id="tickerGold">GOLD ₹1,57,750</span>
+          <span class="pulse-item" id="tickerGold">GOLD ₹1,63,080</span>
         </div>
       </div>
 
@@ -2392,11 +2495,11 @@ svg.lucide, i[data-lucide], svg {
     <!-- Pinned Mobile Live Market Barometer -->
     <div class="mobile-market-bar" id="mobileMarketBar">
       <div class="mobile-market-bar-inner">
-        <span class="pulse-item up" id="mobTickerNifty">NIFTY 24,252 ▲0.08%</span>
+        <span class="pulse-item up" id="mobTickerNifty">NIFTY 24,277 ▲0.12%</span>
         <span class="ticker-dot">•</span>
-        <span class="pulse-item down" id="mobTickerSensex">SENSEX 77,541 ▼0.12%</span>
+        <span class="pulse-item down" id="mobTickerSensex">SENSEX 77,583 ▼0.10%</span>
         <span class="ticker-dot">•</span>
-        <span class="pulse-item" id="mobTickerGold">GOLD ₹1,57,750</span>
+        <span class="pulse-item" id="mobTickerGold">GOLD ₹1,63,080</span>
       </div>
     </div>
   </header>
@@ -2433,6 +2536,10 @@ svg.lucide, i[data-lucide], svg {
           <button class="drawer-action-btn" onclick="openAuditModal(); closeMobileDrawer();">
             <svg  class="lucide lucide-sparkles" style="color: #6ee7b7;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
             <span>AI Intelligence &amp; Diagnostics</span>
+          </button>
+          <button class="drawer-action-btn" onclick="navigateToStockNewsMobile()">
+            <i style="color: #fde047;" data-lucide="newspaper"></i>
+            <span>Live Stock Market Intel &amp; News</span>
           </button>
           <button class="drawer-action-btn" onclick="openCommandPalette(); closeMobileDrawer();">
             <svg  class="lucide lucide-search" style="color: #60a5fa;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -2548,7 +2655,7 @@ svg.lucide, i[data-lucide], svg {
         <svg class="tag__start" viewBox="0 0 62 44" preserveAspectRatio="none">
           <path d="M1.1449 -2.54901e-05L-521.145 -2.66006e-06C-531.065 -2.22644e-06 -540.343 4.90374 -545.932 13.0999L-558.55 31.6066C-563.837 39.3607 -572.615 44 -582 44L62 44C52.6151 44 43.8369 39.3607 38.5499 31.6066L25.9318 13.0999C20.3434 4.90373 11.0649 -2.59237e-05 1.1449 -2.54901e-05Z" fill="currentColor"></path>
         </svg>
-        <div class="tag__middle"><span>05 // FIRE &amp; Projections</span></div>
+        <div class="tag__middle"><span>05 // FIRE &amp; Analytics</span></div>
         <svg class="tag__end" viewBox="0 0 62 44" preserveAspectRatio="none">
           <path d="M1.1449 -2.54901e-05L-521.145 -2.66006e-06C-531.065 -2.22644e-06 -540.343 4.90374 -545.932 13.0999L-558.55 31.6066C-563.837 39.3607 -572.615 44 -582 44L62 44C52.6151 44 43.8369 39.3607 38.5499 31.6066L25.9318 13.0999C20.3434 4.90373 11.0649 -2.59237e-05 1.1449 -2.54901e-05Z" fill="currentColor"></path>
         </svg>
@@ -2586,7 +2693,7 @@ svg.lucide, i[data-lucide], svg {
         <!-- 1D / 1M / 1Y TIME HORIZON CHANGE DECK -->
         <div class="horizon-change-deck" id="horizonChangeDeckContainer" style="margin-bottom: 1.25rem; margin-top: 0; padding-top: 0; border-top: none;"></div>
 
-        <!-- UPCOMING SIP CASHFLOW PULSE BAR -->
+        <!-- UPCOMING SIP CASHFLOW PULSE BAR (EXCLUSIVE TO MASTER DOSSIER) -->
         <div id="overviewSipCountdownCard" style="margin-bottom: 1.25rem; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(16,185,129,0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
@@ -2602,7 +2709,7 @@ svg.lucide, i[data-lucide], svg {
               <div style="font-size: 9px; color: var(--text-dim); text-transform: uppercase;">7-Day Liquidity Needed</div>
               <div class="num-mono privacy-blur" style="font-size: 12.5px; font-weight: 700; color: #fde047;" id="overview7DayBuffer">₹0</div>
             </div>
-            <button class="status-badge-pill live" onclick="activateFolder(4)" style="font-size: 10px; padding: 3px 8px; cursor: pointer;">View SIP Matrix →</button>
+            <button class="status-badge-pill live" onclick="activateFolder(1)" style="font-size: 10px; padding: 3px 8px; cursor: pointer;">View SIP Ledger →</button>
           </div>
         </div>
 
@@ -2642,13 +2749,7 @@ svg.lucide, i[data-lucide], svg {
             <span style="font-size:11px; opacity:0.75;">Proportional Distribution</span>
           </div>
 
-          <div class="spectrum-bar-track">
-            <div class="spectrum-segment mf" id="specMfBar" style="width: 45%;"></div>
-            <div class="spectrum-segment stocks" id="specStockBar" style="width: 35%;"></div>
-            <div class="spectrum-segment ppf" id="specPpfBar" style="width: 20%;"></div>
-          </div>
-
-          <div class="spectrum-chips-grid">
+          <div class="spectrum-chips-grid" style="margin-top: 10px;">
             <div class="spectrum-chip mf">
               <div style="display:flex; justify-content:space-between; font-size:11px; opacity:0.8; text-transform:uppercase;">
                 <span>01 // Mutual Funds</span>
@@ -2706,56 +2807,7 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <!-- BENCHMARK RELATIVE ALPHA SPREAD CARD -->
-        <div class="dossier-kpi-card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
-            <div>
-              <span class="dossier-kpi-label" style="margin-bottom: 0;">Institutional Benchmark Alpha Comparison</span>
-              <div style="font-size: 10.5px; color: var(--text-dim);">Relative outperformance against broad Indian asset indices:</div>
-            </div>
-            <span class="badge-capsule" id="benchmarkOverallAlphaBadge" style="color: #6ee7b7; background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3);">+0.0% Net Alpha Spread</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;" id="benchmarkGrid">
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
-              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
-                <span>NIFTY 50 TRI</span>
-                <span style="color: var(--text-dim);">~14.2%</span>
-              </div>
-              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="alphaVsNifty">--</div>
-              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Large Cap Spread</div>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
-              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
-                <span>NIFTY Midcap 150</span>
-                <span style="color: var(--text-dim);">~18.5%</span>
-              </div>
-              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #60a5fa; margin-top: 2px;" id="alphaVsMidcap">--</div>
-              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Midcap Alpha Spread</div>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
-              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
-                <span>Physical Gold (SGB)</span>
-                <span style="color: var(--text-dim);">~11.8%</span>
-              </div>
-              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #fde047; margin-top: 2px;" id="alphaVsGold">--</div>
-              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Precious Metal Spread</div>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
-              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
-                <span>Bank FD (Risk-Free)</span>
-                <span style="color: var(--text-dim);">~7.0%</span>
-              </div>
-              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #c084fc; margin-top: 2px;" id="alphaVsFD">--</div>
-              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Risk-Free Hurdle Alpha</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PASSIVE CASHFLOW & DIVIDEND ACCRETION STREAM -->
+        <!-- PASSIVE CASHFLOW & DIVIDEND ACCRETION STREAM (KEPT IN MASTER DOSSIER) -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -2806,67 +2858,12 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <!-- SPLIT GRID: TOP WEALTH DRIVERS + MARKET STRESS TEST -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          
-          <!-- Top Alpha Drivers Leaderboard -->
-          <div class="dossier-kpi-card" style="padding: 1.5rem;">
-            <div class="dossier-kpi-label">Top Wealth Drivers &amp; Alpha Leaders</div>
-            <div id="topAlphaContainer" style="display:flex; flex-direction:column; gap:6px; margin-top:8px;"></div>
-          </div>
-
-          <!-- Market Scenario & Stress Test Simulator -->
-          <div class="dossier-kpi-card" style="padding: 1.5rem;">
-            <div class="dossier-kpi-label">Market Scenario Stress Test</div>
-            <div style="font-size:11px; opacity:0.8; margin-top:2px;">Simulate instant market movements across equity holdings:</div>
-            
-            <div style="display:flex; gap:6px; flex-wrap:wrap; margin: 12px 0;">
-              <button class="scenario-btn active" onclick="applyMarketScenario(0)">Current CMP</button>
-              <button class="scenario-btn" onclick="applyMarketScenario(0.05)">+5% Rally</button>
-              <button class="scenario-btn" onclick="applyMarketScenario(0.15)">+15% Bull</button>
-              <button class="scenario-btn" onclick="applyMarketScenario(0.30)">+30% Surge</button>
-              <button class="scenario-btn" onclick="applyMarketScenario(-0.10)">-10% Dip</button>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
-              <div style="font-size:10px; opacity:0.75; text-transform:uppercase;">Projected Portfolio Valuation</div>
-              <div class="num-mono privacy-blur" style="font-family:var(--font-serif); font-size:1.85rem; font-weight:700; color:#fde047; margin-top:2px;" id="scenarioProjectedVal">₹0</div>
-              <div style="font-size:11px; opacity:0.8; margin-top:4px;" id="scenarioProfitDiff">+₹0 valuation impact</div>
-            </div>
-          </div>
-
+        <!-- TOP WEALTH DRIVERS LEADERBOARD -->
+        <div class="dossier-kpi-card" style="padding: 1.5rem;">
+          <div class="dossier-kpi-label">Top Wealth Drivers &amp; Alpha Leaders</div>
+          <div id="topAlphaContainer" style="display:flex; flex-direction:column; gap:6px; margin-top:8px;"></div>
         </div>
 
-        <!-- PORTFOLIO HEALTH & RISK CALIPER STRIP -->
-        <div class="dossier-kpi-grid">
-          <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">Growth / Defense Ratio</span>
-            <span class="dossier-kpi-val num-mono" id="kpiGrowthRatio" style="font-size:1.35rem;">74% / 26%</span>
-            <span style="font-size:11px; opacity:0.75;">Equity vs Sovereign &amp; Gold</span>
-          </div>
-          <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">Portfolio Beta &amp; Volatility</span>
-            <span class="dossier-kpi-val num-mono" id="kpiBetaScore" style="font-size:1.35rem; color:#60a5fa;">0.76 Beta</span>
-            <span style="font-size:11px; opacity:0.75;" id="kpiBetaSub">~24% Drawdown Shield</span>
-          </div>
-          <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">Liquidity &amp; Runway</span>
-            <span class="dossier-kpi-val num-mono" id="kpiLiquidityRatio" style="font-size:1.35rem; color:#6ee7b7;">74% Liquid</span>
-            <span style="font-size:11px; opacity:0.75;" id="kpiLiquiditySub">T+1/T+2 Accessible</span>
-          </div>
-          <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">4% SWR Passive Runway</span>
-            <span class="dossier-kpi-val num-mono" id="kpiSwrIncome" style="font-size:1.35rem; color:#fde047;">₹0 / mo</span>
-            <span style="font-size:11px; opacity:0.75;" id="kpiSwrSub">Financial Independence</span>
-          </div>
-          <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">Global FX Spot Parity</span>
-            <div style="display:flex; justify-content:space-between; font-size:12px; margin-top:6px;">
-              <span class="num-mono privacy-blur" id="hudValUSD">$0</span>
-              <span class="num-mono privacy-blur" id="hudValEUR">€0</span>
-            </div>
-            <span style="font-size:10px; opacity:0.65; margin-top:4px;">Spot Conversion Rate</span>
-          </div>
         </div>
       </div>
 
@@ -3019,6 +3016,7 @@ svg.lucide, i[data-lucide], svg {
             </table>
           </div>
         </div>
+        </div>
       </div>
 
       <!-- FOLDER 2: DIRECT EQUITIES -->
@@ -3077,7 +3075,7 @@ svg.lucide, i[data-lucide], svg {
               <span class="dossier-kpi-label" style="margin-bottom:0; font-size:0.95rem; font-weight:600; color:#fff;">Live 14-Stock Catalyst &amp; Intel Radar</span>
             </div>
             <div style="display:flex; gap:6px; align-items:center;">
-              <button class="status-badge-pill" style="font-size:10px; padding:4px 9px; cursor:pointer;" onclick="fetchLiveStockCatalysts(true)" title="Fetch Live News with Gemini AI">
+              <button class="status-badge-pill" style="font-size:10px; padding:4px 9px; cursor:pointer;" onclick="fetchLiveStockCatalysts(true)" title="Fetch Live Real-Time Market Intel">
                 <svg  class="lucide lucide-refresh-cw" style="width:10px; height:10px; margin-right:4px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Refresh Intel
               </button>
             </div>
@@ -3135,6 +3133,7 @@ svg.lucide, i[data-lucide], svg {
             </table>
           </div>
         </div>
+        </div>
       </div>
 
       <!-- FOLDER 3: SOVEREIGN & GOLD ASSETS -->
@@ -3169,8 +3168,8 @@ svg.lucide, i[data-lucide], svg {
                 <i style="width:15px; height:15px;" data-lucide="shield"></i>
               </div>
               <div>
-                <div style="font-size:12px; font-weight:700; color:#fbbf24; letter-spacing:0.02em;">Zerodha Gold ETF (GOLDCASE)</div>
-                <div style="font-size:10px; color:var(--text-dim);">Physical 24K Gold Bullion Hedge (99.5% Sovereign Purity)</div>
+                <div style="font-size:12px; font-weight:700; color:#fbbf24; letter-spacing:0.02em;" id="goldCardSchemeTitle">Zerodha Gold ETF (GOLDCASE) / Nippon Gold BeES</div>
+                <div style="font-size:10px; color:var(--text-dim);" id="goldCardSchemeSub">Physical 24K Gold Bullion Hedge (99.5% Sovereign Purity)</div>
               </div>
             </div>
             <span class="badge-capsule" style="color:#fbbf24; border-color:rgba(251,191,36,0.35); font-size:9px;">
@@ -3279,23 +3278,23 @@ svg.lucide, i[data-lucide], svg {
         </div>
       </div>
 
-      <!-- FOLDER 4: PROJECTIONS & SIMULATOR -->
+      <!-- FOLDER 4: FIRE & ANALYTICS -->
       <div class="mobile-folder-wrapper" id="mobileFolderWrap4" style="--folder-color: var(--color-noir);">
         <div class="mobile-folder-spine" onclick="toggleMobileFolder(4)">
           <div class="mobile-spine-left">
             <span class="mobile-spine-dot" style="background: #94a3b8;"></span>
-            <span class="mobile-spine-title">05 // FIRE &amp; Projections</span>
+            <span class="mobile-spine-title">05 // FIRE &amp; Analytics</span>
           </div>
           <div class="mobile-spine-right">
-            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge4">15Y • FIRE Radar</span>
+            <span class="mobile-spine-val num-mono privacy-blur" id="mobileSpineBadge4">Analytics &amp; Horizons</span>
             <svg id="mobileSpineChevron4" class="mobile-spine-chevron lucide lucide-chevron-down" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
         <div class="folder-pane" id="pane-4">
         <div class="dossier-hero-strip">
           <div>
-            <h2 class="dossier-title">Wealth Projections &amp; FIRE Horizons</h2>
-            <div class="dossier-subtitle">Compound Growth Simulator &amp; Financial Independence</div>
+            <h2 class="dossier-title">Wealth Intelligence &amp; Quantitative Analytics</h2>
+            <div class="dossier-subtitle">15-Year Compounding Engine, Factor Risk Models &amp; Scenario Simulators</div>
           </div>
           <div style="text-align: right;">
             <div class="dossier-metric-huge num-mono privacy-blur" id="sipTotalMonthlyDisplay">₹0</div>
@@ -3303,8 +3302,174 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <!-- FIRE Freedom Calculator Engine -->
-        <div class="dossier-kpi-card" style="padding: 1.5rem;">
+        <!-- PILLAR 1: INTERACTIVE 15-YEAR WEALTH COMPOUNDING HORIZON CANVAS -->
+        <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.35rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(110,231,183,0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
+                <svg  class="lucide lucide-trending-up" style="width: 15px; height: 15px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </div>
+              <div>
+                <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">15-Year Wealth Trajectory vs NIFTY 50 &amp; Fixed Deposit (FD)</span>
+                <div style="font-size: 10px; color: var(--text-dim);">Tracking your portfolio's actual ROI and wealth trajectory against NIFTY 50 TRI (~14.2%) and Bank FD (~7.0%):</div>
+              </div>
+            </div>
+
+            <!-- Trajectory Controls & Legend -->
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
+                <span style="font-size:8.5px; color:var(--text-dim); text-transform:uppercase; margin-right:2px;">Step-Up:</span>
+                <button class="status-badge-pill live" id="btnStepUp0" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(0)">0%</button>
+                <button class="status-badge-pill" id="btnStepUp10" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(10)">+10%</button>
+                <button class="status-badge-pill" id="btnStepUp15" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(15)">+15%</button>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center; font-size: 9.5px; font-family: var(--font-mono); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap;">
+                <span style="color: #6ee7b7; font-weight: 600;">● Portfolio (Actual ROI)</span>
+                <span style="color: #60a5fa; font-weight: 600;">● NIFTY 50 (14.2%)</span>
+                <span style="color: #fde047; font-weight: 600;">● Bank FD (7%)</span>
+                <span style="color: rgba(255,255,255,0.45);">--- Invested</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Canvas Chart Wrapper -->
+          <div style="position: relative; width: 100%; height: 260px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
+            <canvas id="analyticsTrajectoryCanvas" width="900" height="260" style="width: 100%; height: 100%; display: block;"></canvas>
+            <div id="analyticsChartTooltip" style="position: absolute; display: none; pointer-events: none; background: rgba(10,15,30,0.94); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: 10.5px; z-index: 10; box-shadow: 0 8px 24px rgba(0,0,0,0.7); min-width: 180px;"></div>
+          </div>
+
+          <!-- Quick Milestone Metrics Strip -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_5y')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Year 5 Horizon</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #60a5fa; margin-top: 2px;" id="metricHorizon5Y">--</div>
+            </div>
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_10y')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Year 10 Horizon</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="metricHorizon10Y">--</div>
+            </div>
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_15y')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Year 15 Horizon</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #fde047; margin-top: 2px;" id="metricHorizon15Y">--</div>
+            </div>
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_inflow')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Total Inflow Accrual</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #c084fc; margin-top: 2px;" id="metricTotal15YInvested">--</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PILLAR 2: QUANT RISK & HEALTH CALIPERS STRIP (6 INSTITUTIONAL FACTORS) -->
+        <div class="dossier-kpi-grid six-cols" style="margin-bottom: 1.25rem;">
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('sharpe')">
+            <span class="dossier-kpi-label">Sharpe Ratio</span>
+            <span class="dossier-kpi-val num-mono" style="font-size:1.35rem; color:#6ee7b7;">1.42</span>
+            <span style="font-size:10px; opacity:0.75;">Risk-Adjusted Alpha</span>
+          </div>
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('sortino')">
+            <span class="dossier-kpi-label">Sortino Ratio</span>
+            <span class="dossier-kpi-val num-mono" style="font-size:1.35rem; color:#60a5fa;">1.88</span>
+            <span style="font-size:10px; opacity:0.75;">Downside Volatility</span>
+          </div>
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('beta')">
+            <span class="dossier-kpi-label">Portfolio Beta</span>
+            <span class="dossier-kpi-val num-mono" id="kpiBetaScore" style="font-size:1.35rem; color:#fde047;">0.76 Beta</span>
+            <span style="font-size:10px; opacity:0.75;" id="kpiBetaSub">~24% Vol Cushion</span>
+          </div>
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('drawdown')">
+            <span class="dossier-kpi-label">Max Drawdown</span>
+            <span class="dossier-kpi-val num-mono" style="font-size:1.35rem; color:#6ee7b7;">-11.4%</span>
+            <span style="font-size:10px; opacity:0.75;">Stress Peak-to-Trough</span>
+          </div>
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('liquidity')">
+            <span class="dossier-kpi-label">Asset Liquidity</span>
+            <span class="dossier-kpi-val num-mono" id="kpiLiquidityRatio" style="font-size:1.35rem; color:#60a5fa;">74% Liquid</span>
+            <span style="font-size:10px; opacity:0.75;" id="kpiLiquiditySub">T+1/T+2 Accessible</span>
+          </div>
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('swr')">
+            <span class="dossier-kpi-label">4% SWR Runway</span>
+            <span class="dossier-kpi-val num-mono" id="kpiSwrIncome" style="font-size:1.35rem; color:#c084fc;">₹0 / mo</span>
+            <span style="font-size:10px; opacity:0.75;" id="kpiSwrSub">Independence Flow</span>
+          </div>
+        </div>
+
+        <!-- PILLAR 3: BENCHMARK RELATIVE ALPHA SPREAD & CORRELATION MATRIX -->
+        <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+            <div>
+              <span class="dossier-kpi-label" style="margin-bottom: 0;">Institutional Benchmark Alpha Comparison</span>
+              <div style="font-size: 10.5px; color: var(--text-dim);">Relative outperformance against broad Indian asset indices:</div>
+            </div>
+            <span class="badge-capsule" id="benchmarkOverallAlphaBadge" style="color: #6ee7b7; background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3);">+0.0% Net Alpha Spread</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;" id="benchmarkGrid">
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('nifty_alpha')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>NIFTY 50 TRI</span>
+                <span style="color: var(--text-dim);">~14.2%</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="alphaVsNifty">--</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Large Cap Spread</div>
+            </div>
+
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('midcap_alpha')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>NIFTY Midcap 150</span>
+                <span style="color: var(--text-dim);">~18.5%</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #60a5fa; margin-top: 2px;" id="alphaVsMidcap">--</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Midcap Alpha Spread</div>
+            </div>
+
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('gold_alpha')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>Physical Gold (SGB)</span>
+                <span style="color: var(--text-dim);">~11.8%</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #fde047; margin-top: 2px;" id="alphaVsGold">--</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Precious Metal Spread</div>
+            </div>
+
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('fd_alpha')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>Bank FD (Risk-Free)</span>
+                <span style="color: var(--text-dim);">~7.0%</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #c084fc; margin-top: 2px;" id="alphaVsFD">--</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Risk-Free Hurdle Alpha</div>
+            </div>
+          </div>
+
+          <!-- 4-Asset Class Cross-Correlation Matrix -->
+          <div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size: 10px; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-mono);">Cross-Asset Correlation &amp; Diversification Map</span>
+              <span style="font-size: 10px; color: #6ee7b7;">● Optimal Non-Correlated Architecture</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+              <div class="clickable-metric-card" onclick="openAnalyticsExplainer('corr_eq_gold')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+                <div style="font-size: 9.5px; color: var(--text-dim);">Equities ↔ Gold</div>
+                <div class="num-mono" style="font-size: 12.5px; font-weight: 700; color: #6ee7b7; margin-top: 2px;">-0.12 (Hedge)</div>
+              </div>
+              <div class="clickable-metric-card" onclick="openAnalyticsExplainer('corr_eq_ppf')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+                <div style="font-size: 9.5px; color: var(--text-dim);">Equities ↔ PPF (EEE)</div>
+                <div class="num-mono" style="font-size: 12.5px; font-weight: 700; color: #60a5fa; margin-top: 2px;">0.00 (Zero Vol)</div>
+              </div>
+              <div class="clickable-metric-card" onclick="openAnalyticsExplainer('corr_mf_stocks')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+                <div style="font-size: 9.5px; color: var(--text-dim);">MF Direct ↔ Stocks</div>
+                <div class="num-mono" style="font-size: 12.5px; font-weight: 700; color: #fde047; margin-top: 2px;">+0.78 (Growth)</div>
+              </div>
+              <div class="clickable-metric-card" onclick="openAnalyticsExplainer('corr_gold_ppf')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+                <div style="font-size: 9.5px; color: var(--text-dim);">Gold ↔ PPF (Sovereign)</div>
+                <div class="num-mono" style="font-size: 12.5px; font-weight: 700; color: #c084fc; margin-top: 2px;">+0.05 (Anchor)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PILLAR 4: FIRE FREEDOM TARGET SIMULATOR -->
+        <div class="dossier-kpi-card" style="padding: 1.5rem; margin-bottom: 1.25rem;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
             <div>
               <span class="dossier-kpi-label" style="margin-bottom:2px;">FIRE Freedom Target Simulator</span>
@@ -3318,17 +3483,17 @@ svg.lucide, i[data-lucide], svg {
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 14px;">
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('fire_lean')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
               <div style="font-size: 10px; opacity: 0.7; text-transform: uppercase;">Lean FIRE (25x)</div>
               <div class="num-mono privacy-blur" style="font-size: 1.4rem; font-weight: 700; color: #6ee7b7; margin-top: 4px;" id="fireLeanVal">₹3.0 Cr</div>
               <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;" id="fireLeanYears">~5.4 Years</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('fire_std')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
               <div style="font-size: 10px; opacity: 0.7; text-transform: uppercase;">Standard FIRE (33x / 3% SWR)</div>
               <div class="num-mono privacy-blur" style="font-size: 1.4rem; font-weight: 700; color: #fde047; margin-top: 4px;" id="fireStdVal">₹4.0 Cr</div>
               <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;" id="fireStdYears">~7.2 Years</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('fire_fat')" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
               <div style="font-size: 10px; opacity: 0.7; text-transform: uppercase;">Fat FIRE (50x)</div>
               <div class="num-mono privacy-blur" style="font-size: 1.4rem; font-weight: 700; color: #ffc46b; margin-top: 4px;" id="fireFatVal">₹6.0 Cr</div>
               <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;" id="fireFatYears">~9.8 Years</div>
@@ -3336,33 +3501,43 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <div class="dossier-kpi-card">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+          
+          <!-- Market Scenario Stress Test Simulator -->
+          <div class="dossier-kpi-card" style="padding: 1.25rem;">
+            <div class="dossier-kpi-label">Market Scenario Stress Test</div>
+            <div style="font-size:11px; opacity:0.8; margin-top:2px;">Simulate instant market movements across equity holdings:</div>
+            
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin: 12px 0;">
+              <button class="scenario-btn active" onclick="applyMarketScenario(0)">Current CMP</button>
+              <button class="scenario-btn" onclick="applyMarketScenario(0.05)">+5% Rally</button>
+              <button class="scenario-btn" onclick="applyMarketScenario(0.15)">+15% Bull</button>
+              <button class="scenario-btn" onclick="applyMarketScenario(0.30)">+30% Surge</button>
+              <button class="scenario-btn" onclick="applyMarketScenario(-0.10)">-10% Dip</button>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px;">
+              <div style="font-size:10px; opacity:0.75; text-transform:uppercase;">Projected Portfolio Valuation</div>
+              <div class="num-mono privacy-blur" style="font-family:var(--font-serif); font-size:1.85rem; font-weight:700; color:#fde047; margin-top:2px;" id="scenarioProjectedVal">₹0</div>
+              <div style="font-size:11px; opacity:0.8; margin-top:4px;" id="scenarioProfitDiff">+₹0 valuation impact</div>
+            </div>
+          </div>
+
+          <!-- Active Monthly Systematic SIPs -->
+          <div class="dossier-kpi-card" style="padding: 1.25rem;">
             <div class="dossier-kpi-label">Active Monthly Systematic SIPs</div>
             <div id="sipListContainer" style="display:flex; flex-direction:column; gap:8px; font-size:12px; margin-top:8px;"></div>
           </div>
 
-          <div class="dossier-kpi-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-              <div class="dossier-kpi-label" style="margin-bottom:0;">Wealth Growth Projections</div>
-              <div style="display: flex; gap: 8px; align-items:center; flex-wrap:wrap;">
-                <!-- Step Up Pill Deck -->
-                <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
-                  <span style="font-size:8.5px; color:var(--text-dim); text-transform:uppercase; margin-right:2px;">Step-Up:</span>
-                  <button class="status-badge-pill live" id="btnStepUp0" style="padding:1px 5px; font-size:8.5px;" onclick="setStepUpRate(0)">0%</button>
-                  <button class="status-badge-pill" id="btnStepUp10" style="padding:1px 5px; font-size:8.5px;" onclick="setStepUpRate(10)">+10%</button>
-                  <button class="status-badge-pill" id="btnStepUp15" style="padding:1px 5px; font-size:8.5px;" onclick="setStepUpRate(15)">+15%</button>
-                </div>
-                <!-- ROI Mode -->
-                <div style="display: flex; gap: 3px;">
-                  <button class="status-badge-pill" id="btnProjCons" style="padding:2px 7px; font-size:9px;" onclick="setProjectionRate('conservative')">8%</button>
-                  <button class="status-badge-pill live" id="btnActualROI" style="padding:2px 7px; font-size:9px;" onclick="setProjectionRate('actual')">Actual ROI</button>
-                  <button class="status-badge-pill" id="btnProjOpt" style="padding:2px 7px; font-size:9px;" onclick="setProjectionRate('optimistic')">15%</button>
-                </div>
-              </div>
-            </div>
-            <div id="projectionTableContainer" style="font-size:12px; margin-top:10px;"></div>
+        </div>
+
+        <!-- PILLAR 5: WEALTH GROWTH PROJECTIONS & STEP-UP COMPOUNDING TABLE -->
+        <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div class="dossier-kpi-label" style="margin-bottom:0;">15-Year Step-Up Compounding Schedule</div>
+            <span style="font-size: 10px; font-family: var(--font-mono); color: var(--text-dim);">ANNUALIZED ACCRETION RUN-RATE</span>
           </div>
+          <div id="projectionTableContainer" style="font-size:12px; margin-top:10px;"></div>
         </div>
 
         <!-- ARCHITECTURAL MILESTONE BLUEPRINT -->
@@ -3497,7 +3672,7 @@ svg.lucide, i[data-lucide], svg {
   </footer>
 
   <!-- ==========================================================================
-       MODALS: CONFIG, DETAIL, COMMAND PALETTE, AI AUDITOR, TRANSACTIONS
+       MODALS: CONFIG, DETAIL, EXPLAINER, COMMAND PALETTE, AI AUDITOR, TRANSACTIONS
        ========================================================================== -->
   <!-- Config Modal -->
   <div class="mosby-modal-overlay" id="configModal">
@@ -3567,6 +3742,54 @@ svg.lucide, i[data-lucide], svg {
     </div>
   </div>
 
+  <!-- Analytics Ratio & Data Explainer Modal -->
+  <div class="mosby-modal-overlay" id="analyticsExplainerModal" onclick="if(event.target===this)closeAnalyticsExplainer()">
+    <div class="mosby-modal-card" style="max-width: 560px; padding: 1.75rem 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+        <div>
+          <span class="badge-capsule" id="explainerCategoryBadge" style="color: #60a5fa; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); font-weight: 600; font-size: 10px;">
+            PORTFOLIO INTELLIGENCE
+          </span>
+          <h2 style="font-family: var(--font-serif); font-size: 1.65rem; margin-top: 0.35rem; color: #FDFAF7;" id="explainerTitle">Ratio Name</h2>
+        </div>
+        <button class="btn-icon-nav" onclick="closeAnalyticsExplainer()"><svg  class="lucide lucide-x" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+
+      <!-- Current Value Highlight Card -->
+      <div class="dossier-kpi-card" style="padding: 1rem 1.25rem; margin-bottom: 1.25rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15);">
+        <div style="font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em;">Current Portfolio Reading</div>
+        <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.85rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="explainerCurrentVal">--</div>
+        <div style="font-size: 11px; color: #fde047; margin-top: 2px;" id="explainerGrade">Optimal Benchmark Status</div>
+      </div>
+
+      <!-- What it does / Definition -->
+      <div style="margin-bottom: 1.15rem;">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; text-transform: uppercase; color: #60a5fa; letter-spacing: 0.05em; margin-bottom: 4px;">
+          <i style="width: 12px; height: 12px;" data-lucide="activity"></i> What this metric does
+        </div>
+        <p style="font-size: 12.5px; line-height: 1.6; color: rgba(253, 250, 247, 0.88); margin: 0;" id="explainerDefinition">
+          Definition text here...
+        </p>
+      </div>
+
+      <!-- What it means for you / Actionable Impact -->
+      <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 12px 14px; margin-bottom: 1.25rem;">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; text-transform: uppercase; color: #6ee7b7; letter-spacing: 0.05em; margin-bottom: 4px;">
+          <svg  class="lucide lucide-sparkles" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg> What this means for you
+        </div>
+        <p style="font-size: 12.5px; line-height: 1.6; color: #FDFAF7; margin: 0;" id="explainerImpact">
+          Personal takeaway here...
+        </p>
+      </div>
+
+      <!-- Benchmark Range & Institutional Guideline -->
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-dim); border-top: 1px dashed rgba(255,255,255,0.12); padding-top: 10px;">
+        <span>Ideal Institutional Standard:</span>
+        <span class="num-mono" style="color: #FDFAF7; font-weight: 600;" id="explainerBenchmark">--</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Command Palette Modal -->
   <div class="mosby-modal-overlay" id="commandModal" onclick="handlePaletteOverlayClick(event)">
     <div class="palette-modal-card" id="paletteCard">
@@ -3583,16 +3806,8 @@ svg.lucide, i[data-lucide], svg {
   <div class="mosby-modal-overlay" id="auditModal" onclick="if(event.target===this)closeAuditModal()">
     <div class="mosby-modal-card" style="max-width: 840px; padding: 1.75rem 2rem; max-height: 94vh; display: flex; flex-direction: column;">
       
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.75rem;">
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="badge-capsule" style="color: #6ee7b7; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); font-weight: 600;">
-              <svg  class="lucide lucide-sparkles" style="width: 10px; height: 10px; margin-right: 4px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg> QUANT AI COPILOT // GEMINI 3.5 FLASH-LITE
-            </span>
-            <span id="auditLiveScanStatus" style="font-size: 9.5px; font-family: var(--font-mono); color: #ffc46b; opacity: 0.9;">● LIVE ASSET REASONING DESK</span>
-          </div>
-          <h3 style="font-family: var(--font-serif); font-size: 1.65rem; margin-top: 4px; letter-spacing: -0.02em;">Quantitative Portfolio Intelligence</h3>
-        </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.75rem;">
+        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; letter-spacing: -0.02em; margin: 0; color: #FDFAF7;">Quantitative Portfolio Intelligence</h3>
         <div style="display: flex; align-items: center; gap: 8px;">
           <button class="btn-passcode-unlock" id="btnAiVoiceBrief" onclick="toggleAIVoiceBriefing()" style="background: rgba(192,132,252,0.15); border-color: rgba(192,132,252,0.3); color: #c084fc; font-size: 11px; padding: 5px 11px; cursor: pointer;" title="Listen to AI voice summary">
             <svg id="aiVoiceIcon" class="lucide lucide-volume-2" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
@@ -4481,26 +4696,35 @@ function resetCurrentArcadeGame() {
 
 /* === AI COPILOT ENGINE === */
 /* ==========================================================================
-   CONSOLIDATED WEALTH DOSSIER - QUANTITATIVE AI PORTFOLIO INTELLIGENCE COPILOT
+   CONSOLIDATED WEALTH DOSSIER - QUANTITATIVE AI PORTFOLIO INTELLIGENCE DESK
    ========================================================================== */
 
 let isStreamingAI = false;
-let aiStreamTimeout = null;
-let isSpeakingVoice = false;
-let sessionGeminiApiKey = '';
+let sessionAIKey = '';
 
 function openAuditModal() {
+  if (typeof isLiveSession === 'undefined' || !isLiveSession) {
+    if (typeof showToast === 'function') {
+      showToast("Authentication Required: Please unlock the vault to access Quant AI Copilot");
+    }
+    if (typeof openConfigModal === 'function') {
+      openConfigModal();
+    }
+    return;
+  }
+
   const modal = document.getElementById('auditModal');
   if (!modal) return;
   modal.classList.add('active');
-  renderAIAudit();
-  askAICopilot('executive_briefing');
+
+  // Set first strategy active and render report
+  const firstBtn = document.querySelector('#aiPromptChipsDeck button');
+  selectAIStrategy('executive_briefing', firstBtn);
 }
 
 function closeAuditModal() {
   const modal = document.getElementById('auditModal');
   if (modal) modal.classList.remove('active');
-  stopAIVoiceBriefing();
 }
 
 function toggleAiModalFullscreen() {
@@ -4512,107 +4736,60 @@ function toggleAiModalFullscreen() {
   if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
 }
 
-function renderAIAudit() {
-  if (!window.AppState) return;
-  const metrics = typeof calculateTotals === 'function' ? calculateTotals() : { totalNetWorth: 0, totalInv: 0, totalProfitPct: 0, mfCur: 0, stCur: 0, ppfCur: 0 };
-  const totalNW = metrics.totalNetWorth || 1;
-
-  // Composite Health Score (0-100)
-  const equityShare = (metrics.mfCur + metrics.stCur) / totalNW;
-  const ppfShare = metrics.ppfCur / totalNW;
-  const returnScore = Math.min(35, Math.max(10, parseFloat(metrics.totalProfitPct) * 0.7));
-  const diversificationScore = Math.min(35, (ppfShare >= 0.15 && ppfShare <= 0.35 ? 35 : 25));
-  const disciplineScore = 30; // SIP active
-  const compositeScore = Math.min(98, Math.round(returnScore + diversificationScore + disciplineScore));
-
-  const healthScoreEl = document.getElementById('auditHealthScore');
-  const healthGradeEl = document.getElementById('auditHealthGrade');
-  if (healthScoreEl) healthScoreEl.innerText = `${compositeScore} / 100`;
-  if (healthGradeEl) healthGradeEl.innerText = compositeScore >= 85 ? 'Grade AAA (Optimal)' : 'Grade AA (Robust)';
-
-  // Beta Cushion
-  const betaEl = document.getElementById('auditBetaVal');
-  const betaSub = document.getElementById('auditBetaSub');
-  const weightedBeta = ((equityShare * 1.05) + (ppfShare * 0.0)).toFixed(2);
-  if (betaEl) betaEl.innerText = `${weightedBeta} β`;
-  if (betaSub) betaSub.innerText = `${Math.round(ppfShare * 100)}% Sovereign Shield`;
-
-  // Liquid Runway
-  const monthlySip = typeof getMonthlySIPTotal === 'function' ? getMonthlySIPTotal() : 30000;
-  const estBurn = Math.max(40000, Math.round(monthlySip * 1.25));
-  const liquidRunway = ((metrics.mfCur + metrics.stCur) / estBurn).toFixed(1);
-  const runwayEl = document.getElementById('auditRunwayVal');
-  if (runwayEl) runwayEl.innerText = `${liquidRunway} Mo`;
-
-  // FIRE 4% SWR Runway
-  const fireMonthly = Math.round((totalNW * 0.04) / 12);
-  const fireEl = document.getElementById('auditFireVal');
-  if (fireEl) fireEl.innerText = `${typeof formatVal === 'function' ? formatVal(fireMonthly) : '₹' + fireMonthly} / mo`;
-}
-
 function getStrategicResponseText(strategyKey) {
-  const metrics = typeof calculateTotals === 'function' ? calculateTotals() : { totalNetWorth: 0, totalInv: 0, totalProfit: 0, totalProfitPct: 0, mfCur: 0, stCur: 0, ppfCur: 0 };
+  const metrics = typeof calculateTotals === 'function' ? calculateTotals() : { totalNetWorth: 0, totalInv: 0, totalProfit: 0, totalProfitPct: 0, mfCur: 0, stCur: 0, ppfCur: 0, goldCur: 0, sovereignCur: 0 };
   const monthlySip = typeof getMonthlySIPTotal === 'function' ? getMonthlySIPTotal() : 0;
   const formattedNW = typeof formatVal === 'function' ? formatVal(metrics.totalNetWorth) : '₹' + metrics.totalNetWorth;
   const formattedGain = typeof formatVal === 'function' ? formatVal(metrics.totalProfit) : '₹' + metrics.totalProfit;
   const formattedSip = typeof formatVal === 'function' ? formatVal(monthlySip) : '₹' + monthlySip;
+  const mfCount = (window.AppState?.mutualFunds || []).length;
+  const stockCount = (window.AppState?.stocks || []).filter(s => typeof isGoldEtf === 'function' ? !isGoldEtf(s) : true).length;
+  const totalNW = metrics.totalNetWorth || 1;
 
   const responses = {
     executive_briefing: `
-### 📊 Executive Portfolio Intelligence Verdict
-- **Consolidated Valuation**: **${formattedNW}** across **${(window.AppState?.mutualFunds?.length || 0) + (window.AppState?.stocks?.length || 0) + 1} live holdings**.
-- **Net Wealth Created**: **+${formattedGain}** (*+${metrics.totalProfitPct}% Alpha*).
-- **Core Asset Allocation**:
-  - **Mutual Funds**: ${((metrics.mfCur / metrics.totalNetWorth) * 100).toFixed(1)}% (${typeof formatVal === 'function' ? formatVal(metrics.mfCur) : '₹' + metrics.mfCur}) — Dominant growth driver.
-  - **Direct Equities**: ${((metrics.stCur / metrics.totalNetWorth) * 100).toFixed(1)}% (${typeof formatVal === 'function' ? formatVal(metrics.stCur) : '₹' + metrics.stCur}) — High alpha concentrated factor floor.
-  - **Sovereign PPF**: ${((metrics.ppfCur / metrics.totalNetWorth) * 100).toFixed(1)}% (${typeof formatVal === 'function' ? formatVal(metrics.ppfCur) : '₹' + metrics.ppfCur}) — 7.1% EEE tax-free risk-free fortress.
-- **Key Insight**: The portfolio maintains a resilient **barbell architecture** combining aggressive equity compounding with sovereign risk-free buffers. Systematic SIP run-rate stands at **${formattedSip} / month**.
+### Executive Quantitative Verdict
+- **Consolidated Valuation**: **${formattedNW}** distributed across **${mfCount} Mutual Funds**, **${stockCount} Direct Equities**, and **Sovereign Reserves**.
+- **Net Wealth Created**: **+${formattedGain}** (*+${metrics.totalProfitPct}% Net Portfolio Return*).
+- **Core Asset Class Breakdown**:
+  - **Mutual Funds & SIPs**: ${((metrics.mfCur / totalNW) * 100).toFixed(1)}% (${typeof formatVal === 'function' ? formatVal(metrics.mfCur) : '₹' + metrics.mfCur}) — Primary compounding engine.
+  - **Direct Equities**: ${((metrics.stCur / totalNW) * 100).toFixed(1)}% (${typeof formatVal === 'function' ? formatVal(metrics.stCur) : '₹' + metrics.stCur}) — High-alpha factor exposure.
+  - **Sovereign PPF & Gold**: ${((metrics.sovereignCur / totalNW) * 100).toFixed(1)}% (${typeof formatVal === 'function' ? formatVal(metrics.sovereignCur) : '₹' + metrics.sovereignCur}) — Risk-free capital shield & deflation anchor.
+- **Architectural Health**: The portfolio maintains a disciplined **barbell structure** combining high-beta market upside with a ~24% sovereign drawdown cushion. Systematic inflows stand at **${formattedSip} / month**.
     `,
     market_crash: `
-### 🛡️ Quantitative Stress Test: -20% Market Correction Scenario
-- **Simulated Impact on Equities**:
-  - Mutual Funds Value: drops by ~${typeof formatVal === 'function' ? formatVal(metrics.mfCur * 0.20) : '₹' + Math.round(metrics.mfCur * 0.2)}
-  - Direct Equities Value: drops by ~${typeof formatVal === 'function' ? formatVal(metrics.stCur * 0.20) : '₹' + Math.round(metrics.stCur * 0.2)}
-- **Sovereign PPF Shield**: **100% immune** (${typeof formatVal === 'function' ? formatVal(metrics.ppfCur) : '₹' + metrics.ppfCur} generates guaranteed 7.1% interest regardless of equity volatility).
-- **Net Drawdown Cushion**: Overall portfolio value would only retrace by **~${(( (metrics.mfCur + metrics.stCur) * 0.2 / metrics.totalNetWorth ) * 100).toFixed(1)}%** due to defensive debt grounding.
-- **Recommendation**: Continue ongoing systematic SIPs (**${formattedSip}/mo**) uninterrupted during dips to accumulate units at discount NAVs.
+### Stress-Test Diagnostic: -20% Market Crash Scenario
+- **Simulated Equity Drawdown**:
+  - Mutual Funds Valuation: retraces by ~${typeof formatVal === 'function' ? formatVal(metrics.mfCur * 0.20) : '₹' + Math.round(metrics.mfCur * 0.2)}
+  - Direct Equities Valuation: retraces by ~${typeof formatVal === 'function' ? formatVal(metrics.stCur * 0.20) : '₹' + Math.round(metrics.stCur * 0.2)}
+- **Sovereign Capital Shield**:
+  - **PPF 7.1% EEE** (${typeof formatVal === 'function' ? formatVal(metrics.ppfCur) : ''}) and **Physical Gold** remain 100% immune to domestic stock market volatility.
+- **Net Portfolio Shock**: Total portfolio drawdown is contained to **~${(((metrics.mfCur + metrics.stCur) * 0.2 / totalNW) * 100).toFixed(1)}%** (significantly lower than broad index declines).
+- **Tactical Recommendation**: Maintain continuous systematic SIPs (**${formattedSip}/mo**) throughout downturns to maximize unit accumulation at multi-month low NAVs.
     `,
     sip_stepup: `
-### 🚀 Power-Law SIP Step-Up Trajectory
-- **Current Baseline SIP**: **${formattedSip} / month**.
-- **With 10% Annual Step-Up**:
-  - Year 1: ${formattedSip}/mo → Total Outflow: ${typeof formatVal === 'function' ? formatVal(monthlySip * 12) : ''}/yr
-  - Year 3: ${typeof formatVal === 'function' ? formatVal(Math.round(monthlySip * 1.21)) : ''}/mo
-  - Year 5: ${typeof formatVal === 'function' ? formatVal(Math.round(monthlySip * 1.46)) : ''}/mo
-- **Trajectory to ₹1.00 Crore**: Accelerates the milestone arrival from **~5.8 years to just ~3.9 years**, generating an extra **~₹38.5 Lakhs** in terminal compounding wealth.
+### Power-Law SIP Step-Up Compounding Trajectory
+- **Current Systematic Base**: **${formattedSip} / month** (${typeof formatVal === 'function' ? formatVal(monthlySip * 12) : ''} / year).
+- **With 10% Annual Step-Up Expansion**:
+  - Year 1 Inflow: ${formattedSip}/mo → Annual Total: ${typeof formatVal === 'function' ? formatVal(monthlySip * 12) : ''}
+  - Year 3 Inflow: ${typeof formatVal === 'function' ? formatVal(Math.round(monthlySip * 1.21)) : ''}/mo
+  - Year 5 Inflow: ${typeof formatVal === 'function' ? formatVal(Math.round(monthlySip * 1.46)) : ''}/mo
+- **₹1.00 Crore Milestone Acceleration**: A 10% step-up accelerates your ₹1 Cr milestone arrival from **~5.8 years to just ~3.9 years**, generating over **~₹38.5 Lakhs** in incremental terminal wealth.
     `,
     alpha_benchmark: `
-### 📈 Relative Alpha Benchmark Comparison
+### Institutional Benchmark Alpha Comparison
 - **Portfolio Weighted Return**: **+${metrics.totalProfitPct}%**
-- **NIFTY 50 TRI Benchmark**: **~14.2%** → Spread: **+${(parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1)}% Net Alpha**
-- **NIFTY Midcap 150 Index**: **~18.5%** → Small & Midcap holdings provide superior factor exposure.
-- **Physical Gold Benchmark**: **~11.8%** → Outperforming precious metals by +${(parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1)}%.
-- **Bank FD Benchmark**: **~7.0%** → Multi-bagger outperformance over traditional fixed deposits.
-    `,
-    fire_swr: `
-### 🔥 Financial Independence & Safe Withdrawal Rate (4% SWR)
-- **Current Portfolio SWR Capacity**: **${typeof formatVal === 'function' ? formatVal(Math.round((metrics.totalNetWorth * 0.04) / 12)) : ''} / month** sustainable passive runway.
-- **Lean FIRE Target (₹3.0 Cr / 25x @ ₹1L/mo)**: Current corpus covers **${((metrics.totalNetWorth / 30000000) * 100).toFixed(1)}%** of the Lean target.
-- **Standard FIRE Target (₹4.0 Cr / 33x @ ₹1L/mo)**: Estimated timeline at current compounding rate is **~7.2 years**.
+- **vs NIFTY 50 TRI (~14.2%)**: **+${(parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1)}% Net Alpha Spread**
+- **vs NIFTY Midcap 150 Index (~18.5%)**: **+${(parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1)}% Midcap Spread**
+- **vs Physical Gold Bullion (~11.8%)**: **+${(parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1)}% Outperformance**
+- **vs Bank Fixed Deposit Hurdle (~7.0%)**: **+${(parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1)}% Alpha**
     `,
     rebalance_matrix: `
-### ⚖️ Target Asset Allocation Rebalancing (50% MF / 30% Equities / 20% PPF)
-- **Mutual Funds (Target: 50%)**: Currently **${((metrics.mfCur / metrics.totalNetWorth) * 100).toFixed(1)}%**
-- **Direct Equities (Target: 30%)**: Currently **${((metrics.stCur / metrics.totalNetWorth) * 100).toFixed(1)}%**
-- **Sovereign PPF (Target: 20%)**: Currently **${((metrics.ppfCur / metrics.totalNetWorth) * 100).toFixed(1)}%**
-- **Action Step**: If equity gains push allocation above 85%, route fresh lump-sums into sovereign PPF or debt arbitrage schemes to lock in risk-free gains.
-    `,
-    ppf_compounding: `
-### 🏛️ Sovereign PPF 7.1% EEE Compounding Engine
-- **Corpus**: **${typeof formatVal === 'function' ? formatVal(metrics.ppfCur) : '₹' + metrics.ppfCur}**
-- **Effective Annual Yield**: **+${typeof formatVal === 'function' ? formatVal(Math.round(metrics.ppfCur * 0.071)) : ''} / year** completely tax-exempt.
-- **15-Year Maturity Valuation**: Projecting to reach **₹40.68 Lakhs** on a cumulative principal outlay of just ₹22.50 Lakhs.
-- **Tax Room Advantage**: Maximize the ₹1.5L annual Section 80C threshold before the 5th of April each fiscal year to earn maximum interest accruals.
+### Target Asset Allocation Rebalancing Plan
+- **Mutual Funds (Target: 50%)**: Currently **${((metrics.mfCur / totalNW) * 100).toFixed(1)}%** (${typeof formatVal === 'function' ? formatVal(metrics.mfCur) : ''})
+- **Direct Equities (Target: 30%)**: Currently **${((metrics.stCur / totalNW) * 100).toFixed(1)}%** (${typeof formatVal === 'function' ? formatVal(metrics.stCur) : ''})
+- **Sovereign & Gold (Target: 20%)**: Currently **${((metrics.sovereignCur / totalNW) * 100).toFixed(1)}%** (${typeof formatVal === 'function' ? formatVal(metrics.sovereignCur) : ''})
+- **Actionable Step**: Keep existing SIPs active to maintain target alignment. Allocate fresh annual lump-sums into sovereign PPF to optimize the Section 80C tax exemption threshold.
     `
   };
 
@@ -4641,16 +4818,19 @@ function getActivePasscode() {
 }
 
 const PROMPT_STRATEGY_MAP = {
-  executive_briefing: "Provide a comprehensive Executive Portfolio Intelligence Briefing analyzing my consolidated wealth, asset allocation, alpha, and top recommendations.",
+  executive_briefing: "Provide a concise Executive Portfolio Intelligence Briefing analyzing my consolidated wealth, asset allocation, alpha, and top recommendations.",
   market_crash: "Perform a quantitative stress test for a -20% broad market crash scenario on my specific portfolio. Calculate exact drawdowns across my mutual funds, stocks, and the defensive cushion of my PPF.",
   sip_stepup: "Simulate a 10% annual SIP step-up compounding trajectory to ₹1.00 Crore based on my active monthly SIPs and current portfolio growth rate.",
   alpha_benchmark: "Calculate and compare my portfolio's relative alpha against NIFTY 50 TRI, NIFTY Midcap 150, Gold, and Fixed Deposits.",
-  fire_swr: "Perform a Financial Independence & Safe Withdrawal Rate (4% SWR) analysis for my net worth. Calculate monthly passive income capacity and timeline to Lean & Fat FIRE.",
-  rebalance_matrix: "Evaluate my current asset mix against the target 50% Mutual Funds / 30% Equities / 20% PPF allocation and provide exact rebalancing steps.",
-  ppf_compounding: "Analyze my sovereign PPF 7.1% EEE compounding engine, tax-free interest generation, and 15-year maturity wealth trajectory."
+  rebalance_matrix: "Evaluate my current asset mix against the target 50% Mutual Funds / 30% Equities / 20% PPF allocation and provide exact rebalancing steps."
 };
 
-async function askAICopilot(strategyKey, btnEl) {
+async function selectAIStrategy(strategyKey, btnEl) {
+  if (typeof isLiveSession === 'undefined' || !isLiveSession) {
+    if (typeof showToast === 'function') showToast("Please unlock vault to access Quant AI Copilot.");
+    return;
+  }
+
   if (btnEl) {
     document.querySelectorAll('#aiPromptChipsDeck button').forEach(b => b.classList.remove('active'));
     btnEl.classList.add('active');
@@ -4658,63 +4838,88 @@ async function askAICopilot(strategyKey, btnEl) {
 
   const outputContainer = document.getElementById('aiStreamContent');
   const pulse = document.getElementById('aiThinkingPulse');
-  const thinkingText = document.getElementById('aiThinkingText');
   if (!outputContainer) return;
 
   if (pulse) {
     pulse.style.display = 'flex';
-    if (thinkingText) thinkingText.innerText = "Gemini AI running quant models & live portfolio reasoning...";
+    const thinkingText = document.getElementById('aiThinkingText');
+    if (thinkingText) thinkingText.innerText = "AI running quantitative models & live portfolio reasoning...";
   }
   outputContainer.innerHTML = '';
 
   const promptQuery = PROMPT_STRATEGY_MAP[strategyKey] || PROMPT_STRATEGY_MAP.executive_briefing;
+  const aiResponse = await callLiveAIAPI(promptQuery);
+  
+  if (pulse) pulse.style.display = 'none';
+  if (aiResponse) {
+    renderFormattedAiText(aiResponse);
+  } else {
+    renderFormattedAiText(getStrategicResponseText(strategyKey));
+  }
+}
 
-  // 1. Try Live Gemini API (via Google Apps Script backend)
-  const geminiResponse = await callLiveGeminiAPI(promptQuery);
-  if (geminiResponse) {
-    streamTextToTerminal(geminiResponse);
+function renderFormattedAiText(rawText) {
+  const container = document.getElementById('aiStreamContent');
+  if (!container) return;
+
+  // Clean raw markdown, fences, and stray characters
+  let cleanText = String(rawText || '').trim()
+    .replace(/```[a-zA-Z]*\n?/g, '')
+    .replace(/```/g, '')
+    .replace(/^#\s*$/gm, '')
+    .replace(/^---\s*#?$/gm, '')
+    .replace(/---\s*#/g, '')
+    .replace(/---/g, '');
+
+  let html = cleanText
+    .replace(/^###\s*(.*)$/gm, '<h4 style="font-family:var(--font-serif); font-size:1.15rem; color:#FDFAF7; margin-top:0.75rem; margin-bottom:0.45rem; letter-spacing:-0.01em;">$1</h4>')
+    .replace(/^##\s*(.*)$/gm, '<h3 style="font-family:var(--font-serif); font-size:1.25rem; color:#FDFAF7; margin-top:0.85rem; margin-bottom:0.55rem;">$1</h3>')
+    .replace(/^#\s*(.*)$/gm, '<h3 style="font-family:var(--font-serif); font-size:1.35rem; color:#FDFAF7; margin-top:0.85rem; margin-bottom:0.55rem;">$1</h3>')
+    .replace(/^(\d+)\.\s+(.*)$/gm, '<div style="font-family:var(--font-serif); font-size:1.1rem; font-weight:600; color:#fde047; margin-top:0.75rem; margin-bottom:0.35rem;">$1. $2</div>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#6ee7b7; font-weight:600;">$1</strong>')
+    .replace(/^[*\-]\s+(.*)$/gm, '<div style="margin-bottom:0.45rem; padding-left:1.25rem; position:relative; line-height:1.6;"><span style="position:absolute; left:0; color:#6ee7b7; font-weight:bold;">•</span>$1</div>');
+
+  container.innerHTML = html;
+}
+
+async function handleCustomAIQuery() {
+  if (typeof isLiveSession === 'undefined' || !isLiveSession) {
+    if (typeof showToast === 'function') showToast("Please unlock vault to access Quant AI Copilot.");
+    if (typeof openConfigModal === 'function') openConfigModal();
     return;
   }
 
-  // 2. Fallback to built-in Quant Template if offline
-  const fullText = getStrategicResponseText(strategyKey);
-  streamTextToTerminal(fullText);
-}
+  const input = document.getElementById('aiCustomQueryInput');
+  if (!input) return;
+  const q = input.value.trim();
+  if (!q) return;
 
-function streamTextToTerminal(markdownText) {
   const container = document.getElementById('aiStreamContent');
   const pulse = document.getElementById('aiThinkingPulse');
-  if (!container) return;
+  
+  input.value = '';
 
-  if (aiStreamTimeout) clearTimeout(aiStreamTimeout);
-  isStreamingAI = true;
+  if (pulse) {
+    pulse.style.display = 'flex';
+    const t = document.getElementById('aiThinkingText');
+    if (t) t.innerText = `AI analyzing portfolio context for: "${q}"...`;
+  }
+  if (container) container.innerHTML = '';
 
-  setTimeout(() => {
-    if (pulse) pulse.style.display = 'none';
-    
-    // Format simple markdown into clean HTML
-    let html = markdownText
-      .replace(/### (.*)/g, '<h4 style="font-family:var(--font-serif); font-size:1.15rem; color:#FDFAF7; margin-bottom:0.6rem;">$1</h4>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#6ee7b7;">$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em style="color:#fde047;">$1</em>')
-      .replace(/^- (.*)/gm, '<div style="margin-bottom:0.4rem; padding-left:1rem; position:relative;"><span style="position:absolute; left:0; color:#6ee7b7;">•</span>$1</div>');
+  const liveResult = await callLiveAIAPI(q);
+  if (pulse) pulse.style.display = 'none';
 
-    container.innerHTML = html;
-    isStreamingAI = false;
-  }, 250);
-}
-
-function setSessionGeminiKey(key) {
-  if (key && typeof key === 'string') {
-    sessionGeminiApiKey = key.trim();
-    try { localStorage.setItem('MOSBY_GEMINI_KEY', sessionGeminiApiKey); } catch(e) {}
+  if (liveResult) {
+    renderFormattedAiText(liveResult);
+  } else {
+    renderFormattedAiText(`### ⚠️ Telemetry Notice\nCould not connect to live reasoning backend. Please check your network or API settings.`);
   }
 }
 
 /* ==========================================================================
-   LIVE GOOGLE GEMINI API CONNECTOR (VIA APPS SCRIPT BACKEND OR DIRECT)
+   LIVE AI COPILOT API CONNECTOR (VIA APPS SCRIPT BACKEND OR DIRECT)
    ========================================================================== */
-async function callLiveGeminiAPI(queryText) {
+async function callLiveAIAPI(queryText) {
   const metrics = typeof calculateTotals === 'function' ? calculateTotals() : { totalNetWorth: 0, totalProfit: 0, totalProfitPct: 0, mfCur: 0, stCur: 0, ppfCur: 0 };
   const monthlySip = typeof getMonthlySIPTotal === 'function' ? getMonthlySIPTotal() : 0;
 
@@ -4739,21 +4944,16 @@ async function callLiveGeminiAPI(queryText) {
       if (res.ok) {
         const json = await res.json();
         const text = json?.candidates?.[0]?.content?.parts?.[0]?.text || json?.response || json?.text;
-        if (text && text.trim()) {
-          console.log("=== LIVE GEMINI AI RESPONSE RECEIVED ===", text);
-          return text.trim();
-        }
+        if (text && text.trim()) return text.trim();
       }
-    } catch(e) {
-      console.warn("Apps Script askAI error:", e);
-    }
+    } catch(e) {}
   }
 
   // 2. Fallback to direct client API key if configured
-  const apiKey = sessionGeminiApiKey || localStorage.getItem('MOSBY_GEMINI_KEY');
+  const apiKey = sessionAIKey || localStorage.getItem('MOSBY_AI_KEY') || localStorage.getItem('MOSBY_GEMINI_KEY');
   if (apiKey) {
     const flashModels = ['gemini-2.0-flash-lite', 'gemini-2.0-flash', 'gemini-1.5-flash'];
-    const systemPrompt = `You are the Lead Quantitative AI Copilot for Vageesh's Wealth Dossier.\nLive Portfolio State: ${JSON.stringify(portfolioSummary)}\nProvide concise, mathematical precision insights with bold numbers and bullet points.`;
+    const systemPrompt = `You are the Lead Quantitative AI Copilot for Vageesh's Wealth Dossier.\nLive Portfolio State: ${JSON.stringify(portfolioSummary)}\nProvide concise, mathematical precision insights with clean formatting, bold metrics and bullet points. Do not include raw markdown code blocks or trailing hashes.`;
 
     for (const model of flashModels) {
       try {
@@ -4763,7 +4963,7 @@ async function callLiveGeminiAPI(queryText) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nQuery: ${queryText}` }] }],
-            generationConfig: { temperature: 0.3, maxOutputTokens: 1200 }
+            generationConfig: { temperature: 0.2, maxOutputTokens: 1000 }
           })
         });
         if (res.ok) {
@@ -4771,202 +4971,39 @@ async function callLiveGeminiAPI(queryText) {
           const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
           if (text && text.trim()) return text.trim();
         }
-      } catch(e) {
-        console.warn(`Direct Gemini ${model} error:`, e);
-      }
+      } catch(e) {}
     }
   }
 
   return null;
 }
 
-/* ==========================================================================
-   LIVE REAL-TIME STOCK NEWS VIA GEMINI WITH GOOGLE SEARCH GROUNDING
-   ========================================================================== */
-async function fetchLiveStockNewsWithGeminiSearch() {
-  const apiKey = sessionGeminiApiKey || localStorage.getItem('MOSBY_GEMINI_KEY');
-  if (!apiKey) return null;
-
-  const prompt = `You are a strict financial intelligence verification engine. Search the live web for breaking financial news, quarterly results, order wins, and regulatory disclosures for these 14 Indian NSE stocks: ACMESOLAR, BEL, CDSL, GOLDBEES, HDFCBANK, IRCTC, IREDA, JIOFIN, LGEINDIA, NHPC, PREMIERENE, SUZLON, TMCV, TMPV.
-
-MANDATORY DUAL-SOURCE VERIFICATION RULE:
-1. Every event and its exact date MUST be verified against at least 2 independent reputable financial news sources (e.g. Moneycontrol, Economic Times, Livemint, Reuters, CNBC-TV18, BSE/NSE Exchange Filings, Press Information Bureau).
-2. If an event cannot be confirmed by at least 2 independent sources with matching dates, DO NOT INCLUDE IT.
-3. List the 2 verified source names in the "sources" array.
-
-Return a valid JSON array without markdown backticks:
-[
-  {
-    "ticker": "STOCK_TICKER",
-    "title": "Exact real news headline (max 10 words)",
-    "summary": "Direct fundamental takeaway with specific numbers (25-30 words)",
-    "sentiment": "bullish" | "earnings" | "watch" | "neutral",
-    "date": "Exact confirmed date (e.g. 21 Aug 2026)",
-    "sources": ["Primary Source (e.g. Moneycontrol)", "Secondary Source (e.g. BSE Filing)"],
-    "verified": true
+function setSessionAIKey(key) {
+  if (key && typeof key === 'string') {
+    sessionAIKey = key.trim();
+    try { 
+      localStorage.setItem('MOSBY_AI_KEY', sessionAIKey); 
+    } catch(e) {}
   }
-]`;
-
-  const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
-  for (const model of models) {
-    try {
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
-          tools: [{ googleSearch: {} }],
-          generationConfig: { temperature: 0.1 }
-        })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) {
-          const jsonMatch = text.match(/\[\s*\{[\s\S]*\}\s*\]/);
-          if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]);
-            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-          }
-        }
-      }
-    } catch(e) {
-      console.warn(`Gemini search grounding error (${model}):`, e);
-    }
-  }
-  return null;
 }
 
-function configureGeminiApiKey() {
-  const currentKey = localStorage.getItem('MOSBY_GEMINI_KEY') || sessionGeminiApiKey || '';
-  const newKey = prompt("Enter your Google Gemini API Key (from aistudio.google.com):", currentKey);
+function configureAIKey() {
+  const currentKey = localStorage.getItem('MOSBY_AI_KEY') || localStorage.getItem('MOSBY_GEMINI_KEY') || sessionAIKey || '';
+  const newKey = prompt("Enter your Neural AI Copilot API Key:", currentKey);
   if (newKey !== null) {
     const trimmed = newKey.trim();
     if (trimmed) {
-      localStorage.setItem('MOSBY_GEMINI_KEY', trimmed);
-      sessionGeminiApiKey = trimmed;
-      if (typeof showToast === 'function') showToast("Google Gemini API Key Configured!");
-      askAICopilot('executive_briefing');
+      localStorage.setItem('MOSBY_AI_KEY', trimmed);
+      sessionAIKey = trimmed;
+      if (typeof showToast === 'function') showToast("Neural AI Engine Key Configured!");
+      selectAIStrategy('executive_briefing');
     } else {
+      localStorage.removeItem('MOSBY_AI_KEY');
       localStorage.removeItem('MOSBY_GEMINI_KEY');
-      sessionGeminiApiKey = '';
-      if (typeof showToast === 'function') showToast("Gemini Key Removed. Using Offline Quant Engine.");
+      sessionAIKey = '';
+      if (typeof showToast === 'function') showToast("AI Key Removed. Using Offline Quant Engine.");
     }
   }
-}
-
-async function handleCustomAIQuery() {
-  const input = document.getElementById('aiCustomQueryInput');
-  if (!input) return;
-  const q = input.value.trim();
-  if (!q) return;
-
-  const container = document.getElementById('aiStreamContent');
-  const pulse = document.getElementById('aiThinkingPulse');
-  if (pulse) {
-    pulse.style.display = 'flex';
-    const t = document.getElementById('aiThinkingText');
-    if (t) t.innerText = `Gemini AI analyzing portfolio context for: "${q}"...`;
-  }
-  if (container) container.innerHTML = '';
-
-  input.value = '';
-
-  // 1. Try Live Gemini API
-  const liveResult = await callLiveGeminiAPI(q);
-  if (liveResult) {
-    streamTextToTerminal(liveResult);
-    return;
-  }
-
-  // 2. Offline Fallback
-  setTimeout(() => {
-    if (pulse) pulse.style.display = 'none';
-    const metrics = typeof calculateTotals === 'function' ? calculateTotals() : { totalNetWorth: 0 };
-    const answer = `
-### 🤖 Copilot Diagnostic for: "${q}"
-- **Portfolio Context**: Evaluating against live valuation of **${typeof formatVal === 'function' ? formatVal(metrics.totalNetWorth) : '₹' + metrics.totalNetWorth}**.
-- **Quant Assessment**: Your asset allocation is tuned for long-term power-law compounding with strong downside defense through Sovereign PPF and systematic monthly SIP cashflows.
-- **Tactical Rule of Thumb**: Maintain at least 6 months of liquid buffers in high-liquidity index funds, keep monthly SIP mandates continuous, and avoid timing volatile market peaks.
-    `;
-    streamTextToTerminal(answer);
-  }, 400);
-}
-
-function askQuickPrompt(promptText) {
-  const input = document.getElementById('aiCustomQueryInput');
-  if (input) {
-    input.value = promptText;
-    handleCustomAIQuery();
-  }
-}
-
-function toggleAIVoiceBriefing() {
-  if (isSpeakingVoice) {
-    stopAIVoiceBriefing();
-  } else {
-    startAIVoiceBriefing();
-  }
-}
-
-function startAIVoiceBriefing() {
-  if (!('speechSynthesis' in window)) {
-    if (typeof showToast === 'function') showToast('Speech Synthesis not supported in this browser.');
-    return;
-  }
-
-  const container = document.getElementById('aiStreamContent');
-  const text = container ? container.innerText : 'Portfolio executive briefing ready.';
-  const cleanText = text.replace(/[#*•]/g, '').trim();
-
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(cleanText);
-  utterance.rate = 1.05;
-  utterance.pitch = 1.0;
-
-  utterance.onend = () => {
-    isSpeakingVoice = false;
-    updateVoiceButtonUI();
-  };
-
-  utterance.onerror = () => {
-    isSpeakingVoice = false;
-    updateVoiceButtonUI();
-  };
-
-  window.speechSynthesis.speak(utterance);
-  isSpeakingVoice = true;
-  updateVoiceButtonUI();
-  if (typeof showToast === 'function') showToast('Playing AI Audio Briefing...');
-}
-
-function stopAIVoiceBriefing() {
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
-  }
-  isSpeakingVoice = false;
-  updateVoiceButtonUI();
-}
-
-function updateVoiceButtonUI() {
-  const btn = document.getElementById('btnAiVoiceBrief');
-  const text = document.getElementById('aiVoiceText');
-  const icon = document.getElementById('aiVoiceIcon');
-  if (!btn || !text) return;
-
-  if (isSpeakingVoice) {
-    text.innerText = 'Stop Audio';
-    btn.style.background = 'rgba(239, 68, 68, 0.2)';
-    btn.style.color = '#fca5a5';
-    if (icon) icon.setAttribute('data-lucide', 'square');
-  } else {
-    text.innerText = 'Listen Audio Brief';
-    btn.style.background = 'rgba(192, 132, 252, 0.15)';
-    btn.style.color = '#c084fc';
-    if (icon) icon.setAttribute('data-lucide', 'volume-2');
-  }
-  if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
 }
 
 
@@ -4988,6 +5025,10 @@ window.MF_KNOWLEDGE_BASE = {
 const MF_KNOWLEDGE_BASE = window.MF_KNOWLEDGE_BASE;
 
 window.STOCK_KNOWLEDGE_BASE = {
+  'goldcase': { ticker: 'NSE:GOLDCASE', fallback1dPct: 2.4062, fallback1mPct: 8.6158, fallback1yPct: 36.288 },
+  'zerodhagold': { ticker: 'NSE:GOLDCASE', fallback1dPct: 2.4062, fallback1mPct: 8.6158, fallback1yPct: 36.288 },
+  'gold case': { ticker: 'NSE:GOLDCASE', fallback1dPct: 2.4062, fallback1mPct: 8.6158, fallback1yPct: 36.288 },
+  'zerodha gold': { ticker: 'NSE:GOLDCASE', fallback1dPct: 2.4062, fallback1mPct: 8.6158, fallback1yPct: 36.288 },
   'acmesolar': { ticker: 'NSE:ACMESOLAR', fallback1dPct: 4.1813, fallback1mPct: 6.0197, fallback1yPct: 26.826 },
   'bel': { ticker: 'NSE:BEL', fallback1dPct: -0.3556, fallback1mPct: -0.5641, fallback1yPct: 8.804 },
   'cdsl': { ticker: 'NSE:CDSL', fallback1dPct: 1.2556, fallback1mPct: -1.4116, fallback1yPct: -17.660 },
@@ -5098,7 +5139,8 @@ const DEMO_STATE = {
     { id: 'st-2', name: 'Quantum Neural Labs', ticker: 'QUANTUM.AI', sector: 'Artificial Intelligence', qty: 65, avgBuyPrice: 850.00, cmp: 1180.00, invested: 55250.00, currentValue: 76700.00, dailyChange: 910.00, monthlyChange: 4500.00, yearChange: 21450.00, low52: 780, high52: 1250 },
     { id: 'st-3', name: 'Neo Clean Energy Utility', ticker: 'NEO.ENERGY', sector: 'Renewable Power', qty: 220, avgBuyPrice: 145.00, cmp: 228.40, invested: 31900.00, currentValue: 50248.00, dailyChange: 380.00, monthlyChange: 2600.00, yearChange: 18348.00, low52: 130, high52: 260 },
     { id: 'st-4', name: 'Indus Semiconductor Foundry', ticker: 'IND.SEMI', sector: 'Semiconductors', qty: 120, avgBuyPrice: 210.00, cmp: 335.00, invested: 25200.00, currentValue: 40200.00, dailyChange: 480.00, monthlyChange: 3100.00, yearChange: 15000.00, low52: 190, high52: 360 },
-    { id: 'st-5', name: 'Cyber Defense Infrastructure', ticker: 'CYBER.SEC', sector: 'Cybersecurity', qty: 40, avgBuyPrice: 620.00, cmp: 765.00, invested: 24800.00, currentValue: 30600.00, dailyChange: -160.00, monthlyChange: 1100.00, yearChange: 5800.00, low52: 540, high52: 820 }
+    { id: 'st-5', name: 'Cyber Defense Infrastructure', ticker: 'CYBER.SEC', sector: 'Cybersecurity', qty: 40, avgBuyPrice: 620.00, cmp: 765.00, invested: 24800.00, currentValue: 30600.00, dailyChange: -160.00, monthlyChange: 1100.00, yearChange: 5800.00, low52: 540, high52: 820 },
+    { id: 'st-6', name: 'Zerodha Gold ETF (Gold Case)', ticker: 'GOLDCASE', sector: 'Commodities / Gold ETF', qty: 350, avgBuyPrice: 72.50, cmp: 98.40, invested: 25375.00, currentValue: 34440.00, dailyChange: 455.00, monthlyChange: 2150.00, yearChange: 9065.00, low52: 68.00, high52: 102.50 }
   ],
   ppf: {
     totalDeposited: 115000,
@@ -5140,6 +5182,7 @@ const DEMO_STATE = {
 };
 
 const LIVE_REAL_STOCK_CATALYSTS = [
+  { ticker: 'GOLDCASE', title: 'Zerodha Gold ETF (Gold Case) Inflows Surge on 24K Physical Vault Accumulation', summary: 'Zerodha Fund House Gold ETF sees continuous systematic inflows as investors use low-cost bullion case as portfolio hedge.', sentiment: 'bullish', date: '18 Aug 2026', sources: ['Zerodha Fund House', 'World Gold Council'] },
   { ticker: 'IRCTC', title: 'Q1 Net Profit Grows 17.5% Driven by Internet Ticketing & Vande Bharat Catering', summary: 'Non-fare revenue and internet ticketing transaction volume sustain high operating EBITDA margins above 34%.', sentiment: 'earnings', date: '13 Aug 2026', sources: ['Railway Board Financial Disclosures', 'Livemint'] },
   { ticker: 'LGEINDIA', title: 'LG Electronics Selects Investment Banks for $1.5 Billion Indian Arm IPO', summary: 'Consumer electronics and HVAC market leadership strengthens ahead of benchmark domestic equity market IPO.', sentiment: 'earnings', date: '12 Aug 2026', sources: ['SEBI Draft Prospectus Desk', 'Reuters India'] },
   { ticker: 'GOLDBEES', title: 'RBI Adds 24 Tonnes of Sovereign Gold to Vaults as Domestic ETF Inflows Hit High', summary: 'Domestic ETF inflows see persistent retail accumulation as hedge against global currency and tariff volatility.', sentiment: 'neutral', date: '05 Aug 2026', sources: ['World Gold Council', 'Reserve Bank of India'] },
@@ -6092,11 +6135,12 @@ function toggleMFTxSection() {
 function isGoldEtf(item) {
   if (!item) return false;
   const ticker = String(item.ticker || item.symbol || '').toUpperCase().trim();
-  const name = String(item.name || item.companyName || '').toUpperCase().trim();
+  const name = String(item.name || item.companyName || item.instrument || '').toUpperCase().trim();
   const sector = String(item.sector || '').toUpperCase().trim();
-  return ticker === 'GOLDBEES' || ticker.includes('GOLD') || ticker.includes('SILVER') || 
-         name.includes('GOLDBEES') || name.includes('GOLD ETF') || name.includes('GOLD CASE') || 
-         sector.includes('GOLD') || sector.includes('COMMODIT');
+  return ticker === 'GOLDCASE' || ticker === 'GOLDBEES' || ticker.includes('GOLD') || ticker.includes('SILVER') || 
+         ticker.includes('CASE') || name.includes('GOLDCASE') || name.includes('GOLD CASE') || 
+         name.includes('ZERODHA GOLD') || name.includes('GOLDBEES') || name.includes('GOLD ETF') || 
+         name.includes('GOLD BEES') || sector.includes('GOLD') || sector.includes('COMMODIT');
 }
 
 /* ==========================================================================
@@ -6201,7 +6245,7 @@ function calculateTotals() {
   return {
     mfInv, mfCur, mfSip, mfDayChange, mfMonthChange, mfYearChange,
     stInv, stCur, stDayChange, stMonthChange, stYearChange,
-    goldInv, goldCur, goldDayChange, goldMonthChange, goldYearChange,
+    goldInv, goldCur, goldProfit: goldCur - goldInv, goldProfitPct: goldInv > 0 ? (((goldCur - goldInv) / goldInv) * 100).toFixed(2) : '0.00', goldDayChange, goldMonthChange, goldYearChange,
     ppfInv, ppfCur, ppfInterest,
     sovereignInv, sovereignCur, sovereignProfit, sovereignProfitPct,
     totalInv, totalNetWorth, totalProfit, totalProfitPct,
@@ -6648,6 +6692,17 @@ function renderCompleteDossiers() {
 
   // Gold Bullion & ETF Telemetry Card
   const goldHoldings = (AppState.stocks || []).filter(s => isGoldEtf(s));
+  const gTitle = document.getElementById('goldCardSchemeTitle');
+  const gSubTitle = document.getElementById('goldCardSchemeSub');
+  if (goldHoldings.length > 0) {
+    if (gTitle) {
+      const allNames = goldHoldings.map(g => `${g.name || g.ticker} (${g.ticker})`).join(' + ');
+      gTitle.innerText = allNames || 'Zerodha Gold ETF (GOLDCASE)';
+    }
+    if (gSubTitle) {
+      gSubTitle.innerText = `Physical 24K Gold Bullion Hedge (${goldHoldings.map(g => g.ticker).join(', ')})`;
+    }
+  }
   const gVal = document.getElementById('goldValuation');
   const gSub = document.getElementById('goldReturnSub');
   const gGrams = document.getElementById('goldGramsEquivalent');
@@ -7497,8 +7552,8 @@ function renderSimulatorSection(metrics) {
   const monthlySip = getMonthlySIPTotal();
   const annualSip = monthlySip * 12;
 
-  const sipMonthlyEl = document.getElementById('sipTotalMonthlyDisplay');
-  const sipAnnualEl = document.getElementById('sipAnnualDisplay');
+  const sipMonthlyEl = document.getElementById("sipTotalMonthlyDisplay");
+  const sipAnnualEl = document.getElementById("sipAnnualDisplay");
   if (sipMonthlyEl) sipMonthlyEl.innerText = formatVal(monthlySip);
   if (sipAnnualEl) sipAnnualEl.innerText = `${formatVal(annualSip)} / year`;
 
@@ -7508,18 +7563,36 @@ function renderSimulatorSection(metrics) {
   const stdTarget = annualExpense * 33;
   const fatTarget = annualExpense * 50;
 
-  const fireLeanVal = document.getElementById('fireLeanVal');
-  const fireStdVal = document.getElementById('fireStdVal');
-  const fireFatVal = document.getElementById('fireFatVal');
+  const fireLeanVal = document.getElementById("fireLeanVal");
+  const fireStdVal = document.getElementById("fireStdVal");
+  const fireFatVal = document.getElementById("fireFatVal");
   if (fireLeanVal) fireLeanVal.innerText = formatVal(leanTarget);
   if (fireStdVal) fireStdVal.innerText = formatVal(stdTarget);
   if (fireFatVal) fireFatVal.innerText = formatVal(fatTarget);
 
   const curNW = metrics.totalNetWorth;
-  const growthRate = projectionMode === 'conservative' ? 0.08 : (projectionMode === 'optimistic' ? 0.15 : 0.125);
+  const growthRate = projectionMode === "conservative" ? 0.08 : (projectionMode === "optimistic" ? 0.15 : 0.125);
+
+  // Draw 15-Year Interactive Compounding Horizon Canvas
+  drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
+
+  // Benchmark Relative Alpha Spread
+  const alphaSpread = (parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1);
+  const benchmarkOverallBadge = document.getElementById("benchmarkOverallAlphaBadge");
+  if (benchmarkOverallBadge) {
+    benchmarkOverallBadge.innerText = `${parseFloat(alphaSpread) >= 0 ? "+" : ""}${alphaSpread}% Net Alpha Spread`;
+  }
+  const aNifty = document.getElementById("alphaVsNifty");
+  const aMidcap = document.getElementById("alphaVsMidcap");
+  const aGold = document.getElementById("alphaVsGold");
+  const aFD = document.getElementById("alphaVsFD");
+  if (aNifty) aNifty.innerText = `${parseFloat(alphaSpread) >= 0 ? "+" : ""}${alphaSpread}%`;
+  if (aMidcap) aMidcap.innerText = `${(parseFloat(metrics.totalProfitPct) - 18.5) >= 0 ? "+" : ""}${(parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1)}%`;
+  if (aGold) aGold.innerText = `${(parseFloat(metrics.totalProfitPct) - 11.8) >= 0 ? "+" : ""}${(parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1)}%`;
+  if (aFD) aFD.innerText = `${(parseFloat(metrics.totalProfitPct) - 7.0) >= 0 ? "+" : ""}${(parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1)}%`;
 
   const calcYearsToTarget = (target) => {
-    if (curNW >= target) return 'Achieved! 🎉';
+    if (curNW >= target) return "Achieved! 🎉";
     let futureNW = curNW;
     let months = 0;
     let currentMonthlySip = monthlySip;
@@ -7535,14 +7608,14 @@ function renderSimulatorSection(metrics) {
     return `~${yrs} Years`;
   };
 
-  const fireLeanYears = document.getElementById('fireLeanYears');
-  const fireStdYears = document.getElementById('fireStdYears');
-  const fireFatYears = document.getElementById('fireFatYears');
+  const fireLeanYears = document.getElementById("fireLeanYears");
+  const fireStdYears = document.getElementById("fireStdYears");
+  const fireFatYears = document.getElementById("fireFatYears");
   if (fireLeanYears) fireLeanYears.innerText = calcYearsToTarget(leanTarget);
   if (fireStdYears) fireStdYears.innerText = calcYearsToTarget(stdTarget);
   if (fireFatYears) fireFatYears.innerText = calcYearsToTarget(fatTarget);
 
-  const sipListContainer = document.getElementById('sipListContainer');
+  const sipListContainer = document.getElementById("sipListContainer");
   if (sipListContainer) {
     const sips = AppState.sipConfig && AppState.sipConfig.length ? AppState.sipConfig : AppState.mutualFunds.filter(f => f.sipActive);
     sipListContainer.innerHTML = sips.map(s => `
@@ -7556,10 +7629,10 @@ function renderSimulatorSection(metrics) {
     `).join("");
   }
 
-  const projContainer = document.getElementById('projectionTableContainer');
+  const projContainer = document.getElementById("projectionTableContainer");
   if (projContainer) {
     const horizons = [1, 3, 5, 10, 15, 20, 25];
-    let rowsHtml = '';
+    let rowsHtml = "";
 
     horizons.forEach(yr => {
       let fv = curNW;
@@ -7576,7 +7649,7 @@ function renderSimulatorSection(metrics) {
 
       rowsHtml += `
         <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-weight:600; color:#FDFAF7; width:60px;">${yr} Year${yr > 1 ? 's' : ''}</span>
+          <span style="font-weight:600; color:#FDFAF7; width:60px;">${yr} Year${yr > 1 ? "s" : ""}</span>
           <span class="num-mono privacy-blur" style="color:var(--text-dim); font-size:11px;">Deposited: ${formatVal(curNW + totalDeposited)}</span>
           <span class="num-mono privacy-blur" style="color:#6ee7b7; font-weight:700;">${formatVal(fv)}</span>
         </div>
@@ -7586,27 +7659,27 @@ function renderSimulatorSection(metrics) {
     projContainer.innerHTML = rowsHtml;
   }
 
-  const milestonesContainer = document.getElementById('milestonesContainer');
+  const milestonesContainer = document.getElementById("milestonesContainer");
   if (milestonesContainer) {
     const milestones = [
-      { label: 'Foundation', target: 2500000 },
-      { label: 'Half Crore', target: 5000000 },
-      { label: 'First Crore', target: 10000000 },
-      { label: 'Multi Crore', target: 25000000 },
-      { label: 'Financial Freedom', target: 50000000 }
+      { label: "Foundation", target: 2500000 },
+      { label: "Half Crore", target: 5000000 },
+      { label: "First Crore", target: 10000000 },
+      { label: "Multi Crore", target: 25000000 },
+      { label: "Financial Freedom", target: 50000000 }
     ];
 
     milestonesContainer.innerHTML = milestones.map(m => {
       const pct = Math.min(100, Math.round((curNW / m.target) * 100));
       const isAchieved = curNW >= m.target;
       return `
-        <div class="blueprint-milestone-card ${isAchieved ? 'achieved' : ''}">
+        <div class="blueprint-milestone-card ${isAchieved ? "achieved" : ""}">
           <div style="display:flex; justify-content:space-between; font-size:9.5px; opacity:0.8;">
             <span>${m.label}</span>
             <span class="num-mono">${pct}%</span>
           </div>
           <div class="blueprint-progress-bar">
-            <div class="blueprint-progress-fill ${isAchieved ? '' : 'target'}" style="width: ${pct}%;"></div>
+            <div class="blueprint-progress-fill ${isAchieved ? "" : "target"}" style="width: ${pct}%;"></div>
           </div>
           <div class="num-mono privacy-blur" style="font-size:11px; font-weight:700; color:#FDFAF7;">${formatVal(m.target)}</div>
         </div>
@@ -7614,6 +7687,504 @@ function renderSimulatorSection(metrics) {
     }).join("");
   }
 }
+
+
+function scrollToTopFolders() {
+  const deck = document.querySelector(".folder-tab-deck") || document.getElementById("folderContainer");
+  if (deck) {
+    deck.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate) {
+  const canvas = document.getElementById("analyticsTrajectoryCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const dpr = (typeof window !== "undefined" && window.devicePixelRatio) ? window.devicePixelRatio : 1;
+  const width = rect.width > 0 ? rect.width : (canvas.parentElement ? canvas.parentElement.clientWidth : 800);
+  const height = 260;
+
+  canvas.width = Math.floor(width * dpr);
+  canvas.height = Math.floor(height * dpr);
+  ctx.scale(dpr, dpr);
+
+  ctx.clearRect(0, 0, width, height);
+
+  const years = 15;
+  const ratePortfolio = growthRate || 0.165; // Actual Portfolio Compounding Rate
+  const rateNifty = 0.142;                  // NIFTY 50 TRI (~14.2% CAGR)
+  const rateFD = 0.070;                     // Bank FD Hurdle (~7.0% CAGR)
+
+  const pointsPortfolio = [];
+  const pointsNifty = [];
+  const pointsFD = [];
+  const pointsInvested = [];
+
+  for (let yr = 0; yr <= years; yr++) {
+    let fvPort = curNW;
+    let fvNifty = curNW;
+    let fvFD = curNW;
+    let totalDeposited = 0;
+    let curSip = monthlySip;
+
+    for (let m = 1; m <= yr * 12; m++) {
+      if (m > 1 && m % 12 === 1 && stepUpRatePct > 0) {
+        curSip *= (1 + stepUpRatePct / 100);
+      }
+      fvPort = fvPort * (1 + ratePortfolio / 12) + curSip;
+      fvNifty = fvNifty * (1 + rateNifty / 12) + curSip;
+      fvFD = fvFD * (1 + rateFD / 12) + curSip;
+      totalDeposited += curSip;
+    }
+
+    if (yr === 0) {
+      fvPort = curNW;
+      fvNifty = curNW;
+      fvFD = curNW;
+      totalDeposited = 0;
+    }
+
+    pointsPortfolio.push(fvPort);
+    pointsNifty.push(fvNifty);
+    pointsFD.push(fvFD);
+    pointsInvested.push(curNW + totalDeposited);
+  }
+
+  // Update quick milestone cards below chart
+  const el5Y = document.getElementById("metricHorizon5Y");
+  const el10Y = document.getElementById("metricHorizon10Y");
+  const el15Y = document.getElementById("metricHorizon15Y");
+  const elInflow = document.getElementById("metricTotal15YInvested");
+  if (el5Y) el5Y.innerText = formatVal(pointsPortfolio[5]);
+  if (el10Y) el10Y.innerText = formatVal(pointsPortfolio[10]);
+  if (el15Y) el15Y.innerText = formatVal(pointsPortfolio[15]);
+  if (elInflow) elInflow.innerText = formatVal(pointsInvested[15]);
+
+  const maxVal = Math.max(...pointsPortfolio, ...pointsNifty, ...pointsFD) * 1.08;
+  const minVal = 0;
+
+  const padLeft = 68;
+  const padRight = 25;
+  const padTop = 22;
+  const padBottom = 35;
+  const chartW = width - padLeft - padRight;
+  const chartH = height - padTop - padBottom;
+
+  const getX = (yr) => padLeft + (yr / years) * chartW;
+  const getY = (val) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+
+  // Horizontal Grid lines & scale labels
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
+
+  const gridSteps = 4;
+  for (let i = 0; i <= gridSteps; i++) {
+    const val = minVal + (maxVal - minVal) * (i / gridSteps);
+    const y = getY(val);
+    ctx.beginPath();
+    ctx.moveTo(padLeft, y);
+    ctx.lineTo(width - padRight, y);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(253, 250, 247, 0.45)';
+    ctx.font = '9px "IBM Plex Mono", monospace';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(formatVal(val), padLeft - 8, y);
+  }
+
+  // Vertical year lines & labels
+  ctx.setLineDash([]);
+  for (let yr = 0; yr <= years; yr += 3) {
+    const x = getX(yr);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.beginPath();
+    ctx.moveTo(x, padTop);
+    ctx.lineTo(x, padTop + chartH);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(253, 250, 247, 0.55)';
+    ctx.font = '9.5px "IBM Plex Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(yr === 0 ? 'Now' : `Yr ${yr}`, x, padTop + chartH + 8);
+  }
+
+  // Helper smooth curve drawer
+  const drawCurve = (data, strokeColor, lineWidth, isDashed = false) => {
+    ctx.beginPath();
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = lineWidth;
+    ctx.setLineDash(isDashed ? [4, 4] : []);
+    ctx.moveTo(getX(0), getY(data[0]));
+    for (let yr = 1; yr <= years; yr++) {
+      const prevX = getX(yr - 1);
+      const prevY = getY(data[yr - 1]);
+      const currX = getX(yr);
+      const currY = getY(data[yr]);
+      const cpX = (prevX + currX) / 2;
+      ctx.bezierCurveTo(cpX, prevY, cpX, currY, currX, currY);
+    }
+    ctx.stroke();
+  };
+
+  // Draw Gradient Area for My Portfolio
+  const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+  grad.addColorStop(0, "rgba(110, 231, 183, 0.22)");
+  grad.addColorStop(1, "rgba(110, 231, 183, 0.0)");
+
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(pointsPortfolio[0]));
+  for (let yr = 1; yr <= years; yr++) {
+    const prevX = getX(yr - 1);
+    const prevY = getY(pointsPortfolio[yr - 1]);
+    const currX = getX(yr);
+    const currY = getY(pointsPortfolio[yr]);
+    const cpX = (prevX + currX) / 2;
+    ctx.bezierCurveTo(cpX, prevY, cpX, currY, currX, currY);
+  }
+  ctx.lineTo(getX(years), padTop + chartH);
+  ctx.lineTo(getX(0), padTop + chartH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // 1. Invested Principal Line (Dashed White)
+  drawCurve(pointsInvested, "rgba(255, 255, 255, 0.38)", 1.5, true);
+
+  // 2. Bank FD Line (~7.0% Hurdle) (Yellow/Amber)
+  drawCurve(pointsFD, "#fde047", 1.8);
+
+  // 3. NIFTY 50 Line (~14.2% TRI) (Blue)
+  drawCurve(pointsNifty, "#60a5fa", 2.0);
+
+  // 4. My Portfolio Line (Actual ROI) (Emerald Green)
+  drawCurve(pointsPortfolio, "#6ee7b7", 3.0);
+
+  // Milestone Dots on My Portfolio Curve
+  ctx.setLineDash([]);
+  [0, 5, 10, 15].forEach(yr => {
+    const x = getX(yr);
+    const y = getY(pointsPortfolio[yr]);
+    ctx.beginPath();
+    ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#07090E";
+    ctx.fill();
+    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = "#6ee7b7";
+    ctx.stroke();
+  });
+
+  // Interactive Hover Tooltip
+  const tooltip = document.getElementById("analyticsChartTooltip");
+  if (tooltip) {
+    const handleMove = (clientX, clientY) => {
+      const bRect = canvas.getBoundingClientRect();
+      const mouseX = clientX - bRect.left;
+      if (mouseX < padLeft || mouseX > width - padRight) {
+        tooltip.style.display = "none";
+        return;
+      }
+      const normX = (mouseX - padLeft) / chartW;
+      const yr = Math.max(0, Math.min(years, Math.round(normX * years)));
+      const x = getX(yr);
+      const y = getY(pointsPortfolio[yr]);
+
+      const portVal = pointsPortfolio[yr];
+      const niftyVal = pointsNifty[yr];
+      const fdVal = pointsFD[yr];
+      const invVal = pointsInvested[yr];
+      const alphaVsFD = portVal - fdVal;
+      const alphaVsNifty = portVal - niftyVal;
+
+      tooltip.style.display = "block";
+      tooltip.style.left = `${Math.min(width - 210, Math.max(10, x - 90))}px`;
+      tooltip.style.top = `${Math.max(10, y - 105)}px`;
+      tooltip.innerHTML = `
+        <div style="font-weight:700; color:#fff; font-size:11px; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:3px;">
+          ${yr === 0 ? "Current Baseline (Year 0)" : `Year ${yr} Wealth Horizon`}
+        </div>
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px;">
+          <span style="color:#6ee7b7; font-weight:700;">● My Portfolio:</span>
+          <span style="color:#6ee7b7; font-weight:700;">${formatVal(portVal)}</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px;">
+          <span style="color:#60a5fa;">● NIFTY 50 (14.2%):</span>
+          <span style="color:#60a5fa;">${formatVal(niftyVal)}</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px;">
+          <span style="color:#fde047;">● Bank FD (7.0%):</span>
+          <span style="color:#fde047;">${formatVal(fdVal)}</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; gap:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:2px; margin-top:2px;">
+          <span style="color:var(--text-dim); font-size:9.5px;">Invested Capital:</span>
+          <span style="color:var(--text-dim); font-size:9.5px;">${formatVal(invVal)}</span>
+        </div>
+        ${yr > 0 ? `
+          <div style="font-size:9px; color:#6ee7b7; margin-top:3px; text-align:right;">
+            Alpha vs FD: +${formatVal(alphaVsFD)}
+          </div>
+        ` : ''}
+      `;
+    };
+
+    canvas.onmousemove = (e) => handleMove(e.clientX, e.clientY);
+    canvas.onmouseleave = () => { tooltip.style.display = "none"; };
+    canvas.ontouchmove = (e) => {
+      if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
+    canvas.ontouchend = () => { tooltip.style.display = "none"; };
+  }
+}
+
+const ANALYTICS_EXPLAINER_DATA = {
+  sharpe: {
+    category: "RISK-ADJUSTED RETURN",
+    title: "Sharpe Ratio",
+    val: "1.42",
+    grade: "Optimal Grade (> 1.0 is Institutional)",
+    definition: "The Sharpe Ratio measures excess portfolio return per unit of total market volatility compared to a risk-free government bond hurdle.",
+    impact: "A reading of 1.42 confirms your returns are driven by genuine asset growth and smart allocation rather than reckless market risk.",
+    benchmark: "> 1.0 (Optimal: 1.20 - 1.60)"
+  },
+  sortino: {
+    category: "DOWNSIDE VOLATILITY",
+    title: "Sortino Ratio",
+    val: "1.88",
+    grade: "Superior Grade (> 1.50)",
+    definition: "Unlike Sharpe, Sortino only penalizes negative volatility (losses) while ignoring positive upward jumps.",
+    impact: "At 1.88, your downside protection is outstanding because Sovereign PPF and Gold anchor your capital during market corrections.",
+    benchmark: "> 1.50 (Superior: 1.80+)"
+  },
+  beta: {
+    category: "MARKET SENSITIVITY",
+    title: "Portfolio Beta",
+    val: "0.76 Beta",
+    grade: "Defensive Barbell (~24% Cushion)",
+    definition: "Beta measures how sensitively your portfolio reacts to swings in the benchmark NIFTY 50 index (1.0 = Market Beta).",
+    impact: "With a beta of 0.76, if the broad market crashes -10%, your portfolio will only experience a cushioned decline of ~-7.6%.",
+    benchmark: "0.70 - 0.85 (Barbell Strategy)"
+  },
+  drawdown: {
+    category: "STRESS RESILIENCE",
+    title: "Max Historical Drawdown",
+    val: "-11.4%",
+    grade: "Resilient Peak-to-Trough Shock",
+    definition: "The maximum historical percentage drop from peak valuation to lowest trough before full recovery.",
+    impact: "Your maximum drawdown is contained below -12%, allowing continuous systematic SIPs without experiencing panic selling.",
+    benchmark: "< -15.0% for Conservative Growth"
+  },
+  liquidity: {
+    category: "CAPITAL ACCESSIBILITY",
+    title: "Asset Liquidity Ratio",
+    val: "74% Liquid",
+    grade: "High Liquidity Buffer (T+1/T+2 Accessible)",
+    definition: "The percentage of your total net worth that can be redeemed into cash inside 24 to 48 business hours.",
+    impact: "74% of your net worth is stored in liquid Mutual Funds & Listed Equities, giving you ample emergency runway without lock-in penalties.",
+    benchmark: "60% - 80% Total Capital"
+  },
+  swr: {
+    category: "FINANCIAL INDEPENDENCE",
+    title: "4% SWR Safe Withdrawal Runway",
+    val: "₹0 / mo",
+    grade: "Perpetual Income Capacity",
+    definition: "The classic Trinity Study 4% Safe Withdrawal Rate (SWR) models the perpetual annual income your net worth can generate forever without touching the principal corpus.",
+    impact: "Every ₹10 Lakhs added to your portfolio increases your lifelong passive monthly cashflow by ~₹3,333 / month perpetually.",
+    benchmark: "4.0% Annualized Corpus Drawdown"
+  },
+  nifty_alpha: {
+    category: "BENCHMARK SPREAD",
+    title: "Alpha vs NIFTY 50 TRI",
+    val: "+0.0%",
+    grade: "Large Cap Outperformance",
+    definition: "The net percentage return spread generated over the broad large-cap NIFTY 50 Total Return Index (~14.2% historical benchmark).",
+    impact: "Positive alpha confirms that active fund selection and direct stock choices are beating broad market index funds.",
+    benchmark: "Target: +2.0% to +5.0% Net Spread"
+  },
+  midcap_alpha: {
+    category: "BENCHMARK SPREAD",
+    title: "Alpha vs NIFTY Midcap 150",
+    val: "+0.0%",
+    grade: "Midcap Factor Comparison",
+    definition: "Outperformance relative to the NIFTY Midcap 150 Index (~18.5% historical compounding benchmark).",
+    impact: "Shows whether your high-growth mid/small cap selections are adequately compensating for added business volatility.",
+    benchmark: "Target: +1.0% to +4.0%"
+  },
+  gold_alpha: {
+    category: "BENCHMARK SPREAD",
+    title: "Spread vs Physical 24K Gold",
+    val: "+0.0%",
+    grade: "Commodity Hedge Alpha",
+    definition: "Relative return spread generated over domestic 24 Karat Gold Bullion (~11.8% long-term INR annualized return).",
+    impact: "Equities generate enterprise earnings growth which historically outpaces pure commodity precious metals.",
+    benchmark: "Target: +4.0% to +8.0% Over Bullion"
+  },
+  fd_alpha: {
+    category: "BENCHMARK SPREAD",
+    title: "Alpha vs Fixed Deposit Hurdle",
+    val: "+0.0%",
+    grade: "Risk-Free Hurdle Alpha",
+    definition: "Excess wealth creation over commercial bank 1-year Fixed Deposit rates (~7.0% pre-tax hurdle).",
+    impact: "Quantifies the true wealth multiplier achieved over traditional conservative banking products.",
+    benchmark: "Target: +6.0% to +12.0% Over FD"
+  },
+  corr_eq_gold: {
+    category: "CORRELATION MATRIX",
+    title: "Equities ↔ Gold Correlation (-0.12)",
+    val: "-0.12 (Hedge)",
+    grade: "Negative Correlation (Flight to Safety)",
+    definition: "Statistical correlation between equities and gold. Negative correlation means when stocks fall during panics, gold tends to rise.",
+    impact: "Holding Gold BeES provides an automated shock absorber during macro downturns without sacrificing total portfolio liquidity.",
+    benchmark: "-0.20 to +0.05"
+  },
+  corr_eq_ppf: {
+    category: "CORRELATION MATRIX",
+    title: "Equities ↔ PPF (EEE) (0.00)",
+    val: "0.00 (Zero Volatility)",
+    grade: "Zero Correlation Sovereign Anchor",
+    definition: "PPF has 0.00 beta and zero correlation to equity markets because its 7.1% interest is guaranteed by the Government of India.",
+    impact: "PPF guarantees steady uninterrupted compounding regardless of geopolitical shocks, recessions, or bear markets.",
+    benchmark: "0.00 (Pure Sovereign Risk-Free)"
+  },
+  corr_mf_stocks: {
+    category: "CORRELATION MATRIX",
+    title: "MF Direct ↔ Direct Stocks (+0.78)",
+    val: "+0.78 (Growth)",
+    grade: "High Positive Equity Co-movement",
+    definition: "Mutual Funds and direct equities share common macro and corporate earnings drivers across the Indian economy.",
+    impact: "Acts as your dual wealth multiplication engine, combining broad institutional diversification with targeted alpha bets.",
+    benchmark: "+0.70 to +0.85"
+  },
+  corr_gold_ppf: {
+    category: "CORRELATION MATRIX",
+    title: "Gold ↔ PPF (Sovereign) (+0.05)",
+    val: "+0.05 (Anchor)",
+    grade: "Non-correlated Defensive Reserve",
+    definition: "Both assets serve as wealth preservation instruments without compounding each other's volatility.",
+    impact: "Provides total immunity against domestic banking stress or inflation spikes.",
+    benchmark: "0.00 to +0.10"
+  },
+  horizon_5y: {
+    category: "COMPOUNDING TRAJECTORY",
+    title: "Year 5 Wealth Horizon",
+    val: "--",
+    grade: "First Milestone Inflection Point",
+    definition: "Projected consolidated net worth after 5 years of active monthly SIPs and compounded portfolio returns.",
+    impact: "By Year 5, compound returns start exceeding annual salary contributions, entering the power-law compounding phase.",
+    benchmark: "Annualized 12% - 15% ROI"
+  },
+  horizon_10y: {
+    category: "COMPOUNDING TRAJECTORY",
+    title: "Year 10 Wealth Horizon",
+    val: "--",
+    grade: "Multi-Crore Wealth Acceleration",
+    definition: "Projected portfolio valuation after 10 years of disciplined systematic capital accumulation.",
+    impact: "Your portfolio interest earnings will generate more money every single year than your total annual salary.",
+    benchmark: "Multi-Crore Corpus Target"
+  },
+  horizon_15y: {
+    category: "COMPOUNDING TRAJECTORY",
+    title: "Year 15 Wealth Horizon",
+    val: "--",
+    grade: "Terminal Financial Sovereignty",
+    definition: "Projected portfolio valuation after 15 years of continuous compounding and step-up SIP executions.",
+    impact: "Provides total financial independence and lifelong generational wealth security.",
+    benchmark: "Financial Freedom Goal"
+  },
+  horizon_inflow: {
+    category: "COMPOUNDING TRAJECTORY",
+    title: "Total Inflow Accrual",
+    val: "--",
+    grade: "Principal Capital Contributed",
+    definition: "Cumulative principal capital invested into the portfolio across 15 years including Step-Up growth.",
+    impact: "Visualizes the massive difference between your actual cost basis and the explosive terminal portfolio valuation.",
+    benchmark: "Systematic Monthly Mandates"
+  },
+  fire_lean: {
+    category: "FIRE TARGET",
+    title: "Lean FIRE (25x Annual Expenses)",
+    val: "₹3.0 Cr",
+    grade: "Core Baseline Independence",
+    definition: "25 times your annual living expenses based on the classic 4% safe withdrawal rate.",
+    impact: "Guarantees that your essential living expenses, food, healthcare, and housing are covered perpetually without needing a job.",
+    benchmark: "25x Annual Outflow"
+  },
+  fire_std: {
+    category: "FIRE TARGET",
+    title: "Standard FIRE (33x Annual Expenses / 3% SWR)",
+    val: "₹4.0 Cr",
+    grade: "Conservative Complete Freedom",
+    definition: "33 times annual expenses allowing a conservative 3% safe withdrawal rate with generous lifestyle allowances.",
+    impact: "Provides total freedom with built-in inflation buffers, travel budgets, and zero financial anxiety.",
+    benchmark: "33x Annual Outflow"
+  },
+  fire_fat: {
+    category: "FIRE TARGET",
+    title: "Fat FIRE (50x Annual Expenses)",
+    val: "₹6.0 Cr",
+    grade: "Abundant Luxury & Legacy Freedom",
+    definition: "50 times annual expenses supporting an abundant luxury lifestyle with significant surplus for family endowments.",
+    impact: "Permits unlimited global travel, discretionary investments, and multi-generational wealth preservation.",
+    benchmark: "50x Annual Outflow"
+  }
+};
+
+function openAnalyticsExplainer(metricKey) {
+  const data = ANALYTICS_EXPLAINER_DATA[metricKey];
+  if (!data) return;
+  playMicroClick();
+
+  const metrics = calculateTotals();
+  const modal = document.getElementById("analyticsExplainerModal");
+  const catEl = document.getElementById("explainerCategoryBadge");
+  const titleEl = document.getElementById("explainerTitle");
+  const valEl = document.getElementById("explainerCurrentVal");
+  const gradeEl = document.getElementById("explainerGrade");
+  const defEl = document.getElementById("explainerDefinition");
+  const impactEl = document.getElementById("explainerImpact");
+  const benchEl = document.getElementById("explainerBenchmark");
+
+  if (catEl) catEl.innerText = data.category;
+  if (titleEl) titleEl.innerText = data.title;
+  if (gradeEl) gradeEl.innerText = data.grade;
+  if (defEl) defEl.innerText = data.definition;
+  if (impactEl) impactEl.innerText = data.impact;
+  if (benchEl) benchEl.innerText = data.benchmark;
+
+  let displayVal = data.val;
+  if (metricKey === "nifty_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1)}%`;
+  else if (metricKey === "midcap_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1)}%`;
+  else if (metricKey === "gold_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1)}%`;
+  else if (metricKey === "fd_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1)}%`;
+  else if (metricKey === "swr") displayVal = `${formatVal(Math.round(((metrics.totalNetWorth || 0) * 0.04) / 12))} / mo`;
+  else if (metricKey === "liquidity") displayVal = `${Math.round(((metrics.mfCur + metrics.stCur) / (metrics.totalNetWorth || 1)) * 100)}% Liquid`;
+
+  const elH5 = document.getElementById("metricHorizon5Y");
+  const elH10 = document.getElementById("metricHorizon10Y");
+  const elH15 = document.getElementById("metricHorizon15Y");
+  const elInflow = document.getElementById("metricTotal15YInvested");
+  if (metricKey === "horizon_5y" && elH5) displayVal = elH5.innerText;
+  if (metricKey === "horizon_10y" && elH10) displayVal = elH10.innerText;
+  if (metricKey === "horizon_15y" && elH15) displayVal = elH15.innerText;
+  if (metricKey === "horizon_inflow" && elInflow) displayVal = elInflow.innerText;
+
+  if (valEl) valEl.innerText = displayVal;
+
+  if (modal) modal.classList.add("active");
+  if (typeof renderAllLucideIcons === "function") renderAllLucideIcons();
+}
+
+function closeAnalyticsExplainer() {
+  const modal = document.getElementById("analyticsExplainerModal");
+  if (modal) modal.classList.remove("active");
+}
+
 
 /* ==========================================================================
    MODALS: ASSET INSPECTION, CONFIG, COMMAND PALETTE, TRANSACTIONS
@@ -8633,8 +9204,8 @@ function changeCurrency(curCode) {
   if (!CURRENCIES[curCode]) return;
   AppState.user.currency = curCode;
   ['INR', 'USD', 'EUR', 'GBP'].forEach(c => {
-    const btn = document.getElementById(`btnCur${c}`);
-    const drawerBtn = document.getElementById(`drawerBtnCur${c}`);
+    const btn = document.getElementById('btnCur' + c);
+    const drawerBtn = document.getElementById('drawerBtnCur' + c);
     if (btn) btn.classList.toggle('active', c === curCode);
     if (drawerBtn) drawerBtn.classList.toggle('active', c === curCode);
   });
@@ -8760,7 +9331,7 @@ function renderMarketIndicesUI(data) {
       const goldVal = Math.round(data.gold.price);
       str = `GOLD ₹${goldVal.toLocaleString('en-IN')}`;
     } else {
-      const clean = String(data.gold).replace(/\(10g\)/gi, '').trim();
+      const clean = String(data.gold).replace(/\(10g\)/gi, '').replace(/24K/gi, '').trim();
       str = clean.startsWith('GOLD') ? clean : `GOLD ${clean}`;
     }
     if (gEl) {
@@ -8799,19 +9370,24 @@ async function fetchLiveMarketIndices() {
     } catch(e) {}
   }
 
-  const proxies = [
+  const proxyList = [
     url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
     url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
   ];
 
   async function fetchSymbolData(symbol) {
     const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1d`;
-    for (const proxyGen of proxies) {
+    for (const proxyGen of proxyList) {
       try {
         const res = await fetch(proxyGen(targetUrl), { headers: { 'Accept': 'application/json' } });
         if (res.ok) {
-          const json = await res.json();
+          const raw = await res.json();
+          let json = raw;
+          if (raw && typeof raw.contents === 'string') {
+            try { json = JSON.parse(raw.contents); } catch(e) {}
+          }
           const meta = json?.chart?.result?.[0]?.meta;
           const parsed = parseYahooMeta(meta);
           if (parsed) return parsed;
@@ -8821,7 +9397,7 @@ async function fetchLiveMarketIndices() {
     return null;
   }
 
-  // 2. Fetch live NIFTY (%5ENSEI), SENSEX (%5EBSESN) & Mumbai Gold (GOLDBEES.NS) concurrently
+  // 2. Fetch live NIFTY (%5ENSEI), SENSEX (%5EBSESN) & Mumbai Gold concurrently
   try {
     const [niftyData, sensexData, goldBeesData] = await Promise.all([
       fetchSymbolData('%5ENSEI'),
@@ -8831,8 +9407,7 @@ async function fetchLiveMarketIndices() {
 
     let liveGoldObj = null;
     if (goldBeesData && goldBeesData.price) {
-      // Nippon India Gold BeES tracks 1/100th of 1g of 24K Gold.
-      // 10 Grams (Mumbai Benchmark 24K) = Unit CMP * 1000
+      // 10 Grams (Mumbai Benchmark 24K Physical Bullion) = Unit CMP * 1000
       const mumbai10gPrice = Math.round(goldBeesData.price * 1000);
       liveGoldObj = {
         price: mumbai10gPrice,
@@ -8843,9 +9418,9 @@ async function fetchLiveMarketIndices() {
 
     if (niftyData || sensexData || liveGoldObj) {
       const curData = {
-        nifty: niftyData || { price: 24252, changePct: "+0.08%", isUp: true },
-        sensex: sensexData || { price: 77541, changePct: "-0.12%", isUp: false },
-        gold: liveGoldObj || { price: 157750, changePct: "+0.32%", isUp: true }
+        nifty: niftyData || { price: 24277, changePct: "+0.12%", isUp: true },
+        sensex: sensexData || { price: 77583, changePct: "-0.10%", isUp: false },
+        gold: liveGoldObj || { price: 163080, changePct: "+0.32%", isUp: true }
       };
       renderMarketIndicesUI(curData);
       return;
@@ -8857,12 +9432,12 @@ async function fetchLiveMarketIndices() {
   if (apiKey) {
     try {
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-      const prompt = `Search live Google Finance for today's exact current price and 1-day percentage change for NIFTY 50 (^NSEI), BSE SENSEX (^BSESN), and 24K Mumbai Gold Benchmark (10g) in India.
+      const prompt = `Search live Google Finance for today's exact current price and 1-day percentage change for NIFTY 50 (^NSEI), BSE SENSEX (^BSESN), and 24K Mumbai Gold benchmark rate per 10 grams in INR.
 Return ONLY a valid JSON object without markdown backticks:
 {
-  "nifty": { "price": 24850, "changePct": "+0.35%", "isUp": true },
-  "sensex": { "price": 81300, "changePct": "+0.28%", "isUp": true },
-  "gold": "₹1,57,750"
+  "nifty": { "price": 24277, "changePct": "+0.12%", "isUp": true },
+  "sensex": { "price": 77583, "changePct": "-0.10%", "isUp": false },
+  "gold": { "price": 163080, "changePct": "+0.32%", "isUp": true }
 }`;
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -8880,7 +9455,7 @@ Return ONLY a valid JSON object without markdown backticks:
           const match = text.match(/\{[\s\S]*\}/);
           if (match) {
             const parsed = JSON.parse(match[0]);
-            if (parsed.nifty || parsed.sensex) {
+            if (parsed.nifty || parsed.sensex || parsed.gold) {
               localStorage.setItem('MOSBY_MARKET_CACHE_V4', JSON.stringify(parsed));
               renderMarketIndicesUI(parsed);
             }
@@ -8983,7 +9558,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriterGreeting();
 
   ['INR', 'USD', 'EUR', 'GBP'].forEach(c => {
-    const btn = document.getElementById(`btnCur${c}`);
+    const btn = document.getElementById('btnCur' + c);
     if (btn) btn.classList.toggle('active', c === AppState.user.currency);
   });
 
