@@ -6095,7 +6095,7 @@ function isGoldEtf(item) {
   const name = String(item.name || item.companyName || '').toUpperCase().trim();
   const sector = String(item.sector || '').toUpperCase().trim();
   return ticker === 'GOLDBEES' || ticker.includes('GOLD') || ticker.includes('SILVER') || 
-         name.includes('GOLDBEES') || name.includes('GOLD ETF') || name.includes('GOLD BEES') || 
+         name.includes('GOLDBEES') || name.includes('GOLD ETF') || name.includes('GOLD CASE') || 
          sector.includes('GOLD') || sector.includes('COMMODIT');
 }
 
