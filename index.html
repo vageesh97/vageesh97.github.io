@@ -5909,6 +5909,28 @@ function activateFolder(idx) {
   if (container && FOLDER_COLORS[idx]) {
     container.style.backgroundColor = FOLDER_COLORS[idx];
   }
+
+  // Ensure Analytics canvas chart is immediately painted with correct container dimensions
+  if (idx === 4) {
+    const triggerPaint = () => {
+      const metrics = calculateTotals();
+      renderSimulatorSection(metrics);
+    };
+    triggerPaint();
+    requestAnimationFrame(triggerPaint);
+    setTimeout(triggerPaint, 40);
+    setTimeout(triggerPaint, 150);
+  }
+}
+
+// Window resize listener to keep Analytics Canvas crisp & fully responsive
+if (typeof window !== 'undefined' && window.addEventListener) {
+  window.addEventListener('resize', () => {
+    if (activeFolderIdx === 4) {
+      const metrics = calculateTotals();
+      renderSimulatorSection(metrics);
+    }
+  });
 }
 
 function triggerHapticFeedback(pattern = 10) {
@@ -7698,6 +7720,42 @@ function scrollToTopFolders() {
   }
 }
 
+function initTrajectoryCanvasObserver() {
+  const canvas = document.getElementById("analyticsTrajectoryCanvas");
+  if (!canvas) return;
+
+  const redraw = () => {
+    const metrics = calculateTotals();
+    const monthlySip = getMonthlySIPTotal();
+    const curNW = metrics.totalNetWorth;
+    const growthRate = projectionMode === "conservative" ? 0.08 : (projectionMode === "optimistic" ? 0.15 : 0.125);
+    drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
+  };
+
+  if (typeof ResizeObserver !== "undefined") {
+    const target = canvas.parentElement || canvas;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentRect && entry.contentRect.width > 0) {
+          redraw();
+        }
+      }
+    });
+    ro.observe(target);
+  }
+
+  if (typeof IntersectionObserver !== "undefined") {
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          redraw();
+        }
+      }
+    }, { threshold: 0.01 });
+    io.observe(canvas);
+  }
+}
+
 function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate) {
   const canvas = document.getElementById("analyticsTrajectoryCanvas");
   if (!canvas) return;
@@ -7705,8 +7763,10 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   if (!ctx) return;
 
   const rect = canvas.getBoundingClientRect();
+  const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : 0;
   const dpr = (typeof window !== "undefined" && window.devicePixelRatio) ? window.devicePixelRatio : 1;
-  const width = rect.width > 0 ? rect.width : (canvas.parentElement ? canvas.parentElement.clientWidth : 800);
+  let width = rect.width > 0 ? rect.width : (parentW > 0 ? parentW : (canvas.clientWidth > 0 ? canvas.clientWidth : 800));
+  if (width < 320 && parentW >= 320) width = parentW;
   const height = 260;
 
   canvas.width = Math.floor(width * dpr);
@@ -9378,7 +9438,7 @@ async function fetchLiveMarketIndices() {
   ];
 
   async function fetchSymbolData(symbol) {
-    const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1d`;
+    const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d`;
     for (const proxyGen of proxyList) {
       try {
         const res = await fetch(proxyGen(targetUrl), { headers: { 'Accept': 'application/json' } });
@@ -9407,8 +9467,8 @@ async function fetchLiveMarketIndices() {
 
     let liveGoldObj = null;
     if (goldBeesData && goldBeesData.price) {
-      // 10 Grams (Mumbai Benchmark 24K Physical Bullion) = Unit CMP * 1000
-      const mumbai10gPrice = Math.round(goldBeesData.price * 1000);
+      // 10 Grams (Mumbai Benchmark 24K Physical Bullion) = Unit CMP * 1215 (reflecting 10g bullion parity with duty/GST)
+      const mumbai10gPrice = Math.round(goldBeesData.price * 1215);
       liveGoldObj = {
         price: mumbai10gPrice,
         changePct: goldBeesData.changePct,
@@ -9418,9 +9478,9 @@ async function fetchLiveMarketIndices() {
 
     if (niftyData || sensexData || liveGoldObj) {
       const curData = {
-        nifty: niftyData || { price: 24277, changePct: "+0.12%", isUp: true },
-        sensex: sensexData || { price: 77583, changePct: "-0.10%", isUp: false },
-        gold: liveGoldObj || { price: 163080, changePct: "+0.32%", isUp: true }
+        nifty: niftyData || { price: 24277, changePct: "+0.29%", isUp: true },
+        sensex: sensexData || { price: 77583, changePct: "+0.14%", isUp: true },
+        gold: liveGoldObj || { price: 160840, changePct: "+0.32%", isUp: true }
       };
       renderMarketIndicesUI(curData);
       return;
@@ -9629,6 +9689,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   attachPasscodeListeners();
   renderCompleteDossiers();
+  initTrajectoryCanvasObserver();
   updateAuthVisuals();
   fetchLiveMarketIndices();
   initGlobalMarketClocks();
