@@ -3768,48 +3768,58 @@ svg.lucide, i[data-lucide], svg {
 
   <!-- Analytics Ratio & Data Explainer Modal -->
   <div class="mosby-modal-overlay" id="analyticsExplainerModal" onclick="if(event.target===this)closeAnalyticsExplainer()">
-    <div class="mosby-modal-card" style="max-width: 560px; padding: 1.75rem 2rem;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+    <div class="mosby-modal-card" style="max-width: 600px; max-height: 88vh; overflow-y: auto; padding: 1.6rem 1.85rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
         <div>
           <span class="badge-capsule" id="explainerCategoryBadge" style="color: #60a5fa; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); font-weight: 600; font-size: 10px;">
             PORTFOLIO INTELLIGENCE
           </span>
-          <h2 style="font-family: var(--font-serif); font-size: 1.65rem; margin-top: 0.35rem; color: #FDFAF7;" id="explainerTitle">Ratio Name</h2>
+          <h2 style="font-family: var(--font-serif); font-size: 1.6rem; margin-top: 0.35rem; color: #FDFAF7;" id="explainerTitle">Ratio Name</h2>
         </div>
         <button class="btn-icon-nav" onclick="closeAnalyticsExplainer()"><svg  class="lucide lucide-x" style="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
       </div>
 
       <!-- Current Value Highlight Card -->
-      <div class="dossier-kpi-card" style="padding: 1rem 1.25rem; margin-bottom: 1.25rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15);">
+      <div class="dossier-kpi-card" style="padding: 0.9rem 1.15rem; margin-bottom: 1rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15);">
         <div style="font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em;">Current Portfolio Reading</div>
         <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.85rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="explainerCurrentVal">--</div>
-        <div style="font-size: 11px; color: #fde047; margin-top: 2px;" id="explainerGrade">Optimal Benchmark Status</div>
+        <div style="font-size: 11px; color: #fde047; font-weight: 600; margin-top: 3px;" id="explainerGrade">Optimal Benchmark Status</div>
       </div>
 
       <!-- What it does / Definition -->
-      <div style="margin-bottom: 1.15rem;">
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; text-transform: uppercase; color: #60a5fa; letter-spacing: 0.05em; margin-bottom: 4px;">
-          <i style="width: 12px; height: 12px;" data-lucide="activity"></i> What this metric does
+      <div style="margin-bottom: 0.85rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 10px 12px;">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #60a5fa; letter-spacing: 0.05em; margin-bottom: 3px;">
+          <i style="width: 12px; height: 12px;" data-lucide="activity"></i> What this metric measures
         </div>
-        <p style="font-size: 12.5px; line-height: 1.6; color: rgba(253, 250, 247, 0.88); margin: 0;" id="explainerDefinition">
+        <p style="font-size: 11.5px; line-height: 1.5; color: rgba(253, 250, 247, 0.85); margin: 0;" id="explainerDefinition">
           Definition text here...
         </p>
       </div>
 
-      <!-- What it means for you / Actionable Impact -->
-      <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 12px 14px; margin-bottom: 1.25rem;">
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; text-transform: uppercase; color: #6ee7b7; letter-spacing: 0.05em; margin-bottom: 4px;">
-          <svg  class="lucide lucide-sparkles" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg> What this means for you
+      <!-- Why this is happening in your portfolio -->
+      <div style="background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.22); border-radius: 6px; padding: 11px 13px; margin-bottom: 0.85rem;">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #60a5fa; letter-spacing: 0.05em; margin-bottom: 5px;">
+          <svg  class="lucide lucide-layers" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Why this is happening in your portfolio
         </div>
-        <p style="font-size: 12.5px; line-height: 1.6; color: #FDFAF7; margin: 0;" id="explainerImpact">
-          Personal takeaway here...
-        </p>
+        <div style="font-size: 11.5px; line-height: 1.55; color: #FDFAF7;" id="explainerWhy">
+          Portfolio driver analysis...
+        </div>
+      </div>
+
+      <!-- What you can do / Actionable Plan -->
+      <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.28); border-radius: 6px; padding: 11px 13px; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #6ee7b7; letter-spacing: 0.05em; margin-bottom: 5px;">
+          <svg  class="lucide lucide-compass" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Tactical Action Plan (What you can do)
+        </div>
+        <div style="font-size: 11.5px; line-height: 1.55; color: #FDFAF7;" id="explainerImpact">
+          Actionable strategic guidance...
+        </div>
       </div>
 
       <!-- Benchmark Range & Institutional Guideline -->
-      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-dim); border-top: 1px dashed rgba(255,255,255,0.12); padding-top: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: var(--text-dim); border-top: 1px dashed rgba(255,255,255,0.12); padding-top: 8px;">
         <span>Ideal Institutional Standard:</span>
-        <span class="num-mono" style="color: #FDFAF7; font-weight: 600;" id="explainerBenchmark">--</span>
+        <span class="num-mono" style="color: #6ee7b7; font-weight: 600;" id="explainerBenchmark">--</span>
       </div>
     </div>
   </div>
@@ -5143,6 +5153,12 @@ const FOLDER_COLORS = [
   'var(--color-noir)'
 ];
 
+function getRelativeDateStr(daysAgo = 0) {
+  const d = new Date(Date.now() - (daysAgo * 86400000));
+  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+window.getRelativeDateStr = getRelativeDateStr;
+
 const DEMO_STATE = {
   user: {
     currency: 'INR',
@@ -5184,43 +5200,43 @@ const DEMO_STATE = {
     { ticker: 'AEGS:TAX', sipAmount: 1000, sipDay: 25, fundName: 'Aegis Sovereign Tax Shield (ELSS)' }
   ],
   sipTransactions: [
-    { date: '18 Aug 2026', fundName: 'Helios Global Bluechip Index', amount: 3000, nav: 236.10, units: 12.706, currentValue: 3029.23, gain: 29.23, gainPct: 0.97 },
-    { date: '13 Aug 2026', fundName: 'Vanguard Titan Small Cap Growth', amount: 2000, nav: 145.20, units: 13.774, currentValue: 2046.84, gain: 46.84, gainPct: 2.34 },
-    { date: '11 Aug 2026', fundName: 'Chronos Quantum 150 Midcap Index', amount: 2500, nav: 14.50, units: 172.413, currentValue: 2560.34, gain: 60.34, gainPct: 2.41 },
-    { date: '05 Aug 2026', fundName: 'Apex Sovereign Flexi Cap Fund', amount: 3500, nav: 105.80, units: 33.081, currentValue: 3586.01, gain: 86.01, gainPct: 2.46 },
-    { date: '25 Jul 2026', fundName: 'Aegis Sovereign Tax Shield (ELSS)', amount: 1000, nav: 43.90, units: 22.779, currentValue: 1020.50, gain: 20.50, gainPct: 2.05 }
+    { date: getRelativeDateStr(2), fundName: 'Helios Global Bluechip Index', amount: 3000, nav: 236.10, units: 12.706, currentValue: 3029.23, gain: 29.23, gainPct: 0.97 },
+    { date: getRelativeDateStr(5), fundName: 'Vanguard Titan Small Cap Growth', amount: 2000, nav: 145.20, units: 13.774, currentValue: 2046.84, gain: 46.84, gainPct: 2.34 },
+    { date: getRelativeDateStr(8), fundName: 'Chronos Quantum 150 Midcap Index', amount: 2500, nav: 14.50, units: 172.413, currentValue: 2560.34, gain: 60.34, gainPct: 2.41 },
+    { date: getRelativeDateStr(12), fundName: 'Apex Sovereign Flexi Cap Fund', amount: 3500, nav: 105.80, units: 33.081, currentValue: 3586.01, gain: 86.01, gainPct: 2.46 },
+    { date: getRelativeDateStr(18), fundName: 'Aegis Sovereign Tax Shield (ELSS)', amount: 1000, nav: 43.90, units: 22.779, currentValue: 1020.50, gain: 20.50, gainPct: 2.05 }
   ],
   dividends: [
-    { date: '18 Aug 2026', ticker: 'MOSBY.DEF', companyName: 'Mosby Defense Systems', amount: 1850, fy: 'FY 2026-27', status: 'Credited' },
-    { date: '12 Aug 2026', ticker: 'QUANTUM.AI', companyName: 'Quantum Neural Labs', amount: 920, fy: 'FY 2026-27', status: 'Credited' },
-    { date: '28 Jul 2026', ticker: 'NEO.ENERGY', companyName: 'Neo Clean Energy Utility', amount: 2450, fy: 'FY 2026-27', status: 'Credited' },
-    { date: '15 Jul 2026', ticker: 'IND.SEMI', companyName: 'Indus Semiconductor Foundry', amount: 650, fy: 'FY 2026-27', status: 'Credited' }
+    { date: getRelativeDateStr(1), ticker: 'MOSBY.DEF', companyName: 'Mosby Defense Systems', amount: 1850, fy: 'FY 2026-27', status: 'Credited' },
+    { date: getRelativeDateStr(6), ticker: 'QUANTUM.AI', companyName: 'Quantum Neural Labs', amount: 920, fy: 'FY 2026-27', status: 'Credited' },
+    { date: getRelativeDateStr(15), ticker: 'NEO.ENERGY', companyName: 'Neo Clean Energy Utility', amount: 2450, fy: 'FY 2026-27', status: 'Credited' },
+    { date: getRelativeDateStr(24), ticker: 'IND.SEMI', companyName: 'Indus Semiconductor Foundry', amount: 650, fy: 'FY 2026-27', status: 'Credited' }
   ],
   stockCatalysts: [
-    { ticker: 'MOSBY.DEF', title: 'Secures ₹1,850 Cr Airborne Radar Deal with Sovereign Aerospace Command', summary: 'Next-gen electronic countermeasure suites contracted for frontline interceptor fleet.', sentiment: 'bullish', date: '18 Aug 2026', sources: ['Defense Procurement Desk', 'Aerospace Weekly'] },
-    { ticker: 'QUANTUM.AI', title: 'Quantum Neural Engine v4.0 Achieves 3x Faster Inference Throughput', summary: 'Breakthrough in tensor compilation unlocks enterprise multi-modal LLM reasoning with 40% reduced energy.', sentiment: 'bullish', date: '14 Aug 2026', sources: ['Neural Labs Whitepaper', 'AI Systems Dispatches'] },
-    { ticker: 'NEO.ENERGY', title: 'Grid Synchronization of 450 MW Hybrid Solar-Storage Utility Farm', summary: 'Fixed tariff power purchase agreement finalized with state transmission utility with round-the-clock power guarantees.', sentiment: 'bullish', date: '08 Aug 2026', sources: ['Renewable Energy Gazette', 'Clean Power Registry'] },
-    { ticker: 'IND.SEMI', title: 'Tape-Out Complete for 7nm Gallium Nitride High-Power Semiconductor', summary: 'Foundry validation yields exceed 88% with automotive EV inverter manufacturers securing advance capacity.', sentiment: 'earnings', date: '02 Aug 2026', sources: ['Semiconductor Industry News', 'Foundry Dispatches'] },
-    { ticker: 'CYBER.SEC', title: 'Wins Zero-Trust Enterprise Security Mandate with Global Banking Consortium', summary: 'Recurring ARR growth accelerates 42% YoY with AI-driven threat response telemetry adopted across 14 banks.', sentiment: 'bullish', date: '25 Jul 2026', sources: ['Cybersecurity Wire', 'Enterprise Tech Review'] }
+    { ticker: 'MOSBY.DEF', title: 'Secures ₹1,850 Cr Airborne Radar Deal with Sovereign Aerospace Command', summary: 'Next-gen electronic countermeasure suites contracted for frontline interceptor fleet.', sentiment: 'bullish', date: getRelativeDateStr(0), sources: ['Defense Procurement Desk', 'Aerospace Weekly'] },
+    { ticker: 'QUANTUM.AI', title: 'Quantum Neural Engine v4.0 Achieves 3x Faster Inference Throughput', summary: 'Breakthrough in tensor compilation unlocks enterprise multi-modal LLM reasoning with 40% reduced energy.', sentiment: 'bullish', date: getRelativeDateStr(1), sources: ['Neural Labs Whitepaper', 'AI Systems Dispatches'] },
+    { ticker: 'NEO.ENERGY', title: 'Grid Synchronization of 450 MW Hybrid Solar-Storage Utility Farm', summary: 'Fixed tariff power purchase agreement finalized with state transmission utility with round-the-clock power guarantees.', sentiment: 'bullish', date: getRelativeDateStr(3), sources: ['Renewable Energy Gazette', 'Clean Power Registry'] },
+    { ticker: 'IND.SEMI', title: 'Tape-Out Complete for 7nm Gallium Nitride High-Power Semiconductor', summary: 'Foundry validation yields exceed 88% with automotive EV inverter manufacturers securing advance capacity.', sentiment: 'earnings', date: getRelativeDateStr(5), sources: ['Semiconductor Industry News', 'Foundry Dispatches'] },
+    { ticker: 'CYBER.SEC', title: 'Wins Zero-Trust Enterprise Security Mandate with Global Banking Consortium', summary: 'Recurring ARR growth accelerates 42% YoY with AI-driven threat response telemetry adopted across 14 banks.', sentiment: 'bullish', date: getRelativeDateStr(7), sources: ['Cybersecurity Wire', 'Enterprise Tech Review'] }
   ]
 };
 
 const LIVE_REAL_STOCK_CATALYSTS = [
-  { ticker: 'GOLDCASE', title: 'Zerodha Gold ETF (Gold Case) Inflows Surge on 24K Physical Vault Accumulation', summary: 'Zerodha Fund House Gold ETF sees continuous systematic inflows as investors use low-cost bullion case as portfolio hedge.', sentiment: 'bullish', date: '18 Aug 2026', sources: ['Zerodha Fund House', 'World Gold Council'] },
-  { ticker: 'IRCTC', title: 'Q1 Net Profit Grows 17.5% Driven by Internet Ticketing & Vande Bharat Catering', summary: 'Non-fare revenue and internet ticketing transaction volume sustain high operating EBITDA margins above 34%.', sentiment: 'earnings', date: '13 Aug 2026', sources: ['Railway Board Financial Disclosures', 'Livemint'] },
-  { ticker: 'LGEINDIA', title: 'LG Electronics Selects Investment Banks for $1.5 Billion Indian Arm IPO', summary: 'Consumer electronics and HVAC market leadership strengthens ahead of benchmark domestic equity market IPO.', sentiment: 'earnings', date: '12 Aug 2026', sources: ['SEBI Draft Prospectus Desk', 'Reuters India'] },
-  { ticker: 'GOLDBEES', title: 'RBI Adds 24 Tonnes of Sovereign Gold to Vaults as Domestic ETF Inflows Hit High', summary: 'Domestic ETF inflows see persistent retail accumulation as hedge against global currency and tariff volatility.', sentiment: 'neutral', date: '05 Aug 2026', sources: ['World Gold Council', 'Reserve Bank of India'] },
-  { ticker: 'PREMIERENE', title: 'Commissioning of 1.4 GW TopCon Solar Cell & Module Facility in Hyderabad', summary: 'Expanded capacity operational in Hyderabad with strong export order pipeline to US and European utility developers.', sentiment: 'bullish', date: '26 Jul 2026', sources: ['PV Tech Industry Dispatches', 'Economic Times'] },
-  { ticker: 'SUZLON', title: 'Wins 400 MW Wind Energy Mandate for S144 3.14 MW Turbines from JSP Green', summary: 'Order book reaches historical peak of 3.8 GW with captive industrial and utility-scale renewable power developers.', sentiment: 'bullish', date: '24 Jul 2026', sources: ['NSE Corporate Disclosure', 'CNBC-TV18'] },
-  { ticker: 'ACMESOLAR', title: 'Signs 25-Year Power Purchase Agreement with SECI for 1,500 MW Hybrid Project', summary: 'Secures 25-year fixed tariff power purchase agreement with evacuation infrastructure clearance from SECI.', sentiment: 'bullish', date: '18 Jul 2026', sources: ['SECI Regulatory Registry', 'PV Magazine'] },
-  { ticker: 'TMCV', title: 'Tata Motors Commercial Fleet Transition Sees Fleet Edge Telematics Boom', summary: 'Heavy commercial vehicle replacement cycle accelerates with increased penetration of zero-emission electric buses.', sentiment: 'bullish', date: '15 Jul 2026', sources: ['FADA Commercial Registry', 'Automotive News India'] },
-  { ticker: 'IREDA', title: 'Q1 Net Profit Jumps 30.2% YoY to ₹384 Cr on Record Loan Disbursements', summary: 'Robust demand for renewable power financing lifts loan book past ₹63,200 Cr with gross NPA declining to 2.19%.', sentiment: 'earnings', date: '12 Jul 2026', sources: ['BSE Financial Filing', 'Moneycontrol'] },
-  { ticker: 'HDFCBANK', title: 'HDFC Bank Logs Double-Digit Growth with Deposits Up 14.7% and Advances Up 15.4%', summary: 'Branch deposit mobilization outpaces loan growth, restoring liquidity coverage ratio and stabilizing net interest margins.', sentiment: 'bullish', date: '06 Jul 2026', sources: ['Economic Times (BFSI)', 'NDTV Profit'] },
-  { ticker: 'CDSL', title: 'Active Retail Demat Registry Crosses 12.5 Crore Accounts Milestone', summary: 'Continues dominant 68% market share in demat account additions driven by systemic retail investment surge.', sentiment: 'bullish', date: '02 Jul 2026', sources: ['CDSL Official Telemetry', 'Livemint'] },
-  { ticker: 'BEL', title: 'Secures ₹1,150 Cr Multi-Band Electronic Warfare System Contract from MoD', summary: 'Ministry of Defence signs order for indigenous airborne jammers and electronic countermeasures for frontline fighters.', sentiment: 'bullish', date: '28 Jun 2026', sources: ['Press Information Bureau (PIB)', 'Economic Times'] },
-  { ticker: 'NHPC', title: '500 MW Subansiri Hydroelectric Unit-1 Achieves Successful Spin Test', summary: 'First unit synchronization on track for Q3 commercial operations, adding high-margin base-load green energy.', sentiment: 'bullish', date: '19 Jun 2026', sources: ['Central Electricity Authority', 'Business Standard'] },
-  { ticker: 'TMPV', title: 'Tata Passenger Electric Vehicles Surpass 1.5 Lakh Cumulative Sales Milestone', summary: 'Nexon.ev and Punch.ev maintain 70%+ Indian electric four-wheeler market share with nationwide charging expansion.', sentiment: 'bullish', date: '10 Jun 2026', sources: ['SIAM Official Registry', 'Economic Times'] },
-  { ticker: 'JIOFIN', title: 'RBI Approves Key Managerial Personnel for Jio BlackRock Mutual Fund Venture', summary: 'Joint venture roll-out with BlackRock progresses towards retail wealth index fund and digital credit platform launch.', sentiment: 'bullish', date: '21 May 2026', sources: ['Reserve Bank of India (RBI)', 'Moneycontrol'] }
+  { ticker: 'GOLDCASE', title: 'Zerodha Gold ETF (Gold Case) Inflows Surge on 24K Physical Vault Accumulation', summary: 'Zerodha Fund House Gold ETF sees continuous systematic inflows as investors use low-cost bullion case as portfolio hedge.', sentiment: 'bullish', date: getRelativeDateStr(0), sources: ['Zerodha Fund House', 'World Gold Council'] },
+  { ticker: 'IRCTC', title: 'Q1 Net Profit Grows 17.5% Driven by Internet Ticketing & Vande Bharat Catering', summary: 'Non-fare revenue and internet ticketing transaction volume sustain high operating EBITDA margins above 34%.', sentiment: 'earnings', date: getRelativeDateStr(1), sources: ['Railway Board Financial Disclosures', 'Livemint'] },
+  { ticker: 'LGEINDIA', title: 'LG Electronics Selects Investment Banks for $1.5 Billion Indian Arm IPO', summary: 'Consumer electronics and HVAC market leadership strengthens ahead of benchmark domestic equity market IPO.', sentiment: 'earnings', date: getRelativeDateStr(2), sources: ['SEBI Draft Prospectus Desk', 'Reuters India'] },
+  { ticker: 'GOLDBEES', title: 'RBI Adds 24 Tonnes of Sovereign Gold to Vaults as Domestic ETF Inflows Hit High', summary: 'Domestic ETF inflows see persistent retail accumulation as hedge against global currency and tariff volatility.', sentiment: 'neutral', date: getRelativeDateStr(3), sources: ['World Gold Council', 'Reserve Bank of India'] },
+  { ticker: 'PREMIERENE', title: 'Commissioning of 1.4 GW TopCon Solar Cell & Module Facility in Hyderabad', summary: 'Expanded capacity operational in Hyderabad with strong export order pipeline to US and European utility developers.', sentiment: 'bullish', date: getRelativeDateStr(4), sources: ['PV Tech Industry Dispatches', 'Economic Times'] },
+  { ticker: 'SUZLON', title: 'Wins 400 MW Wind Energy Mandate for S144 3.14 MW Turbines from JSP Green', summary: 'Order book reaches historical peak of 3.8 GW with captive industrial and utility-scale renewable power developers.', sentiment: 'bullish', date: getRelativeDateStr(5), sources: ['NSE Corporate Disclosure', 'CNBC-TV18'] },
+  { ticker: 'ACMESOLAR', title: 'Signs 25-Year Power Purchase Agreement with SECI for 1,500 MW Hybrid Project', summary: 'Secures 25-year fixed tariff power purchase agreement with evacuation infrastructure clearance from SECI.', sentiment: 'bullish', date: getRelativeDateStr(6), sources: ['SECI Regulatory Registry', 'PV Magazine'] },
+  { ticker: 'TMCV', title: 'Tata Motors Commercial Fleet Transition Sees Fleet Edge Telematics Boom', summary: 'Heavy commercial vehicle replacement cycle accelerates with increased penetration of zero-emission electric buses.', sentiment: 'bullish', date: getRelativeDateStr(7), sources: ['FADA Commercial Registry', 'Automotive News India'] },
+  { ticker: 'IREDA', title: 'Q1 Net Profit Jumps 30.2% YoY to ₹384 Cr on Record Loan Disbursements', summary: 'Robust demand for renewable power financing lifts loan book past ₹63,200 Cr with gross NPA declining to 2.19%.', sentiment: 'earnings', date: getRelativeDateStr(8), sources: ['BSE Financial Filing', 'Moneycontrol'] },
+  { ticker: 'HDFCBANK', title: 'HDFC Bank Logs Double-Digit Growth with Deposits Up 14.7% and Advances Up 15.4%', summary: 'Branch deposit mobilization outpaces loan growth, restoring liquidity coverage ratio and stabilizing net interest margins.', sentiment: 'bullish', date: getRelativeDateStr(9), sources: ['Economic Times (BFSI)', 'NDTV Profit'] },
+  { ticker: 'CDSL', title: 'Active Retail Demat Registry Crosses 12.5 Crore Accounts Milestone', summary: 'Continues dominant 68% market share in demat account additions driven by systemic retail investment surge.', sentiment: 'bullish', date: getRelativeDateStr(10), sources: ['CDSL Official Telemetry', 'Livemint'] },
+  { ticker: 'BEL', title: 'Secures ₹1,150 Cr Multi-Band Electronic Warfare System Contract from MoD', summary: 'Ministry of Defence signs order for indigenous airborne jammers and electronic countermeasures for frontline fighters.', sentiment: 'bullish', date: getRelativeDateStr(11), sources: ['Press Information Bureau (PIB)', 'Economic Times'] },
+  { ticker: 'NHPC', title: '500 MW Subansiri Hydroelectric Unit-1 Achieves Successful Spin Test', summary: 'First unit synchronization on track for Q3 commercial operations, adding high-margin base-load green energy.', sentiment: 'bullish', date: getRelativeDateStr(12), sources: ['Central Electricity Authority', 'Business Standard'] },
+  { ticker: 'TMPV', title: 'Tata Passenger Electric Vehicles Surpass 1.5 Lakh Cumulative Sales Milestone', summary: 'Nexon.ev and Punch.ev maintain 70%+ Indian electric four-wheeler market share with nationwide charging expansion.', sentiment: 'bullish', date: getRelativeDateStr(13), sources: ['SIAM Official Registry', 'Economic Times'] },
+  { ticker: 'JIOFIN', title: 'RBI Approves Key Managerial Personnel for Jio BlackRock Mutual Fund Venture', summary: 'Joint venture roll-out with BlackRock progresses towards retail wealth index fund and digital credit platform launch.', sentiment: 'bullish', date: getRelativeDateStr(14), sources: ['Reserve Bank of India (RBI)', 'Moneycontrol'] }
 ];
 
 let AppState = JSON.parse(JSON.stringify(DEMO_STATE));
@@ -8324,230 +8340,611 @@ const ANALYTICS_EXPLAINER_DATA = {
 cons_pe: {
   category: "DIRECT EQUITIES VALUATION",
   title: "Direct Stocks Portfolio P/E",
-  val: "24.2x",
+  val: "--",
   grade: "Live Weighted Harmonic Earnings Multiple",
   definition: "The weighted harmonic Price-to-Earnings (P/E) multiple calculated purely across your Direct Stock holdings (excluding MFs, PPF, and Gold). It measures the price paid for ₹1 of annual earnings generated by your direct equity portfolio.",
-  impact: "Direct stocks typically command a growth premium (24.2x) over broad NIFTY 50 (~22.5x) due to high-growth conviction bets in electronics, defense, renewable energy, and banking.",
+  impact: "Direct stocks command an earnings multiple calculated dynamically from live market prices (CMP) and corporate earnings per share (EPS).",
   benchmark: "18.0x - 28.0x (NIFTY 50 = ~22.5x)"
 },
 cons_div_yield: {
   category: "DIRECT EQUITIES CASHFLOW",
   title: "Direct Stocks Dividend Yield",
-  val: "1.12%",
+  val: "--",
   grade: "Cash Dividend Inflow Yield",
   definition: "The weighted cash dividend yield generated purely by your Direct Equities relative to their current market valuation.",
-  impact: "Calculates the organic dividend cashflow delivered directly to your bank account by high-dividend stocks like HDFC Bank, CDSL, and NHPC.",
+  impact: "Calculates the organic dividend cashflow delivered directly to your bank account based on live market prices.",
   benchmark: "0.80% - 1.80% for Growth Equities"
 },
 cons_pb: {
   category: "BALANCE SHEET MULTIPLE",
   title: "Direct Stocks Portfolio P/B",
-  val: "4.20x",
+  val: "--",
   grade: "Net Tangible Book Value Multiple",
   definition: "Price-to-Book (P/B) ratio comparing total direct stock market value against the net book assets of your direct companies.",
-  impact: "A healthy P/B multiple of ~4.2x reflects strong capital efficiency, high asset returns, and premium market positioning.",
+  impact: "Reflects capital efficiency, high asset returns, and premium market positioning across your direct holdings.",
   benchmark: "3.5x - 5.5x"
 },
 stock_roe: {
   category: "EQUITY QUALITY CALIPER",
   title: "Weighted Direct Stocks ROE",
-  val: "21.8%",
+  val: "--",
   grade: "Superior Return on Equity (> 15% is Institutional)",
   definition: "The weighted average Return on Equity (ROE) generated by your direct stock basket, measuring net profit generated as a percentage of shareholder equity.",
-  impact: "At 21.8% ROE, your companies generate exceptional compounding power on reinvested capital, consistently beating broad index efficiency.",
+  impact: "Measures compounding power on reinvested capital across your direct companies.",
   benchmark: "> 15.0% (Institutional Quality: 18% - 25%)"
 },
-
-  sharpe: {
-    category: "RISK-ADJUSTED RETURN",
-    title: "Sharpe Ratio",
-    val: "1.42",
-    grade: "Optimal Grade (> 1.0 is Institutional)",
-    definition: "The Sharpe Ratio measures excess portfolio return per unit of total market volatility compared to a risk-free government bond hurdle.",
-    impact: "A reading of 1.42 confirms your returns are driven by genuine asset growth and smart allocation rather than reckless market risk.",
-    benchmark: "> 1.0 (Optimal: 1.20 - 1.60)"
-  },
-  sortino: {
-    category: "DOWNSIDE VOLATILITY",
-    title: "Sortino Ratio",
-    val: "1.88",
-    grade: "Superior Grade (> 1.50)",
-    definition: "Unlike Sharpe, Sortino only penalizes negative volatility (losses) while ignoring positive upward jumps.",
-    impact: "At 1.88, your downside protection is outstanding because Sovereign PPF and Gold anchor your capital during market corrections.",
-    benchmark: "> 1.50 (Superior: 1.80+)"
-  },
-  beta: {
-    category: "MARKET SENSITIVITY",
-    title: "Portfolio Beta",
-    val: "0.76 Beta",
-    grade: "Defensive Barbell (~24% Cushion)",
-    definition: "Beta measures how sensitively your portfolio reacts to swings in the benchmark NIFTY 50 index (1.0 = Market Beta).",
-    impact: "With a beta of 0.76, if the broad market crashes -10%, your portfolio will only experience a cushioned decline of ~-7.6%.",
-    benchmark: "0.70 - 0.85 (Barbell Strategy)"
-  },
-  drawdown: {
-    category: "STRESS RESILIENCE",
-    title: "Max Historical Drawdown",
-    val: "-11.4%",
-    grade: "Resilient Peak-to-Trough Shock",
-    definition: "The maximum historical percentage drop from peak valuation to lowest trough before full recovery.",
-    impact: "Your maximum drawdown is contained below -12%, allowing continuous systematic SIPs without experiencing panic selling.",
-    benchmark: "< -15.0% for Conservative Growth"
-  },
-  liquidity: {
-    category: "CAPITAL ACCESSIBILITY",
-    title: "Asset Liquidity Ratio",
-    val: "74% Liquid",
-    grade: "High Liquidity Buffer (T+1/T+2 Accessible)",
-    definition: "The percentage of your total net worth that can be redeemed into cash inside 24 to 48 business hours.",
-    impact: "74% of your net worth is stored in liquid Mutual Funds & Listed Equities, giving you ample emergency runway without lock-in penalties.",
-    benchmark: "60% - 80% Total Capital"
-  },
-  swr: {
-    category: "FINANCIAL INDEPENDENCE",
-    title: "4% SWR Safe Withdrawal Runway",
-    val: "₹0 / mo",
-    grade: "Perpetual Income Capacity",
-    definition: "The classic Trinity Study 4% Safe Withdrawal Rate (SWR) models the perpetual annual income your net worth can generate forever without touching the principal corpus.",
-    impact: "Every ₹10 Lakhs added to your portfolio increases your lifelong passive monthly cashflow by ~₹3,333 / month perpetually.",
-    benchmark: "4.0% Annualized Corpus Drawdown"
-  },
-  nifty_alpha: {
-    category: "BENCHMARK SPREAD",
-    title: "Alpha vs NIFTY 50 TRI",
-    val: "+0.0%",
-    grade: "Large Cap Outperformance",
-    definition: "The net percentage return spread generated over the broad large-cap NIFTY 50 Total Return Index (~14.2% historical benchmark).",
-    impact: "Positive alpha confirms that active fund selection and direct stock choices are beating broad market index funds.",
-    benchmark: "Target: +2.0% to +5.0% Net Spread"
-  },
-  midcap_alpha: {
-    category: "BENCHMARK SPREAD",
-    title: "Alpha vs NIFTY Midcap 150",
-    val: "+0.0%",
-    grade: "Midcap Factor Comparison",
-    definition: "Outperformance relative to the NIFTY Midcap 150 Index (~18.5% historical compounding benchmark).",
-    impact: "Shows whether your high-growth mid/small cap selections are adequately compensating for added business volatility.",
-    benchmark: "Target: +1.0% to +4.0%"
-  },
-  gold_alpha: {
-    category: "BENCHMARK SPREAD",
-    title: "Spread vs Physical 24K Gold",
-    val: "+0.0%",
-    grade: "Commodity Hedge Alpha",
-    definition: "Relative return spread generated over domestic 24 Karat Gold Bullion (~11.8% long-term INR annualized return).",
-    impact: "Equities generate enterprise earnings growth which historically outpaces pure commodity precious metals.",
-    benchmark: "Target: +4.0% to +8.0% Over Bullion"
-  },
-  fd_alpha: {
-    category: "BENCHMARK SPREAD",
-    title: "Alpha vs Fixed Deposit Hurdle",
-    val: "+0.0%",
-    grade: "Risk-Free Hurdle Alpha",
-    definition: "Excess wealth creation over commercial bank 1-year Fixed Deposit rates (~7.0% pre-tax hurdle).",
-    impact: "Quantifies the true wealth multiplier achieved over traditional conservative banking products.",
-    benchmark: "Target: +6.0% to +12.0% Over FD"
-  },
-  corr_eq_gold: {
-    category: "CORRELATION MATRIX",
-    title: "Equities ↔ Gold Correlation (-0.12)",
-    val: "-0.12 (Hedge)",
-    grade: "Negative Correlation (Flight to Safety)",
-    definition: "Statistical correlation between equities and gold. Negative correlation means when stocks fall during panics, gold tends to rise.",
-    impact: "Holding Gold BeES provides an automated shock absorber during macro downturns without sacrificing total portfolio liquidity.",
-    benchmark: "-0.20 to +0.05"
-  },
-  corr_eq_ppf: {
-    category: "CORRELATION MATRIX",
-    title: "Equities ↔ PPF (EEE) (0.00)",
-    val: "0.00 (Zero Volatility)",
-    grade: "Zero Correlation Sovereign Anchor",
-    definition: "PPF has 0.00 beta and zero correlation to equity markets because its 7.1% interest is guaranteed by the Government of India.",
-    impact: "PPF guarantees steady uninterrupted compounding regardless of geopolitical shocks, recessions, or bear markets.",
-    benchmark: "0.00 (Pure Sovereign Risk-Free)"
-  },
-  corr_mf_stocks: {
-    category: "CORRELATION MATRIX",
-    title: "MF Direct ↔ Direct Stocks (+0.78)",
-    val: "+0.78 (Growth)",
-    grade: "High Positive Equity Co-movement",
-    definition: "Mutual Funds and direct equities share common macro and corporate earnings drivers across the Indian economy.",
-    impact: "Acts as your dual wealth multiplication engine, combining broad institutional diversification with targeted alpha bets.",
-    benchmark: "+0.70 to +0.85"
-  },
-  corr_gold_ppf: {
-    category: "CORRELATION MATRIX",
-    title: "Gold ↔ PPF (Sovereign) (+0.05)",
-    val: "+0.05 (Anchor)",
-    grade: "Non-correlated Defensive Reserve",
-    definition: "Both assets serve as wealth preservation instruments without compounding each other's volatility.",
-    impact: "Provides total immunity against domestic banking stress or inflation spikes.",
-    benchmark: "0.00 to +0.10"
-  },
-  horizon_5y: {
-    category: "COMPOUNDING TRAJECTORY",
-    title: "Year 5 Wealth Horizon",
-    val: "--",
-    grade: "First Milestone Inflection Point",
-    definition: "Projected consolidated net worth after 5 years of active monthly SIPs and compounded portfolio returns.",
-    impact: "By Year 5, compound returns start exceeding annual salary contributions, entering the power-law compounding phase.",
-    benchmark: "Annualized 12% - 15% ROI"
-  },
-  horizon_10y: {
-    category: "COMPOUNDING TRAJECTORY",
-    title: "Year 10 Wealth Horizon",
-    val: "--",
-    grade: "Multi-Crore Wealth Acceleration",
-    definition: "Projected portfolio valuation after 10 years of disciplined systematic capital accumulation.",
-    impact: "Your portfolio interest earnings will generate more money every single year than your total annual salary.",
-    benchmark: "Multi-Crore Corpus Target"
-  },
-  horizon_15y: {
-    category: "COMPOUNDING TRAJECTORY",
-    title: "Year 15 Wealth Horizon",
-    val: "--",
-    grade: "Terminal Financial Sovereignty",
-    definition: "Projected portfolio valuation after 15 years of continuous compounding and step-up SIP executions.",
-    impact: "Provides total financial independence and lifelong generational wealth security.",
-    benchmark: "Financial Freedom Goal"
-  },
-  horizon_inflow: {
-    category: "COMPOUNDING TRAJECTORY",
-    title: "Total Inflow Accrual",
-    val: "--",
-    grade: "Principal Capital Contributed",
-    definition: "Cumulative principal capital invested into the portfolio across 15 years including Step-Up growth.",
-    impact: "Visualizes the massive difference between your actual cost basis and the explosive terminal portfolio valuation.",
-    benchmark: "Systematic Monthly Mandates"
-  },
-  fire_lean: {
-    category: "FIRE TARGET",
-    title: "Lean FIRE (25x Annual Expenses)",
-    val: "₹3.0 Cr",
-    grade: "Core Baseline Independence",
-    definition: "25 times your annual living expenses based on the classic 4% safe withdrawal rate.",
-    impact: "Guarantees that your essential living expenses, food, healthcare, and housing are covered perpetually without needing a job.",
-    benchmark: "25x Annual Outflow"
-  },
-  fire_std: {
-    category: "FIRE TARGET",
-    title: "Standard FIRE (33x Annual Expenses / 3% SWR)",
-    val: "₹4.0 Cr",
-    grade: "Conservative Complete Freedom",
-    definition: "33 times annual expenses allowing a conservative 3% safe withdrawal rate with generous lifestyle allowances.",
-    impact: "Provides total freedom with built-in inflation buffers, travel budgets, and zero financial anxiety.",
-    benchmark: "33x Annual Outflow"
-  },
-  fire_fat: {
-    category: "FIRE TARGET",
-    title: "Fat FIRE (50x Annual Expenses)",
-    val: "₹6.0 Cr",
-    grade: "Abundant Luxury & Legacy Freedom",
-    definition: "50 times annual expenses supporting an abundant luxury lifestyle with significant surplus for family endowments.",
-    impact: "Permits unlimited global travel, discretionary investments, and multi-generational wealth preservation.",
-    benchmark: "50x Annual Outflow"
-  }
+sharpe: {
+  category: "RISK-ADJUSTED RETURN",
+  title: "Sharpe Ratio",
+  val: "--",
+  grade: "Optimal Grade (> 1.0 is Institutional)",
+  definition: "The Sharpe Ratio measures excess portfolio return per unit of total market volatility compared to a risk-free government bond hurdle.",
+  impact: "Confirms your returns are driven by genuine asset growth and smart allocation rather than reckless market risk.",
+  benchmark: "> 1.0 (Optimal: 1.20 - 1.60)"
+},
+sortino: {
+  category: "DOWNSIDE VOLATILITY",
+  title: "Sortino Ratio",
+  val: "--",
+  grade: "Superior Grade (> 1.50)",
+  definition: "Unlike Sharpe, Sortino only penalizes negative volatility (losses) while ignoring positive upward jumps.",
+  impact: "Downside protection reflects Sovereign PPF and Gold anchoring capital during market corrections.",
+  benchmark: "> 1.50 (Superior: 1.80+)"
+},
+beta: {
+  category: "MARKET SENSITIVITY",
+  title: "Portfolio Beta",
+  val: "--",
+  grade: "Defensive Barbell (~24% Cushion)",
+  definition: "Beta measures how sensitively your portfolio reacts to swings in the benchmark NIFTY 50 index (1.0 = Market Beta).",
+  impact: "Quantifies your portfolio cushion when the broad benchmark swings.",
+  benchmark: "0.70 - 0.85 (Barbell Strategy)"
+},
+drawdown: {
+  category: "STRESS RESILIENCE",
+  title: "Max Historical Drawdown",
+  val: "--",
+  grade: "Resilient Peak-to-Trough Shock",
+  definition: "The maximum historical percentage drop from peak valuation to lowest trough before full recovery.",
+  impact: "Asset-weighted stress resilience keeps drawdown contained, allowing continuous systematic compounding.",
+  benchmark: "< -15.0% for Conservative Growth"
+},
+liquidity: {
+  category: "CAPITAL ACCESSIBILITY",
+  title: "Asset Liquidity Ratio",
+  val: "--",
+  grade: "High Liquidity Buffer (T+1/T+2 Accessible)",
+  definition: "The percentage of your total net worth that can be redeemed into cash inside 24 to 48 business hours.",
+  impact: "Measures capital stored in liquid Mutual Funds & Listed Equities, redeemable without lock-in penalties.",
+  benchmark: "60% - 80% Total Capital"
+},
+swr: {
+  category: "FINANCIAL INDEPENDENCE",
+  title: "4% SWR Safe Withdrawal Runway",
+  val: "--",
+  grade: "Perpetual Income Capacity",
+  definition: "The classic Trinity Study 4% Safe Withdrawal Rate (SWR) models the perpetual annual income your net worth can generate forever without touching principal.",
+  impact: "Measures lifelong passive monthly cashflow generated by your current accumulated net worth.",
+  benchmark: "4.0% Annualized Corpus Drawdown"
+},
+nifty_alpha: {
+  category: "BENCHMARK SPREAD",
+  title: "Alpha vs NIFTY 50 TRI",
+  val: "--",
+  grade: "Large Cap Outperformance",
+  definition: "The net percentage return spread generated over the broad large-cap NIFTY 50 Total Return Index (~14.2% historical benchmark).",
+  impact: "Positive alpha confirms that active fund selection and direct stock choices are beating broad market index funds.",
+  benchmark: "Target: +2.0% to +5.0% Net Spread"
+},
+midcap_alpha: {
+  category: "BENCHMARK SPREAD",
+  title: "Alpha vs NIFTY Midcap 150",
+  val: "--",
+  grade: "Midcap Factor Comparison",
+  definition: "Outperformance relative to the NIFTY Midcap 150 Index (~18.5% historical compounding benchmark).",
+  impact: "Shows whether high-growth mid/small cap selections adequately compensate for added business volatility.",
+  benchmark: "Target: +1.0% to +4.0%"
+},
+gold_alpha: {
+  category: "BENCHMARK SPREAD",
+  title: "Spread vs Physical 24K Gold",
+  val: "--",
+  grade: "Commodity Hedge Alpha",
+  definition: "Relative return spread generated over domestic 24 Karat Gold Bullion (~11.8% long-term INR annualized return).",
+  impact: "Equities generate enterprise earnings growth which historically outpaces pure commodity precious metals.",
+  benchmark: "Target: +4.0% to +8.0% Over Bullion"
+},
+fd_alpha: {
+  category: "BENCHMARK SPREAD",
+  title: "Alpha vs Fixed Deposit Hurdle",
+  val: "--",
+  grade: "Risk-Free Hurdle Alpha",
+  definition: "Excess wealth creation over commercial bank 1-year Fixed Deposit rates (~7.0% pre-tax hurdle).",
+  impact: "Quantifies the true wealth multiplier achieved over traditional conservative banking products.",
+  benchmark: "Target: +6.0% to +12.0% Over FD"
+},
+corr_eq_gold: {
+  category: "CORRELATION MATRIX",
+  title: "Equities ↔ Gold Correlation",
+  val: "--",
+  grade: "Negative Correlation (Flight to Safety)",
+  definition: "Statistical correlation between equities and gold. Negative correlation means when stocks fall during panics, gold tends to rise.",
+  impact: "Holding Gold provides an automated shock absorber during macro downturns without sacrificing total portfolio liquidity.",
+  benchmark: "-0.20 to +0.05"
+},
+corr_eq_ppf: {
+  category: "CORRELATION MATRIX",
+  title: "Equities ↔ PPF (EEE)",
+  val: "--",
+  grade: "Zero Correlation Sovereign Anchor",
+  definition: "PPF has 0.00 beta and zero correlation to equity markets because its 7.1% interest is guaranteed by the Government of India.",
+  impact: "PPF guarantees steady uninterrupted compounding regardless of geopolitical shocks, recessions, or bear markets.",
+  benchmark: "0.00 (Pure Sovereign Risk-Free)"
+},
+corr_mf_stocks: {
+  category: "CORRELATION MATRIX",
+  title: "MF Direct ↔ Direct Stocks",
+  val: "--",
+  grade: "High Positive Equity Co-movement",
+  definition: "Mutual Funds and direct equities share common macro and corporate earnings drivers across the Indian economy.",
+  impact: "Acts as your dual wealth multiplication engine, combining broad institutional diversification with targeted alpha bets.",
+  benchmark: "+0.70 to +0.85"
+},
+corr_gold_ppf: {
+  category: "CORRELATION MATRIX",
+  title: "Gold ↔ PPF (Sovereign)",
+  val: "--",
+  grade: "Non-correlated Defensive Reserve",
+  definition: "Both assets serve as wealth preservation instruments without compounding each other's volatility.",
+  impact: "Provides total immunity against domestic banking stress or inflation spikes.",
+  benchmark: "0.00 to +0.10"
+},
+horizon_5y: {
+  category: "COMPOUNDING TRAJECTORY",
+  title: "Year 5 Wealth Horizon",
+  val: "--",
+  grade: "First Milestone Inflection Point",
+  definition: "Projected consolidated net worth after 5 years of active monthly SIPs and compounded portfolio returns.",
+  impact: "By Year 5, compound returns start exceeding annual salary contributions, entering the power-law compounding phase.",
+  benchmark: "Annualized 12% - 15% ROI"
+},
+horizon_10y: {
+  category: "COMPOUNDING TRAJECTORY",
+  title: "Year 10 Wealth Horizon",
+  val: "--",
+  grade: "Multi-Crore Wealth Acceleration",
+  definition: "Projected portfolio valuation after 10 years of disciplined systematic capital accumulation.",
+  impact: "Your portfolio interest earnings will generate more money every single year than your total annual salary.",
+  benchmark: "Multi-Crore Corpus Target"
+},
+horizon_15y: {
+  category: "COMPOUNDING TRAJECTORY",
+  title: "Year 15 Wealth Horizon",
+  val: "--",
+  grade: "Terminal Financial Sovereignty",
+  definition: "Projected portfolio valuation after 15 years of continuous compounding and step-up SIP executions.",
+  impact: "Provides total financial independence and lifelong generational wealth security.",
+  benchmark: "Financial Freedom Goal"
+},
+horizon_inflow: {
+  category: "COMPOUNDING TRAJECTORY",
+  title: "Total Inflow Accrual",
+  val: "--",
+  grade: "Principal Capital Contributed",
+  definition: "Cumulative principal capital invested into the portfolio across 15 years including Step-Up growth.",
+  impact: "Visualizes the massive difference between your actual cost basis and the explosive terminal portfolio valuation.",
+  benchmark: "Systematic Monthly Mandates"
+},
+fire_lean: {
+  category: "FIRE TARGET",
+  title: "Lean FIRE (25x Annual Expenses)",
+  val: "--",
+  grade: "Core Baseline Independence",
+  definition: "25 times your annual living expenses based on the classic 4% safe withdrawal rate.",
+  impact: "Guarantees that your essential living expenses, food, healthcare, and housing are covered perpetually without needing a job.",
+  benchmark: "25x Annual Outflow"
+},
+fire_std: {
+  category: "FIRE TARGET",
+  title: "Standard FIRE (33x Annual Expenses / 3% SWR)",
+  val: "--",
+  grade: "Conservative Complete Freedom",
+  definition: "33 times annual expenses allowing a conservative 3% safe withdrawal rate with generous lifestyle allowances.",
+  impact: "Provides total freedom with built-in inflation buffers, travel budgets, and zero financial anxiety.",
+  benchmark: "33x Annual Outflow"
+},
+fire_fat: {
+  category: "FIRE TARGET",
+  title: "Fat FIRE (50x Annual Expenses)",
+  val: "--",
+  grade: "Abundant Luxury & Legacy Freedom",
+  definition: "50 times annual expenses supporting an abundant luxury lifestyle with significant surplus for family endowments.",
+  impact: "Permits unlimited global travel, discretionary investments, and multi-generational wealth preservation.",
+  benchmark: "50x Annual Outflow"
+}
 };
+
+function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
+  const { metrics, eqWeight, goldWeight, ppfWeight, dynBeta, volCushion, dynSharpe, dynSortino, dynMaxDD, liquidVal, liquidityPct, annualSwr, monthlySwr, v, targetMonthlyFireExpense, totalNW } = ctx;
+
+  const eqVal = (metrics.mfCur || 0) + (metrics.pureStockCur || 0);
+  const goldVal = metrics.goldCur || 0;
+  const ppfVal = metrics.ppfCur || 0;
+
+  // 1. Dynamically analyze user's actual active direct stocks
+  const directStocks = (AppState.stocks || []).filter(s => {
+    const isGold = (typeof isGoldEtf === 'function') ? isGoldEtf(s) : false;
+    return !isGold;
+  }).map(s => {
+    const info = (typeof getStockKnowledge === 'function') ? getStockKnowledge(s.ticker || s.name) : null;
+    const cmp = parseNum(s.cmp || s.livePrice || s.avgBuyPrice) || 0;
+    const qty = parseNum(s.quantity || s.qty || s.units) || 0;
+    const val = cmp > 0 && qty > 0 ? (cmp * qty) : (parseNum(s.currentValue || s.invested) || 0);
+    const livePE = (info && info.eps > 0 && cmp > 0) ? (cmp / info.eps) : (info && info.pe > 0 ? info.pe : 24.5);
+    let livePB = 4.2;
+    if (info && info.pb > 0 && info.eps > 0 && info.pe > 0 && cmp > 0) {
+      const basePrice = info.pe * info.eps;
+      const bookValPerShare = basePrice / info.pb;
+      livePB = bookValPerShare > 0 ? (cmp / bookValPerShare) : info.pb;
+    } else if (info && info.pb > 0) {
+      livePB = info.pb;
+    }
+    const liveDivYield = (info && info.divYield !== undefined) ? info.divYield : 1.15;
+    const roe = (info && info.roe > 0) ? info.roe : 21.5;
+    return {
+      name: s.name || s.ticker,
+      ticker: s.ticker || s.name,
+      val,
+      pe: livePE,
+      pb: livePB,
+      divYield: liveDivYield,
+      roe
+    };
+  }).filter(s => s.val > 0);
+
+  // Dynamic ranking of actual holdings
+  const sortedByPB = [...directStocks].sort((a, b) => a.pb - b.pb);
+  const lowPB = sortedByPB.slice(0, 3);
+  const highPB = sortedByPB.slice(-3).reverse();
+
+  const sortedByPE = [...directStocks].sort((a, b) => a.pe - b.pe);
+  const lowPE = sortedByPE.slice(0, 3);
+  const highPE = sortedByPE.slice(-3).reverse();
+
+  const sortedByDiv = [...directStocks].sort((a, b) => b.divYield - a.divYield);
+  const topDiv = sortedByDiv.filter(s => s.divYield > 0.5).slice(0, 3);
+  const lowDiv = [...directStocks].filter(s => s.divYield <= 0.2).slice(0, 3);
+
+  const sortedByROE = [...directStocks].sort((a, b) => b.roe - a.roe);
+  const topROE = sortedByROE.slice(0, 4);
+
+  // 2. Format dynamic holding name lists
+  const lowPBText = lowPB.length ? lowPB.map(s => `<em>${s.name} (~${s.pb.toFixed(1)}x)</em>`).join(', ') : 'Tangible value holdings';
+  const highPBText = highPB.filter(s => s.pb > 3.5).length ? highPB.filter(s => s.pb > 3.5).map(s => `<em>${s.name} (~${s.pb.toFixed(1)}x)</em>`).join(', ') : 'High-growth market leaders';
+
+  const lowPEText = lowPE.length ? lowPE.map(s => `<em>${s.name} (~${s.pe.toFixed(1)}x)</em>`).join(', ') : 'Value anchors';
+  const highPEText = highPE.filter(s => s.pe > 30).length ? highPE.filter(s => s.pe > 30).map(s => `<em>${s.name} (~${s.pe.toFixed(1)}x)</em>`).join(', ') : 'Growth leaders';
+
+  const topDivText = topDiv.length ? topDiv.map(s => `<em>${s.name} (~${s.divYield.toFixed(2)}%)</em>`).join(', ') : 'Cashflow assets';
+  const lowDivText = lowDiv.length ? lowDiv.map(s => `<em>${s.name}</em>`).join(', ') : 'Growth compounders';
+
+  const topROEText = topROE.length ? topROE.map(s => `<em>${s.name} (${s.roe.toFixed(1)}% ROE)</em>`).join(', ') : 'Quality leaders';
+
+  switch(metricKey) {
+    case 'cons_pb': {
+      const numVal = parseFloat(displayVal) || 2.89;
+      return {
+        grade: numVal < 3.5 ? "Deep Tangible Value Anchor (< 3.5x)" : (numVal > 5.5 ? "Premium Growth Multiple (> 5.5x)" : "Balanced Book Multiple"),
+        why: `<p style="margin-bottom:6px;">Your direct equity basket trades at an active weighted Price-to-Book multiple of <strong>${displayVal}</strong> (vs institutional benchmark 3.5x–5.5x). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Balance-Sheet Anchors:</strong> Capital-heavy, asset-backed holdings like ${lowPBText} provide deep tangible net worth backing and cushion your downside.</li>
+                <li><strong>High-Efficiency Multipliers:</strong> Capital-light compounders like ${highPBText} provide upside growth without over-inflating your consolidated balance-sheet risk.</li>
+              </ul>
+              <div style="font-size:11px; opacity:0.8; margin-top:4px;">Weighted harmonically across ₹${(metrics.pureStockCur || 0).toLocaleString('en-IN')} in direct stock market value.</div>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Downside Margin of Safety:</strong> A consolidated P/B under 3.5x provides strong downside protection against broad market valuation crashes; tangible corporate assets back your capital.</li>
+                      <li style="margin-bottom:4px;"><strong>Tactical Growth Calibration:</strong> If you want higher upside beta, use 5%–10% market dips to accumulate capital-light high-asset-turnover leaders.</li>
+                      <li><strong>Automated Inflows:</strong> Keep routine monthly SIPs running; your portfolio is fundamentally insulated from valuation bubbles.</li>
+                    </ul>`
+      };
+    }
+
+    case 'cons_pe': {
+      const numVal = parseFloat(displayVal) || 24.2;
+      const diff = (numVal - 22.5).toFixed(1);
+      return {
+        grade: numVal <= 22.5 ? `${Math.abs(diff)}% Value Discount vs NIFTY` : `${diff}% Growth Premium vs NIFTY`,
+        why: `<p style="margin-bottom:6px;">Your direct equities trade at a live weighted harmonic P/E of <strong>${displayVal}</strong> (compared to NIFTY 50's ~22.5x). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Cashflow Anchors:</strong> ${lowPEText} anchor your portfolio with solid recurring annual earnings.</li>
+                <li><strong>Conviction Growth Bets:</strong> High-order-book expansion leaders like ${highPEText} command premium multiples due to projected earnings acceleration.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Earnings Delivery Audit:</strong> For stocks with P/E &gt; 40x, verify each quarter that YoY profit growth exceeds 20% to justify the growth premium.</li>
+                      <li style="margin-bottom:4px;"><strong>Smart SIP Allocation:</strong> Direct fresh monthly inflows into direct stocks trading under 25x or Flexi Cap funds to maintain an optimal PEG ratio (&lt; 1.5).</li>
+                      <li><strong>Profit-Taking Threshold:</strong> If a cyclical stock surges past 60x without proportional earnings growth, trim 15% and rotate into undervalued compounders.</li>
+                    </ul>`
+      };
+    }
+
+    case 'cons_div_yield': {
+      return {
+        grade: "Cash Dividend Accretion Yield",
+        why: `<p style="margin-bottom:6px;">Your direct stocks generate an organic cash dividend yield of <strong>${displayVal}</strong>. Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Dividend Anchors:</strong> Mature, cashflow-generative companies like ${topDivText} regularly credit cash to your bank account.</li>
+                <li><strong>Capex Reinvestors:</strong> Clean energy, tech, and defense companies (${lowDivText}) reinvest ~100% of profits into capacity expansion rather than distributing cash.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Automatic Reinvestment (DRIP):</strong> Never leave credited cash dividends idle in savings accounts—manually reinvest payouts into active SIPs or Gold ETF.</li>
+                      <li><strong>Accumulation Phase Strategy:</strong> A 1.0%–1.5% yield is ideal during wealth creation because companies compound retained earnings internally at 20%+ ROE.</li>
+                    </ul>`
+      };
+    }
+
+    case 'stock_roe':
+    case 'growth_defensive': {
+      return {
+        grade: "Superior Return on Equity (> 15% Institutional)",
+        why: `<p style="margin-bottom:6px;">Your direct equity holdings generate an active weighted Return on Equity (ROE) of <strong>${displayVal}</strong> (institutional benchmark is &gt;15%). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Capital Efficiency Champions:</strong> ${topROEText} generate massive net profits per rupee of shareholder equity without excessive debt leverage.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Hold Moat Champions:</strong> High-ROE businesses possess enduring competitive moats. Avoid trading in and out of them for short-term gains.</li>
+                      <li><strong>Strict Selection Filter:</strong> When researching new direct equity ideas, require a 3-year rolling average ROE &gt; 15% as an uncompromising entry hurdle.</li>
+                    </ul>`
+      };
+    }
+
+    case 'sharpe': {
+      const numVal = parseFloat(displayVal) || 1.42;
+      return {
+        grade: numVal >= 1.2 ? "Optimal Alpha Efficiency (> 1.20)" : (numVal >= 1.0 ? "Institutional Grade (> 1.00)" : "Moderate Volatility Multiple"),
+        why: `<p style="margin-bottom:6px;">Your Sharpe Ratio of <strong>${displayVal}</strong> measures excess portfolio returns generated above the 6.8% RBI sovereign hurdle per unit of combined market volatility. Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Multi-Asset Shock Absorber:</strong> Holding ${Math.round(ppfWeight * 100)}% Sovereign PPF (${formatVal(ppfVal)}) and ${Math.round(goldWeight * 100)}% Gold (${formatVal(goldVal)}) suppresses portfolio variance, significantly elevating risk-adjusted compounding efficiency.</li>
+                <li><strong>Active Return Engine:</strong> Compounding in direct equities and mutual funds (${formatVal(eqVal)}) powers the numerator of the ratio.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Preserve Asset Balance:</strong> Do not liquidate defensive reserves (PPF/Gold) for speculative bets; that would spike volatility and degrade your Sharpe ratio.</li>
+                      <li><strong>Consolidate Laggards:</strong> If Sharpe dips below 1.0, prune bottom-quartile direct stocks and reallocate into low-cost Flexi Cap index funds.</li>
+                    </ul>`
+      };
+    }
+
+    case 'sortino': {
+      const numVal = parseFloat(displayVal) || 1.88;
+      return {
+        grade: numVal >= 1.5 ? "Superior Downside Armor (> 1.50)" : "Active Downside Ballast",
+        why: `<p style="margin-bottom:6px;">Your Sortino Ratio of <strong>${displayVal}</strong> is significantly higher than your Sharpe ratio. Why this occurs in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Penalizes Only Harmful Volatility:</strong> Sortino ignores upward surges and strictly measures downside volatility (loss days).</li>
+                <li><strong>Zero-Beta Sovereign Anchor:</strong> Sovereign PPF (${formatVal(ppfVal)} at 7.1% guaranteed) and non-correlated Gold (${formatVal(goldVal)}) protect your capital during equity sell-offs.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Aggressive Buying on Dips:</strong> High Sortino proves your structural downside is insulated. When NIFTY drops 5%–8%, deploy tactical top-ups with high confidence.</li>
+                      <li><strong>Resist Panic Selling:</strong> Market corrections are temporary; your downside ballast ensures your portfolio recovers faster than 100% equity portfolios.</li>
+                    </ul>`
+      };
+    }
+
+    case 'beta': {
+      return {
+        grade: `~${volCushion}% Volatility Cushion`,
+        why: `<p style="margin-bottom:6px;">Your portfolio Beta of <strong>${displayVal}</strong> gives you a ~<strong>${volCushion}%</strong> volatility cushion vs NIFTY 50 (Beta = 1.0). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Equity Growth Engine (~${Math.round(eqWeight * 100)}%):</strong> Stocks and mutual funds capture corporate economic expansion (Beta ~0.96).</li>
+                <li><strong>Defensive Cushion (~${Math.round((goldWeight + ppfWeight) * 100)}%):</strong> PPF (${formatVal(ppfVal)}) and Gold (${formatVal(goldVal)}) dilute market sensitivity, preventing severe portfolio swings.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Target Beta by Phase:</strong> In wealth accumulation (&gt;7 yrs to FIRE), maintain Beta in the 0.75–0.85 range for strong upside capture.</li>
+                      <li><strong>Retirement Glideslope:</strong> Within 3 years of FIRE, glide portfolio Beta down to 0.60–0.70 by increasing debt/arbitrage allocation to lock in lifetime gains.</li>
+                    </ul>`
+      };
+    }
+
+    case 'drawdown': {
+      return {
+        grade: "Asset-Weighted Stress Resistance",
+        why: `<p style="margin-bottom:6px;">Your simulated maximum drawdown is contained at <strong>${displayVal}</strong> (vs -30% to -40% for pure equity benchmarks). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Multi-Asset Shock Absorption:</strong> During severe crashes, Gold historically acts as a safe haven while Sovereign PPF earns uninterrupted 7.1% tax-free interest.</li>
+                <li><strong>Broad Sector Diversification:</strong> Direct equities span Banking, Defense, Solar, Railways, and Market Infrastructure rather than a single vulnerable theme.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Maintain Emergency Buffer:</strong> Keep 6 months of living expenses liquid in savings/FDs so you never have to sell investments during a market downturn.</li>
+                      <li><strong>Automate Through Drawdowns:</strong> Never stop SIPs during drawdowns; that is when systematic investing acquires the highest number of compounding units at deep discounts.</li>
+                    </ul>`
+      };
+    }
+
+    case 'liquidity': {
+      return {
+        grade: `${formatVal(liquidVal)} Accessible in 24-48 hrs`,
+        why: `<p style="margin-bottom:6px;"><strong>${displayVal}</strong> of your net worth (${formatVal(liquidVal)}) is immediately accessible in liquid listed securities. Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Liquid Tier (T+1 / T+2):</strong> Mutual Funds and Direct Equities (${formatVal(liquidVal)}) can be redeemed online with proceeds reaching your bank account in 24–48 hours.</li>
+                <li><strong>Illiquid Compounding Tier:</strong> Sovereign PPF (${formatVal(ppfVal)}) is locked for 15-year compounding under EEE tax-exempt status.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Goal-Based Separation:</strong> Use liquid mutual funds for medium-term goals (3–7 years) and keep PPF strictly as your untaxable retirement bedrock.</li>
+                      <li><strong>Tax-Efficient Harvesting:</strong> Harvest up to ₹1.25 Lakhs of LTCG equity gains annually tax-free before touching other assets.</li>
+                    </ul>`
+      };
+    }
+
+    case 'swr': {
+      const coveragePct = targetMonthlyFireExpense > 0 ? ((monthlySwr / targetMonthlyFireExpense) * 100).toFixed(0) : '0';
+      return {
+        grade: `${formatVal(Math.round(annualSwr))} / yr Perpetual Capacity`,
+        why: `<p style="margin-bottom:6px;">Under the Trinity Study 4% Safe Withdrawal Rate framework, your current net worth of ${formatVal(totalNW)} can perpetually generate <strong>${displayVal}</strong> (${formatVal(Math.round(annualSwr))}/yr). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>The 4% Rule Math:</strong> With long-term portfolio returns of 11%–13% and inflation at ~6%, withdrawing 4% annually ensures your principal corpus survives forever without depletion.</li>
+                <li><strong>Current Coverage:</strong> This passive cashflow currently covers <strong>${coveragePct}%</strong> of your target monthly living expenses (${formatVal(targetMonthlyFireExpense)}/mo).</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Freedom Coverage Check:</strong> Every ₹10 Lakhs added to your corpus permanently adds ~₹3,333/month in passive cashflow capacity forever.</li>
+                      <li><strong>Step-Up SIP Compounding:</strong> Increasing monthly SIPs by 10%–15% each year can reduce your timeline to full financial independence by 3 to 5 years.</li>
+                    </ul>`
+      };
+    }
+
+    case 'nifty_alpha': {
+      return {
+        grade: "Large Cap Benchmark Spread",
+        why: `<p style="margin-bottom:6px;">Your portfolio return generates a <strong>${displayVal}</strong> spread over the NIFTY 50 Total Return Index (~14.2% historical benchmark). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Active Stock Selection:</strong> High-growth conviction bets in Mid/Small caps and defense/energy sectors delivered superior capital appreciation compared to large-cap index heavyweights.</li>
+                <li><strong>Multi-Asset Balance:</strong> PPF and Gold stabilize the portfolio, slightly moderating pure bull-run peaks while boosting performance during market corrections.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Alpha Validation:</strong> If alpha is positive (&gt; +2%), your active fund and stock choices are creating genuine value above low-cost indexing.</li>
+                      <li><strong>Indexing Fallback:</strong> If alpha turns negative over a 3-year period, consider simplifying your strategy by shifting equity allocations into low-cost NIFTY 50 index funds.</li>
+                    </ul>`
+      };
+    }
+
+    case 'midcap_alpha': {
+      return {
+        grade: "Midcap Factor Comparison",
+        why: `<p style="margin-bottom:6px;">Your portfolio return spread relative to the high-growth NIFTY Midcap 150 Index (~18.5% historical benchmark) is <strong>${displayVal}</strong>. Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Risk-Return Tradeoff:</strong> The Midcap 150 index is 100% high-beta equity. Your balanced portfolio includes defensive debt and large-caps that trade peak upside for downside survival.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Midcap Sizing:</strong> If you want to bridge the midcap spread, ensure your Midcap 150 index fund SIP makes up 25%–30% of your total monthly SIP allocation.</li>
+                      <li><strong>Volatility Tolerance:</strong> Accept higher drawdowns during midcap corrections as the price for catching aggressive compounding.</li>
+                    </ul>`
+      };
+    }
+
+    case 'gold_alpha': {
+      return {
+        grade: "Precious Metal Hedge Spread",
+        why: `<p style="margin-bottom:6px;">Your portfolio return generates a <strong>${displayVal}</strong> spread over domestic Physical 24K Gold (~11.8% long-term INR benchmark). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Enterprise Earnings Compounding:</strong> Equities generate retained corporate profits and dividend cashflows, which historically outpace raw commodity bullion over multi-year cycles.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Gold Allocation Cap:</strong> Keep Gold allocation capped between 5% and 10% of net worth. Gold is an insurance policy, not your primary compounding vehicle.</li>
+                      <li><strong>Rebalance on Spikes:</strong> If gold surges 25%+ during a geopolitical crisis, rebalance profits into temporarily discounted equities.</li>
+                    </ul>`
+      };
+    }
+
+    case 'fd_alpha': {
+      return {
+        grade: "Risk-Free Hurdle Alpha",
+        why: `<p style="margin-bottom:6px;">Your portfolio return delivers a <strong>${displayVal}</strong> excess return spread over commercial bank 1-year Fixed Deposit rates (~7.0% pre-tax hurdle). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Real Wealth Multiplication:</strong> Fixed deposits barely beat real inflation after taxes. Equities and sovereign EEE instruments generate true inflation-adjusted net worth growth.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Limit Idle Bank Cash:</strong> Maintain only 3–6 months of living expenses in savings/FD accounts; channel all remaining surplus into your systematic investment engine.</li>
+                      <li><strong>Tax Advantage:</strong> Equity LTCG (12.5% above ₹1.25L) and PPF (0% EEE tax) are far more tax-efficient than FDs (taxed at your marginal income slab).</li>
+                    </ul>`
+      };
+    }
+
+    case 'corr_eq_gold': {
+      return {
+        grade: "Negative Correlation Flight to Safety",
+        why: `<p style="margin-bottom:6px;">Equities (${formatVal(eqVal)}) and Gold (${formatVal(goldVal)}) exhibit a negative/low statistical correlation (<strong>${displayVal}</strong>). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Crisis Dynamics:</strong> When equity markets panic due to geopolitical shocks or inflation spikes, global institutional capital flees into physical gold bullion.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Automated Stabilizer:</strong> Holding Gold BeES gives you an automated portfolio shock absorber without sacrificing liquidity.</li>
+                      <li><strong>Rebalancing Discipline:</strong> Maintain a 5%–8% target allocation and rebalance annually.</li>
+                    </ul>`
+      };
+    }
+
+    case 'corr_eq_ppf': {
+      return {
+        grade: "Zero Correlation Sovereign Anchor",
+        why: `<p style="margin-bottom:6px;">PPF (${formatVal(ppfVal)}) has a statistical correlation of <strong>0.00 (Zero Volatility)</strong> with equities. Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Sovereign Guarantee:</strong> PPF returns (7.1% tax-free) are fixed quarterly by the Government of India and do not fluctuate with equity markets.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Max Out Early:</strong> Deposit the annual ₹1.5 Lakhs limit before the 5th of April each financial year to maximize full-year compound interest.</li>
+                      <li><strong>Keep Locked:</strong> Treat PPF strictly as your untaxable retirement bedrock.</li>
+                    </ul>`
+      };
+    }
+
+    case 'corr_mf_stocks': {
+      return {
+        grade: "High Positive Equity Co-movement",
+        why: `<p style="margin-bottom:6px;">Mutual Funds (${formatVal(metrics.mfCur || 0)}) and Direct Stocks (${formatVal(metrics.pureStockCur || 0)}) have high positive correlation (<strong>+0.78</strong>). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Shared Macro Drivers:</strong> Both assets share Indian GDP growth, corporate earnings expansion, and domestic consumption tailwinds.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Prevent Overlap:</strong> Avoid buying direct stocks that are already massive top-10 holdings in your active mutual funds unless you have high individual conviction.</li>
+                    </ul>`
+      };
+    }
+
+    case 'corr_gold_ppf': {
+      return {
+        grade: "Non-Correlated Defensive Reserve",
+        why: `<p style="margin-bottom:6px;">Gold (${formatVal(goldVal)}) and PPF (${formatVal(ppfVal)}) share near-zero correlation (<strong>+0.05</strong>). Both assets serve as wealth preservation instruments without compounding each other's volatility.</p>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Preservation Foundation:</strong> This defensive pair provides total immunity against banking system stress or inflation spikes.</li>
+                    </ul>`
+      };
+    }
+
+    case 'fire_lean':
+    case 'fire_std':
+    case 'fire_fat': {
+      const mult = metricKey === 'fire_lean' ? 25 : (metricKey === 'fire_std' ? 33 : 50);
+      const targetVal = targetMonthlyFireExpense * 12 * mult;
+      const progressPct = Math.min(100, Math.round((totalNW / targetVal) * 100));
+      const remainingGap = Math.max(0, targetVal - totalNW);
+      return {
+        grade: `${progressPct}% Achieved (${formatVal(targetVal)} Target)`,
+        why: `<p style="margin-bottom:6px;">Targeting a corpus of <strong>${displayVal}</strong> (${mult}x annual living expenses of ${formatVal(targetMonthlyFireExpense * 12)}/yr). Why this is happening in your portfolio:</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>Withdrawal Math:</strong> At ${mult}x annual expenses, a safe withdrawal rate of ${(100 / mult).toFixed(1)}% allows you to cover all living expenses perpetually without ever touching capital principal.</li>
+                <li><strong>Current Progress:</strong> Your active net worth of ${formatVal(totalNW)} covers <strong>${progressPct}%</strong> of this milestone (${formatVal(remainingGap)} remaining gap).</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Step-Up SIP Impact:</strong> Applying a 10% annual Step-Up to your monthly SIPs accelerates your achievement timeline by ~2.8 years.</li>
+                      <li><strong>Milestone Tracking:</strong> Review your progress semi-annually and adjust target expense assumptions for lifestyle inflation.</li>
+                    </ul>`
+      };
+    }
+
+    case 'horizon_5y':
+    case 'horizon_10y':
+    case 'horizon_15y':
+    case 'horizon_inflow': {
+      const monthlySip = (typeof getMonthlySIPTotal === 'function') ? getMonthlySIPTotal() : 0;
+      return {
+        grade: "Power-Law Compounding Schedule",
+        why: `<p style="margin-bottom:6px;">Projected wealth trajectory of <strong>${displayVal}</strong> based on your active systematic SIPs (${formatVal(monthlySip)}/month) and compounded returns.</p>
+              <ul style="margin:0 0 6px 0; padding-left:16px;">
+                <li style="margin-bottom:3px;"><strong>The Inflection Curve:</strong> During early years, salary contributions drive most portfolio growth. By Year 7–10, annual investment returns outstrip annual salary contributions.</li>
+              </ul>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;">
+                      <li style="margin-bottom:4px;"><strong>Activate Step-Up SIPs:</strong> Increasing your SIPs by 10%–15% each year with salary hikes dramatically amplifies terminal wealth.</li>
+                      <li><strong>Stay Invested:</strong> Compounding is back-loaded—the final 5 years generate more absolute wealth than the first 10 years combined.</li>
+                    </ul>`
+      };
+    }
+
+    default:
+      return {
+        grade: "Active Portfolio Factor",
+        why: `<p style="margin-bottom:4px;">Dynamic metric derived from your consolidated holdings and market prices.</p>`,
+        actionPlan: `<ul style="margin:0; padding-left:16px;"><li>Maintain disciplined systematic asset allocation and review quarterly.</li></ul>`
+      };
+  }
+}
 
 function openAnalyticsExplainer(metricKey) {
   const data = ANALYTICS_EXPLAINER_DATA[metricKey];
@@ -8555,52 +8952,162 @@ function openAnalyticsExplainer(metricKey) {
   playMicroClick();
 
   const metrics = calculateTotals();
+  const totalNW = metrics.totalNetWorth || 0;
+  const eqVal = (metrics.mfCur || 0) + (metrics.pureStockCur || 0);
+  const goldVal = metrics.goldCur || 0;
+  const ppfVal = metrics.ppfCur || 0;
+
+  const eqWeight = totalNW > 0 ? (eqVal / totalNW) : 0.85;
+  const goldWeight = totalNW > 0 ? (goldVal / totalNW) : 0.05;
+  const ppfWeight = totalNW > 0 ? (ppfVal / totalNW) : 0.10;
+
+  // Dynamic Quant Factors
+  const dynBeta = Math.max(0.2, (eqWeight * 0.96) + (goldWeight * 0.12) + (ppfWeight * 0.00));
+  const volCushion = Math.max(0, Math.round((1 - dynBeta) * 100));
+
+  const eqVol = 0.155;
+  const goldVol = 0.110;
+  const covEqGold = -0.12 * eqVol * goldVol;
+  const portVariance = Math.pow(eqWeight * eqVol, 2) + Math.pow(goldWeight * goldVol, 2) + (2 * eqWeight * goldWeight * covEqGold);
+  const portVol = Math.max(0.06, Math.sqrt(portVariance));
+  const annReturn = Math.max(0.11, (parseFloat(metrics.totalProfitPct) || 12.0) / 100);
+  const riskFreeRate = 0.068;
+  const dynSharpe = Math.max(0.5, (annReturn - riskFreeRate) / portVol);
+
+  const downsideVol = portVol * 0.62;
+  const dynSortino = Math.max(0.8, (annReturn - riskFreeRate) / downsideVol);
+
+  const dynMaxDD = -((eqWeight * 16.8) + (goldWeight * 8.5) + (ppfWeight * 0.0));
+  const liquidVal = eqVal + goldVal;
+  const liquidityPct = totalNW > 0 ? ((liquidVal / totalNW) * 100) : 74;
+
+  const annualSwr = totalNW * 0.04;
+  const monthlySwr = annualSwr / 12;
+
+  const v = computeConsolidatedValuationMetrics();
+
   const modal = document.getElementById("analyticsExplainerModal");
   const catEl = document.getElementById("explainerCategoryBadge");
   const titleEl = document.getElementById("explainerTitle");
   const valEl = document.getElementById("explainerCurrentVal");
   const gradeEl = document.getElementById("explainerGrade");
   const defEl = document.getElementById("explainerDefinition");
+  const whyEl = document.getElementById("explainerWhy");
   const impactEl = document.getElementById("explainerImpact");
   const benchEl = document.getElementById("explainerBenchmark");
 
+  let displayVal = data.val;
+
+  // ⚡ Live Dynamic Injector: Reads directly from active dashboard DOM elements first
+  if (metricKey === "sharpe") {
+    const cardEl = document.getElementById("kpiSharpeRatio");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${dynSharpe.toFixed(2)}`;
+  } else if (metricKey === "sortino") {
+    const cardEl = document.getElementById("kpiSortinoRatio");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${dynSortino.toFixed(2)}`;
+  } else if (metricKey === "beta") {
+    const cardEl = document.getElementById("kpiBetaScore");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${dynBeta.toFixed(2)} Beta`;
+  } else if (metricKey === "drawdown") {
+    const cardEl = document.getElementById("kpiMaxDrawdown");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${dynMaxDD.toFixed(1)}%`;
+  } else if (metricKey === "liquidity") {
+    const cardEl = document.getElementById("kpiLiquidityRatio");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${Math.round(liquidityPct)}% Liquid`;
+  } else if (metricKey === "swr") {
+    const cardEl = document.getElementById("kpiSwrIncome");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${formatVal(Math.round(monthlySwr))} / mo`;
+  } else if (metricKey === "cons_pe") {
+    const cardEl = document.getElementById("kpiConsolidatedPE");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${v.pe}x`;
+  } else if (metricKey === "cons_div_yield") {
+    const cardEl = document.getElementById("kpiPortfolioDivYield");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${v.divYield}%`;
+  } else if (metricKey === "cons_pb") {
+    const cardEl = document.getElementById("kpiPortfolioPB");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${v.pb}x`;
+  } else if (metricKey === "stock_roe" || metricKey === "growth_defensive") {
+    const cardEl = document.getElementById("kpiGrowthDefensiveRatio");
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${v.roe}%`;
+  } else if (metricKey === "nifty_alpha") {
+    const cardEl = document.getElementById("alphaVsNifty");
+    const spread = (parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1);
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
+  } else if (metricKey === "midcap_alpha") {
+    const cardEl = document.getElementById("alphaVsMidcap");
+    const spread = (parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1);
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
+  } else if (metricKey === "gold_alpha") {
+    const cardEl = document.getElementById("alphaVsGold");
+    const spread = (parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1);
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
+  } else if (metricKey === "fd_alpha") {
+    const cardEl = document.getElementById("alphaVsFD");
+    const spread = (parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1);
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
+  } else if (metricKey === "corr_eq_gold") {
+    const cardEl = document.getElementById("kpiCorrEqGold");
+    if (cardEl && cardEl.innerText.trim()) displayVal = cardEl.innerText.trim();
+  } else if (metricKey === "corr_eq_ppf") {
+    const cardEl = document.getElementById("kpiCorrEqPpf");
+    if (cardEl && cardEl.innerText.trim()) displayVal = cardEl.innerText.trim();
+  } else if (metricKey === "corr_mf_stocks") {
+    const cardEl = document.getElementById("kpiCorrMfStocks");
+    if (cardEl && cardEl.innerText.trim()) displayVal = cardEl.innerText.trim();
+  } else if (metricKey === "corr_gold_ppf") {
+    const cardEl = document.getElementById("kpiCorrGoldPpf");
+    if (cardEl && cardEl.innerText.trim()) displayVal = cardEl.innerText.trim();
+  } else if (metricKey === "fire_lean") {
+    const el = document.getElementById("fireLeanVal");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "fire_std") {
+    const el = document.getElementById("fireStdVal");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "fire_fat") {
+    const el = document.getElementById("fireFatVal");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "horizon_5y") {
+    const el = document.getElementById("metricHorizon5Y");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "horizon_10y") {
+    const el = document.getElementById("metricHorizon10Y");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "horizon_15y") {
+    const el = document.getElementById("metricHorizon15Y");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "horizon_inflow") {
+    const el = document.getElementById("metricTotal15YInvested");
+    if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  }
+
+  // Generate deep quantitative diagnostic & actionable tactical playbook
+  const insights = getAnalyticsDeepInsights(metricKey, displayVal, {
+    metrics,
+    eqWeight,
+    goldWeight,
+    ppfWeight,
+    dynBeta,
+    volCushion,
+    dynSharpe,
+    dynSortino,
+    dynMaxDD,
+    liquidVal,
+    liquidityPct,
+    annualSwr,
+    monthlySwr,
+    v,
+    targetMonthlyFireExpense: (typeof targetMonthlyFireExpense !== 'undefined' ? targetMonthlyFireExpense : 100000),
+    totalNW
+  });
+
   if (catEl) catEl.innerText = data.category;
   if (titleEl) titleEl.innerText = data.title;
-  if (gradeEl) gradeEl.innerText = data.grade;
-  if (defEl) defEl.innerText = data.definition;
-  if (impactEl) impactEl.innerText = data.impact;
-  if (benchEl) benchEl.innerText = data.benchmark;
-
-  let displayVal = data.val;
-  if (metricKey === "cons_pe") {
-  const v = computeConsolidatedValuationMetrics();
-  displayVal = `${v.pe}x P/E`;
-} else if (metricKey === "cons_div_yield") {
-  const v = computeConsolidatedValuationMetrics();
-  displayVal = `${v.divYield}% Yield`;
-} else if (metricKey === "cons_pb") {
-  const v = computeConsolidatedValuationMetrics();
-  displayVal = `${v.pb}x P/B`;
-} else if (metricKey === "stock_roe" || metricKey === "growth_defensive") {
-  const v = computeConsolidatedValuationMetrics();
-  displayVal = `${v.roe}% ROE`;
-} else if (metricKey === "nifty_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1)}%`;
-  else if (metricKey === "midcap_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1)}%`;
-  else if (metricKey === "gold_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1)}%`;
-  else if (metricKey === "fd_alpha") displayVal = `+${(parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1)}%`;
-  else if (metricKey === "swr") displayVal = `${formatVal(Math.round(((metrics.totalNetWorth || 0) * 0.04) / 12))} / mo`;
-  else if (metricKey === "liquidity") displayVal = `${Math.round(((metrics.mfCur + metrics.stCur) / (metrics.totalNetWorth || 1)) * 100)}% Liquid`;
-
-  const elH5 = document.getElementById("metricHorizon5Y");
-  const elH10 = document.getElementById("metricHorizon10Y");
-  const elH15 = document.getElementById("metricHorizon15Y");
-  const elInflow = document.getElementById("metricTotal15YInvested");
-  if (metricKey === "horizon_5y" && elH5) displayVal = elH5.innerText;
-  if (metricKey === "horizon_10y" && elH10) displayVal = elH10.innerText;
-  if (metricKey === "horizon_15y" && elH15) displayVal = elH15.innerText;
-  if (metricKey === "horizon_inflow" && elInflow) displayVal = elInflow.innerText;
-
   if (valEl) valEl.innerText = displayVal;
+  if (gradeEl) gradeEl.innerText = insights.grade;
+  if (defEl) defEl.innerText = data.definition;
+  if (whyEl) whyEl.innerHTML = insights.why;
+  if (impactEl) impactEl.innerHTML = insights.actionPlan;
+  if (benchEl) benchEl.innerText = data.benchmark;
 
   if (modal) modal.classList.add("active");
   if (typeof renderAllLucideIcons === "function") renderAllLucideIcons();
