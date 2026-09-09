@@ -2733,7 +2733,7 @@ svg.lucide, i[data-lucide], svg {
           <div class="dossier-kpi-card">
             <span class="dossier-kpi-label">Compounding Velocity</span>
             <span class="dossier-kpi-val num-mono" id="kpiXirr" style="color: #60a5fa;">0.0%</span>
-            <span style="font-size:11px; opacity:0.75;" id="kpiXirrSub">True Annualized XIRR</span>
+            <span style="font-size:11px; opacity:0.75;" id="kpiXirrSub">Funds &amp; ETFs XIRR</span>
           </div>
           <div class="dossier-kpi-card">
             <span class="dossier-kpi-label">Active Holdings</span>
@@ -3358,6 +3358,90 @@ svg.lucide, i[data-lucide], svg {
               <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #c084fc; margin-top: 2px;" id="metricTotal15YInvested">--</div>
             </div>
           </div>
+        </div>
+
+        <!-- PILLAR 1.5: MUTUAL FUNDS & ETFS QUANT ALLOCATION & ACTIVE VS PASSIVE DECK -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+          
+          <!-- CHART CARD 1: FUND & ETF MARKET-CAP ALLOCATION -->
+          <div class="dossier-kpi-card" style="padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(96,165,250,0.15); display: flex; align-items: center; justify-content: center; color: #60a5fa;">
+                    <i style="width: 15px; height: 15px;" data-lucide="pie-chart"></i>
+                  </div>
+                  <div>
+                    <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Mutual Funds &amp; ETFs Split</span>
+                    <div style="font-size: 10px; color: var(--text-dim);" id="mfAllocSubtitle">Market-Cap Category Breakdown &amp; Direct Index ETFs</div>
+                  </div>
+                </div>
+
+                <!-- View Mode Toggle Buttons -->
+                <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
+                  <button class="status-badge-pill live" id="btnMFAllocCategory" style="padding:2px 8px; font-size:9px; cursor: pointer;" onclick="setMFAllocationViewMode('category')">By Category</button>
+                  <button class="status-badge-pill" id="btnMFAllocLookthrough" style="padding:2px 8px; font-size:9px; cursor: pointer;" onclick="setMFAllocationViewMode('lookthrough')">True Look-Through</button>
+                </div>
+              </div>
+
+              <!-- Canvas & Legend Flex Layout -->
+              <div style="display: flex; align-items: center; justify-content: space-around; gap: 16px; flex-wrap: wrap; margin-top: 10px;">
+                <div style="position: relative; width: 170px; height: 170px; flex-shrink: 0;">
+                  <canvas id="mfAllocationPieCanvas" width="340" height="340" style="width: 170px; height: 170px; display: block;"></canvas>
+                  <div id="mfPieCenterLabel" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center;">
+                    <span style="font-size: 8.5px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); letter-spacing: 0.05em;">Combined MF</span>
+                    <span class="num-mono privacy-blur" id="mfPieCenterValue" style="font-size: 11px; font-weight: 700; color: #fff;">₹0</span>
+                  </div>
+                </div>
+                <div id="mfAllocationLegendContainer" style="flex: 1; min-width: 170px; display: flex; flex-direction: column; gap: 6px;">
+                  <!-- Dynamically Rendered -->
+                </div>
+              </div>
+            </div>
+            <div id="mfAllocationInsightFooter" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center;">
+              <span>Dynamic Fund Exposure</span>
+              <span class="num-mono" id="mfAnalyticsHoldingCountBadge" style="color: #6ee7b7;">6 Active Holdings</span>
+            </div>
+          </div>
+
+          <!-- CHART CARD 2: ACTIVE VS PASSIVE STRATEGY ALLOCATION -->
+          <div class="dossier-kpi-card" style="padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(110,231,183,0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
+                    <svg  class="lucide lucide-scale" style="width: 15px; height: 15px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+                  </div>
+                  <div>
+                    <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Active vs. Passive Strategy</span>
+                    <div style="font-size: 10px; color: var(--text-dim);">Systematic Beta (Index &amp; ETFs) vs. Manager Alpha</div>
+                  </div>
+                </div>
+                <div class="badge-capsule num-mono" id="activePassiveRatioBadge" style="font-size: 9.5px; border-color: rgba(110,231,183,0.3); color: #6ee7b7;">
+                  Passive Dominated
+                </div>
+              </div>
+
+              <!-- Canvas & Strategy Legend Layout -->
+              <div style="display: flex; align-items: center; justify-content: space-around; gap: 16px; flex-wrap: wrap; margin-top: 10px;">
+                <div style="position: relative; width: 170px; height: 170px; flex-shrink: 0;">
+                  <canvas id="activePassivePieCanvas" width="340" height="340" style="width: 170px; height: 170px; display: block;"></canvas>
+                  <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center;">
+                    <span style="font-size: 8.5px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); letter-spacing: 0.05em;">Strategy</span>
+                    <span class="num-mono" id="activePassiveCenterSplit" style="font-size: 11px; font-weight: 700; color: #6ee7b7;">-- / --</span>
+                  </div>
+                </div>
+                <div id="activePassiveLegendContainer" style="flex: 1; min-width: 170px; display: flex; flex-direction: column; gap: 8px;">
+                  <!-- Dynamically Rendered -->
+                </div>
+              </div>
+            </div>
+            <div id="activePassiveInsightFooter" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center;">
+              <span>Strategy Balance</span>
+              <span class="num-mono" id="activePassiveTotalHoldings" style="color: #60a5fa;">0 Schemes &amp; ETFs</span>
+            </div>
+          </div>
+
         </div>
 
         <!-- PILLAR 2: QUANT RISK & HEALTH CALIPERS STRIP (6 INSTITUTIONAL FACTORS) -->
@@ -5874,6 +5958,34 @@ function normalizeSIPTransactionsData(data) {
   });
 }
 
+function normalizeStockTransactionsData(data) {
+  const rows = getRootArray(data, 'Stock_Transactions', 'stock_transactions', 'stockTransactions', 'StockTransactions', 'stock_trades');
+  return rows.map((r, i) => {
+    const rawDate = getField(r, 'Date', 'date', 'Tx Date', 'Trade Date', 'Execution Date');
+    let dateStr = rawDate ? String(rawDate).trim() : '';
+    if (dateStr && dateStr.includes('T')) dateStr = dateStr.split('T')[0];
+    const ticker = String(getField(r, 'Instrument', 'ticker', 'Symbol', 'symbol', 'Ticker') || '').trim().toUpperCase();
+    const type = String(getField(r, 'Type', 'type', 'Trade Type', 'Action') || 'BUY').trim().toUpperCase();
+    const qty = parseNum(getField(r, 'Qty', 'qty', 'Quantity', 'shares')) || 0;
+    const price = parseNum(getField(r, 'Price', 'price', 'Avg Price', 'buyPrice')) || 0;
+    const amount = parseNum(getField(r, 'Amount', 'amount', 'Total Amount', 'invested')) || (qty * price);
+    const isin = String(getField(r, 'ISIN', 'isin') || '').trim();
+
+    return {
+      id: 'stk-tx-' + i,
+      date: dateStr,
+      rawDate: dateStr,
+      ticker,
+      type,
+      qty,
+      price,
+      amount,
+      isin,
+      raw: r
+    };
+  });
+}
+
 function normalizeDividendData(data) {
   const rawCandidateRows = getRootArray(data, 'Dividends', 'dividends', 'Dividend_History', 'dividendHistory', 'Dividend');
   const candidateRows = extractStructuredSheetRows(rawCandidateRows, 'Dividends');
@@ -6378,8 +6490,32 @@ function getMonthlySIPTotal() {
   return AppState.mutualFunds.reduce((sum, f) => sum + (f.sipActive ? (parseNum(f.monthlySip) || 0) : 0), 0);
 }
 
+function parseFlexibleDate(dStr, fallbackDate) {
+  if (!dStr) return fallbackDate || new Date();
+  dStr = String(dStr).trim();
+  if (dStr.toLowerCase().includes('initial') || dStr === '—' || dStr === '' || dStr === '-') {
+    return fallbackDate || new Date();
+  }
+  if (dStr.includes('T')) dStr = dStr.split('T')[0];
+  if (dStr.includes('/')) {
+    const parts = dStr.split('/');
+    if (parts.length === 3) {
+      if (parts[2].length === 4) {
+        // Format: DD/MM/YYYY
+        const d = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10) - 1;
+        const y = parseInt(parts[2], 10);
+        const dt = new Date(y, m, d);
+        if (!isNaN(dt.getTime())) return dt;
+      }
+    }
+  }
+  const parsed = new Date(dStr);
+  return isNaN(parsed.getTime()) ? (fallbackDate || new Date()) : parsed;
+}
+
 /* ==========================================================================
-   MATHEMATICAL NEWTON-RAPHSON XIRR ENGINE (WITH SHORT-DURATION GUARDS)
+   MATHEMATICAL NEWTON-RAPHSON XIRR ENGINE
    ========================================================================== */
 function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
   if (!payments || payments.length < 2 || !dates || dates.length !== payments.length) return null;
@@ -6391,16 +6527,6 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
   const d0 = dates[0].getTime();
   const dLast = dates[dates.length - 1].getTime();
   const spanDays = Math.max(1, (dLast - d0) / (1000 * 60 * 60 * 24));
-
-  // Financial Guardrail: If total investment span is < 90 days, standard annualized compounding explodes exponentially
-  if (spanDays < 90) {
-    const totalOut = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
-    const totalIn = payments.filter(p => p > 0).reduce((s, p) => s + p, 0);
-    if (totalOut > 0) {
-      const absReturn = (totalIn - totalOut) / totalOut;
-      return absReturn; // Return safe clean holding period return
-    }
-  }
 
   const dayFracs = dates.map(d => (d.getTime() - d0) / (1000 * 60 * 60 * 24 * 365.25));
 
@@ -6433,14 +6559,40 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
   if (rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 1.50) {
     return rate;
   }
+
+  // Fallback to absolute holding return if short duration or divergence
+  const totalOut = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
+  const totalIn = payments.filter(p => p > 0).reduce((s, p) => s + p, 0);
+  if (totalOut > 0) {
+    return (totalIn - totalOut) / totalOut;
+  }
   return null;
 }
 
-function calculateTruePortfolioXIRR() {
+function calculateTrueMFXIRR() {
   const txs = AppState.sipTransactions || [];
+  const stkTx = AppState.stockTransactions || [];
   const metrics = calculateTotals();
-  const totalVal = metrics.totalNetWorth || metrics.mfCur || 0;
-  if (totalVal <= 0) return "0.0";
+  const mfCur = metrics.mfCur || 0;
+  if (mfCur <= 0) return "0.0";
+
+  // Find earliest dated transaction to anchor initial lump sums
+  let earliestDate = new Date();
+  txs.forEach(tx => {
+    if (tx.rawDate && !tx.isInitial) {
+      const dt = parseFlexibleDate(tx.rawDate);
+      if (dt < earliestDate) earliestDate = dt;
+    }
+  });
+  stkTx.forEach(tx => {
+    if (isEquityEtf(tx) && (tx.rawDate || tx.date)) {
+      const dt = parseFlexibleDate(tx.rawDate || tx.date);
+      if (dt < earliestDate) earliestDate = dt;
+    }
+  });
+
+  // Default inception anchor: 1st day of the earliest active month
+  const inceptionDate = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1);
 
   const payments = [];
   const dates = [];
@@ -6449,61 +6601,42 @@ function calculateTruePortfolioXIRR() {
   if (txs.length > 0) {
     txs.forEach(tx => {
       const amt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
-      const dStr = tx.date;
-      if (amt > 0 && dStr) {
-        const parsedD = new Date(dStr);
-        if (!isNaN(parsedD.getTime())) {
-          payments.push(-amt);
-          dates.push(parsedD);
-        }
+      if (amt > 0) {
+        const parsedD = tx.isInitial ? inceptionDate : parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
+        payments.push(-amt);
+        dates.push(parsedD);
       }
     });
   }
 
-  // Sort cash flows by date
-  const paired = payments.map((p, i) => ({ p, d: dates[i] })).sort((a, b) => a.d.getTime() - b.d.getTime());
-  const sortedPayments = paired.map(x => x.p);
-  const sortedDates = paired.map(x => x.d);
+  // Outflows: strictly Equity / Index ETF buy transactions from Stock_Transactions (e.g., NIFTYBEES)
+  if (stkTx.length > 0) {
+    stkTx.forEach(tx => {
+      // Guard: strictly filter for Equity / Index ETFs so individual stocks do not contaminate MF & ETF XIRR
+      if (!isEquityEtf(tx)) return;
 
-  // Inflow: Positive terminal net worth today
-  sortedPayments.push(totalVal);
-  sortedDates.push(new Date());
-
-  const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
-  if (result !== null && !isNaN(result) && isFinite(result)) {
-    const pct = result * 100;
-    if (pct > -99 && pct < 200) return pct.toFixed(1);
-  }
-  return parseFloat(metrics.totalProfitPct || 0).toFixed(1);
-}
-
-function calculateTrueMFXIRR() {
-  const txs = AppState.sipTransactions || [];
-  const metrics = calculateTotals();
-  const mfCur = metrics.mfCur || 0;
-  if (mfCur <= 0) return "0.0";
-
-  const payments = [];
-  const dates = [];
-
-  if (txs.length > 0) {
-    txs.forEach(tx => {
-      const amt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
-      const dStr = tx.date;
-      if (amt > 0 && dStr) {
-        const parsedD = new Date(dStr);
-        if (!isNaN(parsedD.getTime())) {
-          payments.push(-amt);
-          dates.push(parsedD);
-        }
+      const amt = parseFloat(tx.amount || (tx.qty * tx.price)) || 0;
+      const type = String(tx.type || 'BUY').toUpperCase();
+      if (amt > 0 && type === 'BUY') {
+        const parsedD = parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
+        payments.push(-amt);
+        dates.push(parsedD);
       }
     });
   }
 
+  // If no transactions exist, use current invested amount dated to inception
+  if (payments.length === 0 && metrics.mfInv > 0) {
+    payments.push(-metrics.mfInv);
+    dates.push(inceptionDate);
+  }
+
+  // Sort cash flows chronologically
   const paired = payments.map((p, i) => ({ p, d: dates[i] })).sort((a, b) => a.d.getTime() - b.d.getTime());
   const sortedPayments = paired.map(x => x.p);
   const sortedDates = paired.map(x => x.d);
 
+  // Inflow: Positive terminal market value today (Mutual Funds + Index ETFs)
   sortedPayments.push(mfCur);
   sortedDates.push(new Date());
 
@@ -6513,6 +6646,10 @@ function calculateTrueMFXIRR() {
     if (pct > -99 && pct < 200) return pct.toFixed(1);
   }
   return parseFloat(metrics.totalProfitPct || 0).toFixed(1);
+}
+
+function calculateTruePortfolioXIRR() {
+  return calculateTrueMFXIRR();
 }
 
 function applyMarketScenario(delta) {
@@ -6583,17 +6720,16 @@ function renderCompleteDossiers() {
     kpiRetSub.innerText = "Capital Growth Factor";
   }
 
-  const trueXirr = calculateTruePortfolioXIRR();
+  const mfXirr = calculateTrueMFXIRR();
   const xirrEl = document.getElementById('kpiXirr');
   if (xirrEl) {
-    xirrEl.innerText = `${parseFloat(trueXirr) >= 0 ? '+' : ''}${trueXirr}%`;
-    xirrEl.style.color = parseFloat(trueXirr) >= 0 ? '#60a5fa' : '#fca5a5';
+    xirrEl.innerText = `${parseFloat(mfXirr) >= 0 ? '+' : ''}${mfXirr}%`;
+    xirrEl.style.color = parseFloat(mfXirr) >= 0 ? '#60a5fa' : '#fca5a5';
   }
   const xirrSub = document.getElementById('kpiXirrSub');
-  if (xirrSub) xirrSub.innerText = "True Annualized XIRR";
+  if (xirrSub) xirrSub.innerText = "Funds & ETFs XIRR";
 
   // Also update MF tab XIRR
-  const mfXirr = calculateTrueMFXIRR();
   const mfXirrEl = document.getElementById('mfWeightedXirr');
   if (mfXirrEl) {
     mfXirrEl.innerText = `${parseFloat(mfXirr) >= 0 ? '+' : ''}${mfXirr}%`;
@@ -8059,6 +8195,9 @@ function renderSimulatorSection(metrics) {
   // Draw 15-Year Interactive Compounding Horizon Canvas
   drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
 
+  // Render Dynamic Mutual Funds & ETFs Allocation & Active vs Passive Strategy Deck
+  renderMFandETFAnalyticsDeck();
+
   // Benchmark Relative Alpha Spread
   const alphaSpread = (parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1);
   const benchmarkOverallBadge = document.getElementById("benchmarkOverallAlphaBadge");
@@ -8462,6 +8601,413 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
     };
     canvas.ontouchend = () => { tooltip.style.display = "none"; };
   }
+}
+
+/* ==========================================================================
+   MUTUAL FUNDS & ETFS QUANTITATIVE ALLOCATION & ACTIVE/PASSIVE ENGINE
+   ========================================================================== */
+
+let currentMFAllocationViewMode = 'category'; // 'category' | 'lookthrough'
+
+// SEBI Knowledge Base & Dynamic Equity Decomposition Map
+const SCHEME_DECOMPOSITION_KB = {
+  // Passives & Index ETFs (100% Large Cap or Mid Cap)
+  'SBI NIFTY INDEX': { strategy: 'passive', large: 100, mid: 0, small: 0, cash: 0, cat: 'Large Cap' },
+  'NIFTYBEES': { strategy: 'passive', large: 100, mid: 0, small: 0, cash: 0, cat: 'Index ETF' },
+  'NIPPON INDIA ETF NIFTY': { strategy: 'passive', large: 100, mid: 0, small: 0, cash: 0, cat: 'Index ETF' },
+  'BANKBEES': { strategy: 'passive', large: 85, mid: 15, small: 0, cash: 0, cat: 'Index ETF' },
+  'JUNIORBEES': { strategy: 'passive', large: 0, mid: 100, small: 0, cash: 0, cat: 'Index ETF' },
+  'MID150BEES': { strategy: 'passive', large: 0, mid: 100, small: 0, cash: 0, cat: 'Index ETF' },
+  'JIOBLACKROCK NIFTY MIDCAP 150': { strategy: 'passive', large: 0, mid: 100, small: 0, cash: 0, cat: 'Mid Cap' },
+  'JIO BLACK ROCK MIDCAP 150': { strategy: 'passive', large: 0, mid: 100, small: 0, cash: 0, cat: 'Mid Cap' },
+  'GOLDCASE': { strategy: 'passive', large: 0, mid: 0, small: 0, cash: 100, cat: 'Commodity ETF' },
+  'GOLDBEES': { strategy: 'passive', large: 0, mid: 0, small: 0, cash: 100, cat: 'Commodity ETF' },
+
+  // Actives (Discretionary & Actively Managed)
+  'PARAG PARIKH FLEXI CAP': { strategy: 'active', large: 65, mid: 16, small: 4, cash: 15, cat: 'Flexi Cap' },
+  'PARAG PARIKH ELSS': { strategy: 'active', large: 68, mid: 15, small: 7, cash: 10, cat: 'ELSS Tax Saver' },
+  'AXIS SMALL CAP': { strategy: 'active', large: 3, mid: 18, small: 72, cash: 7, cat: 'Small Cap' },
+  'NIPPON INDIA SMALL CAP': { strategy: 'active', large: 2, mid: 20, small: 72, cash: 6, cat: 'Small Cap' },
+  'HDFC MID-CAP OPPORTUNITIES': { strategy: 'active', large: 8, mid: 68, small: 20, cash: 4, cat: 'Mid Cap' },
+  'MIRAE ASSET LARGE CAP': { strategy: 'active', large: 85, mid: 12, small: 0, cash: 3, cat: 'Large Cap' }
+};
+
+function getFundClassificationAndDecomposition(fund) {
+  const name = String(fund.name || fund.schemeName || fund.ticker || fund.instrument || '').toUpperCase().trim();
+  const rawCat = String(fund.category || fund.sector || '').toUpperCase().trim();
+  const isEtf = (typeof isEquityEtf === 'function') ? isEquityEtf(fund) : (name.includes('BEES') || name.includes('ETF') || rawCat.includes('ETF'));
+
+  // 1. Direct KB Match
+  for (const [key, val] of Object.entries(SCHEME_DECOMPOSITION_KB)) {
+    if (name.includes(key) || key.includes(name)) {
+      return {
+        strategy: val.strategy,
+        large: val.large,
+        mid: val.mid,
+        small: val.small,
+        cash: val.cash,
+        categoryName: isEtf ? 'Index ETF' : val.cat
+      };
+    }
+  }
+
+  // 2. Generic Rules based on Name / Category
+  const isPassive = isEtf || name.includes('INDEX') || name.includes('NIFTY') || name.includes('SENSEX') || rawCat.includes('INDEX') || rawCat.includes('PASSIVE');
+  const strategy = isPassive ? 'passive' : 'active';
+
+  let large = 0, mid = 0, small = 0, cash = 0;
+  let categoryName = 'Flexi Cap';
+
+  if (isEtf) {
+    categoryName = 'Index ETF';
+    large = 100;
+  } else if (name.includes('SMALL') || rawCat.includes('SMALL')) {
+    categoryName = 'Small Cap';
+    large = 5; mid = 20; small = 70; cash = 5;
+  } else if (name.includes('MID') || rawCat.includes('MID')) {
+    categoryName = 'Mid Cap';
+    large = 10; mid = 80; small = 5; cash = 5;
+  } else if (name.includes('LARGE') || name.includes('NIFTY 50') || name.includes('BLUECHIP') || rawCat.includes('LARGE')) {
+    categoryName = 'Large Cap';
+    large = 85; mid = 10; small = 0; cash = 5;
+  } else if (name.includes('ELSS') || name.includes('TAX') || rawCat.includes('ELSS')) {
+    categoryName = 'ELSS Tax Saver';
+    large = 65; mid = 20; small = 10; cash = 5;
+  } else if (name.includes('HYBRID') || name.includes('BALANCED') || rawCat.includes('HYBRID')) {
+    categoryName = 'Hybrid';
+    large = 50; mid = 15; small = 5; cash = 30;
+  } else {
+    categoryName = 'Flexi Cap';
+    large = 65; mid = 20; small = 5; cash = 10;
+  }
+
+  return { strategy, large, mid, small, cash, categoryName };
+}
+
+function computeMFAnalyticsData() {
+  const combined = (typeof getCombinedMFandETFs === 'function') ? getCombinedMFandETFs() : (AppState.mutualFunds || []);
+  let totalVal = 0;
+  
+  const categoryMap = {};
+  let totalLargeVal = 0, totalMidVal = 0, totalSmallVal = 0, totalCashVal = 0;
+  let passiveVal = 0, activeVal = 0;
+  const passiveSchemes = [];
+  const activeSchemes = [];
+
+  const CATEGORY_COLORS = {
+    'Large Cap': '#60a5fa',
+    'Index ETF': '#38bdf8',
+    'Flexi Cap': '#c084fc',
+    'Mid Cap': '#f59e0b',
+    'Small Cap': '#f87171',
+    'ELSS Tax Saver': '#34d399',
+    'Hybrid': '#fbbf24',
+    'Commodity ETF': '#fbbf24',
+    'Other': '#94a3b8'
+  };
+
+  const LOOKTHROUGH_COLORS = {
+    'Large Cap (Top 100)': '#60a5fa',
+    'Mid Cap (101-250)': '#f59e0b',
+    'Small Cap (251+)': '#f87171',
+    'Cash & Overseas': '#34d399'
+  };
+
+  combined.forEach(fund => {
+    const cur = parseNum(fund.currentValue !== undefined ? fund.currentValue : (fund.invested || 0));
+    if (cur <= 0) return;
+    totalVal += cur;
+
+    const decomp = getFundClassificationAndDecomposition(fund);
+    const catName = decomp.categoryName;
+
+    // 1. Category aggregation
+    if (!categoryMap[catName]) {
+      categoryMap[catName] = { name: catName, value: 0, count: 0, color: CATEGORY_COLORS[catName] || '#94a3b8' };
+    }
+    categoryMap[catName].value += cur;
+    categoryMap[catName].count += 1;
+
+    // 2. Lookthrough decomposition
+    totalLargeVal += cur * (decomp.large / 100);
+    totalMidVal += cur * (decomp.mid / 100);
+    totalSmallVal += cur * (decomp.small / 100);
+    totalCashVal += cur * (decomp.cash / 100);
+
+    // 3. Strategy classification
+    const rawName = String(fund.name || fund.schemeName || fund.ticker || 'Fund');
+    const shortName = rawName.replace(/Direct\s*(?:Plan)?\s*(?:-\s*)?Growth/gi, '').replace(/- Direct/gi, '').trim();
+    if (decomp.strategy === 'passive') {
+      passiveVal += cur;
+      if (!passiveSchemes.includes(shortName)) passiveSchemes.push(shortName);
+    } else {
+      activeVal += cur;
+      if (!activeSchemes.includes(shortName)) activeSchemes.push(shortName);
+    }
+  });
+
+  const categoriesList = Object.values(categoryMap).map(c => ({
+    ...c,
+    pct: totalVal > 0 ? ((c.value / totalVal) * 100) : 0
+  })).sort((a, b) => b.value - a.value);
+
+  const lookthroughList = [
+    { name: 'Large Cap (Top 100)', value: totalLargeVal, color: LOOKTHROUGH_COLORS['Large Cap (Top 100)'], pct: totalVal > 0 ? ((totalLargeVal / totalVal) * 100) : 0 },
+    { name: 'Mid Cap (101-250)', value: totalMidVal, color: LOOKTHROUGH_COLORS['Mid Cap (101-250)'], pct: totalVal > 0 ? ((totalMidVal / totalVal) * 100) : 0 },
+    { name: 'Small Cap (251+)', value: totalSmallVal, color: LOOKTHROUGH_COLORS['Small Cap (251+)'], pct: totalVal > 0 ? ((totalSmallVal / totalVal) * 100) : 0 },
+    { name: 'Cash & Overseas', value: totalCashVal, color: LOOKTHROUGH_COLORS['Cash & Overseas'], pct: totalVal > 0 ? ((totalCashVal / totalVal) * 100) : 0 }
+  ].filter(item => item.value > 0);
+
+  const passivePct = totalVal > 0 ? ((passiveVal / totalVal) * 100) : 0;
+  const activePct = totalVal > 0 ? ((activeVal / totalVal) * 100) : 0;
+
+  return {
+    totalVal,
+    totalHoldings: combined.length,
+    categoriesList,
+    lookthroughList,
+    strategy: {
+      passiveVal,
+      passivePct,
+      passiveSchemes,
+      activeVal,
+      activePct,
+      activeSchemes
+    }
+  };
+}
+
+function setMFAllocationViewMode(mode) {
+  currentMFAllocationViewMode = mode;
+  const btnCat = document.getElementById("btnMFAllocCategory");
+  const btnLook = document.getElementById("btnMFAllocLookthrough");
+  const subTitle = document.getElementById("mfAllocSubtitle");
+
+  if (btnCat && btnLook) {
+    if (mode === 'category') {
+      btnCat.classList.add("live");
+      btnLook.classList.remove("live");
+      if (subTitle) subTitle.innerText = "Market-Cap Category Breakdown & Direct Index ETFs";
+    } else {
+      btnCat.classList.remove("live");
+      btnLook.classList.add("live");
+      if (subTitle) subTitle.innerText = "Underlying Equity DNA (Large, Mid, Small & Cash)";
+    }
+  }
+
+  drawMFAllocationPieChart(mode);
+}
+
+function drawMFAllocationPieChart(viewMode = 'category') {
+  const canvas = document.getElementById("mfAllocationPieCanvas");
+  if (!canvas) return;
+
+  const data = computeMFAnalyticsData();
+  const items = (viewMode === 'lookthrough') ? data.lookthroughList : data.categoriesList;
+
+  // Center value label
+  const centerValEl = document.getElementById("mfPieCenterValue");
+  if (centerValEl) centerValEl.innerText = formatVal(data.totalVal);
+
+  const countBadge = document.getElementById("mfAnalyticsHoldingCountBadge");
+  if (countBadge) countBadge.innerText = `${data.totalHoldings} Active Holdings`;
+
+  // Render Legend
+  const legendContainer = document.getElementById("mfAllocationLegendContainer");
+  if (legendContainer) {
+    legendContainer.innerHTML = items.map(item => `
+      <div style="display: flex; align-items: center; justify-content: space-between; font-size: 11px; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04);">
+        <div style="display: flex; align-items: center; gap: 7px; min-width: 0;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: ${item.color}; flex-shrink: 0; box-shadow: 0 0 6px ${item.color}88;"></span>
+          <span style="color: #fff; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); flex-shrink: 0;">
+          <span style="color: var(--text-dim); font-size: 10px;" class="privacy-blur">${formatVal(item.value)}</span>
+          <span style="font-weight: 700; color: ${item.color}; min-width: 38px; text-align: right;">${item.pct.toFixed(1)}%</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Draw High-DPI Donut on Canvas
+  const dpr = window.devicePixelRatio || 1;
+  const size = 170;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  canvas.style.width = `${size}px`;
+  canvas.style.height = `${size}px`;
+
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, size, size);
+
+  if (!items || items.length === 0 || data.totalVal <= 0) {
+    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+    ctx.lineWidth = 14;
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, 60, 0, Math.PI * 2);
+    ctx.stroke();
+    return;
+  }
+
+  const cx = size / 2;
+  const cy = size / 2;
+  const outerR = 68;
+  const innerR = 48;
+  let startAngle = -Math.PI / 2;
+
+  items.forEach(slice => {
+    if (slice.pct <= 0) return;
+    const sliceAngle = (slice.pct / 100) * (Math.PI * 2);
+    const endAngle = startAngle + sliceAngle;
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, outerR, startAngle, endAngle, false);
+    ctx.arc(cx, cy, innerR, endAngle, startAngle, true);
+    ctx.closePath();
+
+    ctx.fillStyle = slice.color;
+    ctx.fill();
+
+    // Subtle gap border between segments
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "#07090E";
+    ctx.stroke();
+
+    startAngle = endAngle;
+  });
+}
+
+function drawActivePassivePieChart() {
+  const canvas = document.getElementById("activePassivePieCanvas");
+  if (!canvas) return;
+
+  const data = computeMFAnalyticsData();
+  const st = data.strategy;
+
+  // Center text
+  const centerSplit = document.getElementById("activePassiveCenterSplit");
+  if (centerSplit) {
+    centerSplit.innerText = `${st.passivePct.toFixed(0)}% / ${st.activePct.toFixed(0)}%`;
+  }
+
+  // Ratio Badge
+  const ratioBadge = document.getElementById("activePassiveRatioBadge");
+  if (ratioBadge) {
+    if (st.passivePct >= 50) {
+      ratioBadge.innerText = `Passive Focus (${st.passivePct.toFixed(0)}%)`;
+      ratioBadge.style.color = "#38bdf8";
+      ratioBadge.style.borderColor = "rgba(56,189,248,0.3)";
+    } else {
+      ratioBadge.innerText = `Active Alpha (${st.activePct.toFixed(0)}%)`;
+      ratioBadge.style.color = "#c084fc";
+      ratioBadge.style.borderColor = "rgba(192,132,252,0.3)";
+    }
+  }
+
+  const totalHoldingsBadge = document.getElementById("activePassiveTotalHoldings");
+  if (totalHoldingsBadge) {
+    totalHoldingsBadge.innerText = `${data.totalHoldings} Schemes & ETFs`;
+  }
+
+  // Legend Cards
+  const legendContainer = document.getElementById("activePassiveLegendContainer");
+  if (legendContainer) {
+    legendContainer.innerHTML = `
+      <!-- Passive Strategy Card -->
+      <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.18); border-radius: 6px; padding: 8px 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 6px rgba(56,189,248,0.6);"></span>
+            <span style="font-size: 11px; font-weight: 600; color: #fff;">Passive (Index &amp; ETFs)</span>
+          </div>
+          <span class="num-mono" style="font-size: 12px; font-weight: 700; color: #38bdf8;">${st.passivePct.toFixed(1)}%</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 9.5px; color: var(--text-dim); margin-bottom: 4px;">
+          <span class="privacy-blur">${formatVal(st.passiveVal)}</span>
+          <span>${st.passiveSchemes.length} Assets</span>
+        </div>
+        <div style="font-size: 8.5px; color: rgba(255,255,255,0.55); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+          ${st.passiveSchemes.length > 0 ? st.passiveSchemes.join(', ') : 'None'}
+        </div>
+      </div>
+
+      <!-- Active Strategy Card -->
+      <div style="background: rgba(192,132,252,0.06); border: 1px solid rgba(192,132,252,0.18); border-radius: 6px; padding: 8px 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #c084fc; box-shadow: 0 0 6px rgba(192,132,252,0.6);"></span>
+            <span style="font-size: 11px; font-weight: 600; color: #fff;">Active (Alpha Funds)</span>
+          </div>
+          <span class="num-mono" style="font-size: 12px; font-weight: 700; color: #c084fc;">${st.activePct.toFixed(1)}%</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 9.5px; color: var(--text-dim); margin-bottom: 4px;">
+          <span class="privacy-blur">${formatVal(st.activeVal)}</span>
+          <span>${st.activeSchemes.length} Assets</span>
+        </div>
+        <div style="font-size: 8.5px; color: rgba(255,255,255,0.55); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+          ${st.activeSchemes.length > 0 ? st.activeSchemes.join(', ') : 'None'}
+        </div>
+      </div>
+    `;
+  }
+
+  // Draw Canvas Donut
+  const dpr = window.devicePixelRatio || 1;
+  const size = 170;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  canvas.style.width = `${size}px`;
+  canvas.style.height = `${size}px`;
+
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, size, size);
+
+  if (data.totalVal <= 0) {
+    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+    ctx.lineWidth = 14;
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, 60, 0, Math.PI * 2);
+    ctx.stroke();
+    return;
+  }
+
+  const cx = size / 2;
+  const cy = size / 2;
+  const outerR = 68;
+  const innerR = 48;
+
+  let startAngle = -Math.PI / 2;
+  const segments = [
+    { label: 'Passive', pct: st.passivePct, color: '#38bdf8' },
+    { label: 'Active', pct: st.activePct, color: '#c084fc' }
+  ];
+
+  segments.forEach(seg => {
+    if (seg.pct <= 0) return;
+    const sliceAngle = (seg.pct / 100) * (Math.PI * 2);
+    const endAngle = startAngle + sliceAngle;
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, outerR, startAngle, endAngle, false);
+    ctx.arc(cx, cy, innerR, endAngle, startAngle, true);
+    ctx.closePath();
+
+    ctx.fillStyle = seg.color;
+    ctx.fill();
+
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "#07090E";
+    ctx.stroke();
+
+    startAngle = endAngle;
+  });
+}
+
+function renderMFandETFAnalyticsDeck() {
+  drawMFAllocationPieChart(currentMFAllocationViewMode);
+  drawActivePassivePieChart();
 }
 
 const ANALYTICS_EXPLAINER_DATA = {
@@ -9606,6 +10152,7 @@ async function connectLiveSheet(explicitPass = '') {
         AppState.ppf = normalizePPFData(cachedData);
         AppState.sipConfig = normalizeSIPData(cachedData);
         AppState.sipTransactions = normalizeSIPTransactionsData(cachedData);
+        AppState.stockTransactions = normalizeStockTransactionsData(cachedData);
         AppState.dividends = normalizeDividendData(cachedData);
         AppState.stockCatalysts = normalizeCatalystData(cachedData);
 
@@ -9656,6 +10203,7 @@ async function connectLiveSheet(explicitPass = '') {
     AppState.ppf = normalizePPFData(data);
     AppState.sipConfig = normalizeSIPData(data);
     AppState.sipTransactions = normalizeSIPTransactionsData(data);
+    AppState.stockTransactions = normalizeStockTransactionsData(data);
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
 
@@ -9736,6 +10284,7 @@ async function triggerLiveRefresh() {
     AppState.ppf = normalizePPFData(data);
     AppState.sipConfig = normalizeSIPData(data);
     AppState.sipTransactions = normalizeSIPTransactionsData(data);
+    AppState.stockTransactions = normalizeStockTransactionsData(data);
 
     syncMFWithSIPConfig();
     saveState();
@@ -9880,6 +10429,7 @@ async function refreshTelemetrySilently() {
     AppState.ppf = normalizePPFData(data);
     AppState.sipConfig = normalizeSIPData(data);
     AppState.sipTransactions = normalizeSIPTransactionsData(data);
+    AppState.stockTransactions = normalizeStockTransactionsData(data);
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
 
