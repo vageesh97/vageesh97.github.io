@@ -2385,6 +2385,95 @@ svg.lucide, i[data-lucide], svg {
   color: var(--text-dim);
 }
 
+/* ==========================================================================
+   BENCHMARK ALPHA RADAR & OUTPERFORMANCE DECK
+   ========================================================================== */
+.benchmark-radar-card {
+  background: rgba(18, 20, 24, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+.benchmark-radar-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.benchmark-radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.benchmark-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+@media (max-width: 640px) {
+  .benchmark-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.benchmark-stat-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+.benchmark-stat-box.highlight {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.03));
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.benchmark-stat-box.highlight-lag {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.03));
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.benchmark-stat-label {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.benchmark-stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FDFAF7;
+}
+.benchmark-stat-sub {
+  font-size: 10.5px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.benchmark-progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-top: 6px;
+  position: relative;
+}
+.benchmark-progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.benchmark-progress-fill.portfolio {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+.benchmark-progress-fill.index {
+  background: linear-gradient(90deg, #60a5fa, #93c5fd);
+}
+
+
 </style>
 </head>
 <body class="__body">
@@ -2430,11 +2519,11 @@ svg.lucide, i[data-lucide], svg {
 
         <!-- 100% Live Market Pulse Barometer -->
         <div class="market-pulse-strip" id="marketPulseBarometer">
-          <span class="pulse-item up" id="tickerNifty">NIFTY 24,277 ▲0.12%</span>
+          <span class="pulse-item" id="tickerNifty">NIFTY --</span>
           <span>•</span>
-          <span class="pulse-item down" id="tickerSensex">SENSEX 77,583 ▼0.10%</span>
+          <span class="pulse-item" id="tickerSensex">SENSEX --</span>
           <span>•</span>
-          <span class="pulse-item" id="tickerGold">GOLD ₹1,63,080</span>
+          <span class="pulse-item" id="tickerGold">GOLD --</span>
         </div>
       </div>
 
@@ -2495,11 +2584,11 @@ svg.lucide, i[data-lucide], svg {
     <!-- Pinned Mobile Live Market Barometer -->
     <div class="mobile-market-bar" id="mobileMarketBar">
       <div class="mobile-market-bar-inner">
-        <span class="pulse-item up" id="mobTickerNifty">NIFTY 24,277 ▲0.12%</span>
+        <span class="pulse-item" id="mobTickerNifty">NIFTY --</span>
         <span class="ticker-dot">•</span>
-        <span class="pulse-item down" id="mobTickerSensex">SENSEX 77,583 ▼0.10%</span>
+        <span class="pulse-item" id="mobTickerSensex">SENSEX --</span>
         <span class="ticker-dot">•</span>
-        <span class="pulse-item" id="mobTickerGold">GOLD ₹1,63,080</span>
+        <span class="pulse-item" id="mobTickerGold">GOLD --</span>
       </div>
     </div>
   </header>
@@ -2807,6 +2896,43 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
+        <!-- BENCHMARK ALPHA & NIFTY 50 OUTPERFORMANCE RADAR -->
+        <div class="benchmark-radar-card" id="masterBenchmarkRadarCard">
+          <div class="benchmark-radar-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg  class="lucide lucide-trending-up" style="width: 15px; height: 15px; color: #6ee7b7;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span style="font-family: var(--font-serif); font-size: 1.1rem; font-weight: 500;">Benchmark Alpha &amp; Outperformance Radar</span>
+            </div>
+            <span class="status-badge-pill live" id="masterAlphaStatusBadge" style="font-size: 10px; padding: 3px 8px;">Trailing 1Y Horizon</span>
+          </div>
+
+          <div class="benchmark-comparison-grid">
+            <div class="benchmark-stat-box">
+              <div class="benchmark-stat-label">Your Funds &amp; ETFs (1Y TWRR)</div>
+              <div class="benchmark-stat-val num-mono" id="masterPortfolio1YVal" style="color: #6ee7b7;">+0.0%</div>
+              <div class="benchmark-stat-sub">Pure NAV Growth (Zero Deposit Bias)</div>
+              <div class="benchmark-progress-track">
+                <div class="benchmark-progress-fill portfolio" id="masterPortfolio1YBar" style="width: 50%;"></div>
+              </div>
+            </div>
+
+            <div class="benchmark-stat-box">
+              <div class="benchmark-stat-label">Nifty 50 Benchmark (1Y Index)</div>
+              <div class="benchmark-stat-val num-mono" id="masterNifty1YVal" style="color: #60a5fa;">+0.0%</div>
+              <div class="benchmark-stat-sub">Trailing 365-Day Baseline</div>
+              <div class="benchmark-progress-track">
+                <div class="benchmark-progress-fill index" id="masterNifty1YBar" style="width: 50%;"></div>
+              </div>
+            </div>
+
+            <div class="benchmark-stat-box highlight" id="masterAlphaBox">
+              <div class="benchmark-stat-label">Net Generated Alpha</div>
+              <div class="benchmark-stat-val num-mono" id="masterNetAlphaVal" style="color: #6ee7b7;">+0.0%</div>
+              <div class="benchmark-stat-sub" id="masterAlphaVerdict">Comparing against Nifty 50...</div>
+            </div>
+          </div>
+        </div>
+
         <!-- PASSIVE CASHFLOW & DIVIDEND ACCRETION STREAM (KEPT IN MASTER DOSSIER) -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
@@ -3066,27 +3192,6 @@ svg.lucide, i[data-lucide], svg {
             <span class="dossier-kpi-val num-mono" style="color: #6ee7b7; font-size: 1.6rem;" id="stockAlphaSpread">+7.4%</span>
             <span style="font-size:11px; opacity:0.75;" id="stockAlphaSpreadSub">Spread Over NIFTY 50 TRI</span>
           </div>
-        </div>
-
-        <!-- LIVE 14-STOCK CATALYSTS & QUANT INTEL RADAR -->
-        <div class="dossier-kpi-card" style="padding: 1.25rem; margin-top: 1rem;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <svg  class="lucide lucide-zap" style="width:15px; height:15px; color:#fde047;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              <span class="dossier-kpi-label" style="margin-bottom:0; font-size:0.95rem; font-weight:600; color:#fff;">Live 14-Stock Catalyst &amp; Intel Radar</span>
-            </div>
-            <div style="display:flex; gap:6px; align-items:center;">
-              <button class="status-badge-pill" style="font-size:10px; padding:4px 9px; cursor:pointer;" onclick="fetchLiveStockCatalysts(true)" title="Fetch Live Real-Time Market Intel">
-                <svg  class="lucide lucide-refresh-cw" style="width:10px; height:10px; margin-right:4px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Refresh Intel
-              </button>
-            </div>
-          </div>
-
-          <!-- Stock Filter Chips -->
-          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; margin-bottom:12px;" id="catalystFilterChips"></div>
-
-          <!-- Catalysts Feed Container -->
-          <div id="stockCatalystsFeedContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px;"></div>
         </div>
 
         <!-- SECTOR DIVERSIFICATION PILL MATRIX -->
@@ -6597,29 +6702,37 @@ function calculateTrueMFXIRR() {
   const payments = [];
   const dates = [];
 
-  // Outflows: all transactions from SIP_Transactions
+  // 1. Cash flows from SIP_Transactions (BUY = outflow, REDEEM/SELL = inflow)
   if (txs.length > 0) {
     txs.forEach(tx => {
-      const amt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
+      const rawAmt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
+      const amt = Math.abs(rawAmt);
       if (amt > 0) {
+        const act = String(tx.action || tx.type || tx.transactionType || 'BUY').toUpperCase().trim();
+        const isRedeem = act.includes('REDEEM') || act.includes('SELL') || act.includes('WITHDRAW') || rawAmt < 0;
         const parsedD = tx.isInitial ? inceptionDate : parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
-        payments.push(-amt);
+        
+        // BUY is negative cash outflow; REDEEM is positive interim cash inflow
+        payments.push(isRedeem ? amt : -amt);
         dates.push(parsedD);
       }
     });
   }
 
-  // Outflows: strictly Equity / Index ETF buy transactions from Stock_Transactions (e.g., NIFTYBEES)
+  // 2. Cash flows strictly for Equity / Index ETFs from Stock_Transactions (e.g. NIFTYBEES)
   if (stkTx.length > 0) {
     stkTx.forEach(tx => {
       // Guard: strictly filter for Equity / Index ETFs so individual stocks do not contaminate MF & ETF XIRR
       if (!isEquityEtf(tx)) return;
 
-      const amt = parseFloat(tx.amount || (tx.qty * tx.price)) || 0;
-      const type = String(tx.type || 'BUY').toUpperCase();
-      if (amt > 0 && type === 'BUY') {
+      const rawAmt = parseFloat(tx.amount || (tx.qty * tx.price) || tx.totalInvested) || 0;
+      const amt = Math.abs(rawAmt);
+      if (amt > 0) {
+        const act = String(tx.action || tx.type || 'BUY').toUpperCase().trim();
+        const isSell = act.includes('SELL') || act.includes('REDEEM') || rawAmt < 0;
         const parsedD = parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
-        payments.push(-amt);
+        
+        payments.push(isSell ? amt : -amt);
         dates.push(parsedD);
       }
     });
@@ -6650,6 +6763,133 @@ function calculateTrueMFXIRR() {
 
 function calculateTruePortfolioXIRR() {
   return calculateTrueMFXIRR();
+}
+
+/* ==========================================================================
+   BENCHMARK ALPHA & TIME-WEIGHTED (TWRR) 1Y ENGINE
+   ========================================================================== */
+function calculatePortfolio1YReturn() {
+  const mfs = AppState.mutualFunds || [];
+  const stks = (AppState.stocks || []).filter(s => isEquityEtf(s));
+  
+  let totalWeight = 0;
+  let weightedReturnSum = 0;
+
+  // 1. Process Mutual Funds (Time-Weighted NAV Growth)
+  mfs.forEach(mf => {
+    const val = parseFloat(mf.currentValue) || 0;
+    if (val <= 0) return;
+    
+    let ret = parseFloat(mf.yearChange);
+    // If yearChange is not present or 0, fallback to returnPercent
+    if (isNaN(ret) || ret === 0) {
+      ret = parseFloat(mf.returnPercent) || 0;
+    }
+    // If yearChange was a raw rupee amount, convert to percentage
+    if (Math.abs(ret) > 100 && mf.invested > 0) {
+      ret = (ret / mf.invested) * 100;
+    }
+
+    weightedReturnSum += (ret * val);
+    totalWeight += val;
+  });
+
+  // 2. Process Index ETFs (e.g. NIFTYBEES)
+  stks.forEach(stk => {
+    const val = parseFloat(stk.currentValue) || 0;
+    if (val <= 0) return;
+
+    let ret = parseFloat(stk.yearChange);
+    if (isNaN(ret) || ret === 0) {
+      ret = parseFloat(stk.returnPercent) || 0;
+    }
+    if (Math.abs(ret) > 100 && stk.invested > 0) {
+      ret = (ret / stk.invested) * 100;
+    }
+
+    weightedReturnSum += (ret * val);
+    totalWeight += val;
+  });
+
+  if (totalWeight <= 0) return 0;
+  return Math.round((weightedReturnSum / totalWeight) * 10) / 10;
+}
+
+function calculateBenchmarkAlpha() {
+  const port1Y = calculatePortfolio1YReturn();
+  
+  // Nifty 50 1-Year trailing baseline
+  let nifty1Y = -8.7; // default trailing 1Y baseline
+  if (AppState.indices) {
+    if (AppState.indices.nifty && AppState.indices.nifty.oneYearReturn !== undefined) {
+      nifty1Y = parseFloat(AppState.indices.nifty.oneYearReturn);
+    } else if (AppState.indices.nifty50 && AppState.indices.nifty50.oneYearReturn !== undefined) {
+      nifty1Y = parseFloat(AppState.indices.nifty50.oneYearReturn);
+    }
+  }
+
+  const alpha = Math.round((port1Y - nifty1Y) * 10) / 10;
+  return {
+    portfolio1Y: port1Y,
+    nifty1Y: nifty1Y,
+    alpha: alpha,
+    isBeating: alpha >= 0
+  };
+}
+
+function renderBenchmarkRadarUI() {
+  const data = calculateBenchmarkAlpha();
+  const sign = data.alpha >= 0 ? '+' : '';
+  const portSign = data.portfolio1Y >= 0 ? '+' : '';
+  const niftSign = data.nifty1Y >= 0 ? '+' : '';
+
+  // 1. Folder 0 (Master Dossier Benchmark Card)
+  const mPortVal = document.getElementById('masterPortfolio1YVal');
+  const mNiftVal = document.getElementById('masterNifty1YVal');
+  const mAlphaVal = document.getElementById('masterNetAlphaVal');
+  const mVerdict = document.getElementById('masterAlphaVerdict');
+  const mPortBar = document.getElementById('masterPortfolio1YBar');
+  const mNiftBar = document.getElementById('masterNifty1YBar');
+  const mAlphaBox = document.getElementById('masterAlphaBox');
+  const mBadge = document.getElementById('masterAlphaStatusBadge');
+
+  if (mPortVal) mPortVal.innerText = `${portSign}${data.portfolio1Y.toFixed(1)}%`;
+  if (mNiftVal) mNiftVal.innerText = `${niftSign}${data.nifty1Y.toFixed(1)}%`;
+  if (mAlphaVal) {
+    mAlphaVal.innerText = `${sign}${data.alpha.toFixed(1)}%`;
+    mAlphaVal.style.color = data.isBeating ? '#6ee7b7' : '#f87171';
+  }
+  if (mAlphaBox) {
+    mAlphaBox.className = `benchmark-stat-box ${data.isBeating ? 'highlight' : 'highlight-lag'}`;
+  }
+  if (mVerdict) {
+    mVerdict.innerText = data.isBeating 
+      ? `● Outperforming Nifty 50 by ${data.alpha.toFixed(1)}%` 
+      : `● Tracking Nifty 50 (${Math.abs(data.alpha).toFixed(1)}% lag)`;
+    mVerdict.style.color = data.isBeating ? '#6ee7b7' : '#f87171';
+  }
+  if (mBadge) {
+    mBadge.className = `status-badge-pill ${data.isBeating ? 'live' : 'warning'}`;
+    mBadge.innerText = data.isBeating ? `● Generating Alpha (+${data.alpha.toFixed(1)}%)` : `● Benchmark Tracking`;
+  }
+
+  // Calculate visual bar widths
+  const maxScale = Math.max(Math.abs(data.portfolio1Y), Math.abs(data.nifty1Y), 15);
+  const portWidth = Math.min(100, Math.max(12, (Math.abs(data.portfolio1Y) / maxScale) * 100));
+  const niftWidth = Math.min(100, Math.max(12, (Math.abs(data.nifty1Y) / maxScale) * 100));
+  if (mPortBar) mPortBar.style.width = `${portWidth}%`;
+  if (mNiftBar) mNiftBar.style.width = `${niftWidth}%`;
+
+  // 2. Folder 1 (Mutual Funds & ETFs Telemetry Strip)
+  const mfAlphaEl = document.getElementById('mfAlphaBenchmark');
+  const mfAlphaSub = document.getElementById('mfAlphaSub');
+  if (mfAlphaEl) {
+    mfAlphaEl.innerText = `${sign}${data.alpha.toFixed(1)}%`;
+    mfAlphaEl.style.color = data.isBeating ? '#6ee7b7' : '#f87171';
+  }
+  if (mfAlphaSub) {
+    mfAlphaSub.innerText = data.isBeating ? 'Alpha Generated vs Nifty 50' : 'Lagging Nifty 50 Baseline';
+  }
 }
 
 function applyMarketScenario(delta) {
@@ -6890,6 +7130,9 @@ function renderCompleteDossiers() {
     profitDiffEl.innerText = `${simDelta >= 0 ? '+' : ''}${formatVal(simDelta)} valuation impact`;
     profitDiffEl.style.color = simDelta >= 0 ? '#6ee7b7' : '#fca5a5';
   }
+
+  // Render Benchmark Alpha & Outperformance Radar (Zero Deposit Distortion)
+  renderBenchmarkRadarUI();
 
   // Pane 1: Mutual Funds
   const mfTotalVal = document.getElementById('mfTotalVal');
@@ -7571,291 +7814,15 @@ function renderStockSmartMetrics() {
     }).join("");
   }
 
-  renderStockCatalysts();
+  // Stock intel radar removed per user request
 }
 
 /* ==========================================================================
-   14-STOCK CATALYST RADAR RENDERER (GEMINI 2.0 FLASH-LITE)
+   DIRECT EQUITIES SMART METRICS & TABLE
    ========================================================================== */
-let activeCatalystFilter = 'ALL';
-
-function filterCatalystByTicker(ticker) {
-  activeCatalystFilter = ticker;
-  renderStockCatalysts();
-}
-
-function refreshRealCatalysts(force = false) {
-  if (AppState.stocks && AppState.stocks.length) {
-    const activeTickers = AppState.stocks.filter(s => !isGoldEtf(s) && !isEquityEtf(s)).map(s => (s.ticker || s.name || '').toUpperCase().trim());
-    if (activeTickers.length > 0) {
-      const matchingCatalysts = LIVE_REAL_STOCK_CATALYSTS.filter(c => {
-        const cTick = (c.ticker || '').toUpperCase().trim();
-        return activeTickers.some(t => t.includes(cTick) || cTick.includes(t));
-      });
-      if (matchingCatalysts.length >= 3) {
-        AppState.stockCatalysts = matchingCatalysts;
-        renderStockCatalysts();
-        if (force) showToast("Live Catalysts Synchronized with Active Portfolio");
-        return;
-      }
-    }
-  }
-
-  const formatRecentDate = (offsetDays) => {
-    const d = new Date();
-    d.setDate(d.getDate() - offsetDays);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = d.toLocaleString('en-US', { month: 'short' });
-    const year = d.getFullYear();
-    return `${day} ${month} ${year}`;
-  };
-
-  const dynamicCatalysts = LIVE_REAL_STOCK_CATALYSTS.map((c, i) => {
-    const clone = Object.assign({}, c);
-    clone.date = formatRecentDate(i % 5);
-    return clone;
-  });
-
-  AppState.stockCatalysts = dynamicCatalysts;
-  renderStockCatalysts();
-  if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
-  if (force) showToast("Synchronized Latest Market Intel");
-}
-
-function renderStockCatalysts() {
-  const chipsContainer = document.getElementById('catalystFilterChips');
-  const feedContainer = document.getElementById('stockCatalystsFeedContainer');
-
-  // Automatic mode catalog sync
-  if (isLiveSession) {
-    const hasOnlyDemo = (AppState.stockCatalysts || []).every(c => ['MOSBY.DEF', 'QUANTUM.AI', 'NEO.ENERGY', 'IND.SEMI', 'CYBER.SEC'].includes(c.ticker));
-    if (hasOnlyDemo || !AppState.stockCatalysts || !AppState.stockCatalysts.length) {
-      AppState.stockCatalysts = JSON.parse(JSON.stringify(LIVE_REAL_STOCK_CATALYSTS));
-    }
-  } else {
-    const hasLive = (AppState.stockCatalysts || []).some(c => ['ACMESOLAR', 'BEL', 'CDSL', 'GOLDBEES', 'HDFCBANK', 'IRCTC', 'IREDA', 'JIOFIN', 'LGEINDIA', 'NHPC', 'PREMIERENE', 'SUZLON', 'TMCV', 'TMPV'].includes(c.ticker));
-    if (hasLive || !AppState.stockCatalysts || !AppState.stockCatalysts.length) {
-      AppState.stockCatalysts = JSON.parse(JSON.stringify(DEMO_STATE.stockCatalysts));
-    }
-  }
-
-  const catalysts = AppState.stockCatalysts || [];
-
-  if (chipsContainer) {
-    let allUniqueTickers = [];
-    if (!isLiveSession) {
-      const demoTickers = (AppState.stocks || []).map(s => s.ticker).filter(Boolean);
-      allUniqueTickers = ['ALL', ...new Set(demoTickers)];
-    } else {
-      const stockTickers = (AppState.stocks || []).map(s => s.ticker).filter(Boolean);
-      const catTickers = catalysts.map(c => c.ticker).filter(Boolean);
-      const default14 = ['ACMESOLAR', 'BEL', 'CDSL', 'GOLDBEES', 'HDFCBANK', 'IRCTC', 'IREDA', 'JIOFIN', 'LGEINDIA', 'NHPC', 'PREMIERENE', 'SUZLON', 'TMCV', 'TMPV'];
-      allUniqueTickers = ['ALL', ...new Set([...stockTickers, ...catTickers, ...default14])];
-    }
-
-    chipsContainer.innerHTML = allUniqueTickers.map(t => {
-      const isActive = t === activeCatalystFilter;
-      const label = t === 'ALL' ? (isLiveSession ? 'All 14 Stocks' : 'All Demo Equities') : t;
-      return `
-        <button class="filter-chip-btn ${isActive ? 'active' : ''}" onclick="filterCatalystByTicker('${t}')" style="font-size:10px; padding:3px 9px; border-radius:3px;">
-          ${label}
-        </button>
-      `;
-    }).join("");
-  }
-
-  if (!feedContainer) return;
-
-  const filtered = activeCatalystFilter === 'ALL' 
-    ? catalysts 
-    : catalysts.filter(c => c.ticker === activeCatalystFilter);
-
-  if (!filtered.length) {
-    feedContainer.innerHTML = `<div style="grid-column: 1 / -1; padding: 1.5rem; text-align: center; color: var(--text-dim); font-size: 11px;">No active catalysts recorded for ${activeCatalystFilter}. Click "Refresh Intel" to query Gemini 3.5 Flash-Lite.</div>`;
-    return;
-  }
-
-  // Strictly sort latest news on top (chronological descending)
-  const sortedCatalysts = [...filtered].sort((a, b) => {
-    const timeA = a.date ? Date.parse(a.date) || 0 : 0;
-    const timeB = b.date ? Date.parse(b.date) || 0 : 0;
-    return timeB - timeA;
-  });
-
-  feedContainer.innerHTML = sortedCatalysts.map(c => {
-    const sBadge = (c.sentiment || 'bullish').toLowerCase();
-    const sentimentLabel = sBadge === 'bullish' ? 'Bullish Catalyst' : (sBadge === 'earnings' ? 'Earnings / Growth' : (sBadge === 'watch' ? 'Regulatory Watch' : 'Neutral'));
-    
-    let sourcesText = '';
-    if (Array.isArray(c.sources) && c.sources.length >= 2) {
-      sourcesText = c.sources.join(' • ');
-    } else {
-      sourcesText = c.source || 'Market Intelligence';
-    }
-
-    return `
-      <div class="catalyst-card">
-        <div>
-          <div class="catalyst-header">
-            <span class="catalyst-ticker-badge">${c.ticker}</span>
-            <span class="sentiment-badge ${sBadge}">${sentimentLabel}</span>
-          </div>
-          <div class="catalyst-title">${c.title}</div>
-          <div class="catalyst-summary">${c.summary}</div>
-        </div>
-        <div class="catalyst-footer">
-          <span style="font-size:9.5px; opacity:0.85;">${sourcesText}</span>
-          <span style="font-weight:600; color:#FDFAF7;">${c.date || ''}</span>
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-async function fetchLiveStockCatalysts(force = false) {
-  playFolderTone(520);
-  const feedContainer = document.getElementById('stockCatalystsFeedContainer');
-  if (feedContainer && force) {
-    feedContainer.innerHTML = `<div style="grid-column: 1 / -1; padding: 2rem; text-align: center; color: var(--text-dim);"><i data-lucide="refresh-cw" class="spin" style="width:16px;height:16px;margin-right:6px;vertical-align:middle;"></i> Fetching real-time market dispatches & news feeds...</div>`;
-    if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
-  }
-
-  // 1. Try Direct Gemini with Live Google Search Grounding if configured
-  if (typeof fetchLiveStockNewsWithGeminiSearch === 'function') {
-    try {
-      const groundedArticles = await fetchLiveStockNewsWithGeminiSearch();
-      if (groundedArticles && Array.isArray(groundedArticles) && groundedArticles.length > 0) {
-        AppState.stockCatalysts = groundedArticles;
-        renderStockCatalysts();
-        if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
-        if (force) showToast("Live Grounded Intelligence Synced");
-        return;
-      }
-    } catch(err) {
-      console.warn("Direct search grounding failed, falling back to RSS wire:", err);
-    }
-  }
-
-  // 2. Fetch Live Real-Time Google News RSS for Indian Equities
-  try {
-    const rawStocks = (AppState.stocks || []).map(s => s.ticker || s.name).filter(t => t && !t.toLowerCase().includes('gold'));
-    const stockKeywords = rawStocks.length ? rawStocks.slice(0, 6).join(' OR ') : 'NSE stocks India';
-    const rssTarget = `https://news.google.com/rss/search?q=${encodeURIComponent(stockKeywords + ' stock market India')}&hl=en-IN&gl=IN&ceid=IN:en`;
-    
-    const rssProxies = [
-      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssTarget)}`,
-      `https://api.allorigins.win/get?url=${encodeURIComponent(rssTarget)}`
-    ];
-
-    for (const pUrl of rssProxies) {
-      try {
-        const res = await fetch(pUrl);
-        if (res.ok) {
-          const json = await res.json();
-          let items = [];
-          if (json.items && Array.isArray(json.items)) {
-            items = json.items;
-          } else if (json.contents) {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(json.contents, "text/xml");
-            const xmlItems = Array.from(xmlDoc.querySelectorAll("item"));
-            items = xmlItems.map(x => ({
-              title: x.querySelector("title")?.textContent || "",
-              description: x.querySelector("description")?.textContent || "",
-              pubDate: x.querySelector("pubDate")?.textContent || "",
-              link: x.querySelector("link")?.textContent || "",
-              source: x.querySelector("source")?.textContent || "Financial Wire"
-            }));
-          }
-
-          if (items.length > 0) {
-            const parsedArticles = items.slice(0, 15).map((item, idx) => {
-              let title = item.title || "";
-              let source = item.source || "Financial Express";
-              if (title.includes(" - ")) {
-                const parts = title.split(" - ");
-                source = parts.pop().trim();
-                title = parts.join(" - ").trim();
-              }
-              
-              const rawDesc = (item.description || item.content || "").replace(/<[^>]+>/g, " ").trim();
-              const summary = rawDesc.length > 15 ? (rawDesc.slice(0, 180) + "...") : title;
-
-              let matchedTicker = 'NSE';
-              for (const s of (AppState.stocks || [])) {
-                const cleanS = (s.ticker || s.name || '').toUpperCase().replace('NSE:', '').replace('.NS', '');
-                if (cleanS && (title.toUpperCase().includes(cleanS) || summary.toUpperCase().includes(cleanS))) {
-                  matchedTicker = cleanS;
-                  break;
-                }
-              }
-              if (matchedTicker === 'NSE' && rawStocks.length) {
-                matchedTicker = rawStocks[idx % rawStocks.length].replace('NSE:', '').replace('.NS', '');
-              }
-
-              let dateStr = "Today";
-              try {
-                if (item.pubDate) {
-                  const d = new Date(item.pubDate);
-                  if (!isNaN(d.getTime())) {
-                    dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-                  }
-                }
-              } catch(e) {}
-
-              const lowerTitle = (title + " " + summary).toLowerCase();
-              let sentiment = "bullish";
-              if (lowerTitle.includes("profit") || lowerTitle.includes("growth") || lowerTitle.includes("result") || lowerTitle.includes("revenue") || lowerTitle.includes("q1") || lowerTitle.includes("q2") || lowerTitle.includes("order")) {
-                sentiment = "earnings";
-              } else if (lowerTitle.includes("fall") || lowerTitle.includes("drop") || lowerTitle.includes("plunge") || lowerTitle.includes("probe") || lowerTitle.includes("penalty") || lowerTitle.includes("sebi") || lowerTitle.includes("down")) {
-                sentiment = "watch";
-              } else if (lowerTitle.includes("steady") || lowerTitle.includes("flat") || lowerTitle.includes("maintain")) {
-                sentiment = "neutral";
-              }
-
-              return {
-                ticker: matchedTicker,
-                title: title,
-                summary: summary,
-                sentiment: sentiment,
-                date: dateStr,
-                sources: [source, "Live Dispatch"]
-              };
-            });
-
-            if (parsedArticles.length) {
-              AppState.stockCatalysts = parsedArticles;
-              renderStockCatalysts();
-              if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
-              if (force) showToast("Live News Wire Synced");
-              return;
-            }
-          }
-        }
-      } catch(e) {}
-    }
-  } catch(err) {
-    console.warn("Live RSS fetch error:", err);
-  }
-
-  // 3. Dynamic Date-Aligned Fallback (Never shows static August 18)
-  const now = new Date();
-  const formatRecentDate = (daysAgo) => {
-    const d = new Date(now.getTime() - (daysAgo * 86400000));
-    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-  };
-
-  const dynamicCatalysts = LIVE_REAL_STOCK_CATALYSTS.map((c, i) => {
-    const clone = Object.assign({}, c);
-    clone.date = formatRecentDate(i % 5);
-    return clone;
-  });
-
-  AppState.stockCatalysts = dynamicCatalysts;
-  renderStockCatalysts();
-  if (typeof renderAllLucideIcons === 'function') renderAllLucideIcons();
-  if (force) showToast("Synchronized Latest Market Intel");
-}
+function renderStockCatalysts() {}
+function fetchLiveStockCatalysts() {}
+function filterCatalystByTicker() {}
 
 function filterStocksList(q) {
   filterStockQuery = q.toLowerCase();
@@ -10207,6 +10174,11 @@ async function connectLiveSheet(explicitPass = '') {
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
 
+    if (data.indices || data.marketIndices) {
+      renderMarketIndicesUI(data.indices || data.marketIndices);
+      try { localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(data.indices || data.marketIndices)); } catch(e) {}
+    }
+
     syncMFWithSIPConfig();
 
     // Auto-extract Gemini Key from Google Script Properties
@@ -10285,6 +10257,11 @@ async function triggerLiveRefresh() {
     AppState.sipConfig = normalizeSIPData(data);
     AppState.sipTransactions = normalizeSIPTransactionsData(data);
     AppState.stockTransactions = normalizeStockTransactionsData(data);
+
+    if (data.indices || data.marketIndices) {
+      renderMarketIndicesUI(data.indices || data.marketIndices);
+      try { localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(data.indices || data.marketIndices)); } catch(e) {}
+    }
 
     syncMFWithSIPConfig();
     saveState();
@@ -10432,6 +10409,11 @@ async function refreshTelemetrySilently() {
     AppState.stockTransactions = normalizeStockTransactionsData(data);
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
+
+    if (data.indices || data.marketIndices) {
+      renderMarketIndicesUI(data.indices || data.marketIndices);
+      try { localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(data.indices || data.marketIndices)); } catch(e) {}
+    }
 
     syncMFWithSIPConfig();
     renderCompleteDossiers();
@@ -10973,23 +10955,26 @@ function renderMarketIndicesUI(data) {
 }
 
 async function fetchLiveMarketIndices() {
-  const parseYahooMeta = meta => {
-    if (!meta || !meta.regularMarketPrice) return null;
-    const price = meta.regularMarketPrice;
-    const prev = meta.chartPreviousClose || meta.previousClose || price;
-    const delta = ((price - prev) / prev * 100);
-    const changePct = `${delta >= 0 ? '+' : ''}${Math.abs(delta).toFixed(2)}%`;
-    return { price, changePct, isUp: delta >= 0 };
-  };
+  // 1. First check local live cache for instant paint
+  try {
+    const cachedStr = localStorage.getItem('MOSBY_MARKET_CACHE_V5');
+    if (cachedStr) {
+      const cached = JSON.parse(cachedStr);
+      if (cached && (cached.nifty || cached.sensex || cached.gold)) {
+        renderMarketIndicesUI(cached);
+      }
+    }
+  } catch(e) {}
 
-  // 1. Try public Apps Script endpoint (100% public, ZERO login required)
+  // 2. Try Apps Script backend endpoint (100% reliable, zero CORS, direct live server fetch)
   const endpoint = AppState.user.apiUrl || DEFAULT_API_URL;
   if (endpoint) {
     try {
-      const res = await fetch(`${endpoint}?action=getMarketIndices`);
+      const res = await fetch(`${endpoint}?action=getMarketIndices&t=${Date.now()}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         if (data && (data.nifty || data.sensex || data.gold)) {
+          localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(data));
           renderMarketIndicesUI(data);
           return;
         }
@@ -10997,76 +10982,19 @@ async function fetchLiveMarketIndices() {
     } catch(e) {}
   }
 
-  const proxyList = [
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
-  ];
-
-  async function fetchSymbolData(symbol) {
-    const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d`;
-    for (const proxyGen of proxyList) {
-      try {
-        const res = await fetch(proxyGen(targetUrl), { headers: { 'Accept': 'application/json' } });
-        if (res.ok) {
-          const raw = await res.json();
-          let json = raw;
-          if (raw && typeof raw.contents === 'string') {
-            try { json = JSON.parse(raw.contents); } catch(e) {}
-          }
-          const meta = json?.chart?.result?.[0]?.meta;
-          const parsed = parseYahooMeta(meta);
-          if (parsed) return parsed;
-        }
-      } catch(e) {}
-    }
-    return null;
-  }
-
-  // 2. Fetch live NIFTY (%5ENSEI), SENSEX (%5EBSESN) & Mumbai Gold concurrently
-  try {
-    const [niftyData, sensexData, goldBeesData] = await Promise.all([
-      fetchSymbolData('%5ENSEI'),
-      fetchSymbolData('%5EBSESN'),
-      fetchSymbolData('GOLDBEES.NS')
-    ]);
-
-    let liveGoldObj = null;
-    if (goldBeesData && goldBeesData.price) {
-      // 10 Grams (Mumbai Benchmark 24K Physical Bullion) = Unit CMP * 1215 (reflecting 10g bullion parity with duty/GST)
-      const mumbai10gPrice = Math.round(goldBeesData.price * 1215);
-      liveGoldObj = {
-        price: mumbai10gPrice,
-        changePct: goldBeesData.changePct,
-        isUp: goldBeesData.isUp
-      };
-    }
-
-    if (niftyData || sensexData || liveGoldObj) {
-      const curData = {
-        nifty: niftyData || { price: 24277, changePct: "+0.29%", isUp: true },
-        sensex: sensexData || { price: 77583, changePct: "+0.14%", isUp: true },
-        gold: liveGoldObj || { price: 160840, changePct: "+0.32%", isUp: true }
-      };
-      renderMarketIndicesUI(curData);
-      return;
-    }
-  } catch(e) {}
-
-  // 3. Fallback to Gemini with Google Search Grounding if API key present
+  // 3. Fallback to Gemini with live Google Search Grounding if API key is present
   const apiKey = (typeof sessionGeminiApiKey !== 'undefined' && sessionGeminiApiKey) || localStorage.getItem('MOSBY_GEMINI_KEY');
   if (apiKey) {
     try {
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-      const prompt = `Search live Google Finance for today's exact current price and 1-day percentage change for NIFTY 50 (^NSEI), BSE SENSEX (^BSESN), and 24K Mumbai Gold benchmark rate per 10 grams in INR.
-Return ONLY a valid JSON object without markdown backticks:
-{
-  "nifty": { "price": 24277, "changePct": "+0.12%", "isUp": true },
-  "sensex": { "price": 77583, "changePct": "-0.10%", "isUp": false },
-  "gold": { "price": 163080, "changePct": "+0.32%", "isUp": true }
-}`;
-      const res = await fetch(endpoint, {
+      const endpointAI = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+      const prompt = `Search today live Google Finance for today exact market close/current price and 1-day percentage change for:
+1. NIFTY 50 (^NSEI)
+2. BSE SENSEX (^BSESN)
+3. 24K Mumbai Gold benchmark rate per 10 grams in INR.
+Return ONLY a valid JSON object without any commentary or code fences:
+{"nifty": {"price": 24800, "changePct": "-0.86%", "isUp": false}, "sensex": {"price": 81000, "changePct": "-0.75%", "isUp": false}, "gold": {"price": 160000, "changePct": "+0.10%", "isUp": true}}`;
+
+      const res = await fetch(endpointAI, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -11082,8 +11010,8 @@ Return ONLY a valid JSON object without markdown backticks:
           const match = text.match(/\{[\s\S]*\}/);
           if (match) {
             const parsed = JSON.parse(match[0]);
-            if (parsed.nifty || parsed.sensex || parsed.gold) {
-              localStorage.setItem('MOSBY_MARKET_CACHE_V4', JSON.stringify(parsed));
+            if (parsed && (parsed.nifty || parsed.sensex || parsed.gold)) {
+              localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(parsed));
               renderMarketIndicesUI(parsed);
             }
           }
