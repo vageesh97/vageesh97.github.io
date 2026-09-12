@@ -2473,6 +2473,23 @@ svg.lucide, i[data-lucide], svg {
   background: linear-gradient(90deg, #60a5fa, #93c5fd);
 }
 
+/* 15-Year Wealth Compounding Trajectory Chart Responsive Styles */
+.trajectory-chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .trajectory-chart-wrapper {
+    height: 185px;
+  }
+}
+
 
 </style>
 
@@ -3440,8 +3457,8 @@ svg.lucide, i[data-lucide], svg {
           </div>
 
           <!-- Canvas Chart Wrapper -->
-          <div style="position: relative; width: 100%; height: 260px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
-            <canvas id="analyticsTrajectoryCanvas" width="900" height="260" style="width: 100%; height: 100%; display: block;"></canvas>
+          <div class="trajectory-chart-wrapper">
+            <canvas id="analyticsTrajectoryCanvas" width="900" height="250" style="width: 100%; height: 100%; display: block;"></canvas>
             <div id="analyticsChartTooltip" style="position: absolute; display: none; pointer-events: none; background: rgba(10,15,30,0.94); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: 10.5px; z-index: 10; box-shadow: 0 8px 24px rgba(0,0,0,0.7); min-width: 180px;"></div>
           </div>
 
@@ -8204,7 +8221,7 @@ function renderTimeHorizonDeck(metrics) {
 
   container.innerHTML = `
     <div class="horizon-card">
-      <div>
+      <div style="min-width: 0;">
         <div class="horizon-card-label">1-Day Portfolio Change (Today)</div>
         <div class="horizon-card-val num-mono privacy-blur" style="color:${isDayUp ? '#6ee7b7' : '#fca5a5'};">
           ${isDayUp ? '+' : ''}${formatVal(metrics.totalDayChange || 0)}
@@ -8213,14 +8230,14 @@ function renderTimeHorizonDeck(metrics) {
           ${isDayUp ? '▲ +' : '▼ -'}${dayPct}% Today's Movement
         </div>
       </div>
-      <div style="text-align:right; font-size:9.5px; opacity:0.65;">
+      <div style="text-align:right; font-size:9.5px; opacity:0.75; white-space:nowrap; flex-shrink:0; margin-left:8px;">
         <div>MF: ${(metrics.mfDayChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.mfDayChange || 0)}</div>
         <div>Stocks: ${(metrics.stDayChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.stDayChange || 0)}</div>
       </div>
     </div>
 
     <div class="horizon-card">
-      <div>
+      <div style="min-width: 0;">
         <div class="horizon-card-label">1-Month Portfolio Change (30 Days)</div>
         <div class="horizon-card-val num-mono privacy-blur" style="color:${isMonthUp ? '#6ee7b7' : '#fca5a5'};">
           ${isMonthUp ? '+' : ''}${formatVal(metrics.totalMonthChange || 0)}
@@ -8229,14 +8246,14 @@ function renderTimeHorizonDeck(metrics) {
           ${isMonthUp ? '▲ +' : '▼ -'}${monthPct}% Last 30 Days
         </div>
       </div>
-      <div style="text-align:right; font-size:9.5px; opacity:0.65;">
+      <div style="text-align:right; font-size:9.5px; opacity:0.75; white-space:nowrap; flex-shrink:0; margin-left:8px;">
         <div>MFs &amp; ETFs: ${(metrics.mfMonthChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.mfMonthChange || 0)}</div>
         <div>Stocks: ${(metrics.stMonthChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.stMonthChange || 0)}</div>
       </div>
     </div>
 
     <div class="horizon-card">
-      <div>
+      <div style="min-width: 0;">
         <div class="horizon-card-label">1-Year Portfolio Change (365 Days)</div>
         <div class="horizon-card-val num-mono privacy-blur" style="color:${isYearUp ? '#6ee7b7' : '#fca5a5'};">
           ${isYearUp ? '+' : ''}${formatVal(metrics.totalYearChange || 0)}
@@ -8245,7 +8262,7 @@ function renderTimeHorizonDeck(metrics) {
           ${isYearUp ? '▲ +' : '▼ -'}${yearPct}% Annual Trajectory
         </div>
       </div>
-      <div style="text-align:right; font-size:9.5px; opacity:0.65;">
+      <div style="text-align:right; font-size:9.5px; opacity:0.75; white-space:nowrap; flex-shrink:0; margin-left:8px;">
         <div>MFs &amp; ETFs: ${(metrics.mfYearChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.mfYearChange || 0)}</div>
         <div>Stocks: ${(metrics.stYearChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.stYearChange || 0)}</div>
       </div>
@@ -9210,7 +9227,9 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   const dpr = (typeof window !== "undefined" && window.devicePixelRatio) ? window.devicePixelRatio : 1;
   let width = rect.width > 0 ? rect.width : (parentW > 0 ? parentW : (canvas.clientWidth > 0 ? canvas.clientWidth : 800));
   if (width < 320 && parentW >= 320) width = parentW;
-  const height = 260;
+
+  const isMobile = (typeof window !== "undefined" && window.innerWidth <= 640) || width <= 480;
+  const height = isMobile ? 185 : 250;
 
   canvas.width = Math.floor(width * dpr);
   canvas.height = Math.floor(height * dpr);
@@ -9228,70 +9247,91 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
     legendPortEl.innerText = `● Active Strategy (Alpha ~${(ratePortfolio * 100).toFixed(1)}%)`;
   }
 
-  const pointsPortfolio = [];
-  const pointsNifty = [];
-  const pointsFD = [];
-  const pointsInvested = [];
+  // Monthly simulation (180 months) for mathematically exact, silky-smooth continuous growth curves
+  const totalMonths = years * 12;
+  const monthlyPortfolio = [curNW];
+  const monthlyNifty = [curNW];
+  const monthlyFD = [curNW];
+  const monthlyInvested = [curNW];
 
-  for (let yr = 0; yr <= years; yr++) {
-    let fvPort = curNW;
-    let fvNifty = curNW;
-    let fvFD = curNW;
-    let totalDeposited = 0;
-    let curSip = monthlySip;
+  let fvPort = curNW;
+  let fvNifty = curNW;
+  let fvFD = curNW;
+  let totalDeposited = 0;
+  let curSip = monthlySip;
 
-    for (let m = 1; m <= yr * 12; m++) {
-      if (m > 1 && m % 12 === 1 && stepUpRatePct > 0) {
-        curSip *= (1 + stepUpRatePct / 100);
-      }
-      fvPort = fvPort * (1 + ratePortfolio / 12) + curSip;
-      fvNifty = fvNifty * (1 + rateNifty / 12) + curSip;
-      fvFD = fvFD * (1 + rateFD / 12) + curSip;
-      totalDeposited += curSip;
+  for (let m = 1; m <= totalMonths; m++) {
+    if (m > 1 && m % 12 === 1 && stepUpRatePct > 0) {
+      curSip *= (1 + stepUpRatePct / 100);
     }
+    fvPort = fvPort * (1 + ratePortfolio / 12) + curSip;
+    fvNifty = fvNifty * (1 + rateNifty / 12) + curSip;
+    fvFD = fvFD * (1 + rateFD / 12) + curSip;
+    totalDeposited += curSip;
 
-    if (yr === 0) {
-      fvPort = curNW;
-      fvNifty = curNW;
-      fvFD = curNW;
-      totalDeposited = 0;
-    }
-
-    pointsPortfolio.push(fvPort);
-    pointsNifty.push(fvNifty);
-    pointsFD.push(fvFD);
-    pointsInvested.push(curNW + totalDeposited);
+    monthlyPortfolio.push(fvPort);
+    monthlyNifty.push(fvNifty);
+    monthlyFD.push(fvFD);
+    monthlyInvested.push(curNW + totalDeposited);
   }
 
-  // Update quick milestone cards below chart
+  // Quick milestone cards below chart (at years 5, 10, 15)
   const el5Y = document.getElementById("metricHorizon5Y");
   const el10Y = document.getElementById("metricHorizon10Y");
   const el15Y = document.getElementById("metricHorizon15Y");
   const elInflow = document.getElementById("metricTotal15YInvested");
-  if (el5Y) el5Y.innerText = formatVal(pointsPortfolio[5]);
-  if (el10Y) el10Y.innerText = formatVal(pointsPortfolio[10]);
-  if (el15Y) el15Y.innerText = formatVal(pointsPortfolio[15]);
-  if (elInflow) elInflow.innerText = formatVal(pointsInvested[15]);
+  if (el5Y) el5Y.innerText = formatVal(monthlyPortfolio[5 * 12]);
+  if (el10Y) el10Y.innerText = formatVal(monthlyPortfolio[10 * 12]);
+  if (el15Y) el15Y.innerText = formatVal(monthlyPortfolio[15 * 12]);
+  if (elInflow) elInflow.innerText = formatVal(monthlyInvested[15 * 12]);
 
-  const maxVal = Math.max(...pointsPortfolio, ...pointsNifty, ...pointsFD) * 1.08;
+  const maxVal = Math.max(monthlyPortfolio[totalMonths], monthlyNifty[totalMonths], monthlyFD[totalMonths]) * 1.08;
   const minVal = 0;
 
-  const padLeft = 68;
-  const padRight = 25;
-  const padTop = 22;
-  const padBottom = 35;
-  const chartW = width - padLeft - padRight;
-  const chartH = height - padTop - padBottom;
+  const padLeft = isMobile ? 44 : 62;
+  const padRight = isMobile ? 12 : 24;
+  const padTop = isMobile ? 16 : 22;
+  const padBottom = isMobile ? 26 : 32;
+  const chartW = Math.max(10, width - padLeft - padRight);
+  const chartH = Math.max(10, height - padTop - padBottom);
 
-  const getX = (yr) => padLeft + (yr / years) * chartW;
+  const getX = (m) => padLeft + (m / totalMonths) * chartW;
   const getY = (val) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+
+  // Compact currency formatter for clean axis display
+  function formatAxisVal(val, compact) {
+    if (val <= 0) return "₹0";
+    if (compact) {
+      if (val >= 10000000) {
+        const cr = val / 10000000;
+        return `₹${cr >= 10 ? cr.toFixed(1) : cr.toFixed(2)} Cr`.replace('.00', '').replace('.0 Cr', ' Cr');
+      }
+      if (val >= 100000) {
+        const lk = val / 100000;
+        return `₹${lk >= 10 ? lk.toFixed(0) : lk.toFixed(1)} L`.replace('.0 L', ' L');
+      }
+      if (val >= 1000) {
+        return `₹${Math.round(val / 1000)}k`;
+      }
+      return `₹${Math.round(val)}`;
+    }
+    if (val >= 10000000) {
+      const cr = val / 10000000;
+      return `₹${cr.toFixed(2)} Cr`;
+    }
+    if (val >= 100000) {
+      const lk = val / 100000;
+      return `₹${lk.toFixed(2)} L`;
+    }
+    return formatVal(Math.round(val));
+  }
 
   // Horizontal Grid lines & scale labels
   ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
   ctx.lineWidth = 1;
-  ctx.setLineDash([4, 4]);
+  ctx.setLineDash([3, 3]);
 
-  const gridSteps = 4;
+  const gridSteps = isMobile ? 3 : 4;
   for (let i = 0; i <= gridSteps; i++) {
     const val = minVal + (maxVal - minVal) * (i / gridSteps);
     const y = getY(val);
@@ -9300,44 +9340,42 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
     ctx.lineTo(width - padRight, y);
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(253, 250, 247, 0.45)';
-    ctx.font = '9px "IBM Plex Mono", monospace';
+    ctx.fillStyle = 'rgba(253, 250, 247, 0.50)';
+    ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
-    ctx.fillText(formatVal(val), padLeft - 8, y);
+    ctx.fillText(formatAxisVal(val, isMobile), padLeft - (isMobile ? 5 : 8), y);
   }
 
   // Vertical year lines & labels
   ctx.setLineDash([]);
-  for (let yr = 0; yr <= years; yr += 3) {
-    const x = getX(yr);
+  const yearStep = 3;
+  for (let yr = 0; yr <= years; yr += yearStep) {
+    const m = yr * 12;
+    const x = getX(m);
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
     ctx.beginPath();
     ctx.moveTo(x, padTop);
     ctx.lineTo(x, padTop + chartH);
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(253, 250, 247, 0.55)';
-    ctx.font = '9.5px "IBM Plex Mono", monospace';
+    ctx.fillStyle = 'rgba(253, 250, 247, 0.60)';
+    ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText(yr === 0 ? 'Now' : `Yr ${yr}`, x, padTop + chartH + 8);
+    const labelText = yr === 0 ? 'Now' : (isMobile ? `${yr}Y` : `Yr ${yr}`);
+    ctx.fillText(labelText, x, padTop + chartH + (isMobile ? 6 : 8));
   }
 
-  // Helper smooth curve drawer
-  const drawCurve = (data, strokeColor, lineWidth, isDashed = false) => {
+  // Helper smooth continuous monthly curve drawer
+  const drawMonthlySeries = (series, strokeColor, lineWidth, isDashed = false) => {
     ctx.beginPath();
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = lineWidth;
     ctx.setLineDash(isDashed ? [4, 4] : []);
-    ctx.moveTo(getX(0), getY(data[0]));
-    for (let yr = 1; yr <= years; yr++) {
-      const prevX = getX(yr - 1);
-      const prevY = getY(data[yr - 1]);
-      const currX = getX(yr);
-      const currY = getY(data[yr]);
-      const cpX = (prevX + currX) / 2;
-      ctx.bezierCurveTo(cpX, prevY, cpX, currY, currX, currY);
+    ctx.moveTo(getX(0), getY(series[0]));
+    for (let m = 1; m <= totalMonths; m++) {
+      ctx.lineTo(getX(m), getY(series[m]));
     }
     ctx.stroke();
   };
@@ -9348,48 +9386,44 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   grad.addColorStop(1, "rgba(110, 231, 183, 0.0)");
 
   ctx.beginPath();
-  ctx.moveTo(getX(0), getY(pointsPortfolio[0]));
-  for (let yr = 1; yr <= years; yr++) {
-    const prevX = getX(yr - 1);
-    const prevY = getY(pointsPortfolio[yr - 1]);
-    const currX = getX(yr);
-    const currY = getY(pointsPortfolio[yr]);
-    const cpX = (prevX + currX) / 2;
-    ctx.bezierCurveTo(cpX, prevY, cpX, currY, currX, currY);
+  ctx.moveTo(getX(0), getY(monthlyPortfolio[0]));
+  for (let m = 1; m <= totalMonths; m++) {
+    ctx.lineTo(getX(m), getY(monthlyPortfolio[m]));
   }
-  ctx.lineTo(getX(years), padTop + chartH);
+  ctx.lineTo(getX(totalMonths), padTop + chartH);
   ctx.lineTo(getX(0), padTop + chartH);
   ctx.closePath();
   ctx.fillStyle = grad;
   ctx.fill();
 
   // 1. Invested Principal Line (Dashed White)
-  drawCurve(pointsInvested, "rgba(255, 255, 255, 0.38)", 1.5, true);
+  drawMonthlySeries(monthlyInvested, "rgba(255, 255, 255, 0.38)", 1.5, true);
 
   // 2. Bank FD Line (~7.0% Hurdle) (Yellow/Amber)
-  drawCurve(pointsFD, "#fde047", 1.8);
+  drawMonthlySeries(monthlyFD, "#fde047", isMobile ? 1.6 : 1.8);
 
   // 3. NIFTY 50 Line (~14.2% TRI) (Blue)
-  drawCurve(pointsNifty, "#60a5fa", 2.0);
+  drawMonthlySeries(monthlyNifty, "#60a5fa", isMobile ? 1.8 : 2.0);
 
   // 4. My Portfolio Line (Actual ROI) (Emerald Green)
-  drawCurve(pointsPortfolio, "#6ee7b7", 3.0);
+  drawMonthlySeries(monthlyPortfolio, "#6ee7b7", isMobile ? 2.5 : 3.0);
 
   // Milestone Dots on My Portfolio Curve
   ctx.setLineDash([]);
   [0, 5, 10, 15].forEach(yr => {
-    const x = getX(yr);
-    const y = getY(pointsPortfolio[yr]);
+    const m = yr * 12;
+    const x = getX(m);
+    const y = getY(monthlyPortfolio[m]);
     ctx.beginPath();
-    ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+    ctx.arc(x, y, isMobile ? 3.5 : 4.5, 0, Math.PI * 2);
     ctx.fillStyle = "#07090E";
     ctx.fill();
-    ctx.lineWidth = 2.2;
+    ctx.lineWidth = isMobile ? 1.8 : 2.2;
     ctx.strokeStyle = "#6ee7b7";
     ctx.stroke();
   });
 
-  // Interactive Hover Tooltip
+  // Interactive Hover & Touch Tooltip
   const tooltip = document.getElementById("analyticsChartTooltip");
   if (tooltip) {
     const handleMove = (clientX, clientY) => {
@@ -9401,41 +9435,43 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
       }
       const normX = (mouseX - padLeft) / chartW;
       const yr = Math.max(0, Math.min(years, Math.round(normX * years)));
-      const x = getX(yr);
-      const y = getY(pointsPortfolio[yr]);
+      const m = yr * 12;
+      const x = getX(m);
+      const y = getY(monthlyPortfolio[m]);
 
-      const portVal = pointsPortfolio[yr];
-      const niftyVal = pointsNifty[yr];
-      const fdVal = pointsFD[yr];
-      const invVal = pointsInvested[yr];
+      const portVal = monthlyPortfolio[m];
+      const niftyVal = monthlyNifty[m];
+      const fdVal = monthlyFD[m];
+      const invVal = monthlyInvested[m];
       const alphaVsFD = portVal - fdVal;
       const alphaVsNifty = portVal - niftyVal;
 
       tooltip.style.display = "block";
-      tooltip.style.left = `${Math.min(width - 210, Math.max(10, x - 90))}px`;
-      tooltip.style.top = `${Math.max(10, y - 105)}px`;
+      const ttWidth = isMobile ? 190 : 220;
+      tooltip.style.left = `${Math.min(width - ttWidth - 10, Math.max(10, x - ttWidth / 2))}px`;
+      tooltip.style.top = `${Math.max(8, y - (isMobile ? 85 : 105))}px`;
       tooltip.innerHTML = `
-        <div style="font-weight:700; color:#fff; font-size:11px; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:3px;">
-          ${yr === 0 ? "Current Baseline (Year 0)" : `Year ${yr} Wealth Horizon`}
+        <div style="font-weight:700; color:#fff; font-size:${isMobile ? '10px' : '11px'}; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:3px;">
+          ${yr === 0 ? "Current Baseline (Year 0)" : `Year ${yr} Wealth Horizon (${new Date().getFullYear() + yr})`}
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px;">
-          <span style="color:#6ee7b7; font-weight:700;">● My Portfolio:</span>
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
+          <span style="color:#6ee7b7; font-weight:700;">● Active Strategy:</span>
           <span style="color:#6ee7b7; font-weight:700;">${formatVal(portVal)}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px;">
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
           <span style="color:#60a5fa;">● NIFTY 50 (14.2%):</span>
           <span style="color:#60a5fa;">${formatVal(niftyVal)}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px;">
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
           <span style="color:#fde047;">● Bank FD (7.0%):</span>
           <span style="color:#fde047;">${formatVal(fdVal)}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:2px; margin-top:2px;">
-          <span style="color:var(--text-dim); font-size:9.5px;">Invested Capital:</span>
-          <span style="color:var(--text-dim); font-size:9.5px;">${formatVal(invVal)}</span>
+        <div style="display:flex; justify-content:space-between; gap:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:2px; margin-top:2px; font-size:${isMobile ? '9px' : '9.5px'};">
+          <span style="color:var(--text-dim);">Invested Principal:</span>
+          <span style="color:var(--text-dim);">${formatVal(invVal)}</span>
         </div>
         ${yr > 0 ? `
-          <div style="font-size:9px; color:#6ee7b7; margin-top:3px; text-align:right;">
+          <div style="font-size:${isMobile ? '8.5px' : '9px'}; color:#6ee7b7; margin-top:3px; text-align:right;">
             Alpha vs FD: +${formatVal(alphaVsFD)}
           </div>
         ` : ''}
@@ -9444,10 +9480,15 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
 
     canvas.onmousemove = (e) => handleMove(e.clientX, e.clientY);
     canvas.onmouseleave = () => { tooltip.style.display = "none"; };
+    canvas.ontouchstart = (e) => {
+      if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
     canvas.ontouchmove = (e) => {
       if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
     };
-    canvas.ontouchend = () => { tooltip.style.display = "none"; };
+    canvas.ontouchend = () => {
+      setTimeout(() => { tooltip.style.display = "none"; }, 2500);
+    };
   }
 }
 
@@ -10099,14 +10140,41 @@ function drawTxCadenceChart() {
     ctx.moveTo(x + 1, y);
     ctx.lineTo(x + barW - 1, y);
     ctx.stroke();
+  });
 
-    // X-Axis labels
-    const labelStep = Math.ceil(barCount / 6);
-    if (i % labelStep === 0 || i === barCount - 1) {
-      ctx.fillStyle = "rgba(255,255,255,0.6)";
-      ctx.font = "9px var(--font-mono, monospace)";
+  // Smart X-Axis labels with collision prevention
+  const minSpacingPx = 52;
+  const numLabels = Math.min(barCount, Math.max(2, Math.floor(plotW / minSpacingPx)));
+  const labelIndices = [];
+  if (barCount <= 4) {
+    for (let idx = 0; idx < barCount; idx++) labelIndices.push(idx);
+  } else {
+    labelIndices.push(0);
+    const stepSize = (barCount - 1) / (numLabels - 1);
+    for (let k = 1; k < numLabels - 1; k++) {
+      const idx = Math.round(k * stepSize);
+      if (idx > labelIndices[labelIndices.length - 1] + 1 && (barCount - 1 - idx) >= 2) {
+        labelIndices.push(idx);
+      }
+    }
+    labelIndices.push(barCount - 1);
+  }
+
+  labelIndices.forEach(i => {
+    const m = months[i];
+    if (!m) return;
+    const x = padLeft + (i * slotW) + (slotW / 2);
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.font = "9px var(--font-mono, monospace)";
+    if (i === 0) {
+      ctx.textAlign = "left";
+      ctx.fillText(m.label, padLeft, height - 8);
+    } else if (i === barCount - 1) {
+      ctx.textAlign = "right";
+      ctx.fillText(m.label, width - padRight, height - 8);
+    } else {
       ctx.textAlign = "center";
-      ctx.fillText(m.label, x + barW / 2, height - 8);
+      ctx.fillText(m.label, x, height - 8);
     }
   });
 
@@ -10285,12 +10353,36 @@ function drawTxCumulativeGrowthChart() {
   ctx.arc(getX(lastIdx), getY(series[lastIdx].val), 4, 0, Math.PI * 2);
   ctx.fill();
 
-  // X Axis Labels
-  const step = Math.ceil(series.length / 5);
-  series.forEach((s, i) => {
-    if (i % step === 0 || i === series.length - 1) {
-      ctx.fillStyle = "rgba(255,255,255,0.6)";
-      ctx.font = "9px var(--font-mono, monospace)";
+  // Smart X Axis Labels with collision prevention
+  const minSpacingPx = 52;
+  const numLabels = Math.min(series.length, Math.max(2, Math.floor(plotW / minSpacingPx)));
+  const labelIndices = [];
+  if (series.length <= 4) {
+    for (let idx = 0; idx < series.length; idx++) labelIndices.push(idx);
+  } else {
+    labelIndices.push(0);
+    const stepSize = (series.length - 1) / (numLabels - 1);
+    for (let k = 1; k < numLabels - 1; k++) {
+      const idx = Math.round(k * stepSize);
+      if (idx > labelIndices[labelIndices.length - 1] + 1 && (series.length - 1 - idx) >= 2) {
+        labelIndices.push(idx);
+      }
+    }
+    labelIndices.push(series.length - 1);
+  }
+
+  labelIndices.forEach(i => {
+    const s = series[i];
+    if (!s) return;
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.font = "9px var(--font-mono, monospace)";
+    if (i === 0) {
+      ctx.textAlign = "left";
+      ctx.fillText(s.label, padLeft, height - 8);
+    } else if (i === series.length - 1) {
+      ctx.textAlign = "right";
+      ctx.fillText(s.label, width - padRight, height - 8);
+    } else {
       ctx.textAlign = "center";
       ctx.fillText(s.label, getX(i), height - 8);
     }
