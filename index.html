@@ -3447,6 +3447,11 @@ svg.lucide, i[data-lucide], svg {
                 <button class="status-badge-pill" id="btnStepUp10" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(10)">+10%</button>
                 <button class="status-badge-pill" id="btnStepUp15" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(15)">+15%</button>
               </div>
+              <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
+                <span style="font-size:8.5px; color:var(--text-dim); text-transform:uppercase; margin-right:2px;">Mode:</span>
+                <button class="status-badge-pill live" id="btnTrajNominal" style="padding:2px 6px; font-size:9px;" onclick="setTrajectoryInflationMode('nominal')">Nominal ₹</button>
+                <button class="status-badge-pill" id="btnTrajReal" style="padding:2px 6px; font-size:9px;" onclick="setTrajectoryInflationMode('real')">Real (6% CPI)</button>
+              </div>
               <div style="display: flex; gap: 6px; align-items: center; font-size: 9.5px; font-family: var(--font-mono); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap;">
                 <span style="color: #6ee7b7; font-weight: 600;" id="trajectoryPortfolioLegend">● Active Strategy (Alpha ~17.8%)</span>
                 <span style="color: #60a5fa; font-weight: 600;">● NIFTY 50 (14.2%)</span>
@@ -6975,8 +6980,18 @@ function calculateTrueMFXIRR() {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    if (pct > -99 && pct < 200) return pct.toFixed(1);
+    if (pct > -99 && pct < 200) {
+      const formatted = pct.toFixed(1);
+      try { localStorage.setItem('MOSBY_LAST_KNOWN_MF_XIRR', formatted); } catch(e) {}
+      return formatted;
+    }
   }
+  
+  try {
+    const cachedXirr = localStorage.getItem('MOSBY_LAST_KNOWN_MF_XIRR');
+    if (cachedXirr && isLiveSession) return cachedXirr;
+  } catch(e) {}
+
   return parseFloat(metrics.totalProfitPct || 0).toFixed(1);
 }
 
@@ -8219,6 +8234,18 @@ function renderTimeHorizonDeck(metrics) {
   const monthPct = Math.abs(parseFloat(metrics.totalMonthChangePct) || 0).toFixed(2);
   const yearPct = Math.abs(parseFloat(metrics.totalYearChangePct) || 0).toFixed(2);
 
+  const mfDay = metrics.mfDayChange || 0;
+  const stDay = metrics.stDayChange || 0;
+  const goldDay = metrics.goldDayChange || 0;
+
+  const mfMonth = metrics.mfMonthChange || 0;
+  const stMonth = metrics.stMonthChange || 0;
+  const goldMonth = metrics.goldMonthChange || 0;
+
+  const mfYear = metrics.mfYearChange || 0;
+  const stYear = metrics.stYearChange || 0;
+  const goldYear = metrics.goldYearChange || 0;
+
   container.innerHTML = `
     <div class="horizon-card">
       <div style="min-width: 0;">
@@ -8230,9 +8257,10 @@ function renderTimeHorizonDeck(metrics) {
           ${isDayUp ? '▲ +' : '▼ -'}${dayPct}% Today's Movement
         </div>
       </div>
-      <div style="text-align:right; font-size:9.5px; opacity:0.75; white-space:nowrap; flex-shrink:0; margin-left:8px;">
-        <div>MF: ${(metrics.mfDayChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.mfDayChange || 0)}</div>
-        <div>Stocks: ${(metrics.stDayChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.stDayChange || 0)}</div>
+      <div style="text-align:right; font-size:9px; opacity:0.85; white-space:nowrap; flex-shrink:0; margin-left:8px; display:flex; flex-direction:column; gap:1.5px;">
+        <div>MFs &amp; ETFs: <span class="num-mono" style="color:${mfDay >= 0 ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${mfDay >= 0 ? '+' : ''}${formatVal(mfDay)}</span></div>
+        <div>Stocks: <span class="num-mono" style="color:${stDay >= 0 ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${stDay >= 0 ? '+' : ''}${formatVal(stDay)}</span></div>
+        <div>Gold: <span class="num-mono" style="color:${goldDay >= 0 ? '#fde047' : '#fca5a5'}; font-weight:600;">${goldDay >= 0 ? '+' : ''}${formatVal(goldDay)}</span></div>
       </div>
     </div>
 
@@ -8246,9 +8274,10 @@ function renderTimeHorizonDeck(metrics) {
           ${isMonthUp ? '▲ +' : '▼ -'}${monthPct}% Last 30 Days
         </div>
       </div>
-      <div style="text-align:right; font-size:9.5px; opacity:0.75; white-space:nowrap; flex-shrink:0; margin-left:8px;">
-        <div>MFs &amp; ETFs: ${(metrics.mfMonthChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.mfMonthChange || 0)}</div>
-        <div>Stocks: ${(metrics.stMonthChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.stMonthChange || 0)}</div>
+      <div style="text-align:right; font-size:9px; opacity:0.85; white-space:nowrap; flex-shrink:0; margin-left:8px; display:flex; flex-direction:column; gap:1.5px;">
+        <div>MFs &amp; ETFs: <span class="num-mono" style="color:${mfMonth >= 0 ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${mfMonth >= 0 ? '+' : ''}${formatVal(mfMonth)}</span></div>
+        <div>Stocks: <span class="num-mono" style="color:${stMonth >= 0 ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${stMonth >= 0 ? '+' : ''}${formatVal(stMonth)}</span></div>
+        <div>Gold: <span class="num-mono" style="color:${goldMonth >= 0 ? '#fde047' : '#fca5a5'}; font-weight:600;">${goldMonth >= 0 ? '+' : ''}${formatVal(goldMonth)}</span></div>
       </div>
     </div>
 
@@ -8262,9 +8291,10 @@ function renderTimeHorizonDeck(metrics) {
           ${isYearUp ? '▲ +' : '▼ -'}${yearPct}% Annual Trajectory
         </div>
       </div>
-      <div style="text-align:right; font-size:9.5px; opacity:0.75; white-space:nowrap; flex-shrink:0; margin-left:8px;">
-        <div>MFs &amp; ETFs: ${(metrics.mfYearChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.mfYearChange || 0)}</div>
-        <div>Stocks: ${(metrics.stYearChange || 0) >= 0 ? '+' : ''}${formatVal(metrics.stYearChange || 0)}</div>
+      <div style="text-align:right; font-size:9px; opacity:0.85; white-space:nowrap; flex-shrink:0; margin-left:8px; display:flex; flex-direction:column; gap:1.5px;">
+        <div>MFs &amp; ETFs: <span class="num-mono" style="color:${mfYear >= 0 ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${mfYear >= 0 ? '+' : ''}${formatVal(mfYear)}</span></div>
+        <div>Stocks: <span class="num-mono" style="color:${stYear >= 0 ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${stYear >= 0 ? '+' : ''}${formatVal(stYear)}</span></div>
+        <div>Gold: <span class="num-mono" style="color:${goldYear >= 0 ? '#fde047' : '#fca5a5'}; font-weight:600;">${goldYear >= 0 ? '+' : ''}${formatVal(goldYear)}</span></div>
       </div>
     </div>
   `;
@@ -8786,6 +8816,8 @@ function setFIREExpense(amt) {
   renderCompleteDossiers();
 }
 
+let trajectoryInflationMode = 'nominal'; // 'nominal' | 'real'
+
 function setStepUpRate(rate) {
   stepUpRatePct = rate;
   playMicroClick();
@@ -8794,6 +8826,21 @@ function setStepUpRate(rate) {
     if (btn) btn.classList.toggle('live', r === rate);
   });
   renderCompleteDossiers();
+}
+
+function setTrajectoryInflationMode(mode) {
+  trajectoryInflationMode = mode;
+  playMicroClick();
+  const btnN = document.getElementById("btnTrajNominal");
+  const btnR = document.getElementById("btnTrajReal");
+  if (btnN) btnN.classList.toggle('live', mode === 'nominal');
+  if (btnR) btnR.classList.toggle('live', mode === 'real');
+
+  const metrics = calculateTotals();
+  const monthlySip = getMonthlySIPTotal();
+  const curNW = metrics.totalNetWorth;
+  const growthRate = getPortfolioProjectionGrowthRate(metrics);
+  drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
 }
 
 function setProjectionRate(mode) {
@@ -9242,9 +9289,13 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   const rateNifty = 0.142;                  // NIFTY 50 TRI (~14.2% CAGR)
   const rateFD = 0.070;                     // Bank FD Hurdle (~7.0% CAGR)
 
+  const isRealMode = (typeof trajectoryInflationMode !== 'undefined' && trajectoryInflationMode === 'real');
+  const inflationRate = 0.06; // 6.0% Long-term CPI Inflation
+
   const legendPortEl = document.getElementById("trajectoryPortfolioLegend");
   if (legendPortEl) {
-    legendPortEl.innerText = `● Active Strategy (Alpha ~${(ratePortfolio * 100).toFixed(1)}%)`;
+    const realTag = isRealMode ? ' [Real @ 6% CPI]' : '';
+    legendPortEl.innerText = `● Active Strategy (Alpha ~${(ratePortfolio * 100).toFixed(1)}%)${realTag}`;
   }
 
   // Monthly simulation (180 months) for mathematically exact, silky-smooth continuous growth curves
@@ -9269,10 +9320,12 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
     fvFD = fvFD * (1 + rateFD / 12) + curSip;
     totalDeposited += curSip;
 
-    monthlyPortfolio.push(fvPort);
-    monthlyNifty.push(fvNifty);
-    monthlyFD.push(fvFD);
-    monthlyInvested.push(curNW + totalDeposited);
+    const discountFactor = isRealMode ? Math.pow(1 + inflationRate / 12, -m) : 1.0;
+
+    monthlyPortfolio.push(fvPort * discountFactor);
+    monthlyNifty.push(fvNifty * discountFactor);
+    monthlyFD.push(fvFD * discountFactor);
+    monthlyInvested.push((curNW + totalDeposited) * (isRealMode ? discountFactor : 1.0));
   }
 
   // Quick milestone cards below chart (at years 5, 10, 15)
@@ -9452,7 +9505,7 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
       tooltip.style.top = `${Math.max(8, y - (isMobile ? 85 : 105))}px`;
       tooltip.innerHTML = `
         <div style="font-weight:700; color:#fff; font-size:${isMobile ? '10px' : '11px'}; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:3px;">
-          ${yr === 0 ? "Current Baseline (Year 0)" : `Year ${yr} Wealth Horizon (${new Date().getFullYear() + yr})`}
+          ${yr === 0 ? "Current Baseline (Year 0)" : `Year ${yr} Forecast (${new Date().getFullYear() + yr})${isRealMode ? ' • Real @ 6% CPI' : ''}`}
         </div>
         <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
           <span style="color:#6ee7b7; font-weight:700;">● Active Strategy:</span>
@@ -9467,7 +9520,7 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
           <span style="color:#fde047;">${formatVal(fdVal)}</span>
         </div>
         <div style="display:flex; justify-content:space-between; gap:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:2px; margin-top:2px; font-size:${isMobile ? '9px' : '9.5px'};">
-          <span style="color:var(--text-dim);">Invested Principal:</span>
+          <span style="color:var(--text-dim);">${isRealMode ? 'Real Inflow Basis:' : 'Invested Principal:'}</span>
           <span style="color:var(--text-dim);">${formatVal(invVal)}</span>
         </div>
         ${yr > 0 ? `
@@ -12645,6 +12698,9 @@ function hydrateActiveSessionSync() {
             AppState.ppf = normalizePPFData(cached.data);
             AppState.sipConfig = normalizeSIPData(cached.data);
             AppState.sipTransactions = normalizeSIPTransactionsData(cached.data);
+            AppState.stockTransactions = normalizeStockTransactionsData(cached.data);
+            AppState.dividends = normalizeDividendData(cached.data);
+            AppState.stockCatalysts = normalizeCatalystData(cached.data);
             syncMFWithSIPConfig();
           }
         }
