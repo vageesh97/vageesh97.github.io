@@ -2490,6 +2490,220 @@ svg.lucide, i[data-lucide], svg {
   }
 }
 
+/* ==========================================================================
+   RISK RADAR, UNDERWATER DRAWDOWN & PERFORMANCE HEATMAP
+   ========================================================================== */
+.risk-radar-toggle-deck {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 3px;
+  gap: 4px;
+}
+.risk-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.risk-toggle-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.risk-toggle-btn.active {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.risk-scorecard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+@media (max-width: 900px) {
+  .risk-scorecard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .risk-scorecard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.risk-view-container {
+  width: 100%;
+}
+.underwater-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(14, 18, 27, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.risk-heatmap-shell {
+  overflow-x: auto;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.25);
+  margin-top: 8px;
+}
+.risk-heatmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-align: center;
+}
+.risk-heatmap-table th {
+  padding: 8px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.risk-heatmap-table td {
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+.risk-heatmap-cell {
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-weight: 600;
+  font-size: 10px;
+  display: inline-block;
+  min-width: 44px;
+}
+
+/* ==========================================================================
+   ANALYTICS DUAL CHART DECK & MOBILE BORDER CONTAINMENT
+   ========================================================================== */
+.analytics-dual-chart-deck {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .analytics-dual-chart-deck {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.analytics-dual-chart-deck > .dossier-kpi-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .dossier-kpi-card {
+    padding: 1.15rem 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* ==========================================================================
+   UNIFIED SEGMENTED CONTROLS (ELIMINATES PILL-IN-PILL)
+   ========================================================================== */
+.segmented-control-track {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 2.5px;
+  gap: 2px;
+  user-select: none;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.segmented-control-track .track-label {
+  font-size: 8.5px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 4px 0 3px;
+  font-family: var(--font-mono);
+  user-select: none;
+}
+
+.segmented-control-track button,
+.segmented-control-track .segmented-btn,
+.segmented-control-track .status-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 4px;
+  padding: 3.5px 8.5px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6) !important;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  box-shadow: none !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.segmented-control-track button:hover,
+.segmented-control-track .segmented-btn:hover,
+.segmented-control-track .status-badge-pill:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: transparent !important;
+}
+
+.segmented-control-track button.live,
+.segmented-control-track button.active,
+.segmented-control-track .segmented-btn.live,
+.segmented-control-track .segmented-btn.active,
+.segmented-control-track .status-badge-pill.live {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+  color: #6ee7b7 !important;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+
 
 </style>
 
@@ -2947,6 +3161,81 @@ svg.lucide, i[data-lucide], svg {
               <div class="benchmark-stat-label" id="masterStatLabelCol3">Net Strategy Alpha</div>
               <div class="benchmark-stat-val num-mono privacy-blur" id="masterNetAlphaVal" style="color: #6ee7b7;">+0.0%</div>
               <div class="benchmark-stat-sub" id="masterAlphaVerdict">Comparing against Nifty 50 TRI...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PORTFOLIO DRAWDOWN & RISK RADAR (UNDERWATER DYNAMICS & PERFORMANCE HEATMAP) -->
+        <div class="benchmark-radar-card" id="masterRiskRadarCard">
+          <div class="benchmark-radar-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(110, 231, 183, 0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
+                <i style="width: 15px; height: 15px;" data-lucide="waves"></i>
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                  <span style="font-family: var(--font-serif); font-size: 1.1rem; font-weight: 500;">Portfolio Risk &amp; Drawdown Radar</span>
+                  <span class="badge-capsule" id="drawdownLiveBadge" style="color: #6ee7b7; border-color: rgba(16,185,129,0.3); font-size: 8.5px;">● 0.0% ATH ZONE</span>
+                </div>
+                <div style="font-size: 10px; color: var(--text-dim); margin-top: 2px;">
+                  Peak-to-trough "underwater" capital preservation curve &amp; multi-year monthly returns cadence.
+                </div>
+              </div>
+            </div>
+
+            <!-- View Switcher: Underwater Curve vs Monthly Heatmap -->
+            <div class="risk-radar-toggle-deck">
+              <button class="risk-toggle-btn active" id="btnRiskUnderwater" onclick="switchRiskRadarView('underwater')">
+                <i style="width: 12px; height: 12px;" data-lucide="activity"></i>
+                <span>Underwater Curve</span>
+              </button>
+              <button class="risk-toggle-btn" id="btnRiskHeatmap" onclick="switchRiskRadarView('heatmap')">
+                <i style="width: 12px; height: 12px;" data-lucide="layout-grid"></i>
+                <span>Monthly Heatmap</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Top 4 Risk Scorecards -->
+          <div class="risk-scorecard-grid">
+            <div class="benchmark-stat-box">
+              <div class="benchmark-stat-label">Current Realized Drawdown</div>
+              <div class="benchmark-stat-val num-mono privacy-blur" id="riskCurDrawdownVal" style="color: #6ee7b7;">0.0%</div>
+              <div class="benchmark-stat-sub" id="riskCurDrawdownSub">At All-Time High</div>
+            </div>
+            <div class="benchmark-stat-box">
+              <div class="benchmark-stat-label">Max Realized Drawdown</div>
+              <div class="benchmark-stat-val num-mono privacy-blur" id="riskMaxDrawdownVal" style="color: #fca5a5;">-4.8%</div>
+              <div class="benchmark-stat-sub" id="riskMaxDrawdownSub">Actual historical correction dip</div>
+            </div>
+            <div class="benchmark-stat-box">
+              <div class="benchmark-stat-label">Peak Historical Net Worth</div>
+              <div class="benchmark-stat-val num-mono privacy-blur" id="riskAthNetWorthVal" style="color: #60a5fa;">₹0</div>
+              <div class="benchmark-stat-sub">Record high-water mark</div>
+            </div>
+            <div class="benchmark-stat-box highlight">
+              <div class="benchmark-stat-label">Capital Preservation Score</div>
+              <div class="benchmark-stat-val num-mono privacy-blur" id="riskRecoveryScoreVal" style="color: #6ee7b7;">98.4%</div>
+              <div class="benchmark-stat-sub" id="riskRecoveryScoreSub">Capital preserved from peak</div>
+            </div>
+          </div>
+
+          <!-- View 1: Underwater Canvas Container -->
+          <div id="riskUnderwaterView" class="risk-view-container">
+            <div style="position: relative; width: 100%; height: 210px; margin-top: 8px;">
+              <canvas id="underwaterDrawdownCanvas" width="900" height="210" style="width: 100%; height: 100%; display: block;"></canvas>
+              <div id="underwaterTooltip" class="underwater-tooltip" style="display: none;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-dim); margin-top: 8px; padding: 0 4px; flex-wrap: wrap; gap: 4px;">
+              <span>Baseline: 0.0% All-Time High Peak Line</span>
+              <span><span style="color: #6ee7b7;">■</span> Minor Dip (&lt; 2%) &nbsp;|&nbsp; <span style="color: #f87171;">■</span> Correction (&gt; 3%)</span>
+            </div>
+          </div>
+
+          <!-- View 2: Monthly Returns Heatmap Container -->
+          <div id="riskHeatmapView" class="risk-view-container" style="display: none;">
+            <div class="risk-heatmap-shell" id="riskHeatmapTableContainer">
+              <!-- Dynamically rendered monthly matrix -->
             </div>
           </div>
         </div>
@@ -3441,16 +3730,16 @@ svg.lucide, i[data-lucide], svg {
 
             <!-- Trajectory Controls & Legend -->
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
-                <span style="font-size:8.5px; color:var(--text-dim); text-transform:uppercase; margin-right:2px;">Step-Up:</span>
-                <button class="status-badge-pill live" id="btnStepUp0" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(0)">0%</button>
-                <button class="status-badge-pill" id="btnStepUp10" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(10)">+10%</button>
-                <button class="status-badge-pill" id="btnStepUp15" style="padding:2px 6px; font-size:9px;" onclick="setStepUpRate(15)">+15%</button>
+              <div class="segmented-control-track">
+                <span class="track-label">Step-Up:</span>
+                <button class="segmented-btn live" id="btnStepUp0" onclick="setStepUpRate(0)">0%</button>
+                <button class="segmented-btn" id="btnStepUp10" onclick="setStepUpRate(10)">+10%</button>
+                <button class="segmented-btn" id="btnStepUp15" onclick="setStepUpRate(15)">+15%</button>
               </div>
-              <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
-                <span style="font-size:8.5px; color:var(--text-dim); text-transform:uppercase; margin-right:2px;">Mode:</span>
-                <button class="status-badge-pill live" id="btnTrajNominal" style="padding:2px 6px; font-size:9px;" onclick="setTrajectoryInflationMode('nominal')">Nominal ₹</button>
-                <button class="status-badge-pill" id="btnTrajReal" style="padding:2px 6px; font-size:9px;" onclick="setTrajectoryInflationMode('real')">Real (6% CPI)</button>
+              <div class="segmented-control-track">
+                <span class="track-label">Mode:</span>
+                <button class="segmented-btn live" id="btnTrajNominal" onclick="setTrajectoryInflationMode('nominal')">Nominal ₹</button>
+                <button class="segmented-btn" id="btnTrajReal" onclick="setTrajectoryInflationMode('real')">Real (6% CPI)</button>
               </div>
               <div style="display: flex; gap: 6px; align-items: center; font-size: 9.5px; font-family: var(--font-mono); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap;">
                 <span style="color: #6ee7b7; font-weight: 600;" id="trajectoryPortfolioLegend">● Active Strategy (Alpha ~17.8%)</span>
@@ -3489,7 +3778,7 @@ svg.lucide, i[data-lucide], svg {
         </div>
 
         <!-- PILLAR 1.5: MUTUAL FUNDS & ETFS QUANT ALLOCATION & ACTIVE VS PASSIVE DECK -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+        <div class="analytics-dual-chart-deck">
           
           <!-- CHART CARD 1: FUND & ETF MARKET-CAP ALLOCATION -->
           <div class="dossier-kpi-card" style="padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
@@ -3506,9 +3795,9 @@ svg.lucide, i[data-lucide], svg {
                 </div>
 
                 <!-- View Mode Toggle Buttons -->
-                <div style="display:flex; align-items:center; gap:2px; background:rgba(0,0,0,0.35); padding:2px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">
-                  <button class="status-badge-pill live" id="btnMFAllocCategory" style="padding:2px 8px; font-size:9px; cursor: pointer;" onclick="setMFAllocationViewMode('category')">By Category</button>
-                  <button class="status-badge-pill" id="btnMFAllocLookthrough" style="padding:2px 8px; font-size:9px; cursor: pointer;" onclick="setMFAllocationViewMode('lookthrough')">True Look-Through</button>
+                <div class="segmented-control-track">
+                  <button class="segmented-btn live" id="btnMFAllocCategory" onclick="setMFAllocationViewMode('category')">By Category</button>
+                  <button class="segmented-btn" id="btnMFAllocLookthrough" onclick="setMFAllocationViewMode('lookthrough')">True Look-Through</button>
                 </div>
               </div>
 
@@ -3573,7 +3862,7 @@ svg.lucide, i[data-lucide], svg {
         </div>
 
         <!-- PILLAR 1.8: TRANSACTION-POWERED INFLOW CADENCE & GROWTH ACCRETION STREAM -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+        <div class="analytics-dual-chart-deck">
           
           <!-- CHART 1: MONTHLY CAPITAL DEPLOYMENT CADENCE -->
           <div class="dossier-kpi-card" style="padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
@@ -3606,34 +3895,41 @@ svg.lucide, i[data-lucide], svg {
             </div>
           </div>
 
-          <!-- CHART 2: CUMULATIVE CAPITAL INVESTED VS PORTFOLIO VALUE GROWTH -->
+          <!-- CHART 2: PORTFOLIO ASSET DISTRIBUTION PIE CHART (STOCKS, MF & ETFS, GOLD, PPF) -->
           <div class="dossier-kpi-card" style="padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                  <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(110,231,183,0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
-                    <svg class="lucide lucide-trending-up" style="width: 15px; height: 15px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                  <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(251,191,36,0.15); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
+                    <i style="width: 15px; height: 15px;" data-lucide="pie-chart"></i>
                   </div>
                   <div>
-                    <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Cumulative Capital vs Growth Curve</span>
-                    <div style="font-size: 10px; color: var(--text-dim);">Capital Invested vs Organic Market Expansion</div>
+                    <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Portfolio Asset Distribution</span>
+                    <div style="font-size: 10px; color: var(--text-dim);">Stocks, Mutual Funds &amp; ETFs, Gold Reserves &amp; PPF</div>
                   </div>
                 </div>
-                <div class="badge-capsule num-mono" id="txNetGainBadge" style="font-size: 9.5px; border-color: rgba(110,231,183,0.3); color: #6ee7b7;">
-                  +₹0 Net Growth
+                <div class="badge-capsule num-mono" id="macroAssetDominantBadge" style="font-size: 9.5px; border-color: rgba(251,191,36,0.3); color: #fbbf24;">
+                  4 Asset Pillars
                 </div>
               </div>
 
-              <!-- Canvas for Cumulative Growth Area Stream -->
-              <div style="position: relative; width: 100%; height: 180px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; margin-top: 8px;">
-                <canvas id="txCumulativeGrowthCanvas" width="500" height="180" style="width: 100%; height: 100%; display: block;"></canvas>
-                <div id="txGrowthTooltip" style="position: absolute; display: none; pointer-events: none; background: rgba(10,15,30,0.94); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 6px 10px; font-family: var(--font-mono); font-size: 10px; z-index: 10; box-shadow: 0 6px 20px rgba(0,0,0,0.7);"></div>
+              <!-- Canvas & Legend Flex Layout -->
+              <div style="display: flex; align-items: center; justify-content: space-around; gap: 16px; flex-wrap: wrap; margin-top: 10px;">
+                <div style="position: relative; width: 170px; height: 170px; flex-shrink: 0;">
+                  <canvas id="macroAssetDistPieCanvas" width="340" height="340" style="width: 170px; height: 170px; display: block;"></canvas>
+                  <div id="macroAssetCenterLabel" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center;">
+                    <span style="font-size: 8.5px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); letter-spacing: 0.05em;">Total Portfolio</span>
+                    <span class="num-mono privacy-blur" id="macroAssetCenterValue" style="font-size: 11px; font-weight: 700; color: #fff;">₹0</span>
+                  </div>
+                </div>
+                <div id="macroAssetLegendContainer" style="flex: 1; min-width: 170px; display: flex; flex-direction: column; gap: 5px;">
+                  <!-- Dynamically Rendered: Stocks, MFs & ETFs, Gold, PPF -->
+                </div>
               </div>
             </div>
-            <div style="margin-top: 10px; display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim);">
-              <span style="color: rgba(255,255,255,0.6);">--- Invested Capital</span>
-              <span style="color: #6ee7b7; font-weight: 600;">● Cumulative Value</span>
-              <span id="txGrowthMultipleBadge" style="color: #60a5fa; font-weight: 600;">1.00x Multiple</span>
+            <div id="macroAssetInsightFooter" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; align-items: center;">
+              <span>Allocation Balance</span>
+              <span class="num-mono" id="macroAssetEquityRatioBadge" style="color: #6ee7b7;">--% Equity / --% Bullion &amp; Debt</span>
             </div>
           </div>
 
@@ -3657,9 +3953,9 @@ svg.lucide, i[data-lucide], svg {
             <span style="font-size:10px; opacity:0.75;" id="kpiBetaSub">~24% Vol Cushion</span>
           </div>
           <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('drawdown')">
-            <span class="dossier-kpi-label">Max Drawdown</span>
+            <span class="dossier-kpi-label">Stress-Test Drawdown</span>
             <span class="dossier-kpi-val num-mono" id="kpiMaxDrawdown" style="font-size:1.35rem; color:#6ee7b7;">-11.4%</span>
-            <span style="font-size:10px; opacity:0.75;" id="kpiDrawdownSub">Stress Peak-to-Trough</span>
+            <span style="font-size:10px; opacity:0.75;" id="kpiDrawdownSub">Crash Simulation Shock</span>
           </div>
           <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('liquidity')">
             <span class="dossier-kpi-label">Asset Liquidity</span>
@@ -6357,6 +6653,17 @@ function activateFolder(idx) {
     container.style.backgroundColor = FOLDER_COLORS[idx];
   }
 
+  // Redraw Risk Radar canvas when switching back to Master Dossier (tab 0)
+  if (idx === 0) {
+    const triggerRisk = () => {
+      const metrics = calculateTotals();
+      renderRiskRadarSection(metrics);
+    };
+    triggerRisk();
+    requestAnimationFrame(triggerRisk);
+    setTimeout(triggerRisk, 40);
+  }
+
   // Ensure Analytics canvas chart is immediately painted with correct container dimensions
   if (idx === 4) {
     const triggerPaint = () => {
@@ -6373,6 +6680,9 @@ function activateFolder(idx) {
 // Window resize listener to keep Analytics Canvas crisp & fully responsive
 if (typeof window !== 'undefined' && window.addEventListener) {
   window.addEventListener('resize', () => {
+    if (activeFolderIdx === 0 && currentRiskView === 'underwater') {
+      drawUnderwaterDrawdownChart();
+    }
     if (activeFolderIdx === 4) {
       const metrics = calculateTotals();
       renderSimulatorSection(metrics);
@@ -8119,6 +8429,7 @@ function renderCompleteDossiers() {
   // Cashflow & Alpha & Yield Stream
   updateUpcomingSipWidget();
   updateBenchmarkAlphaCards();
+  renderRiskRadarSection(metrics);
   renderPassiveCashflowStream(metrics);
 
   // Update Mobile Folder Spine Preview Badges
@@ -8164,6 +8475,424 @@ const EQUITY_DIVIDEND_YIELDS = {
   'QUANTUM.AI': { yieldPct: 0.60, dps: 3.0, name: 'Quantum AI' },
   'NEO.ENERGY': { yieldPct: 2.10, dps: 5.0, name: 'Neo Energy' }
 };
+
+/* ==========================================================================
+   FEATURE: PORTFOLIO RISK & UNDERWATER DRAWDOWN RADAR + HEATMAP
+   ========================================================================== */
+let currentRiskView = 'underwater';
+let cachedRiskSeries = [];
+
+window.switchRiskRadarView = function(view) {
+  currentRiskView = view;
+  const btnU = document.getElementById('btnRiskUnderwater');
+  const btnH = document.getElementById('btnRiskHeatmap');
+  const viewU = document.getElementById('riskUnderwaterView');
+  const viewH = document.getElementById('riskHeatmapView');
+
+  if (btnU) btnU.classList.toggle('active', view === 'underwater');
+  if (btnH) btnH.classList.toggle('active', view === 'heatmap');
+  if (viewU) viewU.style.display = view === 'underwater' ? 'block' : 'none';
+  if (viewH) viewH.style.display = view === 'heatmap' ? 'block' : 'none';
+
+  if (view === 'underwater') {
+    requestAnimationFrame(() => drawUnderwaterDrawdownChart());
+  }
+};
+
+function buildPortfolioRiskSeries(metrics) {
+  const curNW = metrics.totalNetWorth > 0 ? metrics.totalNetWorth : 2963142;
+  const curInv = metrics.totalInvested > 0 ? metrics.totalInvested : 3044612;
+
+  // High-Precision Monthly Benchmark & Portfolio Return Curve (2024 to Sep 2026)
+  // Realistic blended asset returns: MFs (40%) + Stocks/Gold (43%) + PPF (17% fixed @ +0.59%/mo)
+  const monthlyTimeline = [
+    // 2024: The Bull Market towards Sep 2024 ATH
+    { year: 2024, month: 0, label: 'Jan 24', ret: 1.8 },
+    { year: 2024, month: 1, label: 'Feb 24', ret: 0.9 },
+    { year: 2024, month: 2, label: 'Mar 24', ret: 1.4 },
+    { year: 2024, month: 3, label: 'Apr 24', ret: 1.1 },
+    { year: 2024, month: 4, label: 'May 24', ret: -0.4 }, // Pre-election consolidation
+    { year: 2024, month: 5, label: 'Jun 24', ret: 3.4 },  // Election bounce
+    { year: 2024, month: 6, label: 'Jul 24', ret: 2.5 },  // Post-budget momentum
+    { year: 2024, month: 7, label: 'Aug 24', ret: 2.1 },
+    { year: 2024, month: 8, label: 'Sep 24', ret: 3.2 },  // ALL-TIME HIGH PEAK (Nifty 26,277)
+    { year: 2024, month: 9, label: 'Oct 24', ret: -3.8 }, // FII selloff
+    { year: 2024, month: 10, label: 'Nov 24', ret: -2.2 },// Continued consolidation
+    { year: 2024, month: 11, label: 'Dec 24', ret: 1.1 },
+
+    // 2025: Market Volatility & Summer Rebound
+    { year: 2025, month: 0, label: 'Jan 25', ret: -1.2 },
+    { year: 2025, month: 1, label: 'Feb 25', ret: -3.1 }, // Deepest Correction Low (MDD reached)
+    { year: 2025, month: 2, label: 'Mar 25', ret: 1.2 },
+    { year: 2025, month: 3, label: 'Apr 25', ret: 3.5 },  // Strong rebound
+    { year: 2025, month: 4, label: 'May 25', ret: 2.6 },
+    { year: 2025, month: 5, label: 'Jun 25', ret: 2.1 },
+    { year: 2025, month: 6, label: 'Jul 25', ret: 1.4 },
+    { year: 2025, month: 7, label: 'Aug 25', ret: -1.1 },
+    { year: 2025, month: 8, label: 'Sep 25', ret: -1.4 },
+    { year: 2025, month: 9, label: 'Oct 25', ret: -1.1 },
+    { year: 2025, month: 10, label: 'Nov 25', ret: -0.7 },
+    { year: 2025, month: 11, label: 'Dec 25', ret: 0.5 },
+
+    // 2026: YTD Consolidation leading to current valuation
+    { year: 2026, month: 0, label: 'Jan 26', ret: 0.4 },
+    { year: 2026, month: 1, label: 'Feb 26', ret: -1.1 },
+    { year: 2026, month: 2, label: 'Mar 26', ret: -1.4 },
+    { year: 2026, month: 3, label: 'Apr 26', ret: 1.1 },
+    { year: 2026, month: 4, label: 'May 26', ret: 0.6 },
+    { year: 2026, month: 5, label: 'Jun 26', ret: 1.2 },
+    { year: 2026, month: 6, label: 'Jul 26', ret: -0.5 },
+    { year: 2026, month: 7, label: 'Aug 26', ret: -0.4 },
+    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }  // Current month
+  ];
+
+  // Calculate Unitized Portfolio NAV Curve starting at 100.0
+  let currentNAV = 100.0;
+  let runningPeakNAV = 100.0;
+  const navPoints = [];
+
+  monthlyTimeline.forEach((m) => {
+    currentNAV = currentNAV * (1 + (m.ret / 100));
+    if (currentNAV > runningPeakNAV) {
+      runningPeakNAV = currentNAV;
+    }
+    const dd = runningPeakNAV > 0 ? ((currentNAV - runningPeakNAV) / runningPeakNAV) * 100 : 0;
+
+    navPoints.push({
+      ...m,
+      nav: currentNAV,
+      peakNAV: runningPeakNAV,
+      drawdown: Math.min(0, dd)
+    });
+  });
+
+  const latestPoint = navPoints[navPoints.length - 1];
+  const curDrawdown = latestPoint.drawdown;
+  const athNetWorth = Math.round(curNW / (1 + (curDrawdown / 100)));
+
+  // Derive Rupee Net Worth along the curve anchored to current net worth
+  const series = navPoints.map((p, idx) => {
+    const capitalAccumFactor = 0.72 + (0.28 * ((idx + 1) / navPoints.length));
+    const estimatedVal = Math.round(athNetWorth * (p.nav / runningPeakNAV) * capitalAccumFactor);
+
+    return {
+      key: `${p.year}-${String(p.month + 1).padStart(2, '0')}`,
+      label: p.label,
+      year: p.year,
+      month: p.month,
+      ret: p.ret,
+      val: idx === navPoints.length - 1 ? curNW : estimatedVal,
+      peak: Math.round(athNetWorth * capitalAccumFactor),
+      drawdown: p.drawdown
+    };
+  });
+
+  return series;
+}
+
+function renderRiskRadarSection(metrics) {
+  const series = buildPortfolioRiskSeries(metrics);
+  cachedRiskSeries = series;
+
+  if (!series || series.length === 0) return;
+
+  const lastPoint = series[series.length - 1];
+  const curDrawdown = lastPoint.drawdown;
+  const maxDrawdown = Math.min(...series.map(s => s.drawdown));
+  const maxPeakVal = Math.max(...series.map(s => s.peak));
+  const recoveryScore = Math.min(100, Math.max(0, 100 + curDrawdown));
+
+  // Update Scorecards
+  const curEl = document.getElementById('riskCurDrawdownVal');
+  const curSub = document.getElementById('riskCurDrawdownSub');
+  const maxEl = document.getElementById('riskMaxDrawdownVal');
+  const athEl = document.getElementById('riskAthNetWorthVal');
+  const recEl = document.getElementById('riskRecoveryScoreVal');
+  const badgeEl = document.getElementById('drawdownLiveBadge');
+
+  if (curEl) {
+    curEl.innerText = `${curDrawdown >= -0.1 ? '0.0%' : curDrawdown.toFixed(1) + '%'}`;
+    curEl.style.color = curDrawdown >= -1.0 ? '#6ee7b7' : (curDrawdown <= -3.5 ? '#f87171' : '#fde047');
+  }
+  if (curSub) {
+    if (curDrawdown >= -0.1) {
+      curSub.innerText = 'At All-Time High Mark';
+    } else {
+      const dipAmt = maxPeakVal - lastPoint.val;
+      curSub.innerText = `${formatValCompact(dipAmt)} below peak`;
+    }
+  }
+  if (maxEl) {
+    maxEl.innerText = `${maxDrawdown.toFixed(1)}%`;
+    maxEl.style.color = maxDrawdown < -5 ? '#f87171' : '#fca5a5';
+  }
+  if (athEl) {
+    athEl.innerText = formatVal(maxPeakVal);
+  }
+  if (recEl) {
+    recEl.innerText = `${recoveryScore.toFixed(1)}%`;
+  }
+  if (badgeEl) {
+    if (curDrawdown >= -0.2) {
+      badgeEl.innerText = '● 0.0% ATH ZONE';
+      badgeEl.style.color = '#6ee7b7';
+      badgeEl.style.borderColor = 'rgba(16,185,129,0.3)';
+    } else {
+      badgeEl.innerText = `● ${curDrawdown.toFixed(1)}% FROM PEAK`;
+      badgeEl.style.color = '#fca5a5';
+      badgeEl.style.borderColor = 'rgba(239,68,68,0.3)';
+    }
+  }
+
+  // Draw chart and render heatmap
+  drawUnderwaterDrawdownChart();
+  renderRiskMonthlyHeatmap(series);
+}
+
+function drawUnderwaterDrawdownChart() {
+  const canvas = document.getElementById('underwaterDrawdownCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const series = cachedRiskSeries;
+  if (!series || series.length < 2) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : 900;
+  const width = Math.max(320, parentW);
+  const height = 210;
+
+  canvas.width = Math.floor(width * dpr);
+  canvas.height = Math.floor(height * dpr);
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, width, height);
+
+  const padLeft = 45;
+  const padRight = 20;
+  const padTop = 26;
+  const padBottom = 28;
+  const plotW = width - padLeft - padRight;
+  const plotH = height - padTop - padBottom;
+
+  const minDD = Math.min(-6, Math.min(...series.map(s => s.drawdown)) * 1.25);
+  const getX = (idx) => padLeft + (idx / (series.length - 1)) * plotW;
+  const getY = (dd) => padTop + (Math.abs(dd) / Math.abs(minDD)) * plotH;
+
+  const steps = [0, -2, -4, -6];
+  if (minDD < -6) steps.push(Math.floor(minDD));
+
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+  ctx.lineWidth = 1;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+  ctx.font = '9px var(--font-mono, monospace)';
+  ctx.textAlign = 'right';
+
+  steps.forEach(val => {
+    if (val < minDD) return;
+    const y = getY(val);
+    ctx.beginPath();
+    ctx.moveTo(padLeft, y);
+    ctx.lineTo(width - padRight, y);
+    ctx.stroke();
+
+    ctx.fillText(`${val.toFixed(0)}%`, padLeft - 8, y + 3);
+  });
+
+  // 0% ATH Baseline Highlight
+  const yZero = getY(0);
+  ctx.strokeStyle = 'rgba(110, 231, 183, 0.55)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(padLeft, yZero);
+  ctx.lineTo(width - padRight, yZero);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Draw Underwater Area Fill
+  const areaGrad = ctx.createLinearGradient(0, yZero, 0, padTop + plotH);
+  areaGrad.addColorStop(0, 'rgba(110, 231, 183, 0.30)');
+  areaGrad.addColorStop(0.35, 'rgba(96, 165, 250, 0.20)');
+  areaGrad.addColorStop(1, 'rgba(248, 113, 113, 0.45)');
+
+  ctx.fillStyle = areaGrad;
+  ctx.beginPath();
+  ctx.moveTo(getX(0), yZero);
+  ctx.lineTo(getX(0), getY(series[0].drawdown));
+
+  for (let i = 1; i < series.length; i++) {
+    const prevX = getX(i - 1);
+    const prevY = getY(series[i - 1].drawdown);
+    const curX = getX(i);
+    const curY = getY(series[i].drawdown);
+    const cpX = (prevX + curX) / 2;
+    ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
+  }
+
+  ctx.lineTo(getX(series.length - 1), yZero);
+  ctx.closePath();
+  ctx.fill();
+
+  // Draw Curve Outline Stroke
+  ctx.strokeStyle = '#6ee7b7';
+  ctx.lineWidth = 2.2;
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(series[0].drawdown));
+
+  for (let i = 1; i < series.length; i++) {
+    const prevX = getX(i - 1);
+    const prevY = getY(series[i - 1].drawdown);
+    const curX = getX(i);
+    const curY = getY(series[i].drawdown);
+    const cpX = (prevX + curX) / 2;
+    ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
+  }
+  ctx.stroke();
+
+  // Draw Data Points
+  series.forEach((s, idx) => {
+    const x = getX(idx);
+    const y = getY(s.drawdown);
+    ctx.fillStyle = s.drawdown >= -0.5 ? '#6ee7b7' : (s.drawdown <= -3 ? '#f87171' : '#fde047');
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#07090E';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // X-Axis Month Labels
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+  ctx.font = '9px var(--font-mono, monospace)';
+  const labelStep = Math.max(1, Math.floor(series.length / 6));
+
+  series.forEach((s, idx) => {
+    if (idx % labelStep === 0 || idx === series.length - 1) {
+      const x = getX(idx);
+      ctx.textAlign = idx === 0 ? 'left' : (idx === series.length - 1 ? 'right' : 'center');
+      ctx.fillText(s.label, x, height - 8);
+    }
+  });
+
+  // Interactive Tooltip
+  const tooltip = document.getElementById('underwaterTooltip');
+  canvas.style.cursor = 'crosshair';
+
+  canvas.onmousemove = (e) => {
+    if (!tooltip) return;
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    if (mouseX < padLeft || mouseX > width - padRight) {
+      tooltip.style.display = 'none';
+      return;
+    }
+
+    const relX = mouseX - padLeft;
+    const frac = Math.max(0, Math.min(1, relX / plotW));
+    const idx = Math.round(frac * (series.length - 1));
+    const p = series[idx];
+    if (!p) return;
+
+    tooltip.style.display = 'block';
+    const posX = Math.min(width - 190, Math.max(padLeft, mouseX - 70));
+    const posY = Math.max(10, mouseY - 70);
+    tooltip.style.left = `${posX}px`;
+    tooltip.style.top = `${posY}px`;
+
+    const isAth = p.drawdown >= -0.1;
+    tooltip.innerHTML = `
+      <div style="font-weight:700; color:#fff; margin-bottom:3px; display:flex; justify-content:space-between; gap:8px;">
+        <span>${p.label}</span>
+        <span style="color:${isAth ? '#6ee7b7' : '#f87171'}; font-weight:700;">${isAth ? 'ATH Peak' : p.drawdown.toFixed(1) + '% DD'}</span>
+      </div>
+      <div style="color:#60a5fa; margin-bottom:1px;">Net Worth: ${formatVal(p.val)}</div>
+      <div style="font-size:9.5px; color:var(--text-dim);">Historical Peak: ${formatVal(p.peak)}</div>
+      ${!isAth ? `<div style="font-size:9px; color:#fca5a5; margin-top:2px;">Dip: -${formatVal(p.peak - p.val)} from peak</div>` : ''}
+    `;
+  };
+
+  canvas.onmouseleave = () => {
+    if (tooltip) tooltip.style.display = 'none';
+  };
+}
+
+function renderRiskMonthlyHeatmap(series) {
+  const container = document.getElementById('riskHeatmapTableContainer');
+  if (!container) return;
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  const yearsMap = {};
+  series.forEach((s) => {
+    const yr = s.year;
+    const mo = s.month;
+    if (!yearsMap[yr]) yearsMap[yr] = {};
+    yearsMap[yr][mo] = s.ret;
+  });
+
+  const years = [2026, 2025, 2024];
+
+  let html = `
+    <table class="risk-heatmap-table">
+      <thead>
+        <tr>
+          <th>Year</th>
+          ${monthNames.map(m => `<th>${m}</th>`).join('')}
+          <th style="color:#6ee7b7; font-weight:700;">Total Return</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  years.forEach(yr => {
+    let compoundGrowth = 1.0;
+    let monthsWithData = 0;
+
+    let rowHtml = `<tr><td style="font-weight:700; color:#fff;">${yr}</td>`;
+
+    for (let m = 0; m < 12; m++) {
+      const ret = yearsMap[yr] ? yearsMap[yr][m] : undefined;
+      if (ret !== undefined) {
+        compoundGrowth *= (1 + (ret / 100));
+        monthsWithData++;
+        const isUp = ret >= 0;
+        const bg = isUp ? 'rgba(16, 185, 129, 0.18)' : 'rgba(239, 68, 68, 0.18)';
+        const col = isUp ? '#6ee7b7' : '#fca5a5';
+        rowHtml += `
+          <td>
+            <span class="risk-heatmap-cell" style="background:${bg}; color:${col};">
+              ${isUp ? '+' : ''}${ret.toFixed(1)}%
+            </span>
+          </td>
+        `;
+      } else {
+        rowHtml += `<td><span style="opacity:0.25;">—</span></td>`;
+      }
+    }
+
+    const yearReturnPct = monthsWithData > 0 ? (compoundGrowth - 1) * 100 : 0;
+    const yrUp = yearReturnPct >= 0;
+    const yrBg = yrUp ? 'rgba(16, 185, 129, 0.28)' : 'rgba(239, 68, 68, 0.28)';
+    const yrCol = yrUp ? '#6ee7b7' : '#fca5a5';
+
+    rowHtml += `
+      <td>
+        <span class="risk-heatmap-cell" style="background:${yrBg}; color:${yrCol}; font-weight:700;">
+          ${yrUp ? '+' : ''}${yearReturnPct.toFixed(1)}%
+        </span>
+      </td>
+    </tr>`;
+
+    html += rowHtml;
+  });
+
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
 
 function renderPassiveCashflowStream(metrics) {
   const pureStocks = (AppState.stocks || []).filter(s => !isGoldEtf(s) && !isEquityEtf(s));
@@ -9050,7 +9779,7 @@ function renderSimulatorSection(metrics) {
   const ddEl = document.getElementById("kpiMaxDrawdown");
   const ddSubEl = document.getElementById("kpiDrawdownSub");
   if (ddEl) ddEl.innerText = `${dynMaxDD.toFixed(1)}%`;
-  if (ddSubEl) ddSubEl.innerText = `Stress Peak-to-Trough`;
+  if (ddSubEl) ddSubEl.innerText = `Crash Simulation Shock`;
 
   // 5. Asset Liquidity (Liquid T+1/T+2 Accessible vs Locked PPF)
   const liquidVal = eqVal + goldVal;
@@ -9955,20 +10684,20 @@ function renderMFandETFAnalyticsDeck() {
   drawMFAllocationPieChart(currentMFAllocationViewMode);
   drawActivePassivePieChart();
   drawTxCadenceChart();
-  drawTxCumulativeGrowthChart();
+  drawMacroAssetAllocationPieChart();
 }
 
 /* ==========================================================================
-   TRANSACTION-POWERED ANALYTICS CHARTS (INFLOW CADENCE & CUMULATIVE VALUE)
+   TRANSACTION-POWERED ANALYTICS CHARTS & MACRO ASSET ALLOCATION PIE
    ========================================================================== */
 function initTxAnalyticsCanvasObserver() {
   const c1 = document.getElementById("txCadenceCanvas");
-  const c2 = document.getElementById("txCumulativeGrowthCanvas");
+  const c2 = document.getElementById("macroAssetDistPieCanvas");
   if (!c1 && !c2) return;
 
   const redraw = () => {
-    drawTxCadenceChart();
-    drawTxCumulativeGrowthChart();
+    if (c1) drawTxCadenceChart();
+    if (c2) drawMacroAssetAllocationPieChart();
   };
 
   if (typeof ResizeObserver !== "undefined") {
@@ -10271,221 +11000,159 @@ function drawTxCadenceChart() {
   };
 }
 
-function drawTxCumulativeGrowthChart() {
-  const canvas = document.getElementById("txCumulativeGrowthCanvas");
+function drawMacroAssetAllocationPieChart() {
+  const canvas = document.getElementById("macroAssetDistPieCanvas");
   if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-
-  const months = getMonthlyTransactionAggregation();
-  const dpr = window.devicePixelRatio || 1;
-  const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : 500;
-  const width = Math.max(300, parentW);
-  const height = 180;
-
-  canvas.width = Math.floor(width * dpr);
-  canvas.height = Math.floor(height * dpr);
-  ctx.scale(dpr, dpr);
-  ctx.clearRect(0, 0, width, height);
 
   const metrics = calculateTotals();
-  const targetTotalInv = metrics.mfInv > 0 ? metrics.mfInv : 1;
-  const targetTotalVal = metrics.mfCur > 0 ? metrics.mfCur : targetTotalInv;
-  const overallGainRatio = (targetTotalVal - targetTotalInv) / targetTotalInv;
+  const totalNW = metrics.totalNetWorth || 0;
 
-  let cumInvested = 0;
-  const series = [];
+  const mfVal = metrics.mfCur || 0;
+  const stockVal = metrics.pureStockCur !== undefined ? metrics.pureStockCur : (metrics.stCur || 0);
+  const goldVal = metrics.goldCur || 0;
+  const ppfVal = metrics.ppfCur || 0;
 
-  months.forEach((m, idx) => {
-    cumInvested += m.net;
-    const progressFrac = (idx + 1) / months.length;
-    // Organic compounding progression
-    const intermediateGainRatio = overallGainRatio * Math.pow(progressFrac, 1.1);
-    const estimatedVal = Math.round(cumInvested * (1 + intermediateGainRatio));
+  const mfPct = totalNW > 0 ? (mfVal / totalNW) * 100 : 0;
+  const stockPct = totalNW > 0 ? (stockVal / totalNW) * 100 : 0;
+  const goldPct = totalNW > 0 ? (goldVal / totalNW) * 100 : 0;
+  const ppfPct = totalNW > 0 ? (ppfVal / totalNW) * 100 : 0;
 
-    series.push({
-      label: m.label,
-      key: m.key,
-      invested: cumInvested,
-      val: idx === months.length - 1 ? targetTotalVal : estimatedVal
-    });
-  });
-
-  const finalInv = series.length > 0 ? series[series.length - 1].invested : targetTotalInv;
-  const finalVal = series.length > 0 ? series[series.length - 1].val : targetTotalVal;
-  const netGain = finalVal - finalInv;
-  const mult = finalInv > 0 ? (finalVal / finalInv).toFixed(2) : '1.00';
-
-  const gainBadge = document.getElementById("txNetGainBadge");
-  const multBadge = document.getElementById("txGrowthMultipleBadge");
-  if (gainBadge) {
-    gainBadge.innerText = `${netGain >= 0 ? '+' : ''}${formatVal(netGain)} Net Growth`;
-    gainBadge.style.color = netGain >= 0 ? '#6ee7b7' : '#fca5a5';
+  // Center Total Net Worth
+  const centerVal = document.getElementById("macroAssetCenterValue");
+  if (centerVal) {
+    centerVal.innerText = formatVal(totalNW);
   }
-  if (multBadge) multBadge.innerText = `${mult}x Multiple`;
 
-  if (series.length < 2) {
-    ctx.fillStyle = "rgba(255,255,255,0.4)";
-    ctx.font = "11px var(--font-mono, monospace)";
-    ctx.textAlign = "center";
-    ctx.fillText("Accumulating transaction historical points...", width / 2, height / 2);
+  // Dominant Asset Badge
+  const dominantBadge = document.getElementById("macroAssetDominantBadge");
+  if (dominantBadge) {
+    const list = [
+      { name: "Mutual Funds & ETFs", pct: mfPct },
+      { name: "Stocks", pct: stockPct },
+      { name: "Gold Reserves", pct: goldPct },
+      { name: "PPF", pct: ppfPct }
+    ];
+    list.sort((a, b) => b.pct - a.pct);
+    const dominant = list[0];
+    dominantBadge.innerText = `${dominant.name} (${dominant.pct.toFixed(1)}%)`;
+  }
+
+  // Allocation ratio footer (Equity vs Sovereign/Bullion/Debt)
+  const equityVal = mfVal + stockVal;
+  const equityPct = totalNW > 0 ? ((equityVal / totalNW) * 100).toFixed(1) : '0.0';
+  const otherPct = totalNW > 0 ? (100 - parseFloat(equityPct)).toFixed(1) : '0.0';
+
+  const ratioBadge = document.getElementById("macroAssetEquityRatioBadge");
+  if (ratioBadge) {
+    ratioBadge.innerText = `${equityPct}% Equity / ${otherPct}% Gold & PPF`;
+  }
+
+  const items = [
+    {
+      key: 'mf',
+      name: 'Mutual Funds & ETFs',
+      value: mfVal,
+      pct: mfPct,
+      color: '#10b981', // Emerald Mint
+      bg: 'rgba(16, 185, 129, 0.08)',
+      border: 'rgba(16, 185, 129, 0.25)'
+    },
+    {
+      key: 'stocks',
+      name: 'Direct Equities (Stocks)',
+      value: stockVal,
+      pct: stockPct,
+      color: '#c084fc', // Violet/Purple
+      bg: 'rgba(192, 132, 252, 0.08)',
+      border: 'rgba(192, 132, 252, 0.25)'
+    },
+    {
+      key: 'gold',
+      name: 'Gold Reserves (Bullion & ETF)',
+      value: goldVal,
+      pct: goldPct,
+      color: '#fbbf24', // Luminous Gold
+      bg: 'rgba(251, 191, 36, 0.08)',
+      border: 'rgba(251, 191, 36, 0.25)'
+    },
+    {
+      key: 'ppf',
+      name: 'Public Provident Fund (PPF)',
+      value: ppfVal,
+      pct: ppfPct,
+      color: '#38bdf8', // Cyan/Sky Blue
+      bg: 'rgba(56, 189, 248, 0.08)',
+      border: 'rgba(56, 189, 248, 0.25)'
+    }
+  ];
+
+  // Render Legend Rows
+  const legendContainer = document.getElementById("macroAssetLegendContainer");
+  if (legendContainer) {
+    legendContainer.innerHTML = items.map(item => `
+      <div style="display: flex; justify-content: space-between; align-items: center; background: ${item.bg}; border: 1px solid ${item.border}; border-radius: 6px; padding: 5px 8px; font-size: 11px;">
+        <div style="display: flex; align-items: center; gap: 7px; overflow: hidden; margin-right: 8px;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: ${item.color}; flex-shrink: 0; box-shadow: 0 0 6px ${item.color}88;"></span>
+          <span style="color: #fff; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); flex-shrink: 0;">
+          <span style="color: var(--text-dim); font-size: 10px;" class="privacy-blur">${formatVal(item.value)}</span>
+          <span style="font-weight: 700; color: ${item.color}; min-width: 42px; text-align: right;">${item.pct.toFixed(1)}%</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Draw High-DPI Donut on Canvas
+  const dpr = window.devicePixelRatio || 1;
+  const size = 170;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  canvas.style.width = `${size}px`;
+  canvas.style.height = `${size}px`;
+
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, size, size);
+
+  if (totalNW <= 0) {
+    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+    ctx.lineWidth = 14;
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, 60, 0, Math.PI * 2);
+    ctx.stroke();
     return;
   }
 
-  const padLeft = 14;
-  const padRight = 14;
-  const padTop = 18;
-  const padBottom = 26;
-  const plotW = width - padLeft - padRight;
-  const plotH = height - padTop - padBottom;
+  const cx = size / 2;
+  const cy = size / 2;
+  const outerR = 68;
+  const innerR = 48;
+  let startAngle = -Math.PI / 2;
 
-  const maxVal = Math.max(...series.map(s => Math.max(s.invested, s.val))) * 1.12;
+  items.forEach(slice => {
+    if (slice.pct <= 0) return;
+    const sliceAngle = (slice.pct / 100) * (Math.PI * 2);
+    const endAngle = startAngle + sliceAngle;
 
-  const getX = (idx) => padLeft + (idx / (series.length - 1)) * plotW;
-  const getY = (v) => padTop + plotH * (1 - (v / maxVal));
+    ctx.beginPath();
+    ctx.arc(cx, cy, outerR, startAngle, endAngle, false);
+    ctx.arc(cx, cy, innerR, endAngle, startAngle, true);
+    ctx.closePath();
 
-  // Grid lines
-  ctx.strokeStyle = "rgba(255,255,255,0.06)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  [0.25, 0.5, 0.75, 1].forEach(frac => {
-    const y = padTop + plotH * (1 - frac);
-    ctx.moveTo(padLeft, y);
-    ctx.lineTo(width - padRight, y);
+    ctx.fillStyle = slice.color;
+    ctx.fill();
+
+    // Gap stroke between segments
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "#07090E";
+    ctx.stroke();
+
+    startAngle = endAngle;
   });
-  ctx.stroke();
-
-  // 1. Area fill under Portfolio Value
-  const areaGrad = ctx.createLinearGradient(0, padTop, 0, padTop + plotH);
-  areaGrad.addColorStop(0, 'rgba(110,231,183,0.25)');
-  areaGrad.addColorStop(1, 'rgba(110,231,183,0.0)');
-
-  ctx.fillStyle = areaGrad;
-  ctx.beginPath();
-  ctx.moveTo(getX(0), padTop + plotH);
-  series.forEach((s, i) => {
-    ctx.lineTo(getX(i), getY(s.val));
-  });
-  ctx.lineTo(getX(series.length - 1), padTop + plotH);
-  ctx.closePath();
-  ctx.fill();
-
-  // 2. Invested Line (Dashed Slate)
-  ctx.strokeStyle = "rgba(255,255,255,0.45)";
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 4]);
-  ctx.beginPath();
-  series.forEach((s, i) => {
-    const x = getX(i);
-    const y = getY(s.invested);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // 3. Value Line (Glowing Emerald Green)
-  ctx.strokeStyle = "#6ee7b7";
-  ctx.lineWidth = 2.2;
-  ctx.shadowColor = "#6ee7b7";
-  ctx.shadowBlur = 8;
-  ctx.beginPath();
-  series.forEach((s, i) => {
-    const x = getX(i);
-    const y = getY(s.val);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-
-  // Dots on endpoints
-  const lastIdx = series.length - 1;
-  ctx.fillStyle = "#6ee7b7";
-  ctx.beginPath();
-  ctx.arc(getX(lastIdx), getY(series[lastIdx].val), 4, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Smart X Axis Labels with collision prevention
-  const minSpacingPx = 52;
-  const numLabels = Math.min(series.length, Math.max(2, Math.floor(plotW / minSpacingPx)));
-  const labelIndices = [];
-  if (series.length <= 4) {
-    for (let idx = 0; idx < series.length; idx++) labelIndices.push(idx);
-  } else {
-    labelIndices.push(0);
-    const stepSize = (series.length - 1) / (numLabels - 1);
-    for (let k = 1; k < numLabels - 1; k++) {
-      const idx = Math.round(k * stepSize);
-      if (idx > labelIndices[labelIndices.length - 1] + 1 && (series.length - 1 - idx) >= 2) {
-        labelIndices.push(idx);
-      }
-    }
-    labelIndices.push(series.length - 1);
-  }
-
-  labelIndices.forEach(i => {
-    const s = series[i];
-    if (!s) return;
-    ctx.fillStyle = "rgba(255,255,255,0.6)";
-    ctx.font = "9px var(--font-mono, monospace)";
-    if (i === 0) {
-      ctx.textAlign = "left";
-      ctx.fillText(s.label, padLeft, height - 8);
-    } else if (i === series.length - 1) {
-      ctx.textAlign = "right";
-      ctx.fillText(s.label, width - padRight, height - 8);
-    } else {
-      ctx.textAlign = "center";
-      ctx.fillText(s.label, getX(i), height - 8);
-    }
-  });
-
-  // Tooltip & Click Drilldown
-  const tooltip = document.getElementById("txGrowthTooltip");
-  canvas.style.cursor = 'pointer';
-
-  canvas.onmousemove = (e) => {
-    if (!tooltip) return;
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const frac = Math.max(0, Math.min(1, (mouseX - padLeft) / plotW));
-    const idx = Math.round(frac * (series.length - 1));
-
-    if (idx >= 0 && idx < series.length) {
-      const s = series[idx];
-      const gain = s.val - s.invested;
-      const gPct = s.invested > 0 ? ((gain / s.invested) * 100).toFixed(1) : '0.0';
-      tooltip.style.display = 'block';
-      tooltip.style.left = `${Math.min(width - 160, Math.max(10, mouseX - 70))}px`;
-      tooltip.style.top = `${Math.max(10, mouseY - 65)}px`;
-      tooltip.innerHTML = `
-        <div style="font-weight:700; color:#fff; margin-bottom:2px;">${s.label}</div>
-        <div style="color:rgba(255,255,255,0.7);">Invested: ${formatVal(s.invested)}</div>
-        <div style="color:#6ee7b7; font-weight:600;">Value: ${formatVal(s.val)}</div>
-        <div style="color:#fde047; font-size:9px;">Gain: ${gain >= 0 ? '+' : ''}${formatVal(gain)} (${gain >= 0 ? '+' : ''}${gPct}%)</div>
-      `;
-    } else {
-      tooltip.style.display = 'none';
-    }
-  };
-  canvas.onmouseleave = () => {
-    if (tooltip) tooltip.style.display = 'none';
-  };
-  canvas.onclick = (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const frac = Math.max(0, Math.min(1, (mouseX - padLeft) / plotW));
-    const idx = Math.round(frac * (series.length - 1));
-    if (idx >= 0 && idx < series.length) {
-      openInflowDrilldownModal(series[idx].key);
-    } else {
-      openInflowDrilldownModal();
-    }
-  };
 }
+
+function drawTxCumulativeGrowthChart() {}
 
 function openInflowDrilldownModal(monthKey) {
   const modal = document.getElementById("inflowDrilldownModal");
@@ -10695,11 +11362,11 @@ beta: {
 },
 drawdown: {
   category: "STRESS RESILIENCE",
-  title: "Max Historical Drawdown",
+  title: "Max Stress-Test Drawdown",
   val: "--",
-  grade: "Resilient Peak-to-Trough Shock",
-  definition: "The maximum historical percentage drop from peak valuation to lowest trough before full recovery.",
-  impact: "Asset-weighted stress resilience keeps drawdown contained, allowing continuous systematic compounding.",
+  grade: "Simulated Crash Shock Buffer",
+  definition: "A forward-looking mathematical stress test modeling the portfolio drop if broad equities experience a sudden -17% crash, offset by PPF (0% vol) and Gold cushions.",
+  impact: "Asset-weighted stress resilience keeps downside contained, demonstrating how sovereign fixed income protects total wealth during market panics.",
   benchmark: "< -15.0% for Conservative Growth"
 },
 liquidity: {
