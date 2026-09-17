@@ -3051,10 +3051,10 @@ svg.lucide, i[data-lucide], svg {
             <span class="dossier-kpi-val num-mono" id="kpiReturn" style="color: #fde047;">1.00x</span>
             <span style="font-size:11px; opacity:0.75;" id="kpiReturnSub">Capital Growth Factor</span>
           </div>
-          <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">Compounding Velocity</span>
+          <div class="dossier-kpi-card clickable-metric-card" onclick="openSchemeXirrBreakdownModal()" style="cursor:pointer;" title="Click to view Scheme XIRR breakdown">
+            <span class="dossier-kpi-label">Weighted Portfolio XIRR</span>
             <span class="dossier-kpi-val num-mono" id="kpiXirr" style="color: #60a5fa;">0.0%</span>
-            <span style="font-size:11px; opacity:0.75;" id="kpiXirrSub">Funds &amp; ETFs XIRR</span>
+            <span style="font-size:11px; opacity:0.75;" id="kpiXirrSub">Annualized Compounding</span>
           </div>
           <div class="dossier-kpi-card">
             <span class="dossier-kpi-label">Active Holdings</span>
@@ -3326,15 +3326,15 @@ svg.lucide, i[data-lucide], svg {
 
         <!-- SMART MF TELEMETRY STRIP -->
         <div class="dossier-kpi-grid four-cols">
-          <div class="dossier-kpi-card clickable-metric-card" onclick="openSchemeXirrBreakdownModal()" style="cursor:pointer;" title="Click to view Scheme XIRR">
+          <div class="dossier-kpi-card">
             <span class="dossier-kpi-label">Weighted Portfolio XIRR</span>
             <span class="dossier-kpi-val num-mono" style="color: #6ee7b7; font-size: 1.6rem;" id="mfWeightedXirr">21.8%</span>
             <span style="font-size:11px; opacity:0.75;">Annualized Compounding</span>
           </div>
           <div class="dossier-kpi-card">
-            <span class="dossier-kpi-label">Direct Plan TER Alpha</span>
-            <span class="dossier-kpi-val num-mono" style="color: #fde047; font-size: 1.6rem;">+1.0% / yr</span>
-            <span style="font-size:11px; opacity:0.75;" id="mfTerSavingsText">~₹12,400/yr Saved vs Regular</span>
+            <span class="dossier-kpi-label">Max Scheme Concentration</span>
+            <span class="dossier-kpi-val num-mono" style="color: #fde047; font-size: 1.6rem;" id="mfConcentrationVal">0.0%</span>
+            <span style="font-size:11px; opacity:0.75;" id="mfConcentrationSub">Analyzing Portfolio...</span>
           </div>
           <div class="dossier-kpi-card">
             <span class="dossier-kpi-label">Active Monthly SIP Outflow</span>
@@ -6302,7 +6302,7 @@ function normalizeMFData(data) {
       yearChange = Math.round(currentValue * (kbMatch.fallback1yPct / 100));
     }
 
-    const rawDay = getField(r, 'SIP Day of Month', 'sipDayOfMonth', 'sipDay', 'day', 'SIP Date', 'Debit Date', 'Date');
+    const rawDay = getField(r, 'SIP Day of Month', 'sipDayOfMonth', 'sipDay', 'day', 'SIP Date', 'Debit Date', 'Date', 'Day', 'SIP Day', 'Debit Day');
     let parsedDay = parseNum(rawDay);
     if (!parsedDay && typeof rawDay === 'string') {
       const match = rawDay.match(/\d+/);
@@ -6310,6 +6310,10 @@ function normalizeMFData(data) {
     }
     const sipDay = (parsedDay && parsedDay >= 1 && parsedDay <= 31) ? parsedDay : null;
     const sipAmount = parseNum(getField(r, 'SIP Amount', 'sipAmount', 'monthlySIP', 'amount', 'Monthly SIP', 'SIP')) || 0;
+
+    const rawTer = parseNum(getField(r, 'TER', 'ter', 'Expense Ratio', 'expenseRatio', 'Total Expense Ratio', 'Expense Ratio (%)', 'TER (%)'));
+    const isIndexFund = category === 'INDEX' || name.toLowerCase().includes('index') || name.toLowerCase().includes('nifty');
+    const ter = rawTer > 0 ? (rawTer > 1 ? rawTer / 100 : rawTer) : (kbMatch?.ter || (isIndexFund ? 0.0020 : 0.0065));
 
     return {
       id: 'mf-' + i,
@@ -6326,6 +6330,7 @@ function normalizeMFData(data) {
       monthlySip: sipAmount,
       sipDay,
       sipActive: sipAmount > 0 || sipDay !== null,
+      ter,
       ticker: String(getField(r, 'Scheme Code', 'schemecode', 'Ticker Symbol', 'tickerSymbol', 'ticker', 'symbol', 'Google Ticker') || (kbMatch ? kbMatch.schemeCode : '')),
       raw: r
     };
@@ -6474,12 +6479,12 @@ function normalizePPFData(data) {
 function normalizeSIPData(data) {
   let rows = getRootArray(data, 'SIP_Config', 'sip_config', 'sipConfig', 'SIP Config', 'sips', 'sip');
   if (!rows.length && Array.isArray(data?.mutualFunds)) {
-    rows = data.mutualFunds.filter(r => parseNum(getField(r, 'SIP Amount', 'sipAmount', 'monthlySIP')) > 0 || getField(r, 'SIP Day of Month', 'sipDayOfMonth', 'sipDay'));
+    rows = data.mutualFunds.filter(r => parseNum(getField(r, 'SIP Amount', 'sipAmount', 'monthlySIP')) > 0 || getField(r, 'SIP Day of Month', 'sipDayOfMonth', 'sipDay', 'SIP Day', 'SIP Date', 'Debit Date', 'Date', 'Day'));
   }
 
   return rows.map((r, i) => {
-    const fundName = getField(r, 'Fund Name', 'fundName', 'name', 'fund', 'schemeName') || `SIP Scheme ${i+1}`;
-    const rawDay = getField(r, 'SIP Day of Month', 'sipDayOfMonth', 'sipDay', 'day');
+    const fundName = getField(r, 'Fund Name', 'fundName', 'name', 'fund', 'schemeName', 'Fund Ticker', 'fundTicker', 'Scheme', 'Fund') || `SIP Scheme ${i+1}`;
+    const rawDay = getField(r, 'SIP Day of Month', 'sipDayOfMonth', 'sipDay', 'day', 'Day', 'SIP Day', 'SIP Date', 'Debit Date', 'Debit Day', 'Date', 'Execution Day', 'Day of Month');
     let parsedDay = parseNum(rawDay);
     if (!parsedDay && typeof rawDay === 'string') {
       const match = rawDay.match(/\d+/);
@@ -6488,8 +6493,8 @@ function normalizeSIPData(data) {
     const finalDay = (parsedDay && parsedDay >= 1 && parsedDay <= 31) ? parsedDay : (i * 5 + 5);
 
     return {
-      ticker: String(getField(r, 'Ticker Symbol', 'tickerSymbol', 'ticker', 'symbol') || ''),
-      sipAmount: parseNum(getField(r, 'SIP Amount', 'sipAmount', 'amount', 'monthlySIP')) || 10000,
+      ticker: String(getField(r, 'Ticker Symbol', 'tickerSymbol', 'ticker', 'symbol', 'Scheme Code', 'schemecode') || ''),
+      sipAmount: parseNum(getField(r, 'SIP Amount', 'sipAmount', 'amount', 'monthlySIP', 'Monthly SIP', 'SIP')) || 10000,
       sipDay: finalDay,
       fundName,
       category: inferMFCategory(fundName, getField(r, 'Category', 'category', 'type')),
@@ -6614,7 +6619,12 @@ function syncMFWithSIPConfig() {
         return sName && mName && (sName.includes(mName) || mName.includes(sName));
       });
       if (matchingSip) {
-        mf.sipDay = matchingSip.sipDay;
+        // If mf has its own explicit sipDay from Mutual_Funds sheet, prioritize it and update matchingSip
+        if (mf.sipDay && (!matchingSip.sipDay || matchingSip.sipDay === 10)) {
+          matchingSip.sipDay = mf.sipDay;
+        } else if (matchingSip.sipDay) {
+          mf.sipDay = matchingSip.sipDay;
+        }
         if (matchingSip.sipAmount) mf.monthlySip = matchingSip.sipAmount;
         mf.sipActive = true;
         if (!mf.ticker && matchingSip.ticker) mf.ticker = matchingSip.ticker;
@@ -8132,7 +8142,7 @@ function renderCompleteDossiers() {
     xirrEl.style.color = parseFloat(mfXirr) >= 0 ? '#60a5fa' : '#fca5a5';
   }
   const xirrSub = document.getElementById('kpiXirrSub');
-  if (xirrSub) xirrSub.innerText = "Funds & ETFs XIRR";
+  if (xirrSub) xirrSub.innerText = "Annualized Compounding";
 
   // Also update MF tab XIRR
   const mfXirrEl = document.getElementById('mfWeightedXirr');
@@ -8312,10 +8322,33 @@ function renderCompleteDossiers() {
   }
   const mfMonthlySip = document.getElementById('mfMonthlySipVal');
   if (mfMonthlySip) mfMonthlySip.innerText = formatVal(monthlySip);
-  const terSavings = Math.round(metrics.mfCur * 0.01);
-  const mfTer = document.getElementById('mfTerSavingsText');
-  if (mfTer) mfTer.innerText = `~${formatVal(terSavings)}/yr Saved vs Regular`;
+  // Dynamic Max Scheme Concentration
   const combinedMfEtfs = typeof getCombinedMFandETFs === 'function' ? getCombinedMFandETFs() : (AppState.mutualFunds || []);
+  let totalMfVal = 0;
+  let maxSchemeName = '';
+  let maxSchemeVal = 0;
+  combinedMfEtfs.forEach(f => {
+    const val = parseNum(f.currentValue) || 0;
+    totalMfVal += val;
+    if (val > maxSchemeVal) {
+      maxSchemeVal = val;
+      maxSchemeName = f.name || 'Top Scheme';
+    }
+  });
+
+  const concPct = totalMfVal > 0 ? ((maxSchemeVal / totalMfVal) * 100).toFixed(1) : '0.0';
+  const isSafe = parseFloat(concPct) <= 35.0;
+  const mfConcValEl = document.getElementById('mfConcentrationVal');
+  if (mfConcValEl) {
+    mfConcValEl.innerText = `${concPct}%`;
+    mfConcValEl.style.color = isSafe ? '#fde047' : '#fca5a5';
+  }
+  const mfConcSubEl = document.getElementById('mfConcentrationSub');
+  if (mfConcSubEl) {
+    let cleanName = maxSchemeName.replace(/ - (Direct|Regular).*$/i, '').replace(/ (Fund|Index).*$/i, '').trim();
+    if (!cleanName) cleanName = maxSchemeName;
+    mfConcSubEl.innerText = `${cleanName} · ${isSafe ? 'Optimal (< 35% Cap)' : 'Concentrated Exposure'}`;
+  }
   const mfCntBadge = document.getElementById('mfHoldingCountBadge');
   if (mfCntBadge) mfCntBadge.innerText = `(${combinedMfEtfs.length} Holdings)`;
 
@@ -9049,20 +9082,25 @@ function renderTopAlphaDrivers() {
     const pct = inv > 0 ? (p / inv) * 100 : 0;
     const isGold = isGoldEtf(s);
     const isEq = isEquityEtf(s);
-    const tag = isGold ? 'GOLD' : (isEq ? 'ETF' : (s.ticker || 'STK'));
+    const rawTicker = String(s.ticker || s.symbol || 'STK').replace(/^(NSE|BSE):/i, '').trim();
+    const tag = isGold ? 'GOLD' : (isEq ? 'ETF' : rawTicker);
     const type = isGold ? 'Gold ETF' : (isEq ? 'Index ETF' : 'Direct Stock');
-    allAssets.push({ name: s.name, type, tag, inv, cur, p, pct, id: s.id, rawType: 'stock' });
+    const cleanName = String(s.name || '').replace(/^(NSE|BSE):/i, '').trim();
+    allAssets.push({ name: cleanName, type, tag, inv, cur, p, pct, id: s.id, rawType: 'stock' });
   });
 
   allAssets.sort((a, b) => b.pct - a.pct);
   const top3 = allAssets.slice(0, 4);
 
-  container.innerHTML = top3.map((a, i) => `
+  container.innerHTML = top3.map((a, i) => {
+    const displayName = String(a.name || '').replace(/^(NSE|BSE):/i, '').trim();
+    const displayTag = String(a.tag || '').replace(/^(NSE|BSE):/i, '').trim();
+    return `
     <div class="leaderboard-asset-row" onclick="openInspectionFromType('${a.rawType}', '${a.id}')" style="cursor:pointer;">
       <div>
         <div style="font-weight:600; color:#fff; display:flex; align-items:center; gap:6px;">
-          <span class="badge-capsule" style="font-size:9px;">#${i+1} ${a.tag}</span>
-          <span>${a.name}</span>
+          <span class="badge-capsule" style="font-size:9px;">#${i+1} ${displayTag}</span>
+          <span>${displayName}</span>
         </div>
         <div style="font-size:10px; opacity:0.7; margin-top:2px;">Cost Basis: ${formatVal(a.inv)}</div>
       </div>
@@ -9071,7 +9109,8 @@ function renderTopAlphaDrivers() {
         <div class="num-mono privacy-blur" style="font-size:11px; opacity:0.8; color:${a.p >= 0 ? '#6ee7b7' : '#fca5a5'};">${a.p >= 0 ? '+' : ''}${formatVal(a.p)}</div>
       </div>
     </div>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function updateUpcomingSipWidget() {
@@ -9080,17 +9119,43 @@ function updateUpcomingSipWidget() {
   const bufferEl = document.getElementById('overview7DayBuffer');
   if (!nextSipText || !nextSipSub || !bufferEl) return;
 
-  const today = new Date().getDate();
-  let sips = [];
-  if (AppState.sipConfig && AppState.sipConfig.length) {
-    sips = AppState.sipConfig;
-  } else {
-    sips = AppState.mutualFunds.filter(f => f.sipActive).map(f => ({
-      fundName: f.name,
-      sipAmount: f.monthlySip || 0,
-      sipDay: f.sipDay || 10
-    }));
-  }
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const today = now.getDate();
+
+  // Unified SIP pool: merge AppState.sipConfig with AppState.mutualFunds so any changed dates are captured
+  const sipsMap = new Map();
+
+  (AppState.sipConfig || []).forEach(s => {
+    const key = (s.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const amt = parseNum(s.sipAmount);
+    const day = parseInt(s.sipDay, 10);
+    if (key && (amt > 0 || day > 0)) {
+      sipsMap.set(key, {
+        fundName: s.fundName,
+        sipAmount: amt || 0,
+        sipDay: (day >= 1 && day <= 31) ? day : 10
+      });
+    }
+  });
+
+  (AppState.mutualFunds || []).forEach(f => {
+    if (f.sipActive && (parseNum(f.monthlySip) > 0 || f.sipDay)) {
+      const key = (f.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const existing = sipsMap.get(key);
+      const day = parseInt(f.sipDay, 10) || (existing ? existing.sipDay : 10);
+      const amt = parseNum(f.monthlySip) || (existing ? existing.sipAmount : 0);
+      sipsMap.set(key, {
+        fundName: f.name,
+        sipAmount: amt,
+        sipDay: (day >= 1 && day <= 31) ? day : 10
+      });
+    }
+  });
+
+  const sips = Array.from(sipsMap.values()).filter(s => s.sipAmount > 0 && s.sipDay >= 1 && s.sipDay <= 31);
 
   if (!sips.length) {
     nextSipText.innerText = 'No Active SIP Mandates';
@@ -9099,23 +9164,33 @@ function updateUpcomingSipWidget() {
     return;
   }
 
-  const sorted = [...sips].sort((a, b) => {
-    let diffA = (a.sipDay >= today) ? (a.sipDay - today) : (31 - today + a.sipDay);
-    let diffB = (b.sipDay >= today) ? (b.sipDay - today) : (31 - today + b.sipDay);
-    return diffA - diffB;
+  // Calculate days away accurately
+  sips.forEach(s => {
+    s.daysAway = (s.sipDay >= today) ? (s.sipDay - today) : (daysInMonth - today + s.sipDay);
   });
 
-  const next = sorted[0];
-  const daysAway = (next.sipDay >= today) ? (next.sipDay - today) : (31 - today + next.sipDay);
-  const timeLabel = daysAway === 0 ? 'Today' : (daysAway === 1 ? 'Tomorrow' : `in ${daysAway} days (Day ${next.sipDay})`);
+  sips.sort((a, b) => a.daysAway - b.daysAway);
 
-  nextSipText.innerText = `Next Scheduled SIP: ${formatVal(next.sipAmount)} (${timeLabel})`;
-  nextSipSub.innerText = `${next.fundName}`;
+  const nearestDays = sips[0].daysAway;
+  const nearestSips = sips.filter(s => s.daysAway === nearestDays);
+
+  const totalUpcomingAmount = nearestSips.reduce((sum, s) => sum + s.sipAmount, 0);
+  const targetDay = nearestSips[0].sipDay;
+  const timeLabel = nearestDays === 0 ? 'Today' : (nearestDays === 1 ? 'Tomorrow' : `in ${nearestDays} days (Day ${targetDay})`);
+
+  nextSipText.innerText = `Next Scheduled SIP: ${formatVal(totalUpcomingAmount)} (${timeLabel})`;
+  
+  if (nearestSips.length === 1) {
+    nextSipSub.innerText = nearestSips[0].fundName;
+  } else if (nearestSips.length === 2) {
+    nextSipSub.innerText = `${nearestSips[0].fundName} & ${nearestSips[1].fundName}`;
+  } else {
+    nextSipSub.innerText = `${nearestSips[0].fundName} + ${nearestSips.length - 1} other mandates`;
+  }
 
   let sevenDaySum = 0;
   sips.forEach(s => {
-    let diff = (s.sipDay >= today) ? (s.sipDay - today) : (31 - today + s.sipDay);
-    if (diff <= 7) sevenDaySum += (parseNum(s.sipAmount) || 0);
+    if (s.daysAway <= 7) sevenDaySum += (parseNum(s.sipAmount) || 0);
   });
   bufferEl.innerText = formatVal(sevenDaySum);
 }
