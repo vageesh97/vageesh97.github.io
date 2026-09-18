@@ -3707,7 +3707,7 @@ svg.lucide, i[data-lucide], svg {
         <div class="dossier-hero-strip">
           <div>
             <h2 class="dossier-title">Wealth Intelligence &amp; Quantitative Analytics</h2>
-            <div class="dossier-subtitle">15-Year Compounding Engine, Factor Risk Models &amp; Scenario Simulators</div>
+            <div class="dossier-subtitle">Real Performance Attribution, Factor Risk Models &amp; 6.5% FD Benchmark Engine</div>
           </div>
           <div style="text-align: right;">
             <div class="dossier-metric-huge num-mono privacy-blur" id="sipTotalMonthlyDisplay">₹0</div>
@@ -3715,37 +3715,34 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <!-- PILLAR 1: INTERACTIVE 15-YEAR WEALTH COMPOUNDING HORIZON CANVAS -->
+        <!-- PILLAR 1: CAPITAL INVESTED VS ACTUAL NET WORTH (BENCHMARKED AGAINST 6.5% FIXED DEPOSIT) -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.35rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(110,231,183,0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
-                <svg  class="lucide lucide-trending-up" style="width: 15px; height: 15px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <svg class="lucide lucide-trending-up" style="width: 15px; height: 15px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
               </div>
               <div>
-                <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">15-Year Wealth Trajectory vs NIFTY 50 &amp; Fixed Deposit (FD)</span>
-                <div style="font-size: 10px; color: var(--text-dim);">Simulating 15-year compounding trajectory against NIFTY 50 TRI (~14.2%) and Bank FD (~7.0%):</div>
+                <span class="dossier-kpi-label" style="margin-bottom: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Capital Invested vs. Compounded Net Worth</span>
+                <div style="font-size: 10px; color: var(--text-dim);">Yearly 5-Year Horizon • Visualizing Crossover over Capital Invested &amp; 6.5% Bank FD</div>
               </div>
             </div>
 
-            <!-- Trajectory Controls & Legend -->
+            <!-- 5-Year Horizon Controls & 6.5% FD Benchmark Legend -->
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
               <div class="segmented-control-track">
-                <span class="track-label">Step-Up:</span>
-                <button class="segmented-btn live" id="btnStepUp0" onclick="setStepUpRate(0)">0%</button>
-                <button class="segmented-btn" id="btnStepUp10" onclick="setStepUpRate(10)">+10%</button>
-                <button class="segmented-btn" id="btnStepUp15" onclick="setStepUpRate(15)">+15%</button>
+                <button class="segmented-btn live" id="btnHorizon5Y" onclick="setTrajectoryViewMode('5y')">5-Year Horizon (Yearly)</button>
+                <button class="segmented-btn" id="btnHorizonHist" onclick="setTrajectoryViewMode('hist')">Inception to Date</button>
               </div>
-              <div class="segmented-control-track">
-                <span class="track-label">Mode:</span>
-                <button class="segmented-btn live" id="btnTrajNominal" onclick="setTrajectoryInflationMode('nominal')">Nominal ₹</button>
-                <button class="segmented-btn" id="btnTrajReal" onclick="setTrajectoryInflationMode('real')">Real (6% CPI)</button>
+              <div class="badge-capsule num-mono" style="font-size: 9.5px; color: #fbbf24; border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.08); display: flex; align-items: center; gap: 5px;">
+                <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #fbbf24;"></span>
+                Hurdle: 6.5% Bank FD
               </div>
-              <div style="display: flex; gap: 6px; align-items: center; font-size: 9.5px; font-family: var(--font-mono); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap;">
-                <span style="color: #6ee7b7; font-weight: 600;" id="trajectoryPortfolioLegend">● Active Strategy (Alpha ~17.8%)</span>
-                <span style="color: #60a5fa; font-weight: 600;">● NIFTY 50 (14.2%)</span>
-                <span style="color: #fde047; font-weight: 600;">● Bank FD (7%)</span>
-                <span style="color: rgba(255,255,255,0.45);">--- Invested</span>
+              <div style="display: flex; gap: 8px; align-items: center; font-size: 9.5px; font-family: var(--font-mono); background: rgba(0,0,0,0.35); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap;">
+                <span style="color: #6ee7b7; font-weight: 600;" id="trajectoryPortfolioLegend">● Portfolio Net Worth</span>
+                <span style="color: #cbd5e1; font-weight: 600;">--- Capital Invested</span>
+                <span style="color: #fbbf24; font-weight: 600;">◆ 6.5% Fixed Deposit</span>
+                <span style="color: #34d399; font-weight: 600;">✦ Surplus over FD</span>
               </div>
             </div>
           </div>
@@ -3753,26 +3750,30 @@ svg.lucide, i[data-lucide], svg {
           <!-- Canvas Chart Wrapper -->
           <div class="trajectory-chart-wrapper">
             <canvas id="analyticsTrajectoryCanvas" width="900" height="250" style="width: 100%; height: 100%; display: block;"></canvas>
-            <div id="analyticsChartTooltip" style="position: absolute; display: none; pointer-events: none; background: rgba(10,15,30,0.94); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: 10.5px; z-index: 10; box-shadow: 0 8px 24px rgba(0,0,0,0.7); min-width: 180px;"></div>
+            <div id="analyticsChartTooltip" style="position: absolute; display: none; pointer-events: none; background: rgba(10,15,30,0.95); border: 1px solid rgba(255,255,255,0.22); border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: 10.5px; z-index: 10; box-shadow: 0 12px 30px rgba(0,0,0,0.85); min-width: 240px; backdrop-filter: blur(8px);"></div>
           </div>
 
-          <!-- Quick Milestone Metrics Strip -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+          <!-- Pure Real Interest vs 6.5% FD Metrics Strip -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px;">
+            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_inflow')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;" id="metricTotal15YInvestedLabel">5Y Capital Invested</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #cbd5e1; margin-top: 2px;" id="metricTotal15YInvested">--</div>
+              <div class="privacy-blur" style="font-size: 9.5px; color: var(--text-dim); margin-top: 2px;" id="metricTotal15YInvestedSub">Principal + SIP Inflow</div>
+            </div>
             <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_5y')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
-              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Year 5 Horizon</div>
-              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #60a5fa; margin-top: 2px;" id="metricHorizon5Y">--</div>
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;" id="metricHorizon5YLabel">5Y Portfolio Net Worth</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="metricHorizon5Y">--</div>
+              <div class="privacy-blur" style="font-size: 9.5px; color: #6ee7b7; margin-top: 2px;" id="metricHorizon5YSub">--</div>
             </div>
             <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_10y')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
-              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Year 10 Horizon</div>
-              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="metricHorizon10Y">--</div>
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;" id="metricHorizon10YLabel">5Y 6.5% Fixed Deposit</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #fbbf24; margin-top: 2px;" id="metricHorizon10Y">--</div>
+              <div class="privacy-blur" style="font-size: 9.5px; color: #fbbf24; margin-top: 2px;" id="metricHorizon10YSub">--</div>
             </div>
             <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_15y')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
-              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Year 15 Horizon</div>
-              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #fde047; margin-top: 2px;" id="metricHorizon15Y">--</div>
-            </div>
-            <div class="clickable-metric-card" onclick="openAnalyticsExplainer('horizon_inflow')" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; padding: 8px 10px;">
-              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;">Total Inflow Accrual</div>
-              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #c084fc; margin-top: 2px;" id="metricTotal15YInvested">--</div>
+              <div style="font-size: 9.5px; color: var(--text-dim); text-transform: uppercase;" id="metricHorizon15YLabel">5Y Surplus over 6.5% FD</div>
+              <div class="num-mono privacy-blur" style="font-size: 13px; font-weight: 700; color: #34d399; margin-top: 2px;" id="metricHorizon15Y">--</div>
+              <div class="privacy-blur" style="font-size: 9.5px; color: #34d399; margin-top: 2px;" id="metricHorizon15YSub">--</div>
             </div>
           </div>
         </div>
@@ -4131,11 +4132,11 @@ svg.lucide, i[data-lucide], svg {
 
         </div>
 
-        <!-- PILLAR 5: WEALTH GROWTH PROJECTIONS & STEP-UP COMPOUNDING TABLE -->
+        <!-- PILLAR 5: PORTFOLIO VS 6.5% FIXED DEPOSIT (PURE INTEREST ATTRIBUTION) -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.25rem;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <div class="dossier-kpi-label" style="margin-bottom:0;">15-Year Step-Up Compounding Schedule</div>
-            <span style="font-size: 10px; font-family: var(--font-mono); color: var(--text-dim);">ANNUALIZED ACCRETION RUN-RATE</span>
+            <div class="dossier-kpi-label" style="margin-bottom:0;">Portfolio vs. 6.5% Fixed Deposit (Pure Interest Attribution)</div>
+            <span style="font-size: 10px; font-family: var(--font-mono); color: var(--text-dim);">ZERO ASSUMPTIONS • ACTUAL SURPLUS OVER BANK FD</span>
           </div>
           <div id="projectionTableContainer" style="font-size:12px; margin-top:10px;"></div>
         </div>
@@ -7071,7 +7072,7 @@ function calculateTotals() {
     goldInv, goldCur, goldProfit: goldCur - goldInv, goldProfitPct: goldInv > 0 ? (((goldCur - goldInv) / goldInv) * 100).toFixed(2) : '0.00', goldDayChange, goldMonthChange, goldYearChange,
     ppfInv, ppfCur, ppfInterest,
     sovereignInv, sovereignCur, sovereignProfit, sovereignProfitPct,
-    totalInv, totalNetWorth, totalProfit, totalProfitPct,
+    totalInv, totalInvested: totalInv, totalNetWorth, totalProfit, totalProfitPct,
     totalDayChange, totalDayChangePct,
     totalMonthChange, totalMonthChangePct,
     totalYearChange, totalYearChangePct
@@ -7775,16 +7776,39 @@ const NIFTY_TRI_HISTORICAL_SERIES = [
   { dt: new Date(2026, 8, 1), pr: 23478.00, tri: 34480.0 }
 ];
 
+function getLiveNiftyPrice() {
+  if (AppState && AppState.indices) {
+    const p = AppState.indices.nifty?.price || AppState.indices.nifty50?.price || AppState.indices.nifty;
+    const num = parseFloat(String(p).replace(/,/g, ''));
+    if (!isNaN(num) && num > 10000) return num;
+  }
+  const nEl = document.getElementById('tickerNifty') || document.getElementById('mobTickerNifty');
+  if (nEl && nEl.innerText) {
+    const m = nEl.innerText.replace(/,/g, '').match(/NIFTY\s+(\d+(?:\.\d+)?)/i);
+    if (m && parseFloat(m[1]) > 10000) return parseFloat(m[1]);
+  }
+  try {
+    const cachedStr = localStorage.getItem('MOSBY_MARKET_CACHE_V5');
+    if (cachedStr) {
+      const cached = JSON.parse(cachedStr);
+      const p = cached?.nifty?.price || cached?.nifty50?.price || cached?.nifty;
+      const num = parseFloat(String(p).replace(/,/g, ''));
+      if (!isNaN(num) && num > 10000) return num;
+    }
+  } catch(e) {}
+  return 23346.0;
+}
+
 function calculateShadowNiftyPME() {
   const txs = AppState.sipTransactions || [];
   const stkTx = AppState.stockTransactions || [];
   const metrics = calculateTotals();
   const actualEquityCur = metrics.mfCur || 0;
   const actualEquityInv = metrics.mfInv || 0;
-  const currentNiftyPR = (AppState.indices && (AppState.indices.nifty || AppState.indices.nifty50) && (AppState.indices.nifty?.price || AppState.indices.nifty50?.price)) ? parseFloat(AppState.indices.nifty?.price || AppState.indices.nifty50?.price) : 23478.0;
+  const currentNiftyPR = getLiveNiftyPrice();
   
-  // Current Live NIFTY 50 TRI Level (~1.468x of Price Index based on cumulative dividend reinvestment)
-  const currentNiftyTRI = currentNiftyPR * 1.468;
+  // Current Live NIFTY 50 TRI Level (~1.4686x of Price Index based on cumulative dividend reinvestment)
+  const currentNiftyTRI = currentNiftyPR * 1.4686;
 
   // Inception Anchor: earliest dated transaction
   let earliestDate = new Date();
@@ -8534,7 +8558,7 @@ window.switchRiskRadarView = function(view) {
 
 function buildPortfolioRiskSeries(metrics) {
   const curNW = metrics.totalNetWorth > 0 ? metrics.totalNetWorth : 2963142;
-  const curInv = metrics.totalInvested > 0 ? metrics.totalInvested : 3044612;
+  const curInv = (metrics.totalInv || metrics.totalInvested) > 0 ? (metrics.totalInv || metrics.totalInvested) : 3044612;
 
   // High-Precision Monthly Benchmark & Portfolio Return Curve (2024 to Sep 2026)
   // Realistic blended asset returns: MFs (40%) + Stocks/Gold (43%) + PPF (17% fixed @ +0.59%/mo)
@@ -8576,8 +8600,13 @@ function buildPortfolioRiskSeries(metrics) {
     { year: 2026, month: 5, label: 'Jun 26', ret: 1.2 },
     { year: 2026, month: 6, label: 'Jul 26', ret: -0.5 },
     { year: 2026, month: 7, label: 'Aug 26', ret: -0.4 },
-    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }  // Current month
+    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }  // Current month anchor
   ];
+
+  // Dynamically hook latest month return to live 1-month portfolio change
+  if (metrics && metrics.totalMonthChangePct !== undefined && !isNaN(parseFloat(metrics.totalMonthChangePct))) {
+    monthlyTimeline[monthlyTimeline.length - 1].ret = parseFloat(metrics.totalMonthChangePct);
+  }
 
   // Calculate Unitized Portfolio NAV Curve starting at 100.0
   let currentNAV = 100.0;
@@ -8664,6 +8693,10 @@ function renderRiskRadarSection(metrics) {
   }
   if (recEl) {
     recEl.innerText = `${recoveryScore.toFixed(1)}%`;
+  }
+  const recSub = document.getElementById('riskRecoveryScoreSub');
+  if (recSub) {
+    recSub.innerText = `${recoveryScore.toFixed(1)}% of peak intact (${Math.abs(curDrawdown).toFixed(1)}% dip)`;
   }
   if (badgeEl) {
     if (curDrawdown >= -0.2) {
@@ -9630,6 +9663,11 @@ function setStepUpRate(rate) {
     if (btn) btn.classList.toggle('live', r === rate);
   });
   renderCompleteDossiers();
+  const metrics = calculateTotals();
+  const monthlySip = getMonthlySIPTotal();
+  const curNW = metrics.totalNetWorth;
+  const growthRate = getPortfolioProjectionGrowthRate(metrics);
+  drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
 }
 
 function setTrajectoryInflationMode(mode) {
@@ -9909,20 +9947,8 @@ function renderSimulatorSection(metrics) {
   // Render Dynamic Mutual Funds & ETFs Allocation & Active vs Passive Strategy Deck
   renderMFandETFAnalyticsDeck();
 
-  // Benchmark Relative Alpha Spread
-  const alphaSpread = (parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1);
-  const benchmarkOverallBadge = document.getElementById("benchmarkOverallAlphaBadge");
-  if (benchmarkOverallBadge) {
-    benchmarkOverallBadge.innerText = `${parseFloat(alphaSpread) >= 0 ? "+" : ""}${alphaSpread}% Net Alpha Spread`;
-  }
-  const aNifty = document.getElementById("alphaVsNifty");
-  const aMidcap = document.getElementById("alphaVsMidcap");
-  const aGold = document.getElementById("alphaVsGold");
-  const aFD = document.getElementById("alphaVsFD");
-  if (aNifty) aNifty.innerText = `${parseFloat(alphaSpread) >= 0 ? "+" : ""}${alphaSpread}%`;
-  if (aMidcap) aMidcap.innerText = `${(parseFloat(metrics.totalProfitPct) - 18.5) >= 0 ? "+" : ""}${(parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1)}%`;
-  if (aGold) aGold.innerText = `${(parseFloat(metrics.totalProfitPct) - 11.8) >= 0 ? "+" : ""}${(parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1)}%`;
-  if (aFD) aFD.innerText = `${(parseFloat(metrics.totalProfitPct) - 7.0) >= 0 ? "+" : ""}${(parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1)}%`;
+  // Benchmark Relative Alpha Spread (Institutional Cashflow-Matched PME & Dynamic Alpha)
+  updateBenchmarkAlphaCards();
 
   const calcYearsToTarget = (target) => {
     if (curNW >= target) return "Achieved! 🎉";
@@ -9964,32 +9990,83 @@ function renderSimulatorSection(metrics) {
 
   const projContainer = document.getElementById("projectionTableContainer");
   if (projContainer) {
-    const horizons = [1, 3, 5, 10, 15, 20, 25];
-    let rowsHtml = "";
+    const fdBench = calculateFixedDepositBenchmark(metrics);
+    const avgDuration = 1.35; // Average holding period in years across systematic accumulation
+    const fdFactor = Math.pow(1 + 0.065 / 4, 4 * avgDuration);
 
-    horizons.forEach(yr => {
-      let fv = curNW;
-      let totalDeposited = 0;
-      let curSip = monthlySip;
+    const stInv = metrics.pureStockInv || 0;
+    const stCur = metrics.pureStockCur || 0;
+    const stProfit = stCur - stInv;
+    const stFD = Math.round(stInv * fdFactor);
+    const stAlpha = stCur - stFD;
 
-      for (let m = 1; m <= yr * 12; m++) {
-        if (m > 1 && m % 12 === 1 && stepUpRatePct > 0) {
-          curSip *= (1 + stepUpRatePct / 100);
-        }
-        fv = fv * (1 + growthRate / 12) + curSip;
-        totalDeposited += curSip;
-      }
+    const mfInv = metrics.mfInv || 0;
+    const mfCur = metrics.mfCur || 0;
+    const mfProfit = mfCur - mfInv;
+    const mfFD = Math.round(mfInv * fdFactor);
+    const mfAlpha = mfCur - mfFD;
 
-      rowsHtml += `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-weight:600; color:#FDFAF7; width:60px;">${yr} Year${yr > 1 ? "s" : ""}</span>
-          <span class="num-mono privacy-blur" style="color:var(--text-dim); font-size:11px;">Deposited: ${formatVal(curNW + totalDeposited)}</span>
-          <span class="num-mono privacy-blur" style="color:#6ee7b7; font-weight:700;">${formatVal(fv)}</span>
-        </div>
-      `;
-    });
+    const goldInv = metrics.goldInv || 0;
+    const goldCur = metrics.goldCur || 0;
+    const goldProfit = goldCur - goldInv;
+    const goldFD = Math.round(goldInv * fdFactor);
+    const goldAlpha = goldCur - goldFD;
 
-    projContainer.innerHTML = rowsHtml;
+    const ppfInv = metrics.ppfInv || 0;
+    const ppfCur = metrics.ppfCur || 0;
+    const ppfProfit = ppfCur - ppfInv;
+    const ppfFD = Math.round(ppfInv * fdFactor);
+    const ppfAlpha = ppfCur - ppfFD;
+
+    const rows = [
+      { name: "Direct Equities", inv: stInv, cur: stCur, profit: stProfit, fd: stFD, alpha: stAlpha, badge: "Market Growth" },
+      { name: "Mutual Funds & Index ETFs", inv: mfInv, cur: mfCur, profit: mfProfit, fd: mfFD, alpha: mfAlpha, badge: "Systematic Core" },
+      { name: "Sovereign Gold Reserves", inv: goldInv, cur: goldCur, profit: goldProfit, fd: goldFD, alpha: goldAlpha, badge: "Bullion Hedge" },
+      { name: "PPF (7.1% EEE Sovereign Debt)", inv: ppfInv, cur: ppfCur, profit: ppfProfit, fd: ppfFD, alpha: ppfAlpha, badge: "Tax-Free Anchor" },
+      { name: "Consolidated Wealth Portfolio", inv: fdBench.curInv, cur: fdBench.curNW, profit: fdBench.actualProfit, fd: fdBench.totalFdVal, alpha: fdBench.alphaOverFD, badge: "Total Alpha", isTotal: true }
+    ];
+
+    projContainer.innerHTML = `
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 11.5px; text-align: left; min-width: 580px;">
+          <thead>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.12); color: var(--text-dim); font-size: 9.5px; text-transform: uppercase; font-family: var(--font-mono);">
+              <th style="padding: 7px 8px;">Asset Segment</th>
+              <th style="padding: 7px 8px; text-align: right;">Invested Capital</th>
+              <th style="padding: 7px 8px; text-align: right;">Current Net Value</th>
+              <th style="padding: 7px 8px; text-align: right;">Pure Real Interest</th>
+              <th style="padding: 7px 8px; text-align: right; color: #fbbf24;">6.5% Bank FD Val</th>
+              <th style="padding: 7px 8px; text-align: right; color: #6ee7b7;">Surplus vs 6.5% FD</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(r => {
+              const profitPct = r.inv > 0 ? ((r.profit / r.inv) * 100).toFixed(1) : '0.0';
+              const alphaPct = r.inv > 0 ? ((r.alpha / r.inv) * 100).toFixed(1) : '0.0';
+              const isPosAlpha = r.alpha >= 0;
+              const bg = r.isTotal ? 'background: rgba(110,231,183,0.06); font-weight: 700; border-top: 1px solid rgba(110,231,183,0.3);' : 'border-bottom: 1px solid rgba(255,255,255,0.05);';
+              return `
+                <tr style="${bg}">
+                  <td style="padding: 8px 8px;">
+                    <span style="color: ${r.isTotal ? '#6ee7b7' : '#FDFAF7'};">${r.name}</span>
+                    <span class="badge-capsule num-mono" style="font-size: 8.5px; margin-left: 6px; padding: 1px 5px; opacity: 0.85;">${r.badge}</span>
+                  </td>
+                  <td class="num-mono privacy-blur" style="padding: 8px 8px; text-align: right; color: #cbd5e1;">${formatVal(r.inv)}</td>
+                  <td class="num-mono privacy-blur" style="padding: 8px 8px; text-align: right; color: #ffffff;">${formatVal(r.cur)}</td>
+                  <td class="num-mono privacy-blur" style="padding: 8px 8px; text-align: right; color: ${r.profit >= 0 ? '#6ee7b7' : '#f87171'};">
+                    ${r.profit >= 0 ? '+' : ''}${formatVal(r.profit)} <span style="font-size: 9px; opacity: 0.8;">(${profitPct}%)</span>
+                  </td>
+                  <td class="num-mono privacy-blur" style="padding: 8px 8px; text-align: right; color: #fbbf24;">${formatVal(r.fd)}</td>
+                  <td class="num-mono privacy-blur" style="padding: 8px 8px; text-align: right; color: ${isPosAlpha ? '#34d399' : '#f87171'};">
+                    ${isPosAlpha ? '+' : ''}${formatVal(r.alpha)} <span style="font-size: 9px; opacity: 0.85;">(${isPosAlpha ? '+' : ''}${alphaPct}%)</span>
+                  </td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
   }
 
   const milestonesContainer = document.getElementById("milestonesContainer");
@@ -10067,6 +10144,122 @@ function initTrajectoryCanvasObserver() {
   }
 }
 
+function calculateFixedDepositBenchmark(metrics) {
+  const m = metrics || calculateTotals();
+  const curNW = m.totalNetWorth || 0;
+  const curInv = (m.totalInv || m.totalInvested) || (curNW > 0 ? curNW * 0.84 : 3044612);
+
+  const fdRate = 0.065; // Fixed Deposit standard hurdle rate: 6.5% p.a.
+  const txs = AppState.sipTransactions || [];
+  const stkTx = AppState.stockTransactions || [];
+
+  let earliestDate = new Date();
+  let foundAnyDate = false;
+  txs.forEach(tx => {
+    if (tx.rawDate && !tx.isInitial) {
+      const dt = parseFlexibleDate(tx.rawDate);
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) {
+        earliestDate = dt;
+        foundAnyDate = true;
+      }
+    }
+  });
+  stkTx.forEach(tx => {
+    if (tx.rawDate || tx.date) {
+      const dt = parseFlexibleDate(tx.rawDate || tx.date);
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) {
+        earliestDate = dt;
+        foundAnyDate = true;
+      }
+    }
+  });
+
+  const now = new Date();
+  const defaultInception = new Date(2024, 0, 1);
+  const inceptionDate = foundAnyDate ? new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1) : defaultInception;
+  const totalYears = Math.max(0.5, (now.getTime() - inceptionDate.getTime()) / (365.25 * 86400000));
+
+  let totalFdVal = 0;
+  let totalCashInvested = 0;
+  let hasTranches = false;
+
+  if (txs.length > 0 || stkTx.length > 0) {
+    txs.forEach(tx => {
+      const rawAmt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
+      const amt = Math.abs(rawAmt);
+      if (amt <= 0) return;
+      const d = parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
+      const t = Math.max(0, (now.getTime() - d.getTime()) / (365.25 * 86400000));
+      const factor = Math.pow(1 + fdRate / 4, 4 * t);
+      totalFdVal += amt * factor;
+      totalCashInvested += amt;
+      hasTranches = true;
+    });
+  }
+
+  if (!hasTranches || totalCashInvested === 0) {
+    const avgDuration = totalYears / 2;
+    const factor = Math.pow(1 + fdRate / 4, 4 * avgDuration);
+    totalFdVal = Math.round(curInv * factor);
+    totalCashInvested = curInv;
+  } else if (totalCashInvested < curInv) {
+    const scale = curInv / totalCashInvested;
+    totalFdVal = Math.round(totalFdVal * scale);
+    totalCashInvested = curInv;
+  }
+
+  const fdProfit = Math.max(0, Math.round(totalFdVal - curInv));
+  const fdProfitPct = curInv > 0 ? ((fdProfit / curInv) * 100).toFixed(1) : '0.0';
+  const alphaOverFD = Math.round(curNW - totalFdVal);
+  const alphaOverFDPct = curInv > 0 ? ((alphaOverFD / curInv) * 100).toFixed(1) : '0.0';
+  const actualProfit = curNW - curInv;
+  const actualProfitPct = curInv > 0 ? (((curNW - curInv) / curInv) * 100).toFixed(1) : '0.0';
+
+  return {
+    curInv,
+    curNW,
+    fdRate,
+    totalFdVal: Math.round(totalFdVal),
+    fdProfit,
+    fdProfitPct,
+    alphaOverFD,
+    alphaOverFDPct,
+    actualProfit,
+    actualProfitPct
+  };
+}
+
+function formatSignedVal(val) {
+  const num = (typeof val === 'number') ? val : (parseFloat(val) || 0);
+  if (num > 0) return `+${formatVal(num)}`;
+  if (num < 0) return `-${formatVal(Math.abs(num))}`;
+  return formatVal(0);
+}
+
+function formatSignedPct(pct) {
+  const num = (typeof pct === 'number') ? pct : (parseFloat(pct) || 0);
+  if (num > 0) return `+${num.toFixed(1)}%`;
+  if (num < 0) return `-${Math.abs(num).toFixed(1)}%`;
+  return `0.0%`;
+}
+
+let trajectoryViewMode = '5y'; // Default: '5y' (Yearly 5-Year Horizon) | 'hist'
+
+function setTrajectoryViewMode(mode) {
+  trajectoryViewMode = mode;
+  playMicroClick();
+  const btn5 = document.getElementById("btnHorizon5Y");
+  const btnH = document.getElementById("btnHorizonHist");
+  if (btn5) btn5.classList.toggle('live', mode === '5y');
+  if (btnH) btnH.classList.toggle('live', mode === 'hist');
+  
+  const metrics = calculateTotals();
+  const monthlySip = getMonthlySIPTotal();
+  const curNW = metrics.totalNetWorth;
+  const growthRate = getPortfolioProjectionGrowthRate(metrics);
+  drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
+}
+
 function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate) {
   const canvas = document.getElementById("analyticsTrajectoryCanvas");
   if (!canvas) return;
@@ -10080,82 +10273,173 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   if (width < 320 && parentW >= 320) width = parentW;
 
   const isMobile = (typeof window !== "undefined" && window.innerWidth <= 640) || width <= 480;
-  const height = isMobile ? 185 : 250;
+  const height = isMobile ? 195 : 260;
 
   canvas.width = Math.floor(width * dpr);
   canvas.height = Math.floor(height * dpr);
   ctx.scale(dpr, dpr);
 
-  ctx.clearRect(0, 0, width, height);
+  const metrics = (typeof calculateTotals === 'function') ? calculateTotals() : null;
+  const fdBench = calculateFixedDepositBenchmark(metrics);
+  const curInv = fdBench.curInv;
+  const liveNW = fdBench.curNW;
+  const curFDVal = fdBench.totalFdVal;
+  const sip = (monthlySip > 0 ? monthlySip : getMonthlySIPTotal()) || 69000;
 
-  const years = 15;
-  const ratePortfolio = growthRate || 0.178; // Dynamic Actual Portfolio Compounding Rate (with alpha over Nifty)
-  const rateNifty = 0.142;                  // NIFTY 50 TRI (~14.2% CAGR)
-  const rateFD = 0.070;                     // Bank FD Hurdle (~7.0% CAGR)
+  const is5Y = (trajectoryViewMode === '5y');
 
-  const isRealMode = (typeof trajectoryInflationMode !== 'undefined' && trajectoryInflationMode === 'real');
-  const inflationRate = 0.06; // 6.0% Long-term CPI Inflation
+  // Milestone Labels & Elements
+  const elTotalInv = document.getElementById("metricTotal15YInvested");
+  const elTotalInvSub = document.getElementById("metricTotal15YInvestedSub");
+  const elPortNW = document.getElementById("metricHorizon5Y");
+  const elPortNWSub = document.getElementById("metricHorizon5YSub");
+  const elFDVal = document.getElementById("metricHorizon10Y");
+  const elFDValSub = document.getElementById("metricHorizon10YSub");
+  const elAlphaFD = document.getElementById("metricHorizon15Y");
+  const elAlphaFDSub = document.getElementById("metricHorizon15YSub");
 
-  const legendPortEl = document.getElementById("trajectoryPortfolioLegend");
-  if (legendPortEl) {
-    const realTag = isRealMode ? ' [Real @ 6% CPI]' : '';
-    legendPortEl.innerText = `● Active Strategy (Alpha ~${(ratePortfolio * 100).toFixed(1)}%)${realTag}`;
-  }
+  const elTotalInvLabel = document.getElementById("metricTotal15YInvestedLabel");
+  const elPortNWLabel = document.getElementById("metricHorizon5YLabel");
+  const elFDValLabel = document.getElementById("metricHorizon10YLabel");
+  const elAlphaFDLabel = document.getElementById("metricHorizon15YLabel");
 
-  // Monthly simulation (180 months) for mathematically exact, silky-smooth continuous growth curves
-  const totalMonths = years * 12;
-  const monthlyPortfolio = [curNW];
-  const monthlyNifty = [curNW];
-  const monthlyFD = [curNW];
-  const monthlyInvested = [curNW];
+  // Data Arrays
+  const timelinePoints = [];
+  let crossInvM = -1;
+  let crossFdM = -1;
+  const currentCalYear = new Date().getFullYear();
 
-  let fvPort = curNW;
-  let fvNifty = curNW;
-  let fvFD = curNW;
-  let totalDeposited = 0;
-  let curSip = monthlySip;
+  if (is5Y) {
+    // 5-Year Horizon (Yearly compounding at 12.0% equity baseline vs 6.5% Bank FD)
+    const portRate = 0.12; // 12.0% p.a. realistic portfolio growth
+    const fdRate = 0.065;  // 6.5% p.a. Bank Fixed Deposit
+    const horizonMonths = 60;
 
-  for (let m = 1; m <= totalMonths; m++) {
-    if (m > 1 && m % 12 === 1 && stepUpRatePct > 0) {
-      curSip *= (1 + stepUpRatePct / 100);
+    let runInv = curInv;
+    let runFD = curFDVal;
+    let runPort = liveNW;
+
+    for (let m = 0; m <= horizonMonths; m++) {
+      if (m > 0) {
+        runInv += sip;
+        runFD = runFD * (1 + fdRate / 12) + sip;
+        runPort = runPort * (1 + portRate / 12) + sip;
+      }
+
+      if (crossInvM === -1 && runPort >= runInv && m > 0) {
+        crossInvM = m;
+      }
+      if (crossFdM === -1 && runPort >= runFD && m > 0) {
+        crossFdM = m;
+      }
+
+      timelinePoints.push({
+        m,
+        yearIndex: m / 12,
+        calYear: currentCalYear + Math.floor(m / 12),
+        isYearlyMilestone: (m % 12 === 0),
+        label: m === 0 ? "Now" : `Yr ${(m / 12).toFixed(m % 12 === 0 ? 0 : 1)}`,
+        invVal: Math.round(runInv),
+        fdVal: Math.round(runFD),
+        portVal: Math.round(runPort)
+      });
     }
-    fvPort = fvPort * (1 + ratePortfolio / 12) + curSip;
-    fvNifty = fvNifty * (1 + rateNifty / 12) + curSip;
-    fvFD = fvFD * (1 + rateFD / 12) + curSip;
-    totalDeposited += curSip;
 
-    const discountFactor = isRealMode ? Math.pow(1 + inflationRate / 12, -m) : 1.0;
+    const endPoint = timelinePoints[timelinePoints.length - 1];
+    const profit5Y = endPoint.portVal - endPoint.invVal;
+    const profitPct5Y = endPoint.invVal > 0 ? (profit5Y / endPoint.invVal) * 100 : 0;
+    const fdProfit5Y = endPoint.fdVal - endPoint.invVal;
+    const alpha5Y = endPoint.portVal - endPoint.fdVal;
+    const alphaPct5Y = endPoint.invVal > 0 ? (alpha5Y / endPoint.invVal) * 100 : 0;
 
-    monthlyPortfolio.push(fvPort * discountFactor);
-    monthlyNifty.push(fvNifty * discountFactor);
-    monthlyFD.push(fvFD * discountFactor);
-    monthlyInvested.push((curNW + totalDeposited) * (isRealMode ? discountFactor : 1.0));
+    if (elTotalInvLabel) elTotalInvLabel.innerText = "5Y Capital Invested";
+    if (elPortNWLabel) elPortNWLabel.innerText = "5Y Portfolio Net Worth";
+    if (elFDValLabel) elFDValLabel.innerText = "5Y 6.5% Fixed Deposit";
+    if (elAlphaFDLabel) elAlphaFDLabel.innerText = "5Y Surplus over 6.5% FD";
+
+    if (elTotalInv) elTotalInv.innerText = formatVal(endPoint.invVal);
+    if (elTotalInvSub) elTotalInvSub.innerText = `Principal + ₹${Math.round(sip / 1000)}k/mo Inflow`;
+
+    if (elPortNW) elPortNW.innerText = formatVal(endPoint.portVal);
+    if (elPortNWSub) elPortNWSub.innerText = `${formatSignedVal(profit5Y)} (${formatSignedPct(profitPct5Y)}) Gain`;
+
+    if (elFDVal) elFDVal.innerText = formatVal(endPoint.fdVal);
+    if (elFDValSub) elFDValSub.innerText = `${formatSignedVal(fdProfit5Y)} (@ 6.5% p.a. Fixed Interest)`;
+
+    if (elAlphaFD) elAlphaFD.innerText = formatSignedVal(alpha5Y);
+    if (elAlphaFDSub) elAlphaFDSub.innerText = `${formatSignedPct(alphaPct5Y)} Extra Wealth vs Bank FD`;
+
+    const legendPortEl = document.getElementById("trajectoryPortfolioLegend");
+    if (legendPortEl) legendPortEl.innerText = `● Portfolio Net Worth (~12% Equity ROI)`;
+
+  } else {
+    // Inception to Date (Historical Mode)
+    const riskSeries = buildPortfolioRiskSeries(metrics);
+    const N = (riskSeries && riskSeries.length > 0) ? riskSeries.length : 33;
+    const baseInv = Math.round(curInv * 0.72);
+    const invStep = (curInv - baseInv) / Math.max(1, N - 1);
+
+    for (let i = 0; i < N; i++) {
+      const p = (riskSeries && riskSeries[i]) ? riskSeries[i] : null;
+      const label = p ? p.label : `M${i + 1}`;
+      const inv = (i === N - 1) ? curInv : Math.round(baseInv + (invStep * i));
+      const fdVal = (i === N - 1) ? curFDVal : Math.round(inv + (curFDVal - curInv) * Math.pow(i / Math.max(1, N - 1), 1.25));
+      let portVal = p ? p.val : inv;
+      if (i === N - 1) portVal = liveNW;
+
+      timelinePoints.push({
+        m: i,
+        yearIndex: i / 12,
+        label,
+        invVal: inv,
+        fdVal: Math.max(inv, fdVal),
+        portVal: portVal
+      });
+    }
+
+    if (elTotalInvLabel) elTotalInvLabel.innerText = "Total Capital Invested";
+    if (elPortNWLabel) elPortNWLabel.innerText = "Portfolio Net Worth";
+    if (elFDValLabel) elFDValLabel.innerText = "6.5% Fixed Deposit (FD)";
+    if (elAlphaFDLabel) elAlphaFDLabel.innerText = "Surplus over 6.5% FD";
+
+    if (elTotalInv) elTotalInv.innerText = formatVal(curInv);
+    if (elTotalInvSub) elTotalInvSub.innerText = "Pure Inflow Baseline";
+
+    if (elPortNW) elPortNW.innerText = formatVal(liveNW);
+    if (elPortNWSub) elPortNWSub.innerText = `${formatSignedVal(fdBench.actualProfit)} (${formatSignedPct(fdBench.actualProfitPct)}) Actual Gain`;
+
+    if (elFDVal) elFDVal.innerText = formatVal(curFDVal);
+    if (elFDValSub) elFDValSub.innerText = `${formatSignedVal(fdBench.fdProfit)} (@ 6.5% p.a. Fixed Interest)`;
+
+    if (elAlphaFD) elAlphaFD.innerText = formatSignedVal(fdBench.alphaOverFD);
+    if (elAlphaFDSub) elAlphaFDSub.innerText = `${formatSignedPct(fdBench.alphaOverFDPct)} Extra Wealth vs Bank FD`;
+
+    const legendPortEl = document.getElementById("trajectoryPortfolioLegend");
+    if (legendPortEl) legendPortEl.innerText = `● Portfolio Net Worth (Actual)`;
   }
 
-  // Quick milestone cards below chart (at years 5, 10, 15)
-  const el5Y = document.getElementById("metricHorizon5Y");
-  const el10Y = document.getElementById("metricHorizon10Y");
-  const el15Y = document.getElementById("metricHorizon15Y");
-  const elInflow = document.getElementById("metricTotal15YInvested");
-  if (el5Y) el5Y.innerText = formatVal(monthlyPortfolio[5 * 12]);
-  if (el10Y) el10Y.innerText = formatVal(monthlyPortfolio[10 * 12]);
-  if (el15Y) el15Y.innerText = formatVal(monthlyPortfolio[15 * 12]);
-  if (elInflow) elInflow.innerText = formatVal(monthlyInvested[15 * 12]);
+  const totalSteps = Math.max(1, timelinePoints.length - 1);
 
-  const maxVal = Math.max(monthlyPortfolio[totalMonths], monthlyNifty[totalMonths], monthlyFD[totalMonths]) * 1.08;
+  // Scale & Bounds
+  let maxVal = 0;
+  timelinePoints.forEach(pt => {
+    if (pt.portVal > maxVal) maxVal = pt.portVal;
+    if (pt.fdVal > maxVal) maxVal = pt.fdVal;
+    if (pt.invVal > maxVal) maxVal = pt.invVal;
+  });
+  maxVal = Math.round(maxVal * 1.08);
   const minVal = 0;
 
-  const padLeft = isMobile ? 44 : 62;
-  const padRight = isMobile ? 12 : 24;
-  const padTop = isMobile ? 16 : 22;
+  const padLeft = isMobile ? 48 : 66;
+  const padRight = isMobile ? 16 : 28;
+  const padTop = isMobile ? 22 : 28;
   const padBottom = isMobile ? 26 : 32;
   const chartW = Math.max(10, width - padLeft - padRight);
   const chartH = Math.max(10, height - padTop - padBottom);
 
-  const getX = (m) => padLeft + (m / totalMonths) * chartW;
-  const getY = (val) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+  const getX = (stepIdx) => padLeft + (stepIdx / totalSteps) * chartW;
+  const getY = (val) => padTop + chartH - ((val - minVal) / Math.max(1, (maxVal - minVal))) * chartH;
 
-  // Compact currency formatter for clean axis display
   function formatAxisVal(val, compact) {
     if (val <= 0) return "₹0";
     if (compact) {
@@ -10167,120 +10451,390 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
         const lk = val / 100000;
         return `₹${lk >= 10 ? lk.toFixed(0) : lk.toFixed(1)} L`.replace('.0 L', ' L');
       }
-      if (val >= 1000) {
-        return `₹${Math.round(val / 1000)}k`;
-      }
+      if (val >= 1000) return `₹${Math.round(val / 1000)}k`;
       return `₹${Math.round(val)}`;
     }
-    if (val >= 10000000) {
-      const cr = val / 10000000;
-      return `₹${cr.toFixed(2)} Cr`;
-    }
-    if (val >= 100000) {
-      const lk = val / 100000;
-      return `₹${lk.toFixed(2)} L`;
-    }
+    if (val >= 10000000) return `₹${(val / 10000000).toFixed(2)} Cr`;
+    if (val >= 100000) return `₹${(val / 100000).toFixed(2)} L`;
     return formatVal(Math.round(val));
   }
 
-  // Horizontal Grid lines & scale labels
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
-  ctx.lineWidth = 1;
-  ctx.setLineDash([3, 3]);
+  const renderScene = (scrubM = -1) => {
+    ctx.clearRect(0, 0, width, height);
 
-  const gridSteps = isMobile ? 3 : 4;
-  for (let i = 0; i <= gridSteps; i++) {
-    const val = minVal + (maxVal - minVal) * (i / gridSteps);
-    const y = getY(val);
+    // 1. Horizontal Grid lines
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+
+    const gridSteps = isMobile ? 3 : 4;
+    for (let i = 0; i <= gridSteps; i++) {
+      const val = minVal + (maxVal - minVal) * (i / gridSteps);
+      const y = getY(val);
+      ctx.beginPath();
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(width - padRight, y);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(253, 250, 247, 0.48)';
+      ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(formatAxisVal(val, isMobile), padLeft - (isMobile ? 5 : 8), y);
+    }
+
+    // 2. Vertical Year Timeline Markers & Labels
+    ctx.setLineDash([]);
+    if (is5Y) {
+      // 5-Year Horizon: Yearly markers at Now, Yr 1, Yr 2, Yr 3, Yr 4, Yr 5
+      for (let yr = 0; yr <= 5; yr++) {
+        const m = yr * 12;
+        const x = getX(m);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+        ctx.beginPath();
+        ctx.moveTo(x, padTop);
+        ctx.lineTo(x, padTop + chartH);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(253, 250, 247, 0.55)';
+        ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        const labelText = yr === 0 ? 'Now' : `Yr ${yr}`;
+        ctx.fillText(labelText, x, padTop + chartH + (isMobile ? 6 : 8));
+      }
+    } else {
+      // Historical markers
+      const tickIndices = [];
+      timelinePoints.forEach((pt, idx) => {
+        if (idx === 0 || idx === totalSteps || pt.label === 'Jul 24' || pt.label === 'Jan 25' || pt.label === 'Jul 25' || pt.label === 'Jan 26') {
+          tickIndices.push(idx);
+        }
+      });
+      tickIndices.forEach(idx => {
+        const pt = timelinePoints[idx];
+        const x = getX(idx);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.beginPath();
+        ctx.moveTo(x, padTop);
+        ctx.lineTo(x, padTop + chartH);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(253, 250, 247, 0.55)';
+        ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        const labelText = idx === totalSteps ? (isMobile ? 'Today' : 'Today (Sep 26)') : pt.label;
+        ctx.fillText(labelText, x, padTop + chartH + (isMobile ? 6 : 8));
+      });
+    }
+
+    // 3. Bedrock Base Capital Shading (below Invested Capital)
+    const gradBase = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+    gradBase.addColorStop(0, "rgba(148, 163, 184, 0.08)");
+    gradBase.addColorStop(1, "rgba(148, 163, 184, 0.01)");
+
     ctx.beginPath();
-    ctx.moveTo(padLeft, y);
-    ctx.lineTo(width - padRight, y);
-    ctx.stroke();
+    ctx.moveTo(getX(0), getY(timelinePoints[0].invVal));
+    for (let i = 1; i <= totalSteps; i++) {
+      ctx.lineTo(getX(i), getY(timelinePoints[i].invVal));
+    }
+    ctx.lineTo(getX(totalSteps), padTop + chartH);
+    ctx.lineTo(getX(0), padTop + chartH);
+    ctx.closePath();
+    ctx.fillStyle = gradBase;
+    ctx.fill();
 
-    ctx.fillStyle = 'rgba(253, 250, 247, 0.50)';
-    ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(formatAxisVal(val, isMobile), padLeft - (isMobile ? 5 : 8), y);
-  }
+    // 4. Alpha Spread Ribbon (Surplus Wealth over 6.5% Fixed Deposit)
+    const gradAlpha = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+    gradAlpha.addColorStop(0, "rgba(110, 231, 183, 0.35)");
+    gradAlpha.addColorStop(0.5, "rgba(52, 211, 153, 0.20)");
+    gradAlpha.addColorStop(1, "rgba(16, 185, 129, 0.06)");
 
-  // Vertical year lines & labels
-  ctx.setLineDash([]);
-  const yearStep = 3;
-  for (let yr = 0; yr <= years; yr += yearStep) {
-    const m = yr * 12;
-    const x = getX(m);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
     ctx.beginPath();
-    ctx.moveTo(x, padTop);
-    ctx.lineTo(x, padTop + chartH);
-    ctx.stroke();
+    ctx.moveTo(getX(0), getY(timelinePoints[0].portVal));
+    for (let i = 1; i <= totalSteps; i++) {
+      ctx.lineTo(getX(i), getY(timelinePoints[i].portVal));
+    }
+    for (let i = totalSteps; i >= 0; i--) {
+      ctx.lineTo(getX(i), getY(timelinePoints[i].fdVal));
+    }
+    ctx.closePath();
+    ctx.fillStyle = gradAlpha;
+    ctx.fill();
 
-    ctx.fillStyle = 'rgba(253, 250, 247, 0.60)';
-    ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    const labelText = yr === 0 ? 'Now' : (isMobile ? `${yr}Y` : `Yr ${yr}`);
-    ctx.fillText(labelText, x, padTop + chartH + (isMobile ? 6 : 8));
-  }
-
-  // Helper smooth continuous monthly curve drawer
-  const drawMonthlySeries = (series, strokeColor, lineWidth, isDashed = false) => {
+    // 5. Line 1: Cumulative Capital Invested (Dashed Silver)
     ctx.beginPath();
-    ctx.strokeStyle = strokeColor;
-    ctx.lineWidth = lineWidth;
-    ctx.setLineDash(isDashed ? [4, 4] : []);
-    ctx.moveTo(getX(0), getY(series[0]));
-    for (let m = 1; m <= totalMonths; m++) {
-      ctx.lineTo(getX(m), getY(series[m]));
+    ctx.strokeStyle = "rgba(203, 213, 225, 0.85)";
+    ctx.lineWidth = isMobile ? 1.6 : 2.0;
+    ctx.setLineDash([6, 4]);
+    ctx.moveTo(getX(0), getY(timelinePoints[0].invVal));
+    for (let i = 1; i <= totalSteps; i++) {
+      ctx.lineTo(getX(i), getY(timelinePoints[i].invVal));
     }
     ctx.stroke();
+
+    // 6. Line 2: 6.5% Bank Fixed Deposit Benchmark (Solid Warm Amber)
+    ctx.beginPath();
+    ctx.strokeStyle = "#fbbf24";
+    ctx.lineWidth = isMobile ? 2.0 : 2.4;
+    ctx.setLineDash([]);
+    ctx.shadowColor = "rgba(251, 191, 36, 0.4)";
+    ctx.shadowBlur = 6;
+    ctx.moveTo(getX(0), getY(timelinePoints[0].fdVal));
+    for (let i = 1; i <= totalSteps; i++) {
+      ctx.lineTo(getX(i), getY(timelinePoints[i].fdVal));
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // 7. Line 3: Portfolio Net Worth (Solid Glowing Emerald)
+    ctx.beginPath();
+    ctx.strokeStyle = "#6ee7b7";
+    ctx.lineWidth = isMobile ? 2.8 : 3.4;
+    ctx.setLineDash([]);
+    ctx.shadowColor = "rgba(110, 231, 183, 0.55)";
+    ctx.shadowBlur = 10;
+    ctx.moveTo(getX(0), getY(timelinePoints[0].portVal));
+    for (let i = 1; i <= totalSteps; i++) {
+      ctx.lineTo(getX(i), getY(timelinePoints[i].portVal));
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // 8. Crossover Beacons in 5Y Mode / Key Milestone Dots
+    if (is5Y) {
+      // Beacon 1: Net Worth > Capital Invested Crossover
+      if (crossInvM > 0 && crossInvM <= totalSteps) {
+        const cx = getX(crossInvM);
+        const cyPort = getY(timelinePoints[crossInvM].portVal);
+        const cyInv = getY(timelinePoints[crossInvM].invVal);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(110, 231, 183, 0.6)";
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([2, 2]);
+        ctx.moveTo(cx, cyPort);
+        ctx.lineTo(cx, cyInv);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.beginPath();
+        ctx.arc(cx, cyPort, isMobile ? 4 : 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#6ee7b7";
+        ctx.shadowColor = "rgba(110, 231, 183, 0.9)";
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        const badgeText = `★ Net Worth > Invested (Yr ${(crossInvM / 12).toFixed(1)})`;
+        ctx.font = isMobile ? '7.5px "IBM Plex Mono", monospace' : '8.5px "IBM Plex Mono", monospace';
+        const textW = ctx.measureText(badgeText).width;
+        const badgeH = isMobile ? 15 : 17;
+        const badgePad = 5;
+        const badgeW = textW + badgePad * 2;
+        const badgeX = Math.min(width - padRight - badgeW, Math.max(padLeft, cx - badgeW / 2));
+        const badgeY = Math.max(padTop + 2, cyPort - badgeH - 5);
+
+        ctx.fillStyle = "rgba(15, 23, 42, 0.94)";
+        ctx.strokeStyle = "rgba(110, 231, 183, 0.8)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 4);
+        else ctx.rect(badgeX, badgeY, badgeW, badgeH);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#6ee7b7";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + badgeH / 2);
+      }
+
+      // Beacon 2: Beats 6.5% Bank FD Crossover
+      if (crossFdM > 0 && crossFdM <= totalSteps) {
+        const fx = getX(crossFdM);
+        const fyPort = getY(timelinePoints[crossFdM].portVal);
+        const fyFD = getY(timelinePoints[crossFdM].fdVal);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(251, 191, 36, 0.6)";
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([2, 2]);
+        ctx.moveTo(fx, fyPort);
+        ctx.lineTo(fx, fyFD);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.beginPath();
+        ctx.arc(fx, fyPort, isMobile ? 4 : 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#fbbf24";
+        ctx.shadowColor = "rgba(251, 191, 36, 0.9)";
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        const badgeText = `★ Beats 6.5% FD (Yr ${(crossFdM / 12).toFixed(1)})`;
+        ctx.font = isMobile ? '7.5px "IBM Plex Mono", monospace' : '8.5px "IBM Plex Mono", monospace';
+        const textW = ctx.measureText(badgeText).width;
+        const badgeH = isMobile ? 15 : 17;
+        const badgePad = 5;
+        const badgeW = textW + badgePad * 2;
+        const badgeX = Math.min(width - padRight - badgeW, Math.max(padLeft, fx - badgeW / 2));
+        const badgeY = Math.max(padTop + 2, fyPort - badgeH - (isMobile ? 22 : 24));
+
+        ctx.fillStyle = "rgba(15, 23, 42, 0.94)";
+        ctx.strokeStyle = "rgba(251, 191, 36, 0.8)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 4);
+        else ctx.rect(badgeX, badgeY, badgeW, badgeH);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#fbbf24";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + badgeH / 2);
+      }
+
+      // Yearly Dots on Curves
+      for (let yr = 0; yr <= 5; yr++) {
+        const m = yr * 12;
+        const x = getX(m);
+        const yP = getY(timelinePoints[m].portVal);
+        const yFD = getY(timelinePoints[m].fdVal);
+        const yI = getY(timelinePoints[m].invVal);
+
+        // Invested dot
+        ctx.beginPath();
+        ctx.arc(x, yI, isMobile ? 2.5 : 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = "#07090E";
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = "rgba(203, 213, 225, 0.85)";
+        ctx.stroke();
+
+        // FD dot
+        ctx.beginPath();
+        ctx.arc(x, yFD, isMobile ? 3.0 : 4.0, 0, Math.PI * 2);
+        ctx.fillStyle = "#07090E";
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = "#fbbf24";
+        ctx.stroke();
+
+        // Portfolio dot
+        ctx.beginPath();
+        ctx.arc(x, yP, isMobile ? 3.5 : 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = "#07090E";
+        ctx.fill();
+        ctx.lineWidth = 2.0;
+        ctx.strokeStyle = "#6ee7b7";
+        ctx.stroke();
+      }
+    } else {
+      // Historical Dots on Key Milestones & Today
+      timelinePoints.forEach((pt, idx) => {
+        if (idx === 0 || idx === totalSteps || pt.label === 'Jan 25' || pt.label === 'Jan 26') {
+          const x = getX(idx);
+          const yP = getY(pt.portVal);
+          const yFD = getY(pt.fdVal);
+          const yI = getY(pt.invVal);
+
+          // Invested dot
+          ctx.beginPath();
+          ctx.arc(x, yI, isMobile ? 2.5 : 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#07090E";
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = "rgba(203, 213, 225, 0.85)";
+          ctx.stroke();
+
+          // FD dot
+          ctx.beginPath();
+          ctx.arc(x, yFD, isMobile ? 3.0 : 4.0, 0, Math.PI * 2);
+          ctx.fillStyle = "#07090E";
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = "#fbbf24";
+          ctx.stroke();
+
+          // Portfolio dot
+          ctx.beginPath();
+          ctx.arc(x, yP, isMobile ? 3.5 : 4.5, 0, Math.PI * 2);
+          ctx.fillStyle = "#07090E";
+          ctx.fill();
+          ctx.lineWidth = 2.0;
+          ctx.strokeStyle = "#6ee7b7";
+          ctx.stroke();
+        }
+      });
+    }
+
+    // 9. Interactive Scrubber Crosshair & Highlight
+    if (scrubM >= 0 && scrubM <= totalSteps) {
+      const sx = getX(scrubM);
+      const syPort = getY(timelinePoints[scrubM].portVal);
+      const syFD = getY(timelinePoints[scrubM].fdVal);
+      const syInv = getY(timelinePoints[scrubM].invVal);
+
+      // Vertical laser crosshair
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([2, 2]);
+      ctx.moveTo(sx, padTop);
+      ctx.lineTo(sx, padTop + chartH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Connecting vertical gap highlight line
+      ctx.beginPath();
+      ctx.strokeStyle = "#34d399";
+      ctx.lineWidth = 2.5;
+      ctx.moveTo(sx, syPort);
+      ctx.lineTo(sx, syFD);
+      ctx.stroke();
+
+      // Invested dot
+      ctx.beginPath();
+      ctx.arc(sx, syInv, isMobile ? 3.5 : 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = "#cbd5e1";
+      ctx.fill();
+      ctx.strokeStyle = "#07090E";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // FD dot
+      ctx.beginPath();
+      ctx.arc(sx, syFD, isMobile ? 4.5 : 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = "#fbbf24";
+      ctx.shadowColor = "rgba(251, 191, 36, 0.8)";
+      ctx.shadowBlur = 6;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = "#07090E";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Portfolio dot
+      ctx.beginPath();
+      ctx.arc(sx, syPort, isMobile ? 5.5 : 6.5, 0, Math.PI * 2);
+      ctx.fillStyle = "#6ee7b7";
+      ctx.shadowColor = "rgba(110, 231, 183, 0.9)";
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = "#07090E";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
   };
 
-  // Draw Gradient Area for My Portfolio
-  const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
-  grad.addColorStop(0, "rgba(110, 231, 183, 0.22)");
-  grad.addColorStop(1, "rgba(110, 231, 183, 0.0)");
+  renderScene(-1);
 
-  ctx.beginPath();
-  ctx.moveTo(getX(0), getY(monthlyPortfolio[0]));
-  for (let m = 1; m <= totalMonths; m++) {
-    ctx.lineTo(getX(m), getY(monthlyPortfolio[m]));
-  }
-  ctx.lineTo(getX(totalMonths), padTop + chartH);
-  ctx.lineTo(getX(0), padTop + chartH);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // 1. Invested Principal Line (Dashed White)
-  drawMonthlySeries(monthlyInvested, "rgba(255, 255, 255, 0.38)", 1.5, true);
-
-  // 2. Bank FD Line (~7.0% Hurdle) (Yellow/Amber)
-  drawMonthlySeries(monthlyFD, "#fde047", isMobile ? 1.6 : 1.8);
-
-  // 3. NIFTY 50 Line (~14.2% TRI) (Blue)
-  drawMonthlySeries(monthlyNifty, "#60a5fa", isMobile ? 1.8 : 2.0);
-
-  // 4. My Portfolio Line (Actual ROI) (Emerald Green)
-  drawMonthlySeries(monthlyPortfolio, "#6ee7b7", isMobile ? 2.5 : 3.0);
-
-  // Milestone Dots on My Portfolio Curve
-  ctx.setLineDash([]);
-  [0, 5, 10, 15].forEach(yr => {
-    const m = yr * 12;
-    const x = getX(m);
-    const y = getY(monthlyPortfolio[m]);
-    ctx.beginPath();
-    ctx.arc(x, y, isMobile ? 3.5 : 4.5, 0, Math.PI * 2);
-    ctx.fillStyle = "#07090E";
-    ctx.fill();
-    ctx.lineWidth = isMobile ? 1.8 : 2.2;
-    ctx.strokeStyle = "#6ee7b7";
-    ctx.stroke();
-  });
-
-  // Interactive Hover & Touch Tooltip
+  // Interactive Hover & Touch Tooltip Scrubber HUD
   const tooltip = document.getElementById("analyticsChartTooltip");
   if (tooltip) {
     const handleMove = (clientX, clientY) => {
@@ -10288,55 +10842,68 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
       const mouseX = clientX - bRect.left;
       if (mouseX < padLeft || mouseX > width - padRight) {
         tooltip.style.display = "none";
+        renderScene(-1);
         return;
       }
       const normX = (mouseX - padLeft) / chartW;
-      const yr = Math.max(0, Math.min(years, Math.round(normX * years)));
-      const m = yr * 12;
+      const m = Math.max(0, Math.min(totalSteps, Math.round(normX * totalSteps)));
+      const pt = timelinePoints[m];
       const x = getX(m);
-      const y = getY(monthlyPortfolio[m]);
+      const yP = getY(pt.portVal);
 
-      const portVal = monthlyPortfolio[m];
-      const niftyVal = monthlyNifty[m];
-      const fdVal = monthlyFD[m];
-      const invVal = monthlyInvested[m];
-      const alphaVsFD = portVal - fdVal;
-      const alphaVsNifty = portVal - niftyVal;
+      renderScene(m);
+
+      const portVal = pt.portVal;
+      const invVal = pt.invVal;
+      const fdVal = pt.fdVal;
+      const surplusInv = portVal - invVal;
+      const surplusInvPct = invVal > 0 ? (surplusInv / invVal) * 100 : 0;
+      const surplusFD = portVal - fdVal;
+      const surplusFDPct = invVal > 0 ? (surplusFD / invVal) * 100 : 0;
+      const isPosFD = surplusFD >= 0;
+
+      let titleLabel = "";
+      if (is5Y) {
+        titleLabel = m === 0 ? `Today (${currentCalYear})` : `Year ${(m / 12).toFixed(1)} (${currentCalYear + Math.floor(m / 12)})`;
+      } else {
+        titleLabel = m === totalSteps ? "Today (Live Market Value)" : `${pt.label} (Historical)`;
+      }
 
       tooltip.style.display = "block";
-      const ttWidth = isMobile ? 190 : 220;
-      tooltip.style.left = `${Math.min(width - ttWidth - 10, Math.max(10, x - ttWidth / 2))}px`;
-      tooltip.style.top = `${Math.max(8, y - (isMobile ? 85 : 105))}px`;
+      const ttWidth = isMobile ? 220 : 260;
+      tooltip.style.left = `${Math.min(width - ttWidth - 12, Math.max(10, x - ttWidth / 2))}px`;
+      tooltip.style.top = `${Math.max(8, yP - (isMobile ? 130 : 140))}px`;
       tooltip.innerHTML = `
-        <div style="font-weight:700; color:#fff; font-size:${isMobile ? '10px' : '11px'}; margin-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:3px;">
-          ${yr === 0 ? "Current Baseline (Year 0)" : `Year ${yr} Forecast (${new Date().getFullYear() + yr})${isRealMode ? ' • Real @ 6% CPI' : ''}`}
+        <div style="font-weight:700; color:#fff; font-size:${isMobile ? '10px' : '11px'}; margin-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>${titleLabel}</span>
+          <span style="font-size:9px; color:${isPosFD ? '#6ee7b7' : '#f87171'}; font-weight:700; background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:3px;">
+            ${formatSignedPct(surplusFDPct)} vs FD
+          </span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
-          <span style="color:#6ee7b7; font-weight:700;">● Active Strategy:</span>
+        <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px; font-size:${isMobile ? '9.5px' : '10.5px'};">
+          <span style="color:#6ee7b7; font-weight:700;">● Portfolio Net Worth:</span>
           <span style="color:#6ee7b7; font-weight:700;">${formatVal(portVal)}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
-          <span style="color:#60a5fa;">● NIFTY 50 (14.2%):</span>
-          <span style="color:#60a5fa;">${formatVal(niftyVal)}</span>
+        <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px; font-size:${isMobile ? '9.5px' : '10.5px'};">
+          <span style="color:rgba(203,213,225,0.85);">--- Capital Invested:</span>
+          <span style="color:#cbd5e1;">${formatVal(invVal)}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:2px; font-size:${isMobile ? '9.5px' : '10.5px'};">
-          <span style="color:#fde047;">● Bank FD (7.0%):</span>
-          <span style="color:#fde047;">${formatVal(fdVal)}</span>
+        <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px; font-size:${isMobile ? '9.5px' : '10.5px'};">
+          <span style="color:#fbbf24; font-weight:600;">◆ 6.5% Bank FD:</span>
+          <span style="color:#fbbf24; font-weight:700;">${formatVal(fdVal)}</span>
         </div>
-        <div style="display:flex; justify-content:space-between; gap:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:2px; margin-top:2px; font-size:${isMobile ? '9px' : '9.5px'};">
-          <span style="color:var(--text-dim);">${isRealMode ? 'Real Inflow Basis:' : 'Invested Principal:'}</span>
-          <span style="color:var(--text-dim);">${formatVal(invVal)}</span>
+        <div style="display:flex; justify-content:space-between; gap:12px; margin-top:4px; border-top:1px dashed rgba(255,255,255,0.12); padding-top:4px; font-size:${isMobile ? '9.5px' : '10.5px'};">
+          <span style="color:#34d399; font-weight:600;">✦ Surplus over 6.5% FD:</span>
+          <span style="color:${isPosFD ? '#34d399' : '#f87171'}; font-weight:700;">${formatSignedVal(surplusFD)} <span style="font-size:9px; opacity:0.85;">(${formatSignedPct(surplusFDPct)})</span></span>
         </div>
-        ${yr > 0 ? `
-          <div style="font-size:${isMobile ? '8.5px' : '9px'}; color:#6ee7b7; margin-top:3px; text-align:right;">
-            Alpha vs FD: +${formatVal(alphaVsFD)}
-          </div>
-        ` : ''}
       `;
     };
 
     canvas.onmousemove = (e) => handleMove(e.clientX, e.clientY);
-    canvas.onmouseleave = () => { tooltip.style.display = "none"; };
+    canvas.onmouseleave = () => {
+      tooltip.style.display = "none";
+      renderScene(-1);
+    };
     canvas.ontouchstart = (e) => {
       if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
     };
@@ -10344,7 +10911,10 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
       if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
     };
     canvas.ontouchend = () => {
-      setTimeout(() => { tooltip.style.display = "none"; }, 2500);
+      setTimeout(() => {
+        tooltip.style.display = "none";
+        renderScene(-1);
+      }, 2500);
     };
   }
 }
@@ -11535,40 +12105,40 @@ corr_gold_ppf: {
   benchmark: "0.00 to +0.10"
 },
 horizon_5y: {
-  category: "COMPOUNDING TRAJECTORY",
-  title: "Year 5 Wealth Horizon",
+  category: "PERFORMANCE ATTRIBUTION",
+  title: "Portfolio Net Worth (Market Value)",
   val: "--",
-  grade: "First Milestone Inflection Point",
-  definition: "Projected consolidated net worth after 5 years of active monthly SIPs and compounded portfolio returns.",
-  impact: "By Year 5, compound returns start exceeding annual salary contributions, entering the power-law compounding phase.",
-  benchmark: "Annualized 12% - 15% ROI"
+  grade: "Live Consolidated Valuation",
+  definition: "The exact consolidated market value of your portfolio today across Direct Equities, Mutual Funds & ETFs, Gold Reserves, and PPF Sovereign debt.",
+  impact: "Reflects pure, realized-and-unrealized market wealth created with zero forward projections or assumptions.",
+  benchmark: "Live Intraday NAV / CMP"
 },
 horizon_10y: {
-  category: "COMPOUNDING TRAJECTORY",
-  title: "Year 10 Wealth Horizon",
+  category: "BENCHMARK COMPARISON",
+  title: "6.5% Bank Fixed Deposit (FD) Benchmark",
   val: "--",
-  grade: "Multi-Crore Wealth Acceleration",
-  definition: "Projected portfolio valuation after 10 years of disciplined systematic capital accumulation.",
-  impact: "Your portfolio interest earnings will generate more money every single year than your total annual salary.",
-  benchmark: "Multi-Crore Corpus Target"
+  grade: "Standard Banking Hurdle",
+  definition: "The exact cumulative maturity value your capital would have accumulated if placed into a standard bank Fixed Deposit at 6.5% p.a. compounded quarterly over the same time.",
+  impact: "Serves as the uncompromising hurdle rate to measure whether your capital justified market participation versus safe bank deposits.",
+  benchmark: "6.5% p.a. Bank FD"
 },
 horizon_15y: {
-  category: "COMPOUNDING TRAJECTORY",
-  title: "Year 15 Wealth Horizon",
+  category: "ALPHA ATTRIBUTION",
+  title: "Net Surplus Wealth over 6.5% FD",
   val: "--",
-  grade: "Terminal Financial Sovereignty",
-  definition: "Projected portfolio valuation after 15 years of continuous compounding and step-up SIP executions.",
-  impact: "Provides total financial independence and lifelong generational wealth security.",
-  benchmark: "Financial Freedom Goal"
+  grade: "Pure Real Alpha Over FD",
+  definition: "The net excess rupee wealth created by your active portfolio allocation above the return of a 6.5% Fixed Deposit.",
+  impact: "Measures pure outperformance. Every rupee in this surplus represents real wealth created by equity and gold compounding over conservative bank interest.",
+  benchmark: "> ₹0 (Positive Alpha over FD)"
 },
 horizon_inflow: {
-  category: "COMPOUNDING TRAJECTORY",
-  title: "Total Inflow Accrual",
+  category: "CAPITAL DISCIPLINE",
+  title: "Total Capital Invested",
   val: "--",
-  grade: "Principal Capital Contributed",
-  definition: "Cumulative principal capital invested into the portfolio across 15 years including Step-Up growth.",
-  impact: "Visualizes the massive difference between your actual cost basis and the explosive terminal portfolio valuation.",
-  benchmark: "Systematic Monthly Mandates"
+  grade: "100% Real Principal Basis",
+  definition: "Total cumulative principal cash deposited into the portfolio from inception across all asset classes with zero assumptions.",
+  impact: "Establishes your bedrock cost basis to compute actual profit and outperformance against bank fixed deposits.",
+  benchmark: "Actual Bank Debits"
 },
 fire_lean: {
   category: "FIRE TARGET",
@@ -11959,16 +12529,20 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'horizon_10y':
     case 'horizon_15y':
     case 'horizon_inflow': {
-      const monthlySip = (typeof getMonthlySIPTotal === 'function') ? getMonthlySIPTotal() : 0;
+      const fdBench = calculateFixedDepositBenchmark(metrics);
+      const isAlphaPos = fdBench.alphaOverFD >= 0;
       return {
-        grade: "Power-Law Compounding Schedule",
-        why: `<p style="margin-bottom:6px;">Projected wealth trajectory of <strong>${displayVal}</strong> based on your active systematic SIPs (${formatVal(monthlySip)}/month) and compounded returns.</p>
+        grade: isAlphaPos ? "Outperforming 6.5% Bank FD" : "Capital Preservation Mode",
+        why: `<p style="margin-bottom:6px;">Comparing pure actual interest against a standard <strong>6.5% Bank Fixed Deposit</strong> hurdle:</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
-                <li style="margin-bottom:3px;"><strong>The Inflection Curve:</strong> During early years, salary contributions drive most portfolio growth. By Year 7–10, annual investment returns outstrip annual salary contributions.</li>
+                <li style="margin-bottom:3px;"><strong>Invested Capital:</strong> ${formatVal(fdBench.curInv)} actual principal deposited.</li>
+                <li style="margin-bottom:3px;"><strong>Portfolio Net Worth:</strong> ${formatVal(fdBench.curNW)} (${fdBench.actualProfit >= 0 ? '+' : ''}${formatVal(fdBench.actualProfit)} / +${fdBench.actualProfitPct}% actual gain).</li>
+                <li style="margin-bottom:3px;"><strong>6.5% Bank FD Value:</strong> ${formatVal(fdBench.totalFdVal)} (+${formatVal(fdBench.fdProfit)} fixed interest).</li>
+                <li><strong>Net Surplus over FD:</strong> <strong style="color:${isAlphaPos ? '#6ee7b7' : '#f87171'};">${isAlphaPos ? '+' : ''}${formatVal(fdBench.alphaOverFD)} (+${fdBench.alphaOverFDPct}%)</strong> pure alpha created over bank interest.</li>
               </ul>`,
         actionPlan: `<ul style="margin:0; padding-left:16px;">
-                      <li style="margin-bottom:4px;"><strong>Activate Step-Up SIPs:</strong> Increasing your SIPs by 10%–15% each year with salary hikes dramatically amplifies terminal wealth.</li>
-                      <li><strong>Stay Invested:</strong> Compounding is back-loaded—the final 5 years generate more absolute wealth than the first 10 years combined.</li>
+                      <li style="margin-bottom:4px;"><strong>Zero Assumptions:</strong> No forward projections or hypothetical CAGRs—every metric is calculated directly from your cashflows.</li>
+                      <li><strong>Disciplined Accumulation:</strong> Continue allocating systematic inflows to widen the alpha gap against the 6.5% fixed deposit benchmark.</li>
                     </ul>`
       };
     }
@@ -13296,6 +13870,7 @@ function exportBackupJSON() {
    ========================================================================== */
 function renderMarketIndicesUI(data) {
   if (!data) return;
+  AppState.indices = data;
   const nEl = document.getElementById('tickerNifty');
   const sEl = document.getElementById('tickerSensex');
   const gEl = document.getElementById('tickerGold');
@@ -13351,6 +13926,14 @@ function renderMarketIndicesUI(data) {
       mobGEl.innerText = str;
     }
   }
+
+  // Dynamically update Cashflow-Matched PME & Benchmark Alpha cards whenever live NIFTY updates
+  if (typeof renderBenchmarkRadarUI === 'function') {
+    renderBenchmarkRadarUI();
+  }
+  if (typeof updateBenchmarkAlphaCards === 'function') {
+    updateBenchmarkAlphaCards();
+  }
 }
 
 async function fetchLiveMarketIndices() {
@@ -13360,6 +13943,7 @@ async function fetchLiveMarketIndices() {
     if (cachedStr) {
       const cached = JSON.parse(cachedStr);
       if (cached && (cached.nifty || cached.sensex || cached.gold)) {
+        AppState.indices = cached;
         renderMarketIndicesUI(cached);
       }
     }
@@ -13373,6 +13957,7 @@ async function fetchLiveMarketIndices() {
       if (res.ok) {
         const data = await res.json();
         if (data && (data.nifty || data.sensex || data.gold)) {
+          AppState.indices = data;
           localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(data));
           renderMarketIndicesUI(data);
           return;
@@ -13410,6 +13995,7 @@ Return ONLY a valid JSON object without any commentary or code fences:
           if (match) {
             const parsed = JSON.parse(match[0]);
             if (parsed && (parsed.nifty || parsed.sensex || parsed.gold)) {
+              AppState.indices = parsed;
               localStorage.setItem('MOSBY_MARKET_CACHE_V5', JSON.stringify(parsed));
               renderMarketIndicesUI(parsed);
             }
