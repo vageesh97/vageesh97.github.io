@@ -4457,7 +4457,7 @@ svg.lucide, i[data-lucide], svg {
     <div class="mosby-modal-card" style="max-width: 800px; width: 92%; max-height: 88vh; overflow-y: auto; padding: 1.75rem 2rem;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.85rem;">
         <div>
-          <span class="badge-capsule" style="font-size: 9.5px; margin-bottom: 5px; letter-spacing: 0.05em; color: var(--text-dim);"></span>
+          <span class="badge-capsule" style="font-size: 9.5px; margin-bottom: 5px; letter-spacing: 0.05em; color: var(--text-dim);">Rating</span>
           <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: #FDFAF7; margin: 0; letter-spacing: -0.01em;">Portfolio Rating Analysis</h2>
           <div style="font-size: 11px; color: var(--text-dim); margin-top: 3px; font-family: var(--font-mono);">Dynamic Holding Audit • Look-Through Overlaps • Real-Time Valuations</div>
         </div>
@@ -9949,38 +9949,52 @@ function renderMFRatingCard() {
 
   const improveEl = document.getElementById('mfImproveList');
   if (improveEl) {
-    improveEl.innerHTML = `
+    let stepsHtml = '';
+    let stepNum = 1;
+
+    if (rating.ppClonesExist || rating.niftyDuplicateCount > 1) {
+      stepsHtml += `
+        <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:600; color:#FDFAF7; font-size:12px;">${stepNum++}. Eliminate Clones &amp; Consolidate</span>
+            <span class="badge-capsule" style="font-size:9.5px; color:#6ee7b7; border-color:rgba(110,231,183,0.25); background:rgba(110,231,183,0.08);">Action</span>
+          </div>
+          <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
+            ${rating.ppClonesExist ? '• Stop SIP into <strong>Parag Parikh ELSS</strong> and redirect into <strong>Parag Parikh Flexi Cap</strong> (eliminates 3-yr lock-in + clone drag).<br>' : ''}
+            ${rating.niftyDuplicateCount > 1 ? '• Consolidate duplicate Nifty 50 index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%).' : '• Keep index allocations consolidated in low-cost NIFTYBEES.'}
+          </div>
+        </div>
+      `;
+    }
+
+    stepsHtml += `
       <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">1. Eliminate Clones &amp; Consolidate</span>
-          <span class="badge-capsule" style="font-size:9.5px; color:#6ee7b7; border-color:rgba(110,231,183,0.25); background:rgba(110,231,183,0.08);">Action</span>
-        </div>
-        <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
-          ${rating.ppClonesExist ? '• Stop SIP into <strong>Parag Parikh ELSS</strong> and redirect into <strong>Parag Parikh Flexi Cap</strong> (eliminates 3-yr lock-in + clone drag).<br>' : ''}
-          ${rating.niftyDuplicateCount > 1 ? '• Consolidate duplicate Nifty 50 index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%).' : '• Keep index allocations consolidated in low-cost NIFTYBEES.'}
-        </div>
-      </div>
-      <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">2. Maintain Core Compounders</span>
+          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">${stepNum++}. Maintain Core Compounders</span>
           <span class="badge-capsule" style="font-size:9.5px; color:#60a5fa; border-color:rgba(96,165,250,0.25); background:rgba(96,165,250,0.08);">Core</span>
         </div>
         <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
           • Continue systematic SIPs in <strong>Parag Parikh Flexi Cap</strong> (disciplined cash cushion) and <strong>Axis Small Cap / Midcap</strong> for compounding.
         </div>
       </div>
-      <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">3. ${rating.hasFactorAlpha ? 'Factor Alpha Sleeve (Optimized)' : 'Introduce Factor Alpha'}</span>
-          <span class="badge-capsule" style="font-size:9.5px; color:${rating.hasFactorAlpha ? '#6ee7b7' : '#c084fc'}; border-color:${rating.hasFactorAlpha ? 'rgba(110,231,183,0.25)' : 'rgba(192,132,252,0.25)'}; background:${rating.hasFactorAlpha ? 'rgba(110,231,183,0.08)' : 'rgba(192,132,252,0.08)'};">${rating.hasFactorAlpha ? 'Active' : 'Alpha'}</span>
-        </div>
-        <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
-          ${rating.hasFactorAlpha 
-            ? `• Factor alpha active via <strong>${rating.factorAlphaItems.map(t => t.name).join(', ')}</strong> (${rating.factorAlphaPct.toFixed(1)}%). Maintain ~15-20% target allocation as your portfolio expands.` 
-            : '• Allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> or <strong>Momentum 30</strong> to capture emerging leaders (#51 to #100) with zero Nifty 50 overlap.'}
-        </div>
-      </div>
     `;
+
+    // Only show Introduce Factor Alpha if NOT yet added! Once added, it disappears from improvement checklist
+    if (!rating.hasFactorAlpha) {
+      stepsHtml += `
+        <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:600; color:#FDFAF7; font-size:12px;">${stepNum++}. Introduce Factor Alpha</span>
+            <span class="badge-capsule" style="font-size:9.5px; color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08);">Alpha</span>
+          </div>
+          <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
+            • Allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> or <strong>Momentum 30</strong> to capture emerging leaders (#51 to #100) with zero Nifty 50 overlap.
+          </div>
+        </div>
+      `;
+    }
+
+    improveEl.innerHTML = stepsHtml;
   }
 }
 
@@ -10021,13 +10035,18 @@ async function runLiveWebMFAudit() {
     sip: f.monthlySip ? `₹${f.monthlySip}/mo` : 'Lump-sum'
   }));
 
+  const factorStatus = rating.hasFactorAlpha 
+    ? `Factor Alpha (Nifty Next 50) is ALREADY ACTIVE via ${rating.factorAlphaItems.map(f => f.name).join(', ')} (${rating.factorAlphaPct.toFixed(1)}% allocation). Do NOT tell the user to add Nifty Next 50.` 
+    : 'No factor alpha holding yet.';
+
   const queryPrompt = `You are a top-tier quantitative mutual fund and ETF portfolio analyst. Perform an unvarnished audit of my Indian Mutual Fund & ETF portfolio in light of current 2026 market valuations.
 Portfolio Holdings: ${JSON.stringify(fundSummary)}
-Current Rating: ${rating.score}/10 (Parag Parikh Flexi Cap & ELSS overlap: ${rating.ppClonesExist}, Duplicate Nifty 50 Trackers: ${rating.niftyDuplicateCount}, Mid/Small Cap Exposure: ${rating.smallMidPct.toFixed(1)}%, Fee Bleed: ~₹${formatVal(rating.feeBleed)}/yr).
+Current Rating: ${rating.score}/10. ${factorStatus}
+Clone Overlap: Parag Parikh Flexi Cap & ELSS overlap: ${rating.ppClonesExist}. Duplicate Nifty 50 Trackers: ${rating.niftyDuplicateCount}. Mid/Small Cap Exposure: ${rating.smallMidPct.toFixed(1)}%. Fee Bleed: ~₹${formatVal(rating.feeBleed)}/yr.
 Target Clean-Up Rating: ${rating.improvedScore}/10.
 Answer concisely in 3 sharp parts without any emojis:
-1. Why this rating: Call out specific clone overlaps, lock-in disadvantages under the New Tax Regime, and tracker duplication.
-2. What to do to improve: Exact funds to drop/merge and funds to add (e.g. Junior BeES / Nifty Next 50 for zero large-cap overlap).
+1. Why this rating: ${rating.hasFactorAlpha ? 'Acknowledge the positive +1.2 pts boost from adding Nifty Next 50 (emerging leaders #51-#100 with zero large-cap overlap). Call out the remaining deductions (PP ELSS clone and duplicate Nifty 50 trackers).' : 'Call out clone overlaps, lock-in disadvantages under the New Tax Regime, and tracker duplication.'}
+2. What to do to improve: ${rating.hasFactorAlpha ? 'Focus strictly on remaining steps: stop SIP into Parag Parikh ELSS and redirect to Flexi Cap, and consolidate duplicate Nifty 50 index funds into NIFTYBEES.' : 'Exact funds to drop/merge and funds to add (e.g. Nifty Next 50 / Junior BeES for zero large-cap overlap).'}
 3. Rating after improvement: Explain how the portfolio reaches 9.4/10 and the compounding impact.`;
 
   let aiResult = null;
@@ -10061,15 +10080,19 @@ Answer concisely in 3 sharp parts without any emojis:
         </div>
         <div style="margin-bottom:8px; line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#FDFAF7;">Why this rating:</strong> 
-          Current fund factsheets confirm that <em>Parag Parikh Flexi Cap</em> and <em>Parag Parikh ELSS</em> allocate ~70%+ to identical top holdings (HDFC Bank, ITC, Bajaj Holdings). Under the New Tax Regime where Section 80C yields zero deduction, paying active management fees on ELSS creates an unnecessary 3-year liquidity lock-in. Duplicate Nifty 50 trackers split liquidity and create redundant tracking fee friction vs direct NIFTYBEES.
+          ${rating.hasFactorAlpha 
+            ? `Your rating has climbed to <strong>${rating.score}/10</strong> thanks to the Factor Alpha sleeve in <em>${rating.factorAlphaItems.map(f => f.name).join(', ')}</em> (+1.2 pts). The remaining gap to 9.4/10 is due to the Parag Parikh Flexi Cap &amp; ELSS clone overlap (~70%+ identical stocks) and holding duplicate Nifty 50 trackers.` 
+            : `Current fund factsheets confirm that <em>Parag Parikh Flexi Cap</em> and <em>Parag Parikh ELSS</em> allocate ~70%+ to identical top holdings (HDFC Bank, ITC, Bajaj Holdings). Under the New Tax Regime where Section 80C yields zero deduction, paying active management fees on ELSS creates an unnecessary 3-year liquidity lock-in. Duplicate Nifty 50 trackers split liquidity and create redundant tracking fee friction vs direct NIFTYBEES.`}
         </div>
         <div style="margin-bottom:8px; line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#6ee7b7;">What can be done to improve:</strong> 
-          Stop SIP into ELSS and consolidate redeemed capital into Flexi Cap. Switch duplicate bank index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%). For new SIP inflows, allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> to capture emerging market leaders (#51 to #100) with zero large-cap overlap.
+          ${rating.hasFactorAlpha 
+            ? `Factor alpha is already secured. To reach your final target rating of <strong>${rating.improvedScore}/10</strong>: stop SIP into <strong>Parag Parikh ELSS</strong> and redirect into Flexi Cap, and consolidate duplicate Nifty 50 trackers into low-cost <strong>NIFTYBEES</strong>.` 
+            : `Stop SIP into ELSS and consolidate redeemed capital into Flexi Cap. Switch duplicate bank index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%). For new SIP inflows, allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> to capture emerging market leaders (#51 to #100) with zero large-cap overlap.`}
         </div>
         <div style="line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#6ee7b7;">After improving your rating:</strong> 
-          Your rating immediately advances from <strong>${rating.score}/10 to ${rating.improvedScore}/10</strong>, eliminating ₹${formatVal(rating.feeBleed)}/year in deadweight fee bleed with zero clone overlap.
+          Your rating immediately advances to <strong>${rating.improvedScore}/10 (Institutional Grade)</strong>, eliminating redundant fee bleed with zero clone overlap.
         </div>
       `;
     }
