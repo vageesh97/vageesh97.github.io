@@ -583,11 +583,17 @@ svg.lucide, i[data-lucide], svg {
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease;
-  cursor: pointer;
 }
 .horizon-card:hover {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.22);
+}
+.horizon-card.clickable-metric-card {
+  cursor: pointer;
+}
+.horizon-card.clickable-metric-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 .horizon-card-label {
   font-size: 9px;
@@ -4549,62 +4555,6 @@ svg.lucide, i[data-lucide], svg {
     </div>
   </div>
 
-  <!-- Horizon Performance Attribution Modal (1D / 1M / 1Y) -->
-  <div class="mosby-modal-overlay" id="horizonAttributionModal" onclick="if(event.target===this)closeHorizonAttributionModal()">
-    <div class="mosby-modal-card" style="max-width: 780px; width: 92%; max-height: 88vh; overflow-y: auto; padding: 1.6rem 2rem;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
-        <div>
-          <span class="badge-capsule" id="horizonModalBadge" style="font-size: 9.5px; margin-bottom: 5px; color: #6ee7b7; border-color: rgba(110,231,183,0.3); background: rgba(110,231,183,0.08);">PERFORMANCE ATTRIBUTION</span>
-          <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: #FDFAF7; margin: 0;" id="horizonModalTitle">1-Day Performance Attribution</h2>
-          <div style="font-size: 11px; color: var(--text-dim); margin-top: 3px; font-family: var(--font-mono);" id="horizonModalSubtitle">Holding-level contribution to net portfolio movement</div>
-        </div>
-        <button class="btn-icon-nav" onclick="closeHorizonAttributionModal()" title="Close (Esc)"><svg class="lucide lucide-x" style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-      </div>
-
-      <!-- Horizon Switcher Track -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
-        <div class="segmented-control-track" style="margin: 0;">
-          <button class="segmented-btn live" id="btnHorizonModal1D" onclick="switchHorizonAttributionMode('1d')">1-Day (Today)</button>
-          <button class="segmented-btn" id="btnHorizonModal1M" onclick="switchHorizonAttributionMode('1m')">1-Month (30D)</button>
-          <button class="segmented-btn" id="btnHorizonModal1Y" onclick="switchHorizonAttributionMode('1y')">1-Year (365D)</button>
-        </div>
-        <div style="font-size: 10px; font-family: var(--font-mono); color: var(--text-dim);" id="horizonModalTimestamp">Updated Live</div>
-      </div>
-
-      <!-- Top Summary Deck -->
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.25rem;">
-        <div class="dossier-kpi-card" style="text-align: center; padding: 0.75rem 0.5rem; background: rgba(0,0,0,0.35);">
-          <div style="font-size: 9px; opacity: 0.75; text-transform: uppercase; font-family: var(--font-mono);">Net Impact</div>
-          <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="horizonSummaryNetVal">+₹0</div>
-          <div class="num-mono" style="font-size: 9px; color: #6ee7b7;" id="horizonSummaryNetPct">+0.00%</div>
-        </div>
-        <div class="dossier-kpi-card" style="text-align: center; padding: 0.75rem 0.5rem; background: rgba(0,0,0,0.35);">
-          <div style="font-size: 9px; opacity: 0.75; text-transform: uppercase; font-family: var(--font-mono);">MFs &amp; ETFs</div>
-          <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="horizonSummaryMfVal">+₹0</div>
-          <div style="font-size: 8.5px; opacity: 0.75;" id="horizonSummaryMfSub">Funds &amp; Index ETFs</div>
-        </div>
-        <div class="dossier-kpi-card" style="text-align: center; padding: 0.75rem 0.5rem; background: rgba(0,0,0,0.35);">
-          <div style="font-size: 9px; opacity: 0.75; text-transform: uppercase; font-family: var(--font-mono);">Gold Reserves</div>
-          <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin-top: 2px;" id="horizonSummaryGoldVal">+₹0</div>
-          <div style="font-size: 8.5px; opacity: 0.75;" id="horizonSummaryGoldSub">Bullion ETF</div>
-        </div>
-      </div>
-
-      <!-- Holding-Level Breakdown Table (Only Scheme & Change %) -->
-      <div class="mosby-table-shell" style="max-height: 480px; overflow-y: auto;">
-        <table class="mosby-table" style="width: 100%; table-layout: auto;">
-          <thead>
-            <tr>
-              <th style="padding: 10px 16px; text-align: left;">Scheme / Holding</th>
-              <th style="padding: 10px 16px; text-align: right; width: 140px; white-space: nowrap;">Change %</th>
-            </tr>
-          </thead>
-          <tbody id="horizonAttributionTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
   <!-- Command Palette Modal -->
   <div class="mosby-modal-overlay" id="commandModal" onclick="handlePaletteOverlayClick(event)">
     <div class="palette-modal-card" id="paletteCard">
@@ -4727,6 +4677,68 @@ svg.lucide, i[data-lucide], svg {
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;" id="txModalStatsGrid"></div>
 
       <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 1.25rem; font-size: 0.8rem;" id="txModalMetaList"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       HORIZON PERFORMANCE ATTRIBUTION MODAL (1D / 1M / 1Y SCHEME BREAKDOWN)
+       ========================================================================== -->
+  <div class="mosby-modal-overlay" id="horizonAttributionModal" onclick="if(event.target===this)closeHorizonAttributionModal()">
+    <div class="mosby-modal-card" style="max-width: 680px; width: 92%; max-height: 88vh; display: flex; flex-direction: column; padding: 0; overflow: hidden;">
+      <div class="mosby-modal-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+            <span class="badge-capsule" id="horizonModalBadge" style="font-size:9px; letter-spacing:0.06em; color:var(--color-blue); border-color:rgba(30,75,215,0.4); background:rgba(30,75,215,0.12);">1D ATTRIBUTION</span>
+          </div>
+          <h3 id="horizonModalTitle" style="margin:0; font-family:var(--font-serif); font-size:1.35rem; font-weight:700; color:#FDFAF7; letter-spacing:-0.01em;">1-Day Performance Attribution</h3>
+          <div id="horizonModalSubtitle" style="font-size:11px; color:var(--text-muted); margin-top:2px; font-family:var(--font-mono);">Holding-level performance across Mutual Funds, Index ETFs &amp; Gold</div>
+        </div>
+        <button class="btn-icon-nav" onclick="closeHorizonAttributionModal()" title="Close (Esc)">
+          <svg class="lucide lucide-x" style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Segmented Horizon Switcher Bar -->
+      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.25);">
+        <div class="segmented-control" style="margin:0;">
+          <button class="segmented-btn live" id="btnHorizonModal1D" onclick="switchHorizonAttributionMode('1d')">1-Day (Today)</button>
+          <button class="segmented-btn" id="btnHorizonModal1M" onclick="switchHorizonAttributionMode('1m')">1-Month (30D)</button>
+          <button class="segmented-btn" id="btnHorizonModal1Y" onclick="switchHorizonAttributionMode('1y')">1-Year (365D)</button>
+        </div>
+        <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-dim);">Live Telemetry</div>
+      </div>
+
+      <!-- Summary Impact Strip (Strictly MFs, ETFs & Gold - Single Currency Symbol) -->
+      <div style="padding: 1rem 1.5rem; display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); background:rgba(0,0,0,0.15);">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:4px; padding:8px 10px; text-align:center;">
+          <div style="font-size:9px; font-family:var(--font-mono); text-transform:uppercase; color:var(--text-dim); margin-bottom:2px;">Net Movement</div>
+          <div id="horizonSummaryNetVal" class="num-mono" style="font-size:14px; font-weight:700; color:#6ee7b7;">+₹0</div>
+          <div id="horizonSummaryNetPct" class="num-mono" style="font-size:10px; color:var(--text-dim);">+0.00%</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:4px; padding:8px 10px; text-align:center;">
+          <div style="font-size:9px; font-family:var(--font-mono); text-transform:uppercase; color:var(--text-dim); margin-bottom:2px;">Mutual Funds &amp; ETFs</div>
+          <div id="horizonSummaryMfVal" class="num-mono" style="font-size:14px; font-weight:700; color:#6ee7b7;">+₹0</div>
+          <div style="font-size:9.5px; color:var(--text-dim); font-family:var(--font-mono);">Portfolio Core</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:4px; padding:8px 10px; text-align:center;">
+          <div style="font-size:9px; font-family:var(--font-mono); text-transform:uppercase; color:var(--text-dim); margin-bottom:2px;">Gold Bullion</div>
+          <div id="horizonSummaryGoldVal" class="num-mono" style="font-size:14px; font-weight:700; color:#fbbf24;">+₹0</div>
+          <div style="font-size:9.5px; color:var(--text-dim); font-family:var(--font-mono);">Sovereign Hedge</div>
+        </div>
+      </div>
+
+      <!-- Scrollable Scheme Attribution Table -->
+      <div style="overflow-y:auto; flex:1; padding: 0.5rem 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.08); font-size:9px; font-family:var(--font-mono); text-transform:uppercase; color:var(--text-dim); text-align:left;">
+              <th style="padding:8px 16px;">Mutual Fund / ETF / Gold Scheme</th>
+              <th style="padding:8px 16px; text-align:right;">Performance</th>
+            </tr>
+          </thead>
+          <tbody id="horizonAttributionTableBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -7139,6 +7151,16 @@ function closeMobileDrawer() {
   if (backdrop) backdrop.classList.remove('active');
 }
 
+function navigateToStockNewsMobile() {
+  closeMobileDrawer();
+  if (typeof activateFolder === 'function') activateFolder(2);
+  const el = document.getElementById('pane-2') || document.getElementById('mobileFolderWrap2');
+  if (el && el.scrollIntoView) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+window.navigateToStockNewsMobile = navigateToStockNewsMobile;
+
 function initPullToRefresh() {
   if (typeof window === 'undefined' || !window.addEventListener) return;
   let startY = 0;
@@ -7528,7 +7550,6 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
   const tolerance = 1e-5;
 
   for (let i = 0; i < maxIterations; i++) {
-    if (rate <= -0.999) rate = -0.999;
     let f = 0;
     let df = 0;
 
@@ -7545,25 +7566,20 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
     if (df === 0 || isNaN(df) || !isFinite(df)) break;
 
     let newRate = rate - (f / df);
-    if (newRate <= -0.99) newRate = -0.99;
+    if (newRate <= -0.99) newRate = -0.95;
     if (Math.abs(newRate - rate) < tolerance) return newRate;
     rate = newRate;
   }
 
-  // Clamping to realistic financial limits (-99% to +250%)
-  if (rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 2.50) {
+  // Clamping to realistic financial limits (-99% to +150%)
+  if (rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 1.50) {
     return rate;
   }
 
-  // Fallback to annualized CAGR or absolute holding return if divergence
+  // Fallback to absolute holding return if short duration or divergence
   const totalOut = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
   const totalIn = payments.filter(p => p > 0).reduce((s, p) => s + p, 0);
-  if (totalOut > 0 && totalIn > 0) {
-    if (spanDays >= 60) {
-      const years = spanDays / 365.25;
-      const cagr = Math.pow(totalIn / totalOut, 1 / years) - 1;
-      if (!isNaN(cagr) && isFinite(cagr) && cagr > -0.99 && cagr < 2.50) return cagr;
-    }
+  if (totalOut > 0) {
     return (totalIn - totalOut) / totalOut;
   }
   return null;
@@ -7633,10 +7649,11 @@ function calculateTrueMFXIRR() {
     });
   }
 
-  // Ensure balanced cashflows: if transactions don't account for total invested cost basis, anchor remainder at inception
-  const totalTrackedOutflow = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
-  if (totalTrackedOutflow < metrics.mfInv) {
-    const unlistedInitial = metrics.mfInv - totalTrackedOutflow;
+  // Anchor unlisted capital basis if transactions don't cover full invested cost
+  const totalTrackedOutflow = payments.filter(p => p < 0).reduce((sum, p) => sum + Math.abs(p), 0);
+  const unlistedInitial = metrics.mfInv - totalTrackedOutflow;
+
+  if (unlistedInitial > 100) {
     payments.push(-unlistedInitial);
     dates.push(inceptionDate);
   } else if (payments.length === 0 && metrics.mfInv > 0) {
@@ -7656,7 +7673,7 @@ function calculateTrueMFXIRR() {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    if (pct > -99 && pct < 250) {
+    if (pct > -99 && pct < 200) {
       const formatted = pct.toFixed(1);
       try { localStorage.setItem('MOSBY_LAST_KNOWN_MF_XIRR', formatted); } catch(e) {}
       return formatted;
@@ -7932,8 +7949,8 @@ function calculateSchemeXIRR(fund) {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    // Guard against unrealistic divergences while supporting genuine SIP compounding
-    if (pct > -99 && pct < 250 && (totalDays < 90 || (gainPct >= 0 && pct >= -5) || (gainPct < 0 && pct <= 5))) {
+    // Guard against unrealistic divergences (e.g. absolute return -2.3% resulting in -54% XIRR)
+    if (Math.abs(pct - gainPct) < 35 || (gainPct > 0 && pct > 0) || (gainPct < 0 && pct < 0 && Math.abs(pct) < 25)) {
       return {
         raw: result,
         pct: pct,
@@ -8289,15 +8306,15 @@ function calculateShadowNiftyPME() {
     });
   }
 
-  // Balance capital deployment: If transactions don't account for full equity cost basis, anchor remainder at inception
-  if (totalInvestedCash < actualEquityInv) {
-    const unlisted = actualEquityInv - totalInvestedCash;
+  // Anchor unlisted capital if tracked transactions don't match actualEquityInv
+  const unlistedPmeInitial = actualEquityInv - totalInvestedCash;
+  if (unlistedPmeInitial > 100) {
     const histTRI = getNiftyTRIHistoricalPrice(inceptionDate);
-    virtualNiftyTRIUnits += (unlisted / histTRI);
-    paymentsReal.push(-unlisted);
-    paymentsShadow.push(-unlisted);
+    virtualNiftyTRIUnits += unlistedPmeInitial / histTRI;
+    paymentsReal.push(-unlistedPmeInitial);
+    paymentsShadow.push(-unlistedPmeInitial);
     dates.push(inceptionDate);
-    totalInvestedCash = actualEquityInv;
+    totalInvestedCash += unlistedPmeInitial;
   } else if (paymentsReal.length === 0 && actualEquityInv > 0) {
     const histTRI = getNiftyTRIHistoricalPrice(inceptionDate);
     virtualNiftyTRIUnits = actualEquityInv / histTRI;
@@ -8921,9 +8938,8 @@ window.switchRiskRadarView = function(view) {
 };
 
 function buildPortfolioRiskSeries(metrics) {
-  const m = metrics || (typeof calculateTotals === 'function' ? calculateTotals() : {});
-  const curNW = m.totalNetWorth > 0 ? m.totalNetWorth : 0;
-  const curInv = (m.totalInv || m.totalInvested) > 0 ? (m.totalInv || m.totalInvested) : 0;
+  const curNW = metrics.totalNetWorth > 0 ? metrics.totalNetWorth : 0;
+  const curInv = (metrics.totalInv || metrics.totalInvested) > 0 ? (metrics.totalInv || metrics.totalInvested) : curNW;
 
   // High-Precision Monthly Benchmark & Portfolio Return Curve (2024 to Sep 2026)
   // Realistic blended asset returns: MFs (40%) + Stocks/Gold (43%) + PPF (17% fixed @ +0.59%/mo)
@@ -9798,16 +9814,10 @@ function updateBenchmarkAlphaCards() {
   const pme = calculateShadowNiftyPME();
   const actualXIRR = pme.actualXIRR;
 
-  const BENCHMARK_RATES = {
-    midcap: 18.5,
-    gold: 11.8,
-    fd: 6.5
-  };
-
   const nAlpha = pme.alphaXIRR.toFixed(1);
-  const mAlpha = (actualXIRR - BENCHMARK_RATES.midcap).toFixed(1);
-  const gAlpha = (actualXIRR - BENCHMARK_RATES.gold).toFixed(1);
-  const fAlpha = (actualXIRR - BENCHMARK_RATES.fd).toFixed(1);
+  const mAlpha = (actualXIRR - 18.5).toFixed(1);
+  const gAlpha = (actualXIRR - 11.8).toFixed(1);
+  const fAlpha = (actualXIRR - 7.0).toFixed(1);
 
   const elBadge = document.getElementById('benchmarkOverallAlphaBadge');
   const elN = document.getElementById('alphaVsNifty');
@@ -9851,7 +9861,7 @@ function renderMFSipRadar() {
   } else {
     sips = AppState.mutualFunds.filter(f => f.monthlySip > 0 || f.sipActive).map((f, i) => ({
       fundName: f.name,
-      sipAmount: parseNum(f.monthlySip) || 0,
+      sipAmount: f.monthlySip || 0,
       sipDay: f.sipDay || (i * 5 + 5),
       category: f.category
     }));
@@ -10148,7 +10158,7 @@ function renderMFRatingCard() {
 
   const feeSavedEl = document.getElementById('mfModalFeeSaved');
   if (feeSavedEl) {
-    feeSavedEl.innerText = `₹${formatVal(rating.feeBleed)} / yr`;
+    feeSavedEl.innerText = `${formatVal(rating.feeBleed)} / yr`;
   }
 
   const whyEl = document.getElementById('mfWhyRatingList');
@@ -10188,7 +10198,7 @@ function renderMFRatingCard() {
             <span class="badge-capsule" style="font-size:9.5px; color:#fde047; border-color:rgba(253,224,71,0.25); background:rgba(253,224,71,0.08);">-1.2 pts</span>
           </div>
           <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
-            Your portfolio is bleeding roughly <strong>~₹${formatVal(rating.feeBleed)} / year</strong> in redundant active management fees vs ultra-low passive benchmarks (blended TER: ${rating.weightedTerPct.toFixed(2)}%).
+            Your portfolio is bleeding roughly <strong>~${formatVal(rating.feeBleed)} / year</strong> in redundant active management fees vs ultra-low passive benchmarks (blended TER: ${rating.weightedTerPct.toFixed(2)}%).
           </div>
         </div>
       `;
@@ -10270,7 +10280,7 @@ async function runLiveWebMFAudit() {
 
   const queryPrompt = `You are a top-tier quantitative mutual fund and ETF portfolio analyst. Perform an unvarnished audit of my Indian Mutual Fund & ETF portfolio in light of current 2026 market valuations.
 Portfolio Holdings: ${JSON.stringify(fundSummary)}
-Current Rating: ${rating.score}/10 (Parag Parikh Flexi Cap & ELSS overlap: ${rating.ppClonesExist}, Duplicate Nifty 50 Trackers: ${rating.niftyDuplicateCount}, Mid/Small Cap Exposure: ${rating.smallMidPct.toFixed(1)}%, Fee Bleed: ~₹${formatVal(rating.feeBleed)}/yr).
+Current Rating: ${rating.score}/10 (Parag Parikh Flexi Cap & ELSS overlap: ${rating.ppClonesExist}, Duplicate Nifty 50 Trackers: ${rating.niftyDuplicateCount}, Mid/Small Cap Exposure: ${rating.smallMidPct.toFixed(1)}%, Fee Bleed: ~${formatVal(rating.feeBleed)}/yr).
 Target Clean-Up Rating: ${rating.improvedScore}/10.
 Answer concisely in 3 sharp parts without any emojis:
 1. Why this rating: Call out specific clone overlaps, lock-in disadvantages under the New Tax Regime, and tracker duplication.
@@ -10316,7 +10326,7 @@ Answer concisely in 3 sharp parts without any emojis:
         </div>
         <div style="line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#6ee7b7;">After improving your rating:</strong> 
-          Your rating immediately advances from <strong>${rating.score}/10 to ${rating.improvedScore}/10</strong>, eliminating ₹${formatVal(rating.feeBleed)}/year in deadweight fee bleed with zero clone overlap.
+          Your rating immediately advances from <strong>${rating.score}/10 to ${rating.improvedScore}/10</strong>, eliminating ${formatVal(rating.feeBleed)}/year in deadweight fee bleed with zero clone overlap.
         </div>
       `;
     }
@@ -10648,17 +10658,11 @@ function getPortfolioProjectionGrowthRate(metrics) {
   if (projectionMode === "optimistic") return 0.22;
   
   // Actual ROI mode:
-  // Baseline NIFTY 50 CAGR is 14.2%.
-  // Strategy Alpha achieves positive alpha over Nifty (e.g. +5.3%).
-  // We dynamically derive the portfolio's actual forward compounding rate:
-  let rate = 0.178; // Baseline alpha-calibrated compounding rate (17.8%)
-  const portfolioXirr = parseFloat(calculateTruePortfolioXIRR());
-  if (!isNaN(portfolioXirr) && portfolioXirr > 0) {
-    rate = Math.max(0.08, Math.min(0.24, portfolioXirr / 100));
-  } else if (metrics && metrics.totalProfitPct) {
+  let rate = 0.145; // Benchmark compounding rate (14.5%)
+  if (metrics && metrics.totalProfitPct) {
     const pPct = parseFloat(metrics.totalProfitPct);
     if (!isNaN(pPct) && pPct > 0) {
-      rate = Math.max(0.08, Math.min(0.22, pPct / 100));
+      rate = Math.max(0.10, Math.min(0.22, pPct / 100));
     }
   }
   return rate;
@@ -10989,7 +10993,7 @@ function initTrajectoryCanvasObserver() {
 function calculateFixedDepositBenchmark(metrics) {
   const m = metrics || calculateTotals();
   const curNW = m.totalNetWorth || 0;
-  const curInv = (m.totalInv || m.totalInvested) || (curNW > 0 ? Math.round(curNW * 0.84) : 0);
+  const curInv = (m.totalInv || m.totalInvested) || (curNW > 0 ? curNW * 0.84 : 0);
 
   const fdRate = 0.065; // Fixed Deposit standard hurdle rate: 6.5% p.a.
   const txs = AppState.sipTransactions || [];
@@ -11126,7 +11130,7 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   const curInv = fdBench.curInv;
   const liveNW = fdBench.curNW;
   const curFDVal = fdBench.totalFdVal;
-  const sip = (monthlySip !== undefined && monthlySip !== null ? monthlySip : getMonthlySIPTotal()) || (metrics && metrics.mfSip) || 0;
+  const sip = (monthlySip > 0 ? monthlySip : getMonthlySIPTotal()) || 69000;
 
   const is5Y = (trajectoryViewMode === '5y');
 
@@ -13483,22 +13487,19 @@ function openAnalyticsExplainer(metricKey) {
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${v.roe}%`;
   } else if (metricKey === "nifty_alpha") {
     const cardEl = document.getElementById("alphaVsNifty");
-    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { alphaXIRR: 0 };
-    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${pme.alphaXIRR >= 0 ? "+" : ""}${pme.alphaXIRR.toFixed(1)}%`;
+    const spread = (parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1);
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "midcap_alpha") {
     const cardEl = document.getElementById("alphaVsMidcap");
-    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { actualXIRR: 0 };
-    const spread = (pme.actualXIRR - 18.5).toFixed(1);
+    const spread = (parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1);
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "gold_alpha") {
     const cardEl = document.getElementById("alphaVsGold");
-    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { actualXIRR: 0 };
-    const spread = (pme.actualXIRR - 11.8).toFixed(1);
+    const spread = (parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1);
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "fd_alpha") {
     const cardEl = document.getElementById("alphaVsFD");
-    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { actualXIRR: 0 };
-    const spread = (pme.actualXIRR - 6.5).toFixed(1);
+    const spread = (parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1);
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "corr_eq_gold") {
     const cardEl = document.getElementById("kpiCorrEqGold");
@@ -15024,6 +15025,8 @@ document.addEventListener('DOMContentLoaded', () => {
       closeSchemeXirrModal();
       closeMFRatingModal();
       if (typeof closeHorizonAttributionModal === 'function') closeHorizonAttributionModal();
+      if (typeof closeAnalyticsExplainer === 'function') closeAnalyticsExplainer();
+      if (typeof closeMobileDrawer === 'function') closeMobileDrawer();
     }
   });
 
