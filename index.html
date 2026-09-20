@@ -2643,7 +2643,8 @@ svg.lucide, i[data-lucide], svg {
 /* ==========================================================================
    UNIFIED SEGMENTED CONTROLS (ELIMINATES PILL-IN-PILL)
    ========================================================================== */
-.segmented-control-track {
+.segmented-control-track,
+.segmented-control {
   display: inline-flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.45);
@@ -2656,7 +2657,8 @@ svg.lucide, i[data-lucide], svg {
   box-sizing: border-box;
 }
 
-.segmented-control-track .track-label {
+.segmented-control-track .track-label,
+.segmented-control .track-label {
   font-size: 8.5px;
   color: var(--text-dim);
   text-transform: uppercase;
@@ -2668,7 +2670,10 @@ svg.lucide, i[data-lucide], svg {
 
 .segmented-control-track button,
 .segmented-control-track .segmented-btn,
-.segmented-control-track .status-badge-pill {
+.segmented-control-track .status-badge-pill,
+.segmented-control button,
+.segmented-control .segmented-btn,
+.segmented-control .status-badge-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2676,9 +2681,9 @@ svg.lucide, i[data-lucide], svg {
   background: transparent !important;
   border: 1px solid transparent !important;
   border-radius: 4px;
-  padding: 3.5px 8.5px;
+  padding: 4px 10px;
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.6) !important;
   cursor: pointer;
@@ -2687,13 +2692,19 @@ svg.lucide, i[data-lucide], svg {
   box-shadow: none !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  outline: none !important;
 }
 
 .segmented-control-track button:hover,
 .segmented-control-track .segmented-btn:hover,
-.segmented-control-track .status-badge-pill:hover {
+.segmented-control-track .status-badge-pill:hover,
+.segmented-control button:hover,
+.segmented-control .segmented-btn:hover,
+.segmented-control .status-badge-pill:hover {
   color: #fff !important;
-  background: rgba(255, 255, 255, 0.06) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
   border-color: transparent !important;
 }
 
@@ -2701,12 +2712,17 @@ svg.lucide, i[data-lucide], svg {
 .segmented-control-track button.active,
 .segmented-control-track .segmented-btn.live,
 .segmented-control-track .segmented-btn.active,
-.segmented-control-track .status-badge-pill.live {
-  background: rgba(16, 185, 129, 0.18) !important;
-  border-color: rgba(16, 185, 129, 0.35) !important;
-  color: #6ee7b7 !important;
-  font-weight: 600;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+.segmented-control-track .status-badge-pill.live,
+.segmented-control button.live,
+.segmented-control button.active,
+.segmented-control .segmented-btn.live,
+.segmented-control .segmented-btn.active,
+.segmented-control .status-badge-pill.live {
+  background: rgba(16, 185, 129, 0.22) !important;
+  border: 1px solid rgba(16, 185, 129, 0.45) !important;
+  color: #34d399 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 6px rgba(16, 185, 129, 0.25) !important;
 }
 
 </style>
@@ -4700,10 +4716,10 @@ svg.lucide, i[data-lucide], svg {
 
       <!-- Segmented Horizon Switcher Bar -->
       <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.25);">
-        <div class="segmented-control" style="margin:0;">
-          <button class="segmented-btn live" id="btnHorizonModal1D" onclick="switchHorizonAttributionMode('1d')">1-Day (Today)</button>
-          <button class="segmented-btn" id="btnHorizonModal1M" onclick="switchHorizonAttributionMode('1m')">1-Month (30D)</button>
-          <button class="segmented-btn" id="btnHorizonModal1Y" onclick="switchHorizonAttributionMode('1y')">1-Year (365D)</button>
+        <div class="segmented-control-track" style="margin:0;">
+          <button type="button" class="segmented-btn live active" id="btnHorizonModal1D" onclick="switchHorizonAttributionMode('1d')">1-Day (Today)</button>
+          <button type="button" class="segmented-btn" id="btnHorizonModal1M" onclick="switchHorizonAttributionMode('1m')">1-Month (30D)</button>
+          <button type="button" class="segmented-btn" id="btnHorizonModal1Y" onclick="switchHorizonAttributionMode('1y')">1-Year (365D)</button>
         </div>
         <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-dim);">Live Telemetry</div>
       </div>
@@ -9521,10 +9537,18 @@ function renderHorizonAttribution(horizon = '1d') {
   const btn1d = document.getElementById('btnHorizonModal1D');
   const btn1m = document.getElementById('btnHorizonModal1M');
   const btn1y = document.getElementById('btnHorizonModal1Y');
-
-  if (btn1d) btn1d.classList.toggle('live', horizon === '1d');
-  if (btn1m) btn1m.classList.toggle('live', horizon === '1m');
-  if (btn1y) btn1y.classList.toggle('live', horizon === '1y');
+  if (btn1d) {
+    btn1d.classList.toggle('live', horizon === '1d');
+    btn1d.classList.toggle('active', horizon === '1d');
+  }
+  if (btn1m) {
+    btn1m.classList.toggle('live', horizon === '1m');
+    btn1m.classList.toggle('active', horizon === '1m');
+  }
+  if (btn1y) {
+    btn1y.classList.toggle('live', horizon === '1y');
+    btn1y.classList.toggle('active', horizon === '1y');
+  }
 
   let horizonLabel = '1-Day (Today)';
   let horizonSub = "Holding-level performance across Mutual Funds, Index ETFs & Gold";
