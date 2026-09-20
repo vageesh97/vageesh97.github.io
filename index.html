@@ -583,6 +583,7 @@ svg.lucide, i[data-lucide], svg {
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 .horizon-card:hover {
   background: rgba(255, 255, 255, 0.05);
@@ -3581,7 +3582,7 @@ svg.lucide, i[data-lucide], svg {
                 <i style="width:15px; height:15px;" data-lucide="shield"></i>
               </div>
               <div>
-                <div style="font-size:12px; font-weight:700; color:#fbbf24; letter-spacing:0.02em;" id="goldCardSchemeTitle">Zerodha Gold ETF (GOLDCASE) / Nippon Gold BeES</div>
+                <div style="font-size:12px; font-weight:700; color:#fbbf24; letter-spacing:0.02em;" id="goldCardSchemeTitle">Zerodha Gold ETF (GOLDCASE)</div>
                 <div style="font-size:10px; color:var(--text-dim);" id="goldCardSchemeSub">Physical 24K Gold Bullion Hedge (99.5% Sovereign Purity)</div>
               </div>
             </div>
@@ -4457,7 +4458,7 @@ svg.lucide, i[data-lucide], svg {
     <div class="mosby-modal-card" style="max-width: 800px; width: 92%; max-height: 88vh; overflow-y: auto; padding: 1.75rem 2rem;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.85rem;">
         <div>
-          <span class="badge-capsule" style="font-size: 9.5px; margin-bottom: 5px; letter-spacing: 0.05em; color: var(--text-dim);">Rating</span>
+          <span class="badge-capsule" style="font-size: 9.5px; margin-bottom: 5px; letter-spacing: 0.05em; color: var(--text-dim);">PORTFOLIO AUDIT</span>
           <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: #FDFAF7; margin: 0; letter-spacing: -0.01em;">Portfolio Rating Analysis</h2>
           <div style="font-size: 11px; color: var(--text-dim); margin-top: 3px; font-family: var(--font-mono);">Dynamic Holding Audit • Look-Through Overlaps • Real-Time Valuations</div>
         </div>
@@ -4543,6 +4544,62 @@ svg.lucide, i[data-lucide], svg {
             </tr>
           </thead>
           <tbody id="schemeXirrTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Horizon Performance Attribution Modal (1D / 1M / 1Y) -->
+  <div class="mosby-modal-overlay" id="horizonAttributionModal" onclick="if(event.target===this)closeHorizonAttributionModal()">
+    <div class="mosby-modal-card" style="max-width: 780px; width: 92%; max-height: 88vh; overflow-y: auto; padding: 1.6rem 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
+        <div>
+          <span class="badge-capsule" id="horizonModalBadge" style="font-size: 9.5px; margin-bottom: 5px; color: #6ee7b7; border-color: rgba(110,231,183,0.3); background: rgba(110,231,183,0.08);">PERFORMANCE ATTRIBUTION</span>
+          <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: #FDFAF7; margin: 0;" id="horizonModalTitle">1-Day Performance Attribution</h2>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 3px; font-family: var(--font-mono);" id="horizonModalSubtitle">Holding-level contribution to net portfolio movement</div>
+        </div>
+        <button class="btn-icon-nav" onclick="closeHorizonAttributionModal()" title="Close (Esc)"><svg class="lucide lucide-x" style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+
+      <!-- Horizon Switcher Track -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
+        <div class="segmented-control-track" style="margin: 0;">
+          <button class="segmented-btn live" id="btnHorizonModal1D" onclick="switchHorizonAttributionMode('1d')">1-Day (Today)</button>
+          <button class="segmented-btn" id="btnHorizonModal1M" onclick="switchHorizonAttributionMode('1m')">1-Month (30D)</button>
+          <button class="segmented-btn" id="btnHorizonModal1Y" onclick="switchHorizonAttributionMode('1y')">1-Year (365D)</button>
+        </div>
+        <div style="font-size: 10px; font-family: var(--font-mono); color: var(--text-dim);" id="horizonModalTimestamp">Updated Live</div>
+      </div>
+
+      <!-- Top Summary Deck -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.25rem;">
+        <div class="dossier-kpi-card" style="text-align: center; padding: 0.75rem 0.5rem; background: rgba(0,0,0,0.35);">
+          <div style="font-size: 9px; opacity: 0.75; text-transform: uppercase; font-family: var(--font-mono);">Net Impact</div>
+          <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="horizonSummaryNetVal">+₹0</div>
+          <div class="num-mono" style="font-size: 9px; color: #6ee7b7;" id="horizonSummaryNetPct">+0.00%</div>
+        </div>
+        <div class="dossier-kpi-card" style="text-align: center; padding: 0.75rem 0.5rem; background: rgba(0,0,0,0.35);">
+          <div style="font-size: 9px; opacity: 0.75; text-transform: uppercase; font-family: var(--font-mono);">MFs &amp; ETFs</div>
+          <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="horizonSummaryMfVal">+₹0</div>
+          <div style="font-size: 8.5px; opacity: 0.75;" id="horizonSummaryMfSub">Funds &amp; Index ETFs</div>
+        </div>
+        <div class="dossier-kpi-card" style="text-align: center; padding: 0.75rem 0.5rem; background: rgba(0,0,0,0.35);">
+          <div style="font-size: 9px; opacity: 0.75; text-transform: uppercase; font-family: var(--font-mono);">Gold Reserves</div>
+          <div class="num-mono privacy-blur" style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: #fbbf24; margin-top: 2px;" id="horizonSummaryGoldVal">+₹0</div>
+          <div style="font-size: 8.5px; opacity: 0.75;" id="horizonSummaryGoldSub">Bullion ETF</div>
+        </div>
+      </div>
+
+      <!-- Holding-Level Breakdown Table (Only Scheme & Change %) -->
+      <div class="mosby-table-shell" style="max-height: 480px; overflow-y: auto;">
+        <table class="mosby-table" style="width: 100%; table-layout: auto;">
+          <thead>
+            <tr>
+              <th style="padding: 10px 16px; text-align: left;">Scheme / Holding</th>
+              <th style="padding: 10px 16px; text-align: right; width: 140px; white-space: nowrap;">Change %</th>
+            </tr>
+          </thead>
+          <tbody id="horizonAttributionTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -9329,9 +9386,12 @@ function renderTimeHorizonDeck(metrics) {
   const goldYear = metrics.goldYearChange || 0;
 
   container.innerHTML = `
-    <div class="horizon-card">
+    <div class="horizon-card clickable-metric-card" onclick="openHorizonAttributionModal('1d')" style="cursor:pointer;" title="Click to view Scheme-Level 1-Day Breakdown">
       <div style="min-width: 0;">
-        <div class="horizon-card-label">1-Day Portfolio Change (Today)</div>
+        <div class="horizon-card-label" style="display:flex; align-items:center; gap:4px;">
+          <span>1-Day Portfolio Change (Today)</span>
+          <span style="font-size:8px; opacity:0.6;">↗</span>
+        </div>
         <div class="horizon-card-val num-mono privacy-blur" style="color:${isDayUp ? '#6ee7b7' : '#fca5a5'};">
           ${isDayUp ? '+' : ''}${formatVal(metrics.totalDayChange || 0)}
         </div>
@@ -9346,9 +9406,12 @@ function renderTimeHorizonDeck(metrics) {
       </div>
     </div>
 
-    <div class="horizon-card">
+    <div class="horizon-card clickable-metric-card" onclick="openHorizonAttributionModal('1m')" style="cursor:pointer;" title="Click to view Scheme-Level 1-Month Breakdown">
       <div style="min-width: 0;">
-        <div class="horizon-card-label">1-Month Portfolio Change (30 Days)</div>
+        <div class="horizon-card-label" style="display:flex; align-items:center; gap:4px;">
+          <span>1-Month Portfolio Change (30 Days)</span>
+          <span style="font-size:8px; opacity:0.6;">↗</span>
+        </div>
         <div class="horizon-card-val num-mono privacy-blur" style="color:${isMonthUp ? '#6ee7b7' : '#fca5a5'};">
           ${isMonthUp ? '+' : ''}${formatVal(metrics.totalMonthChange || 0)}
         </div>
@@ -9363,9 +9426,12 @@ function renderTimeHorizonDeck(metrics) {
       </div>
     </div>
 
-    <div class="horizon-card">
+    <div class="horizon-card clickable-metric-card" onclick="openHorizonAttributionModal('1y')" style="cursor:pointer;" title="Click to view Scheme-Level 1-Year Breakdown">
       <div style="min-width: 0;">
-        <div class="horizon-card-label">1-Year Portfolio Change (365 Days)</div>
+        <div class="horizon-card-label" style="display:flex; align-items:center; gap:4px;">
+          <span>1-Year Portfolio Change (365 Days)</span>
+          <span style="font-size:8px; opacity:0.6;">↗</span>
+        </div>
         <div class="horizon-card-val num-mono privacy-blur" style="color:${isYearUp ? '#6ee7b7' : '#fca5a5'};">
           ${isYearUp ? '+' : ''}${formatVal(metrics.totalYearChange || 0)}
         </div>
@@ -9381,6 +9447,198 @@ function renderTimeHorizonDeck(metrics) {
     </div>
   `;
 }
+
+/* ==========================================================================
+   HORIZON PERFORMANCE ATTRIBUTION MODAL ENGINE (1D / 1M / 1Y SCHEME BREAKDOWN)
+   ========================================================================== */
+let currentHorizonAttributionMode = '1d';
+
+function openHorizonAttributionModal(horizon = '1d') {
+  currentHorizonAttributionMode = horizon;
+  const modal = document.getElementById('horizonAttributionModal');
+  if (!modal) return;
+  renderHorizonAttribution(horizon);
+  modal.classList.add('active');
+  if (typeof playMicroClick === 'function') playMicroClick();
+}
+
+function closeHorizonAttributionModal() {
+  const modal = document.getElementById('horizonAttributionModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function switchHorizonAttributionMode(horizon) {
+  currentHorizonAttributionMode = horizon;
+  if (typeof playMicroClick === 'function') playMicroClick();
+  renderHorizonAttribution(horizon);
+}
+
+function renderHorizonAttribution(horizon = '1d') {
+  const modal = document.getElementById('horizonAttributionModal');
+  if (!modal) return;
+
+  const titleEl = document.getElementById('horizonModalTitle');
+  const subEl = document.getElementById('horizonModalSubtitle');
+  const badgeEl = document.getElementById('horizonModalBadge');
+
+  const btn1d = document.getElementById('btnHorizonModal1D');
+  const btn1m = document.getElementById('btnHorizonModal1M');
+  const btn1y = document.getElementById('btnHorizonModal1Y');
+
+  if (btn1d) btn1d.classList.toggle('live', horizon === '1d');
+  if (btn1m) btn1m.classList.toggle('live', horizon === '1m');
+  if (btn1y) btn1y.classList.toggle('live', horizon === '1y');
+
+  let horizonLabel = '1-Day (Today)';
+  let horizonSub = "Holding-level performance across Mutual Funds, Index ETFs & Gold";
+  let prop = 'dailyChange';
+
+  if (horizon === '1m') {
+    horizonLabel = '1-Month (30 Days)';
+    horizonSub = "Holding-level performance across Mutual Funds, Index ETFs & Gold (Last 30 Days)";
+    prop = 'monthlyChange';
+  } else if (horizon === '1y') {
+    horizonLabel = '1-Year (365 Days)';
+    horizonSub = "Holding-level performance across Mutual Funds, Index ETFs & Gold (Annual Trajectory)";
+    prop = 'yearChange';
+  }
+
+  if (titleEl) titleEl.innerText = `${horizonLabel} Performance Attribution`;
+  if (subEl) subEl.innerText = horizonSub;
+  if (badgeEl) badgeEl.innerText = `${horizon.toUpperCase()} ATTRIBUTION`;
+
+  const items = [];
+
+  // 1. Mutual Funds
+  (AppState.mutualFunds || []).forEach(f => {
+    const inv = parseNum(f.invested !== undefined ? f.invested : (f.units * f.avgNav)) || 0;
+    const cur = parseNum(f.currentValue !== undefined ? f.currentValue : (f.units * f.currentNav)) || inv;
+    const chg = parseNum(f[prop]) || 0;
+    const base = cur - chg;
+    const pct = base > 0 ? (chg / base) * 100 : (cur > 0 ? (chg / cur) * 100 : 0);
+
+    items.push({
+      id: f.id,
+      name: f.name,
+      ticker: f.ticker || '',
+      category: f.category || 'Mutual Fund',
+      pillar: 'Mutual Fund',
+      rawType: 'mf',
+      isEtf: false,
+      isGold: false,
+      currentValue: cur,
+      changeVal: chg,
+      changePct: pct
+    });
+  });
+
+  // 2. Index ETFs & Gold Bullion (STRICTLY EXCLUDE direct equities)
+  (AppState.stocks || []).forEach(s => {
+    const isGold = typeof isGoldEtf === 'function' ? isGoldEtf(s) : false;
+    const isEtf = !isGold && (typeof isEquityEtf === 'function' ? isEquityEtf(s) : false);
+    if (!isGold && !isEtf) return; // Exclude direct stocks
+
+    const inv = parseNum(s.invested !== undefined ? s.invested : (s.qty * s.avgBuyPrice)) || 0;
+    const cur = parseNum(s.currentValue !== undefined ? s.currentValue : (s.qty * s.cmp)) || inv;
+    const chg = parseNum(s[prop]) || 0;
+    const base = cur - chg;
+    const pct = base > 0 ? (chg / base) * 100 : (cur > 0 ? (chg / cur) * 100 : 0);
+
+    items.push({
+      id: s.id,
+      name: s.name || s.ticker,
+      ticker: s.ticker || '',
+      category: isGold ? 'Gold Bullion Reserve' : 'Index ETF',
+      pillar: isGold ? 'Gold Reserve' : 'Index ETF',
+      rawType: 'stock',
+      isEtf: isEtf,
+      isGold: isGold,
+      currentValue: cur,
+      changeVal: chg,
+      changePct: pct
+    });
+  });
+
+  // Sort: highest positive contributors first, biggest negative drags last
+  items.sort((a, b) => b.changeVal - a.changeVal);
+
+  // Group aggregates
+  let totalChg = 0;
+  let mfChg = 0;
+  let goldChg = 0;
+  let totalAssetVal = 0;
+
+  items.forEach(it => {
+    totalChg += it.changeVal;
+    totalAssetVal += it.currentValue;
+    if (it.isGold) {
+      goldChg += it.changeVal;
+    } else {
+      mfChg += it.changeVal;
+    }
+  });
+
+  const totBase = totalAssetVal - totalChg;
+  const netPct = totBase > 0 ? (totalChg / totBase) * 100 : 0;
+
+  // Render Top Summary (No direct stocks, formatVal already includes single currency symbol)
+  const netValEl = document.getElementById('horizonSummaryNetVal');
+  const netPctEl = document.getElementById('horizonSummaryNetPct');
+  const mfValEl = document.getElementById('horizonSummaryMfVal');
+  const goldValEl = document.getElementById('horizonSummaryGoldVal');
+
+  if (netValEl) {
+    netValEl.innerText = `${totalChg >= 0 ? '+' : ''}${formatVal(totalChg)}`;
+    netValEl.style.color = totalChg >= 0 ? '#6ee7b7' : '#fca5a5';
+  }
+  if (netPctEl) {
+    netPctEl.innerText = `${totalChg >= 0 ? '+' : ''}${netPct.toFixed(2)}%`;
+    netPctEl.style.color = totalChg >= 0 ? '#6ee7b7' : '#fca5a5';
+  }
+  if (mfValEl) {
+    mfValEl.innerText = `${mfChg >= 0 ? '+' : ''}${formatVal(mfChg)}`;
+    mfValEl.style.color = mfChg >= 0 ? '#6ee7b7' : '#fca5a5';
+  }
+  if (goldValEl) {
+    goldValEl.innerText = `${goldChg >= 0 ? '+' : ''}${formatVal(goldChg)}`;
+    goldValEl.style.color = goldChg >= 0 ? '#fbbf24' : '#fca5a5';
+  }
+
+  // Render Table: Just Scheme Name and Percentage Change in front of them
+  const tbody = document.getElementById('horizonAttributionTableBody');
+  if (!tbody) return;
+
+  if (items.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; padding:1.5rem; opacity:0.6;">No Mutual Funds, ETFs, or Gold holdings found.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = items.map(it => {
+    const isUp = it.changePct >= 0;
+    const sign = isUp ? '+' : '';
+
+    return `
+      <tr onclick="closeHorizonAttributionModal(); openInspectionFromType('${it.rawType}', '${it.id}')" style="cursor:pointer;">
+        <td style="padding:12px 16px; font-weight:600; color:#FDFAF7; line-height:1.4;">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span>${it.name}</span>
+            ${it.isGold ? `<span class="badge-capsule" style="font-size:8.5px; color:#fbbf24; border-color:#fbbf24;">GOLD</span>` : (it.isEtf ? `<span class="badge-capsule" style="font-size:8.5px; color:#6ee7b7; border-color:#6ee7b7;">ETF</span>` : '')}
+          </div>
+        </td>
+        <td class="num-mono" style="padding:12px 16px; text-align:right; white-space:nowrap; width:140px;">
+          <span class="badge-capsule" style="font-size:12px; font-weight:700; ${isUp ? 'color:#6ee7b7; background:rgba(110,231,183,0.12); border-color:rgba(110,231,183,0.3);' : 'color:#fca5a5; background:rgba(239,68,68,0.12); border-color:rgba(239,68,68,0.3);'}">
+            ${sign}${it.changePct.toFixed(2)}%
+          </span>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+window.openHorizonAttributionModal = openHorizonAttributionModal;
+window.closeHorizonAttributionModal = closeHorizonAttributionModal;
+window.switchHorizonAttributionMode = switchHorizonAttributionMode;
+window.renderHorizonAttribution = renderHorizonAttribution;
 
 function renderTopAlphaDrivers() {
   const container = document.getElementById('topAlphaContainer');
@@ -9777,13 +10035,7 @@ function calculateMFRating() {
   const hasPPELSS = items.some(h => /parag\s*parikh.*(elss|tax)/i.test(h.name || ''));
   const ppClonesExist = hasPPFC && hasPPELSS;
 
-  // Strictly match Nifty 50 trackers and exclude Next 50 / Junior BeES
-  const niftyTrackers = items.filter(h => {
-    const n = (h.name || '').toLowerCase();
-    const t = (h.ticker || '').toLowerCase();
-    if (n.includes('next 50') || n.includes('next50') || n.includes('junior') || t.includes('junior')) return false;
-    return (/nifty\s*50/i.test(n) || /nifty\s*index/i.test(n) || /niftybees/i.test(n) || /niftybees/i.test(t));
-  });
+  const niftyTrackers = items.filter(h => /nifty\s*(50|index)/i.test(h.name || '') || /niftybees/i.test(h.name || '') || (h.ticker && /niftybees/i.test(h.ticker)));
   const niftyDuplicateCount = niftyTrackers.length;
 
   let overlapPenalty = 0;
@@ -9812,21 +10064,8 @@ function calculateMFRating() {
   const smallMidPct = totalVal > 0 ? (smallMidVal / totalVal) * 100 : 0;
   const valScore = smallMidPct > 45 ? 6.4 : (smallMidPct > 30 ? 7.6 : 8.8);
 
-  // 4. Factor Alpha & Emerging Leaders (Nifty Next 50, Junior BeES, Momentum)
-  const factorAlphaItems = items.filter(h => {
-    const n = (h.name || '').toLowerCase();
-    const t = (h.ticker || '').toLowerCase();
-    return n.includes('next 50') || n.includes('next50') || n.includes('junior') || t.includes('junior') || n.includes('momentum');
-  });
-  const factorAlphaVal = factorAlphaItems.reduce((acc, h) => acc + (Number(h.currentValue) || 0), 0);
-  const factorAlphaPct = totalVal > 0 ? (factorAlphaVal / totalVal) * 100 : 0;
-  const hasFactorAlpha = factorAlphaItems.length > 0;
-  const alphaBonus = hasFactorAlpha ? Math.min(1.2, Math.max(0.6, (factorAlphaPct / 15) * 1.0)) : 0;
-
   // Composite Score / 10
-  const baseScore = ((overlapScore * 0.40) + (feeScore * 0.30) + (valScore * 0.30));
-  const rawScore = baseScore + alphaBonus;
-  const score = Math.min(9.8, Math.round(rawScore * 10) / 10);
+  const score = Math.round(((overlapScore * 0.40) + (feeScore * 0.30) + (valScore * 0.30)) * 10) / 10;
   const improvedScore = 9.4;
 
   const statusText = score >= 8.5 ? 'Institutional Grade' : (score >= 7.0 ? 'Optimal Architecture' : 'Moderate Overlap');
@@ -9840,10 +10079,6 @@ function calculateMFRating() {
     ppClonesExist,
     niftyDuplicateCount,
     niftyTrackers,
-    hasFactorAlpha,
-    factorAlphaItems,
-    factorAlphaPct,
-    alphaBonus,
     feeBleed,
     weightedTerPct,
     smallMidPct,
@@ -9892,19 +10127,6 @@ function renderMFRatingCard() {
   const whyEl = document.getElementById('mfWhyRatingList');
   if (whyEl) {
     let whyHtml = '';
-    if (rating.hasFactorAlpha) {
-      whyHtml += `
-        <div style="background:rgba(16,185,129,0.035); border:1px solid rgba(16,185,129,0.2); padding:10px 12px; border-radius:6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight:600; color:#6ee7b7; font-size:12px;">Factor Alpha Exposure Active</span>
-            <span class="badge-capsule" style="font-size:9.5px; color:#6ee7b7; border-color:rgba(16,185,129,0.3); background:rgba(16,185,129,0.1);">+${rating.alphaBonus.toFixed(1)} pts</span>
-          </div>
-          <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
-            Holding <strong>${rating.factorAlphaItems.map(t => t.name).join(', ')}</strong> (~${rating.factorAlphaPct.toFixed(1)}% allocation) successfully introduces emerging market leaders (#51 to #100) with zero Nifty 50 overlap.
-          </div>
-        </div>
-      `;
-    }
     if (rating.ppClonesExist) {
       whyHtml += `
         <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
@@ -9949,52 +10171,36 @@ function renderMFRatingCard() {
 
   const improveEl = document.getElementById('mfImproveList');
   if (improveEl) {
-    let stepsHtml = '';
-    let stepNum = 1;
-
-    if (rating.ppClonesExist || rating.niftyDuplicateCount > 1) {
-      stepsHtml += `
-        <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight:600; color:#FDFAF7; font-size:12px;">${stepNum++}. Eliminate Clones &amp; Consolidate</span>
-            <span class="badge-capsule" style="font-size:9.5px; color:#6ee7b7; border-color:rgba(110,231,183,0.25); background:rgba(110,231,183,0.08);">Action</span>
-          </div>
-          <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
-            ${rating.ppClonesExist ? '• Stop SIP into <strong>Parag Parikh ELSS</strong> and redirect into <strong>Parag Parikh Flexi Cap</strong> (eliminates 3-yr lock-in + clone drag).<br>' : ''}
-            ${rating.niftyDuplicateCount > 1 ? '• Consolidate duplicate Nifty 50 index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%).' : '• Keep index allocations consolidated in low-cost NIFTYBEES.'}
-          </div>
-        </div>
-      `;
-    }
-
-    stepsHtml += `
+    improveEl.innerHTML = `
       <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">${stepNum++}. Maintain Core Compounders</span>
+          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">1. Eliminate Clones &amp; Consolidate</span>
+          <span class="badge-capsule" style="font-size:9.5px; color:#6ee7b7; border-color:rgba(110,231,183,0.25); background:rgba(110,231,183,0.08);">Action</span>
+        </div>
+        <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
+          ${rating.ppClonesExist ? '• Stop SIP into <strong>Parag Parikh ELSS</strong> and redirect into <strong>Parag Parikh Flexi Cap</strong> (eliminates 3-yr lock-in + clone drag).<br>' : ''}
+          ${rating.niftyDuplicateCount > 1 ? '• Consolidate duplicate Nifty 50 index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%).' : '• Keep index allocations consolidated in low-cost NIFTYBEES.'}
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">2. Maintain Core Compounders</span>
           <span class="badge-capsule" style="font-size:9.5px; color:#60a5fa; border-color:rgba(96,165,250,0.25); background:rgba(96,165,250,0.08);">Core</span>
         </div>
         <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
           • Continue systematic SIPs in <strong>Parag Parikh Flexi Cap</strong> (disciplined cash cushion) and <strong>Axis Small Cap / Midcap</strong> for compounding.
         </div>
       </div>
-    `;
-
-    // Only show Introduce Factor Alpha if NOT yet added! Once added, it disappears from improvement checklist
-    if (!rating.hasFactorAlpha) {
-      stepsHtml += `
-        <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight:600; color:#FDFAF7; font-size:12px;">${stepNum++}. Introduce Factor Alpha</span>
-            <span class="badge-capsule" style="font-size:9.5px; color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08);">Alpha</span>
-          </div>
-          <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
-            • Allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> or <strong>Momentum 30</strong> to capture emerging leaders (#51 to #100) with zero Nifty 50 overlap.
-          </div>
+      <div style="background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); padding:10px 12px; border-radius:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:600; color:#FDFAF7; font-size:12px;">3. Introduce Factor Alpha</span>
+          <span class="badge-capsule" style="font-size:9.5px; color:#c084fc; border-color:rgba(192,132,252,0.25); background:rgba(192,132,252,0.08);">Alpha</span>
         </div>
-      `;
-    }
-
-    improveEl.innerHTML = stepsHtml;
+        <div style="color:var(--text-dim); font-size:11.5px; margin-top:5px; line-height:1.55;">
+          • Allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> or <strong>Momentum 30</strong> to capture emerging leaders (#51 to #100) with zero Nifty 50 overlap.
+        </div>
+      </div>
+    `;
   }
 }
 
@@ -10035,18 +10241,13 @@ async function runLiveWebMFAudit() {
     sip: f.monthlySip ? `₹${f.monthlySip}/mo` : 'Lump-sum'
   }));
 
-  const factorStatus = rating.hasFactorAlpha 
-    ? `Factor Alpha (Nifty Next 50) is ALREADY ACTIVE via ${rating.factorAlphaItems.map(f => f.name).join(', ')} (${rating.factorAlphaPct.toFixed(1)}% allocation). Do NOT tell the user to add Nifty Next 50.` 
-    : 'No factor alpha holding yet.';
-
   const queryPrompt = `You are a top-tier quantitative mutual fund and ETF portfolio analyst. Perform an unvarnished audit of my Indian Mutual Fund & ETF portfolio in light of current 2026 market valuations.
 Portfolio Holdings: ${JSON.stringify(fundSummary)}
-Current Rating: ${rating.score}/10. ${factorStatus}
-Clone Overlap: Parag Parikh Flexi Cap & ELSS overlap: ${rating.ppClonesExist}. Duplicate Nifty 50 Trackers: ${rating.niftyDuplicateCount}. Mid/Small Cap Exposure: ${rating.smallMidPct.toFixed(1)}%. Fee Bleed: ~₹${formatVal(rating.feeBleed)}/yr.
+Current Rating: ${rating.score}/10 (Parag Parikh Flexi Cap & ELSS overlap: ${rating.ppClonesExist}, Duplicate Nifty 50 Trackers: ${rating.niftyDuplicateCount}, Mid/Small Cap Exposure: ${rating.smallMidPct.toFixed(1)}%, Fee Bleed: ~₹${formatVal(rating.feeBleed)}/yr).
 Target Clean-Up Rating: ${rating.improvedScore}/10.
 Answer concisely in 3 sharp parts without any emojis:
-1. Why this rating: ${rating.hasFactorAlpha ? 'Acknowledge the positive +1.2 pts boost from adding Nifty Next 50 (emerging leaders #51-#100 with zero large-cap overlap). Call out the remaining deductions (PP ELSS clone and duplicate Nifty 50 trackers).' : 'Call out clone overlaps, lock-in disadvantages under the New Tax Regime, and tracker duplication.'}
-2. What to do to improve: ${rating.hasFactorAlpha ? 'Focus strictly on remaining steps: stop SIP into Parag Parikh ELSS and redirect to Flexi Cap, and consolidate duplicate Nifty 50 index funds into NIFTYBEES.' : 'Exact funds to drop/merge and funds to add (e.g. Nifty Next 50 / Junior BeES for zero large-cap overlap).'}
+1. Why this rating: Call out specific clone overlaps, lock-in disadvantages under the New Tax Regime, and tracker duplication.
+2. What to do to improve: Exact funds to drop/merge and funds to add (e.g. Junior BeES / Nifty Next 50 for zero large-cap overlap).
 3. Rating after improvement: Explain how the portfolio reaches 9.4/10 and the compounding impact.`;
 
   let aiResult = null;
@@ -10080,19 +10281,15 @@ Answer concisely in 3 sharp parts without any emojis:
         </div>
         <div style="margin-bottom:8px; line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#FDFAF7;">Why this rating:</strong> 
-          ${rating.hasFactorAlpha 
-            ? `Your rating has climbed to <strong>${rating.score}/10</strong> thanks to the Factor Alpha sleeve in <em>${rating.factorAlphaItems.map(f => f.name).join(', ')}</em> (+1.2 pts). The remaining gap to 9.4/10 is due to the Parag Parikh Flexi Cap &amp; ELSS clone overlap (~70%+ identical stocks) and holding duplicate Nifty 50 trackers.` 
-            : `Current fund factsheets confirm that <em>Parag Parikh Flexi Cap</em> and <em>Parag Parikh ELSS</em> allocate ~70%+ to identical top holdings (HDFC Bank, ITC, Bajaj Holdings). Under the New Tax Regime where Section 80C yields zero deduction, paying active management fees on ELSS creates an unnecessary 3-year liquidity lock-in. Duplicate Nifty 50 trackers split liquidity and create redundant tracking fee friction vs direct NIFTYBEES.`}
+          Current fund factsheets confirm that <em>Parag Parikh Flexi Cap</em> and <em>Parag Parikh ELSS</em> allocate ~70%+ to identical top holdings (HDFC Bank, ITC, Bajaj Holdings). Under the New Tax Regime where Section 80C yields zero deduction, paying active management fees on ELSS creates an unnecessary 3-year liquidity lock-in. Duplicate Nifty 50 trackers split liquidity and create redundant tracking fee friction vs direct NIFTYBEES.
         </div>
         <div style="margin-bottom:8px; line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#6ee7b7;">What can be done to improve:</strong> 
-          ${rating.hasFactorAlpha 
-            ? `Factor alpha is already secured. To reach your final target rating of <strong>${rating.improvedScore}/10</strong>: stop SIP into <strong>Parag Parikh ELSS</strong> and redirect into Flexi Cap, and consolidate duplicate Nifty 50 trackers into low-cost <strong>NIFTYBEES</strong>.` 
-            : `Stop SIP into ELSS and consolidate redeemed capital into Flexi Cap. Switch duplicate bank index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%). For new SIP inflows, allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> to capture emerging market leaders (#51 to #100) with zero large-cap overlap.`}
+          Stop SIP into ELSS and consolidate redeemed capital into Flexi Cap. Switch duplicate bank index funds into <strong>NIFTYBEES</strong> (lowest expense ratio ~0.04%). For new SIP inflows, allocate 15-20% into <strong>Nifty Next 50 (Junior BeES)</strong> to capture emerging market leaders (#51 to #100) with zero large-cap overlap.
         </div>
         <div style="line-height:1.6; font-size:11.5px; color:var(--text-dim);">
           <strong style="color:#6ee7b7;">After improving your rating:</strong> 
-          Your rating immediately advances to <strong>${rating.improvedScore}/10 (Institutional Grade)</strong>, eliminating redundant fee bleed with zero clone overlap.
+          Your rating immediately advances from <strong>${rating.score}/10 to ${rating.improvedScore}/10</strong>, eliminating ₹${formatVal(rating.feeBleed)}/year in deadweight fee bleed with zero clone overlap.
         </div>
       `;
     }
@@ -14799,6 +14996,7 @@ document.addEventListener('DOMContentLoaded', () => {
       closeInflowDrilldownModal();
       closeSchemeXirrModal();
       closeMFRatingModal();
+      if (typeof closeHorizonAttributionModal === 'function') closeHorizonAttributionModal();
     }
   });
 
