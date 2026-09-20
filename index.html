@@ -6191,7 +6191,7 @@ const DEMO_STATE = {
   ],
   ppf: {
     totalDeposited: 115000,
-    currentBalance: 142850,
+    currentBalance: 141070,
     ledger: [
       { fy: 'FY 2022-23', opening: 0, deposit: 35000, rate: '7.1%', interest: 2485, closing: 37485 },
       { fy: 'FY 2023-24', opening: 37485, deposit: 40000, rate: '7.1%', interest: 5501, closing: 82986 },
@@ -6838,7 +6838,7 @@ function normalizeSIPData(data) {
 
     return {
       ticker: String(getField(r, 'Ticker Symbol', 'tickerSymbol', 'ticker', 'symbol', 'Scheme Code', 'schemecode') || ''),
-      sipAmount: parseNum(getField(r, 'SIP Amount', 'sipAmount', 'amount', 'monthlySIP', 'Monthly SIP', 'SIP')) || 10000,
+      sipAmount: parseNum(getField(r, 'SIP Amount', 'sipAmount', 'amount', 'monthlySIP', 'Monthly SIP', 'SIP')) || 0,
       sipDay: finalDay,
       fundName,
       category: inferMFCategory(fundName, getField(r, 'Category', 'category', 'type')),
@@ -7528,6 +7528,7 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
   const tolerance = 1e-5;
 
   for (let i = 0; i < maxIterations; i++) {
+    if (rate <= -0.999) rate = -0.999;
     let f = 0;
     let df = 0;
 
@@ -7543,20 +7544,26 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
     if (Math.abs(f) < tolerance) return rate;
     if (df === 0 || isNaN(df) || !isFinite(df)) break;
 
-    const newRate = rate - (f / df);
+    let newRate = rate - (f / df);
+    if (newRate <= -0.99) newRate = -0.99;
     if (Math.abs(newRate - rate) < tolerance) return newRate;
     rate = newRate;
   }
 
-  // Clamping to realistic financial limits (-99% to +150%)
-  if (rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 1.50) {
+  // Clamping to realistic financial limits (-99% to +250%)
+  if (rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 2.50) {
     return rate;
   }
 
-  // Fallback to absolute holding return if short duration or divergence
+  // Fallback to annualized CAGR or absolute holding return if divergence
   const totalOut = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
   const totalIn = payments.filter(p => p > 0).reduce((s, p) => s + p, 0);
-  if (totalOut > 0) {
+  if (totalOut > 0 && totalIn > 0) {
+    if (spanDays >= 60) {
+      const years = spanDays / 365.25;
+      const cagr = Math.pow(totalIn / totalOut, 1 / years) - 1;
+      if (!isNaN(cagr) && isFinite(cagr) && cagr > -0.99 && cagr < 2.50) return cagr;
+    }
     return (totalIn - totalOut) / totalOut;
   }
   return null;
@@ -7626,8 +7633,13 @@ function calculateTrueMFXIRR() {
     });
   }
 
-  // If no transactions exist, use current invested amount dated to inception
-  if (payments.length === 0 && metrics.mfInv > 0) {
+  // Ensure balanced cashflows: if transactions don't account for total invested cost basis, anchor remainder at inception
+  const totalTrackedOutflow = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
+  if (totalTrackedOutflow < metrics.mfInv) {
+    const unlistedInitial = metrics.mfInv - totalTrackedOutflow;
+    payments.push(-unlistedInitial);
+    dates.push(inceptionDate);
+  } else if (payments.length === 0 && metrics.mfInv > 0) {
     payments.push(-metrics.mfInv);
     dates.push(inceptionDate);
   }
@@ -7644,7 +7656,7 @@ function calculateTrueMFXIRR() {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    if (pct > -99 && pct < 200) {
+    if (pct > -99 && pct < 250) {
       const formatted = pct.toFixed(1);
       try { localStorage.setItem('MOSBY_LAST_KNOWN_MF_XIRR', formatted); } catch(e) {}
       return formatted;
@@ -7920,8 +7932,8 @@ function calculateSchemeXIRR(fund) {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    // Guard against unrealistic divergences (e.g. absolute return -2.3% resulting in -54% XIRR)
-    if (Math.abs(pct - gainPct) < 35 || (gainPct > 0 && pct > 0) || (gainPct < 0 && pct < 0 && Math.abs(pct) < 25)) {
+    // Guard against unrealistic divergences while supporting genuine SIP compounding
+    if (pct > -99 && pct < 250 && (totalDays < 90 || (gainPct >= 0 && pct >= -5) || (gainPct < 0 && pct <= 5))) {
       return {
         raw: result,
         pct: pct,
@@ -8277,8 +8289,16 @@ function calculateShadowNiftyPME() {
     });
   }
 
-  // Fallback if zero individual transactions found
-  if (paymentsReal.length === 0 && actualEquityInv > 0) {
+  // Balance capital deployment: If transactions don't account for full equity cost basis, anchor remainder at inception
+  if (totalInvestedCash < actualEquityInv) {
+    const unlisted = actualEquityInv - totalInvestedCash;
+    const histTRI = getNiftyTRIHistoricalPrice(inceptionDate);
+    virtualNiftyTRIUnits += (unlisted / histTRI);
+    paymentsReal.push(-unlisted);
+    paymentsShadow.push(-unlisted);
+    dates.push(inceptionDate);
+    totalInvestedCash = actualEquityInv;
+  } else if (paymentsReal.length === 0 && actualEquityInv > 0) {
     const histTRI = getNiftyTRIHistoricalPrice(inceptionDate);
     virtualNiftyTRIUnits = actualEquityInv / histTRI;
     paymentsReal.push(-actualEquityInv);
@@ -8901,8 +8921,9 @@ window.switchRiskRadarView = function(view) {
 };
 
 function buildPortfolioRiskSeries(metrics) {
-  const curNW = metrics.totalNetWorth > 0 ? metrics.totalNetWorth : 2963142;
-  const curInv = (metrics.totalInv || metrics.totalInvested) > 0 ? (metrics.totalInv || metrics.totalInvested) : 3044612;
+  const m = metrics || (typeof calculateTotals === 'function' ? calculateTotals() : {});
+  const curNW = m.totalNetWorth > 0 ? m.totalNetWorth : 0;
+  const curInv = (m.totalInv || m.totalInvested) > 0 ? (m.totalInv || m.totalInvested) : 0;
 
   // High-Precision Monthly Benchmark & Portfolio Return Curve (2024 to Sep 2026)
   // Realistic blended asset returns: MFs (40%) + Stocks/Gold (43%) + PPF (17% fixed @ +0.59%/mo)
@@ -9777,10 +9798,16 @@ function updateBenchmarkAlphaCards() {
   const pme = calculateShadowNiftyPME();
   const actualXIRR = pme.actualXIRR;
 
+  const BENCHMARK_RATES = {
+    midcap: 18.5,
+    gold: 11.8,
+    fd: 6.5
+  };
+
   const nAlpha = pme.alphaXIRR.toFixed(1);
-  const mAlpha = (actualXIRR - 18.5).toFixed(1);
-  const gAlpha = (actualXIRR - 11.8).toFixed(1);
-  const fAlpha = (actualXIRR - 7.0).toFixed(1);
+  const mAlpha = (actualXIRR - BENCHMARK_RATES.midcap).toFixed(1);
+  const gAlpha = (actualXIRR - BENCHMARK_RATES.gold).toFixed(1);
+  const fAlpha = (actualXIRR - BENCHMARK_RATES.fd).toFixed(1);
 
   const elBadge = document.getElementById('benchmarkOverallAlphaBadge');
   const elN = document.getElementById('alphaVsNifty');
@@ -9824,7 +9851,7 @@ function renderMFSipRadar() {
   } else {
     sips = AppState.mutualFunds.filter(f => f.monthlySip > 0 || f.sipActive).map((f, i) => ({
       fundName: f.name,
-      sipAmount: f.monthlySip || 10000,
+      sipAmount: parseNum(f.monthlySip) || 0,
       sipDay: f.sipDay || (i * 5 + 5),
       category: f.category
     }));
@@ -10624,20 +10651,17 @@ function getPortfolioProjectionGrowthRate(metrics) {
   // Baseline NIFTY 50 CAGR is 14.2%.
   // Strategy Alpha achieves positive alpha over Nifty (e.g. +5.3%).
   // We dynamically derive the portfolio's actual forward compounding rate:
-  let rate = 0.178; // Default alpha-calibrated compounding rate (17.8%)
-  if (AppState && AppState.metrics) {
-    const weightedXirr = parseFloat(AppState.metrics.weightedXirr);
-    if (!isNaN(weightedXirr) && weightedXirr > 10) {
-      rate = Math.min(0.24, weightedXirr / 100);
-    }
-  }
-  if (metrics && metrics.totalProfitPct) {
+  let rate = 0.178; // Baseline alpha-calibrated compounding rate (17.8%)
+  const portfolioXirr = parseFloat(calculateTruePortfolioXIRR());
+  if (!isNaN(portfolioXirr) && portfolioXirr > 0) {
+    rate = Math.max(0.08, Math.min(0.24, portfolioXirr / 100));
+  } else if (metrics && metrics.totalProfitPct) {
     const pPct = parseFloat(metrics.totalProfitPct);
-    if (!isNaN(pPct) && pPct > 10) {
-      rate = Math.max(rate, Math.min(0.22, (pPct + 2.5) / 100));
+    if (!isNaN(pPct) && pPct > 0) {
+      rate = Math.max(0.08, Math.min(0.22, pPct / 100));
     }
   }
-  return Math.max(0.165, rate);
+  return rate;
 }
 
 function renderSimulatorSection(metrics) {
@@ -10965,7 +10989,7 @@ function initTrajectoryCanvasObserver() {
 function calculateFixedDepositBenchmark(metrics) {
   const m = metrics || calculateTotals();
   const curNW = m.totalNetWorth || 0;
-  const curInv = (m.totalInv || m.totalInvested) || (curNW > 0 ? curNW * 0.84 : 3044612);
+  const curInv = (m.totalInv || m.totalInvested) || (curNW > 0 ? Math.round(curNW * 0.84) : 0);
 
   const fdRate = 0.065; // Fixed Deposit standard hurdle rate: 6.5% p.a.
   const txs = AppState.sipTransactions || [];
@@ -11102,7 +11126,7 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
   const curInv = fdBench.curInv;
   const liveNW = fdBench.curNW;
   const curFDVal = fdBench.totalFdVal;
-  const sip = (monthlySip > 0 ? monthlySip : getMonthlySIPTotal()) || 69000;
+  const sip = (monthlySip !== undefined && monthlySip !== null ? monthlySip : getMonthlySIPTotal()) || (metrics && metrics.mfSip) || 0;
 
   const is5Y = (trajectoryViewMode === '5y');
 
@@ -13459,19 +13483,22 @@ function openAnalyticsExplainer(metricKey) {
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${v.roe}%`;
   } else if (metricKey === "nifty_alpha") {
     const cardEl = document.getElementById("alphaVsNifty");
-    const spread = (parseFloat(metrics.totalProfitPct) - 14.2).toFixed(1);
-    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
+    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { alphaXIRR: 0 };
+    displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${pme.alphaXIRR >= 0 ? "+" : ""}${pme.alphaXIRR.toFixed(1)}%`;
   } else if (metricKey === "midcap_alpha") {
     const cardEl = document.getElementById("alphaVsMidcap");
-    const spread = (parseFloat(metrics.totalProfitPct) - 18.5).toFixed(1);
+    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { actualXIRR: 0 };
+    const spread = (pme.actualXIRR - 18.5).toFixed(1);
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "gold_alpha") {
     const cardEl = document.getElementById("alphaVsGold");
-    const spread = (parseFloat(metrics.totalProfitPct) - 11.8).toFixed(1);
+    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { actualXIRR: 0 };
+    const spread = (pme.actualXIRR - 11.8).toFixed(1);
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "fd_alpha") {
     const cardEl = document.getElementById("alphaVsFD");
-    const spread = (parseFloat(metrics.totalProfitPct) - 7.0).toFixed(1);
+    const pme = (typeof calculateShadowNiftyPME === 'function') ? calculateShadowNiftyPME() : { actualXIRR: 0 };
+    const spread = (pme.actualXIRR - 6.5).toFixed(1);
     displayVal = (cardEl && cardEl.innerText.trim()) ? cardEl.innerText.trim() : `${parseFloat(spread) >= 0 ? "+" : ""}${spread}%`;
   } else if (metricKey === "corr_eq_gold") {
     const cardEl = document.getElementById("kpiCorrEqGold");
