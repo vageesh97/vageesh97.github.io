@@ -4164,13 +4164,17 @@ svg.lucide, i[data-lucide], svg {
           <div id="projectionTableContainer" style="font-size:12px; margin-top:10px;"></div>
         </div>
 
-        <!-- ARCHITECTURAL MILESTONE BLUEPRINT -->
-        <div class="dossier-kpi-card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="dossier-kpi-label" style="margin-bottom:0;">Architectural Milestone Blueprint &amp; Completion Target</div>
-            <span style="font-size:10px; font-family:var(--font-mono); color:var(--text-dim);">POWER-LAW COMPOUNDING TRAJECTORY</span>
+        <!-- ARCHITECTURAL MILESTONE BLUEPRINT & TRACKING LEDGER -->
+        <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <div class="dossier-kpi-label" style="margin-bottom:0;">Architectural Milestone Blueprint &amp; Tracking Ledger</div>
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-dim); margin-top:2px;">POWER-LAW MILESTONE RUNWAY • RECORD HIGH &amp; FORWARD CAPITAL TARGETS</div>
+            </div>
+            <div id="velocityQuickBadge" style="display:flex; gap:8px; align-items:center;"></div>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px;" id="milestonesContainer"></div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 12px; margin-bottom: 12px;" id="milestonesContainer"></div>
+          <div id="milestoneLedgerContainer" style="margin-top: 10px;"></div>
         </div>
         </div>
       </div>
@@ -6947,7 +6951,13 @@ function normalizeDividendData(data) {
     const ticker = String(getField(r, 'Ticker', 'ticker', 'Symbol', 'symbol', 'Security', 'Company Ticker') || '').trim().toUpperCase();
     const companyName = String(getField(r, 'Company Name', 'companyName', 'Company', 'Security Name', 'Instrument') || ticker).trim();
     const amount = parseNum(getField(r, 'Amount', 'amount', 'Dividend Amount', 'Net Dividend', 'Payout (INR)', 'Payout')) || 0;
-    const fy = String(getField(r, 'FY', 'fy', 'Financial Year', 'Period') || 'FY 2026-27').trim();
+    const currentFYFallback = (() => {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = d.getMonth();
+      return m >= 3 ? `FY ${y}-${String(y + 1).slice(-2)}` : `FY ${y - 1}-${String(y).slice(-2)}`;
+    })();
+    const fy = String(getField(r, 'FY', 'fy', 'Financial Year', 'Period') || currentFYFallback).trim();
     const status = String(getField(r, 'Status', 'status', 'Source', 'Credit Status') || 'Credited').trim();
 
     return {
@@ -8997,8 +9007,30 @@ function buildPortfolioRiskSeries(metrics) {
     { year: 2026, month: 5, label: 'Jun 26', ret: 1.2 },
     { year: 2026, month: 6, label: 'Jul 26', ret: -0.5 },
     { year: 2026, month: 7, label: 'Aug 26', ret: -0.4 },
-    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }  // Current month anchor
+    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }  // Base benchmark anchor
   ];
+
+  // Dynamically roll forward: append any subsequent months up to current system date
+  const nowCalendar = new Date();
+  const curCalendarYear = nowCalendar.getFullYear();
+  const curCalendarMonth = nowCalendar.getMonth();
+  const calMonthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  let lastEntry = monthlyTimeline[monthlyTimeline.length - 1];
+  let rollYear = lastEntry.year;
+  let rollMonth = lastEntry.month + 1;
+  if (rollMonth > 11) { rollYear++; rollMonth = 0; }
+
+  while (rollYear < curCalendarYear || (rollYear === curCalendarYear && rollMonth <= curCalendarMonth)) {
+    monthlyTimeline.push({
+      year: rollYear,
+      month: rollMonth,
+      label: `${calMonthNames[rollMonth]} ${String(rollYear).slice(-2)}`,
+      ret: 0.0
+    });
+    rollMonth++;
+    if (rollMonth > 11) { rollYear++; rollMonth = 0; }
+  }
 
   // Dynamically hook latest month return to live 1-month portfolio change
   if (metrics && metrics.totalMonthChangePct !== undefined && !isNaN(parseFloat(metrics.totalMonthChangePct))) {
@@ -9297,7 +9329,8 @@ function renderRiskMonthlyHeatmap(series) {
     yearsMap[yr][mo] = s.ret;
   });
 
-  const years = [2026, 2025, 2024];
+  const dynamicYears = Array.from(new Set(series.map(s => s.year))).sort((a, b) => b - a);
+  const years = dynamicYears.length ? dynamicYears : [2026, 2025, 2024];
 
   let html = `
     <table class="risk-heatmap-table">
@@ -10966,6 +10999,170 @@ function renderSimulatorSection(metrics) {
       `;
     }).join("");
   }
+
+  // Render Compounding Velocity & Milestone Elapsed-Time Ledger
+  renderMilestoneVelocityLedger(curNW, monthlySip);
+}
+
+function renderMilestoneVelocityLedger(curNW, monthlySip) {
+  const ledgerContainer = document.getElementById("milestoneLedgerContainer");
+  const quickBadge = document.getElementById("velocityQuickBadge");
+  if (!ledgerContainer) return;
+
+  const sip = (monthlySip > 0) ? monthlySip : 39000;
+  const nw = (curNW > 0) ? curNW : 3031765;
+  const cagr = 0.115; // 11.5% blended baseline for forward timeline projection
+  const r = cagr / 12.0;
+
+  function monthsToTarget(w0, target, monthlySipAmount, monthlyRate) {
+    if (w0 >= target) return 0;
+    const num = target + (monthlySipAmount / monthlyRate);
+    const den = w0 + (monthlySipAmount / monthlyRate);
+    if (den <= 0 || num <= den) return 0;
+    return Math.log(num / den) / Math.log(1 + monthlyRate);
+  }
+
+  const now = new Date();
+
+  const milestones = [
+    { target: 1000000, label: "₹10.0 Lakhs", shortLabel: "₹10L", date: "Jan 2023", days: 730 },
+    { target: 2000000, label: "₹20.0 Lakhs", shortLabel: "₹20L", date: "Mar 2024", days: 441 },
+    { target: 2500000, label: "₹25.0 Lakhs", shortLabel: "₹25L", date: "Apr 2025", days: 395 },
+    { target: 3000000, label: "₹30.0 Lakhs", shortLabel: "₹30L", date: "Sep 2026", days: 509 },
+    { target: 4000000, label: "₹40.0 Lakhs", shortLabel: "₹40L" },
+    { target: 5000000, label: "₹50.0 Lakhs (Half Cr)", shortLabel: "₹50L" },
+    { target: 10000000, label: "₹1.00 Crore (1st Cr)", shortLabel: "₹1.0Cr" }
+  ];
+
+  // Dynamic milestone progression: evaluate against current Net Worth
+  let highestAchievedIdx = -1;
+  milestones.forEach((m, idx) => {
+    if (nw >= m.target) {
+      highestAchievedIdx = idx;
+    }
+  });
+
+  const nextTargetIdx = highestAchievedIdx + 1 < milestones.length ? highestAchievedIdx + 1 : -1;
+  const nextMilestone = nextTargetIdx !== -1 ? milestones[nextTargetIdx] : null;
+
+  let nextGap = 0;
+  let nextPct = 0;
+
+  const processedRows = milestones.map((m, idx) => {
+    const isAchieved = (nw >= m.target);
+    const isCurrent = (idx === highestAchievedIdx);
+    const isNext = (idx === nextTargetIdx);
+
+    let row;
+    if (isAchieved) {
+      const days = m.days || 365;
+      const yrs = (days / 365.25).toFixed(1);
+      row = {
+        label: m.label,
+        target: m.target,
+        date: m.date || "Achieved",
+        daysText: `${days}d (${yrs} yrs)`,
+        gapText: "Completed",
+        isCurrent: isCurrent,
+        isAchieved: true,
+        pct: 100
+      };
+    } else {
+      const t = monthsToTarget(nw, m.target, sip, r);
+      const daysRemaining = Math.max(1, Math.round(t * 30.4375));
+      const targetDate = new Date(now.getTime() + daysRemaining * 86400000);
+      const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const projDateStr = `${monthNames[targetDate.getMonth()]} ${targetDate.getFullYear()}`;
+      const gap = Math.max(0, m.target - nw);
+      const pct = Math.min(99.9, Math.round((nw / m.target) * 1000) / 10);
+
+      if (isNext) {
+        nextGap = gap;
+        nextPct = pct;
+      }
+
+      const timeText = t < 12 ? `~${daysRemaining}d (~${t.toFixed(1)} mos)` : `~${daysRemaining}d (~${(t / 12).toFixed(1)} yrs)`;
+
+      row = {
+        label: m.label,
+        target: m.target,
+        date: `~${projDateStr} (Est)`,
+        daysText: timeText,
+        gapText: `${formatVal(gap)} needed`,
+        isNext: isNext,
+        isAchieved: false,
+        pct: pct,
+        gap: gap
+      };
+    }
+    return row;
+  });
+
+  if (quickBadge && nextMilestone) {
+    quickBadge.innerHTML = `
+      <div class="badge-capsule num-mono" style="font-size: 9.5px; border-color: rgba(251,191,36,0.35); color: #fbbf24; background: rgba(251,191,36,0.08); padding: 3px 8px;">
+        Next Target: ${nextMilestone.shortLabel || nextMilestone.label} (${nextPct}% Complete • ${formatVal(nextGap)} Needed)
+      </div>
+    `;
+  }
+
+  ledgerContainer.innerHTML = `
+    <div style="overflow-x: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; background: rgba(0,0,0,0.25);">
+      <table style="width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 580px;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); font-size: 9px; text-transform: uppercase; font-family: var(--font-mono); background: rgba(255,255,255,0.02);">
+            <th style="padding: 8px 10px;">Milestone Target</th>
+            <th style="padding: 8px 10px;">Timeline / Crossing</th>
+            <th style="padding: 8px 10px; text-align: right;">Elapsed / Remaining</th>
+            <th style="padding: 8px 10px; text-align: right;">Remaining Gap</th>
+            <th style="padding: 8px 10px; text-align: right;">Status / Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${processedRows.map(r => {
+            let statusBadge = '';
+            let rowBg = '';
+            if (r.isCurrent) {
+              rowBg = 'background: rgba(56,189,248,0.06); border-left: 2px solid #38bdf8;';
+              statusBadge = `<span class="badge-capsule num-mono" style="font-size: 8.5px; color: #38bdf8; border-color: rgba(56,189,248,0.4); background: rgba(56,189,248,0.12); padding: 1px 6px;">● LIVE RECORD ATH</span>`;
+            } else if (r.isAchieved) {
+              rowBg = 'border-bottom: 1px solid rgba(255,255,255,0.04);';
+              statusBadge = `<span class="badge-capsule num-mono" style="font-size: 8.5px; color: #6ee7b7; border-color: rgba(110,231,183,0.3); background: rgba(110,231,183,0.08); padding: 1px 6px;">✓ ACHIEVED</span>`;
+            } else if (r.isNext) {
+              rowBg = 'background: rgba(251,191,36,0.05); border-left: 2px solid #fbbf24; border-bottom: 1px solid rgba(255,255,255,0.05);';
+              statusBadge = `<span class="badge-capsule num-mono" style="font-size: 8.5px; color: #fbbf24; border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.1); padding: 1px 6px;">▶ IN PROGRESS (${r.pct}%)</span>`;
+            } else {
+              rowBg = 'border-bottom: 1px solid rgba(255,255,255,0.03); opacity: 0.85;';
+              statusBadge = `<span class="num-mono" style="font-size: 9.5px; color: var(--text-dim);">${r.pct}%</span>`;
+            }
+
+            const targetColor = r.isAchieved ? '#ffffff' : (r.isNext ? '#fde047' : 'rgba(255,255,255,0.85)');
+            const gapColor = r.isAchieved ? '#6ee7b7' : (r.isNext ? '#fde047' : '#cbd5e1');
+
+            return `
+              <tr style="${rowBg}">
+                <td style="padding: 7px 10px; font-weight: 600; color: ${targetColor};">
+                  ${r.label}
+                </td>
+                <td style="padding: 7px 10px; font-family: var(--font-mono); color: var(--text-dim); font-size: 10px;">
+                  ${r.date}
+                </td>
+                <td class="num-mono" style="padding: 7px 10px; text-align: right; color: rgba(255,255,255,0.7); font-size: 10px;">
+                  ${r.daysText}
+                </td>
+                <td class="num-mono privacy-blur" style="padding: 7px 10px; text-align: right; color: ${gapColor}; font-weight: 600;">
+                  ${r.gapText}
+                </td>
+                <td style="padding: 7px 10px; text-align: right;">
+                  ${statusBadge}
+                </td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 
@@ -11393,8 +11590,8 @@ function drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthR
         ctx.fillStyle = 'rgba(253, 250, 247, 0.55)';
         ctx.font = isMobile ? '8.5px "IBM Plex Mono", monospace' : '9.5px "IBM Plex Mono", monospace';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        const labelText = idx === totalSteps ? (isMobile ? 'Today' : 'Today (Sep 26)') : pt.label;
+        const todayMonthLabel = `Today (${new Date().toLocaleDateString('en-US', { month: 'short', year: '2-digit' })})`;
+        const labelText = idx === totalSteps ? (isMobile ? 'Today' : todayMonthLabel) : pt.label;
         ctx.fillText(labelText, x, padTop + chartH + (isMobile ? 6 : 8));
       });
     }
