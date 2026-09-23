@@ -6381,7 +6381,7 @@ function parseNum(val) {
     isNegative = true;
     str = str.slice(1, -1);
   }
-  if (/[−–—]/.test(str) || str.includes('-')) {
+  if (/[−–—]/.test(str) || /^[-−–—]/.test(str)) {
     isNegative = true;
   }
 
@@ -6831,6 +6831,29 @@ function normalizeDashboardSummary(data) {
 }
 
 function normalizePPFData(data) {
+  // 1. Direct object support (from Code.gs readPPF)
+  const ppfObj = data && (data.ppf || data.PPF);
+  if (ppfObj && typeof ppfObj === 'object' && !Array.isArray(ppfObj)) {
+    const bal = parseNum(ppfObj.currentBalance || ppfObj.balance || ppfObj.closing || ppfObj.currentValue);
+    const dep = parseNum(ppfObj.totalDeposited || ppfObj.invested || ppfObj.deposit);
+    const ledger = Array.isArray(ppfObj.ledger) && ppfObj.ledger.length ? ppfObj.ledger : [];
+    if (bal > 0 || dep > 0) {
+      return {
+        totalDeposited: dep || bal,
+        currentBalance: bal || dep,
+        totalInterest: parseNum(ppfObj.totalInterest) || Math.max(0, bal - dep),
+        ledger: ledger.length ? ledger : [{
+          fy: 'FY 2026-27',
+          opening: dep,
+          deposit: dep,
+          rate: '7.1%',
+          interest: Math.max(0, bal - dep),
+          closing: bal
+        }]
+      };
+    }
+  }
+
   const rows = getRootArray(data, 'PPF', 'ppf', 'PPF_Ledger', 'ppfLedger', 'sovereign_ppf', 'PPF Account', 'PPF_Account')
     .filter(r => {
       const name = String(getField(r, 'name', 'fundName', 'fy', 'year') || '').trim().toUpperCase();
@@ -7500,6 +7523,18 @@ function parseFlexibleDate(dStr, fallbackDate) {
     const serial = parseInt(dStr, 10);
     const dt = new Date((serial - 25569) * 86400 * 1000);
     if (!isNaN(dt.getTime())) return dt;
+  }
+
+  // Handle compact 8-digit dates (e.g. 20260313 or -20260313)
+  const compactMatch = dStr.match(/^-?(\d{4})(\d{2})(\d{2})$/);
+  if (compactMatch) {
+    const y = parseInt(compactMatch[1], 10);
+    const m = parseInt(compactMatch[2], 10) - 1;
+    const d = parseInt(compactMatch[3], 10);
+    if (y >= 1990 && y <= 2040 && m >= 0 && m <= 11 && d >= 1 && d <= 31) {
+      const dt = new Date(y, m, d);
+      if (!isNaN(dt.getTime())) return dt;
+    }
   }
 
   // Strip ISO time part if present
