@@ -6373,11 +6373,22 @@ function formatTimestampDetailed(d = new Date()) {
 function parseNum(val) {
   if (val === undefined || val === null || val === '') return 0;
   if (typeof val === 'number') return isNaN(val) ? 0 : val;
-  const str = String(val).trim();
+  let str = String(val).trim();
   if (str.startsWith('#') || str.includes('N/A') || str.includes('VALUE') || str.includes('REF!') || str.includes('DIV/0') || str.includes('NAME?')) return 0;
-  const clean = str.replace(/[^\d.-]/g, '');
+  
+  let isNegative = false;
+  if (str.startsWith('(') && str.endsWith(')')) {
+    isNegative = true;
+    str = str.slice(1, -1);
+  }
+  if (/[−–—]/.test(str) || str.includes('-')) {
+    isNegative = true;
+  }
+
+  const clean = str.replace(/[^\d.]/g, '');
   const parsed = Number(clean);
-  return isNaN(parsed) ? 0 : parsed;
+  if (isNaN(parsed)) return 0;
+  return isNegative ? -parsed : parsed;
 }
 
 function getRootArray(data, ...candidateKeys) {
@@ -6464,7 +6475,7 @@ function inferMFCategory(fundName, explicitCategory) {
   if (explicit && !['Flexi Cap', 'Direct Plan', 'Growth', 'Mutual Fund', 'Equity', 'Regular', 'Direct', 'Direct Growth'].includes(explicit)) {
     return explicit;
   }
-  const lower = (fundName || '').toLowerCase();
+  const lower = String(fundName || '').toLowerCase();
   if (lower.includes('small cap') || lower.includes('smallcap')) return 'Small Cap';
   if (lower.includes('midcap 150') || lower.includes('mid cap 150') || lower.includes('150 midcap')) return 'Midcap 150 Index';
   if (lower.includes('mid cap') || lower.includes('midcap')) return 'Mid Cap';
@@ -6996,8 +7007,8 @@ function syncMFWithSIPConfig() {
     AppState.mutualFunds.forEach(mf => {
       const matchingSip = AppState.sipConfig.find(s => {
         if (s.ticker && mf.ticker && String(s.ticker).trim() === String(mf.ticker).trim()) return true;
-        const sName = (s.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-        const mName = (mf.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const sName = String(s.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const mName = String(mf.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         return sName && mName && (sName.includes(mName) || mName.includes(sName));
       });
       if (matchingSip) {
@@ -7827,8 +7838,8 @@ function processFIFOLedger(transactions) {
 }
 
 function matchSchemeTransactions(fundName, txFundName) {
-  const f = (fundName || '').toLowerCase().trim();
-  const t = (txFundName || '').toLowerCase().trim();
+  const f = String(fundName || '').toLowerCase().trim();
+  const t = String(txFundName || '').toLowerCase().trim();
   if (!f || !t) return false;
   if (f === t) return true;
 
@@ -9801,7 +9812,7 @@ function updateUpcomingSipWidget() {
   const sipsMap = new Map();
 
   (AppState.sipConfig || []).forEach(s => {
-    const key = (s.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const key = String(s.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     const amt = parseNum(s.sipAmount);
     const day = parseInt(s.sipDay, 10);
     if (key && (amt > 0 || day > 0)) {
@@ -9815,7 +9826,7 @@ function updateUpcomingSipWidget() {
 
   (AppState.mutualFunds || []).forEach(f => {
     if (f.sipActive && (parseNum(f.monthlySip) > 0 || f.sipDay)) {
-      const key = (f.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const key = String(f.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
       const existing = sipsMap.get(key);
       const day = parseInt(f.sipDay, 10) || (existing ? existing.sipDay : 10);
       const amt = parseNum(f.monthlySip) || (existing ? existing.sipAmount : 0);
@@ -10074,13 +10085,13 @@ function renderMFTxTable() {
   if (badge) badge.innerText = `${txs.length} Inflows`;
 
   const filtered = txs.filter(t => {
-    return !filterTxQuery || t.fundName.toLowerCase().includes(filterTxQuery) || t.date.toLowerCase().includes(filterTxQuery);
+    return !filterTxQuery || String(t.fundName || '').toLowerCase().includes(filterTxQuery) || String(t.date || '').toLowerCase().includes(filterTxQuery);
   });
 
   tbody.innerHTML = filtered.map(t => {
     const parentFund = AppState.mutualFunds.find(f => {
-      const pName = (f.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-      const tName = (t.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const pName = String(f.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const tName = String(t.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
       return pName && tName && (pName.includes(tName) || tName.includes(pName));
     });
 
@@ -13882,7 +13893,7 @@ function openTxDetailModal(txId) {
   if (!modal) return;
 
   const isRedeem = Boolean(tx.isRedeem || tx.action === 'REDEMPTION');
-  const parentFund = AppState.mutualFunds.find(f => (f.name || '').toLowerCase().includes((tx.fundName || '').toLowerCase()));
+  const parentFund = AppState.mutualFunds.find(f => String(f.name || '').toLowerCase().includes(String(tx.fundName || '').toLowerCase()));
   const liveNav = parentFund ? parentFund.currentNav : tx.nav;
   const curVal = isRedeem ? tx.amount : (tx.units * liveNav);
   const gain = isRedeem ? (tx.realizedGain || 0) : (curVal - tx.amount);
