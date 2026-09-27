@@ -3034,25 +3034,6 @@ svg.lucide, i[data-lucide], svg {
         <!-- 1D / 1M / 1Y TIME HORIZON CHANGE DECK -->
         <div class="horizon-change-deck" id="horizonChangeDeckContainer" style="margin-bottom: 1.25rem; margin-top: 0; padding-top: 0; border-top: none;"></div>
 
-        <!-- UPCOMING SIP CASHFLOW PULSE BAR (EXCLUSIVE TO MASTER DOSSIER) -->
-        <div id="overviewSipCountdownCard" style="margin-bottom: 1.25rem; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(16,185,129,0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
-              <svg  class="lucide lucide-calendar" style="width: 15px; height: 15px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-            </div>
-            <div>
-              <div style="font-size: 11.5px; font-weight: 600; color: #FDFAF7;" id="overviewNextSipText">Next Scheduled Debit: --</div>
-              <div style="font-size: 10px; color: var(--text-dim);" id="overviewNextSipSub">Checking active systematic mandates...</div>
-            </div>
-          </div>
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="text-align: right;">
-              <div style="font-size: 9px; color: var(--text-dim); text-transform: uppercase;">7-Day Liquidity Needed</div>
-              <div class="num-mono privacy-blur" style="font-size: 12.5px; font-weight: 700; color: #fde047;" id="overview7DayBuffer">₹0</div>
-            </div>
-            <button class="status-badge-pill live" onclick="activateFolder(1)" style="font-size: 10px; padding: 3px 8px; cursor: pointer;">View SIP Ledger →</button>
-          </div>
-        </div>
 
         <!-- 5 Architectural KPIs -->
         <div class="dossier-kpi-grid">
@@ -3074,7 +3055,7 @@ svg.lucide, i[data-lucide], svg {
           <div class="dossier-kpi-card clickable-metric-card" onclick="openSchemeXirrBreakdownModal()" style="cursor:pointer;" title="Click to view Scheme XIRR breakdown">
             <span class="dossier-kpi-label">Weighted Portfolio XIRR</span>
             <span class="dossier-kpi-val num-mono" id="kpiXirr" style="color: #60a5fa;">0.0%</span>
-            <span style="font-size:11px; opacity:0.75;" id="kpiXirrSub">Annualized Compounding</span>
+            <span style="font-size:11px; opacity:0.75;" id="kpiXirrSub">MFs, ETFs &amp; Gold Compounding</span>
           </div>
           <div class="dossier-kpi-card">
             <span class="dossier-kpi-label">Active Holdings</span>
@@ -3185,80 +3166,7 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <!-- PORTFOLIO DRAWDOWN & RISK RADAR (UNDERWATER DYNAMICS & PERFORMANCE HEATMAP) -->
-        <div class="benchmark-radar-card" id="masterRiskRadarCard">
-          <div class="benchmark-radar-header">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(110, 231, 183, 0.15); display: flex; align-items: center; justify-content: center; color: #6ee7b7;">
-                <i style="width: 15px; height: 15px;" data-lucide="waves"></i>
-              </div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                  <span style="font-family: var(--font-serif); font-size: 1.1rem; font-weight: 500;">Portfolio Risk &amp; Drawdown Radar</span>
-                  <span class="badge-capsule" id="drawdownLiveBadge" style="color: #6ee7b7; border-color: rgba(16,185,129,0.3); font-size: 8.5px;">● 0.0% ATH ZONE</span>
-                </div>
-                <div style="font-size: 10px; color: var(--text-dim); margin-top: 2px;">
-                  Peak-to-trough "underwater" capital preservation curve &amp; multi-year monthly returns cadence.
-                </div>
-              </div>
-            </div>
 
-            <!-- View Switcher: Underwater Curve vs Monthly Heatmap -->
-            <div class="risk-radar-toggle-deck">
-              <button class="risk-toggle-btn active" id="btnRiskUnderwater" onclick="switchRiskRadarView('underwater')">
-                <i style="width: 12px; height: 12px;" data-lucide="activity"></i>
-                <span>Underwater Curve</span>
-              </button>
-              <button class="risk-toggle-btn" id="btnRiskHeatmap" onclick="switchRiskRadarView('heatmap')">
-                <i style="width: 12px; height: 12px;" data-lucide="layout-grid"></i>
-                <span>Monthly Heatmap</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Top 4 Risk Scorecards -->
-          <div class="risk-scorecard-grid">
-            <div class="benchmark-stat-box">
-              <div class="benchmark-stat-label">Current Realized Drawdown</div>
-              <div class="benchmark-stat-val num-mono privacy-blur" id="riskCurDrawdownVal" style="color: #6ee7b7;">0.0%</div>
-              <div class="benchmark-stat-sub" id="riskCurDrawdownSub">At All-Time High</div>
-            </div>
-            <div class="benchmark-stat-box">
-              <div class="benchmark-stat-label">Max Realized Drawdown</div>
-              <div class="benchmark-stat-val num-mono privacy-blur" id="riskMaxDrawdownVal" style="color: #fca5a5;">-4.8%</div>
-              <div class="benchmark-stat-sub" id="riskMaxDrawdownSub">Actual historical correction dip</div>
-            </div>
-            <div class="benchmark-stat-box">
-              <div class="benchmark-stat-label">Peak Historical Net Worth</div>
-              <div class="benchmark-stat-val num-mono privacy-blur" id="riskAthNetWorthVal" style="color: #60a5fa;">₹0</div>
-              <div class="benchmark-stat-sub">Record high-water mark</div>
-            </div>
-            <div class="benchmark-stat-box highlight">
-              <div class="benchmark-stat-label">Capital Preservation Score</div>
-              <div class="benchmark-stat-val num-mono privacy-blur" id="riskRecoveryScoreVal" style="color: #6ee7b7;">98.4%</div>
-              <div class="benchmark-stat-sub" id="riskRecoveryScoreSub">Capital preserved from peak</div>
-            </div>
-          </div>
-
-          <!-- View 1: Underwater Canvas Container -->
-          <div id="riskUnderwaterView" class="risk-view-container">
-            <div style="position: relative; width: 100%; height: 210px; margin-top: 8px;">
-              <canvas id="underwaterDrawdownCanvas" width="900" height="210" style="width: 100%; height: 100%; display: block;"></canvas>
-              <div id="underwaterTooltip" class="underwater-tooltip" style="display: none;"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-dim); margin-top: 8px; padding: 0 4px; flex-wrap: wrap; gap: 4px;">
-              <span>Baseline: 0.0% All-Time High Peak Line</span>
-              <span><span style="color: #6ee7b7;">■</span> Minor Dip (&lt; 2%) &nbsp;|&nbsp; <span style="color: #f87171;">■</span> Correction (&gt; 3%)</span>
-            </div>
-          </div>
-
-          <!-- View 2: Monthly Returns Heatmap Container -->
-          <div id="riskHeatmapView" class="risk-view-container" style="display: none;">
-            <div class="risk-heatmap-shell" id="riskHeatmapTableContainer">
-              <!-- Dynamically rendered monthly matrix -->
-            </div>
-          </div>
-        </div>
 
         <!-- PASSIVE CASHFLOW & DIVIDEND ACCRETION STREAM (KEPT IN MASTER DOSSIER) -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
@@ -3305,7 +3213,7 @@ svg.lucide, i[data-lucide], svg {
           <div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
               <span style="font-size: 10px; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-mono);">Top Dividend Yield Contributors</span>
-              <span style="font-size: 10px; color: #6ee7b7;" id="topDividendSummaryText">BEL • CDSL • HDFCBANK • IRCTC • NHPC</span>
+              <span style="font-size: 10px; color: #6ee7b7;" id="topDividendSummaryText"></span>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="dividendContributorsPills"></div>
           </div>
@@ -3993,29 +3901,6 @@ svg.lucide, i[data-lucide], svg {
           </div>
         </div>
 
-        <!-- PILLAR 2.5: DIRECT EQUITIES VALUATION & FUNDAMENTAL QUALITY CALIPERS -->
-        <div class="dossier-kpi-grid four-cols" style="margin-bottom: 1.25rem;">
-          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('cons_pe')">
-            <span class="dossier-kpi-label">Direct Stocks P/E</span>
-            <span class="dossier-kpi-val num-mono" id="kpiConsolidatedPE" style="font-size:1.35rem; color:#6ee7b7;">24.2x</span>
-            <span style="font-size:10px; opacity:0.75;" id="kpiConsolidatedPESub">vs NIFTY 22.5x</span>
-          </div>
-          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('cons_div_yield')">
-            <span class="dossier-kpi-label">Direct Stocks Yield</span>
-            <span class="dossier-kpi-val num-mono" id="kpiPortfolioDivYield" style="font-size:1.35rem; color:#60a5fa;">1.12%</span>
-            <span style="font-size:10px; opacity:0.75;" id="kpiPortfolioDivYieldSub">Cashflow Accretion</span>
-          </div>
-          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('cons_pb')">
-            <span class="dossier-kpi-label">Direct Stocks P/B</span>
-            <span class="dossier-kpi-val num-mono" id="kpiPortfolioPB" style="font-size:1.35rem; color:#fde047;">4.20x</span>
-            <span style="font-size:10px; opacity:0.75;">Book Value Multiple</span>
-          </div>
-          <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('stock_roe')">
-            <span class="dossier-kpi-label">Weighted Stock ROE</span>
-            <span class="dossier-kpi-val num-mono" id="kpiGrowthDefensiveRatio" style="font-size:1.35rem; color:#c084fc;">21.8%</span>
-            <span style="font-size:10px; opacity:0.75;" id="kpiGrowthDefensiveSub">Capital Efficiency</span>
-          </div>
-        </div>
 
         <!-- PILLAR 3: BENCHMARK RELATIVE ALPHA SPREAD & CORRELATION MATRIX -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.25rem;">
@@ -4557,6 +4442,7 @@ svg.lucide, i[data-lucide], svg {
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
         <div>
           <h2 style="font-family: var(--font-serif); font-size: 1.35rem; color: #FDFAF7; margin: 0;">Scheme-Level XIRR</h2>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 3px;">Annualized internal rate of return across Systematic MFs, ETFs &amp; Sovereign Gold</div>
         </div>
         <button class="btn-icon-nav" onclick="closeSchemeXirrModal()"><svg class="lucide lucide-x" style="width:18px; height:18px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
       </div>
@@ -6257,7 +6143,8 @@ const DEMO_STATE = {
     { ticker: 'NEO.ENERGY', title: 'Grid Synchronization of 450 MW Hybrid Solar-Storage Utility Farm', summary: 'Fixed tariff power purchase agreement finalized with state transmission utility with round-the-clock power guarantees.', sentiment: 'bullish', date: getRelativeDateStr(3), sources: ['Renewable Energy Gazette', 'Clean Power Registry'] },
     { ticker: 'IND.SEMI', title: 'Tape-Out Complete for 7nm Gallium Nitride High-Power Semiconductor', summary: 'Foundry validation yields exceed 88% with automotive EV inverter manufacturers securing advance capacity.', sentiment: 'earnings', date: getRelativeDateStr(5), sources: ['Semiconductor Industry News', 'Foundry Dispatches'] },
     { ticker: 'CYBER.SEC', title: 'Wins Zero-Trust Enterprise Security Mandate with Global Banking Consortium', summary: 'Recurring ARR growth accelerates 42% YoY with AI-driven threat response telemetry adopted across 14 banks.', sentiment: 'bullish', date: getRelativeDateStr(7), sources: ['Cybersecurity Wire', 'Enterprise Tech Review'] }
-  ]
+  ],
+  history: []
 };
 
 const LIVE_REAL_STOCK_CATALYSTS = [
@@ -6886,6 +6773,99 @@ function normalizePPFData(data) {
   };
 }
 
+function parseDateStrToParts(dateVal) {
+  if (!dateVal) return null;
+  if (dateVal instanceof Date) {
+    if (isNaN(dateVal.getTime())) return null;
+    return {
+      year: dateVal.getFullYear(),
+      month: dateVal.getMonth(),
+      day: dateVal.getDate(),
+      iso: `${dateVal.getFullYear()}-${String(dateVal.getMonth()+1).padStart(2, '0')}-${String(dateVal.getDate()).padStart(2, '0')}`
+    };
+  }
+  let s = String(dateVal).trim();
+  if (s.includes('T')) s = s.split('T')[0];
+
+  // Match YYYY-MM-DD or YYYY/MM/DD
+  let match = s.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
+  if (match) {
+    const yr = parseInt(match[1], 10);
+    const mo = parseInt(match[2], 10) - 1;
+    const dy = parseInt(match[3], 10);
+    return {
+      year: yr,
+      month: mo,
+      day: dy,
+      iso: `${yr}-${String(mo + 1).padStart(2, '0')}-${String(dy).padStart(2, '0')}`
+    };
+  }
+
+  // Match DD-MM-YYYY or DD/MM/YYYY
+  match = s.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})/);
+  if (match) {
+    const dy = parseInt(match[1], 10);
+    const mo = parseInt(match[2], 10) - 1;
+    const yr = parseInt(match[3], 10);
+    return {
+      year: yr,
+      month: mo,
+      day: dy,
+      iso: `${yr}-${String(mo + 1).padStart(2, '0')}-${String(dy).padStart(2, '0')}`
+    };
+  }
+
+  // Match mangled YYYYMMDD (e.g. -20251231 or 20260924 from autoConvert)
+  match = s.match(/^-?(\d{4})(\d{2})(\d{2})/);
+  if (match) {
+    const yr = parseInt(match[1], 10);
+    const mo = parseInt(match[2], 10) - 1;
+    const dy = parseInt(match[3], 10);
+    if (yr >= 1990 && yr <= 2100 && mo >= 0 && mo <= 11 && dy >= 1 && dy <= 31) {
+      return {
+        year: yr,
+        month: mo,
+        day: dy,
+        iso: `${yr}-${String(mo + 1).padStart(2, '0')}-${String(dy).padStart(2, '0')}`
+      };
+    }
+  }
+
+  const parsed = new Date(s);
+  if (!isNaN(parsed.getTime())) {
+    return {
+      year: parsed.getFullYear(),
+      month: parsed.getMonth(),
+      day: parsed.getDate(),
+      iso: `${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2, '0')}-${String(parsed.getDate()).padStart(2, '0')}`
+    };
+  }
+  return null;
+}
+
+function normalizeHistoryData(data) {
+  const rows = getRootArray(data, 'History', 'history', 'HISTORY', 'snapshots', 'history_snapshots');
+  if (!Array.isArray(rows) || !rows.length) return [];
+  
+  return rows.map((r, i) => {
+    const rawDate = getField(r, 'Date', 'date', 'DATE', 'timestamp');
+    const dParts = parseDateStrToParts(rawDate);
+    let dateStr = dParts ? dParts.iso : (rawDate ? String(rawDate).trim().split('T')[0] : '');
+
+    const mfVal = parseNum(getField(r, 'TOTAL_MF_VALUE', 'totalMfValue', 'total_mf_value', 'total', 'Total', 'TOTAL', 'mfTotal', 'value'));
+    const nw = parseNum(getField(r, 'NET_WORTH', 'netWorth', 'net_worth', 'totalNetWorth', 'total_net_worth'));
+
+    return {
+      id: 'hist-' + i,
+      date: dateStr,
+      dateParts: dParts,
+      mfVal: mfVal,
+      netWorth: nw,
+      raw: r
+    };
+  }).filter(h => h.date && (h.mfVal > 0 || h.netWorth > 0));
+}
+
 function normalizeSIPData(data) {
   let rows = getRootArray(data, 'SIP_Config', 'sip_config', 'sipConfig', 'SIP Config', 'sips', 'sip');
   if (!rows.length && Array.isArray(data?.mutualFunds)) {
@@ -7079,17 +7059,6 @@ function activateFolder(idx) {
     container.style.backgroundColor = FOLDER_COLORS[idx];
   }
 
-  // Redraw Risk Radar canvas when switching back to Master Dossier (tab 0)
-  if (idx === 0) {
-    const triggerRisk = () => {
-      const metrics = calculateTotals();
-      renderRiskRadarSection(metrics);
-    };
-    triggerRisk();
-    requestAnimationFrame(triggerRisk);
-    setTimeout(triggerRisk, 40);
-  }
-
   // Ensure Analytics canvas chart is immediately painted with correct container dimensions
   if (idx === 4) {
     const triggerPaint = () => {
@@ -7106,9 +7075,6 @@ function activateFolder(idx) {
 // Window resize listener to keep Analytics Canvas crisp & fully responsive
 if (typeof window !== 'undefined' && window.addEventListener) {
   window.addEventListener('resize', () => {
-    if (activeFolderIdx === 0 && currentRiskView === 'underwater') {
-      drawUnderwaterDrawdownChart();
-    }
     if (activeFolderIdx === 4) {
       const metrics = calculateTotals();
       renderSimulatorSection(metrics);
@@ -7614,43 +7580,66 @@ function solveNewtonRaphsonXIRR(payments, dates, guess = 0.15) {
   const d0 = dates[0].getTime();
   const dLast = dates[dates.length - 1].getTime();
   const spanDays = Math.max(1, (dLast - d0) / (1000 * 60 * 60 * 24));
+  const spanYears = Math.max(0.1, spanDays / 365.25);
 
   const dayFracs = dates.map(d => (d.getTime() - d0) / (1000 * 60 * 60 * 24 * 365.25));
 
-  let rate = guess;
+  const totalOut = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
+  const totalIn = payments.filter(p => p > 0).reduce((s, p) => s + p, 0);
+
+  // Compute a smart initial guess based on annualized holding period return
+  let initialGuess = guess;
+  if (totalOut > 0 && totalIn > 0) {
+    const rawR = (totalIn - totalOut) / totalOut;
+    initialGuess = spanYears >= 0.5 ? (Math.pow(totalIn / totalOut, 1 / spanYears) - 1) : rawR;
+    if (isNaN(initialGuess) || !isFinite(initialGuess) || initialGuess < -0.9 || initialGuess > 3.0) {
+      initialGuess = guess;
+    }
+  }
+
+  const guessesToTry = [initialGuess, 0.10, -0.05, 0.25, 0.0];
   const maxIterations = 80;
   const tolerance = 1e-5;
 
-  for (let i = 0; i < maxIterations; i++) {
-    let f = 0;
-    let df = 0;
+  for (let g of guessesToTry) {
+    let rate = g;
+    let converged = false;
 
-    for (let j = 0; j < payments.length; j++) {
-      const p = payments[j];
-      const t = dayFracs[j];
-      const factor = Math.pow(1 + rate, t);
-      if (isNaN(factor) || factor === 0 || !isFinite(factor)) break;
-      f += p / factor;
-      df -= (t * p) / Math.pow(1 + rate, t + 1);
+    for (let i = 0; i < maxIterations; i++) {
+      let f = 0;
+      let df = 0;
+      let broke = false;
+
+      for (let j = 0; j < payments.length; j++) {
+        const p = payments[j];
+        const t = dayFracs[j];
+        const base = 1 + rate;
+        if (base <= 0.001) { broke = true; break; }
+        const factor = Math.pow(base, t);
+        if (isNaN(factor) || factor === 0 || !isFinite(factor)) { broke = true; break; }
+        f += p / factor;
+        df -= (t * p) / Math.pow(base, t + 1);
+      }
+
+      if (broke || df === 0 || isNaN(df) || !isFinite(df)) break;
+      if (Math.abs(f) < tolerance) { converged = true; break; }
+
+      let newRate = rate - (f / df);
+      if (newRate <= -0.99) newRate = -0.95;
+      if (Math.abs(newRate - rate) < tolerance) { rate = newRate; converged = true; break; }
+      rate = newRate;
     }
 
-    if (Math.abs(f) < tolerance) return rate;
-    if (df === 0 || isNaN(df) || !isFinite(df)) break;
-
-    let newRate = rate - (f / df);
-    if (newRate <= -0.99) newRate = -0.95;
-    if (Math.abs(newRate - rate) < tolerance) return newRate;
-    rate = newRate;
+    if (converged && rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 5.0) {
+      return rate;
+    }
   }
 
-  // Clamping to realistic financial limits (-99% to +150%)
-  if (rate !== null && !isNaN(rate) && isFinite(rate) && rate > -0.99 && rate < 1.50) {
-    return rate;
+  // Fallback to annualized CAGR if multi-guess solver didn't converge
+  if (totalOut > 0 && totalIn > 0 && spanYears >= 0.5) {
+    const cagr = Math.pow(totalIn / totalOut, 1 / spanYears) - 1;
+    if (!isNaN(cagr) && isFinite(cagr) && cagr > -0.99) return cagr;
   }
-
-  // Fallback to absolute holding return if short duration or divergence
-  const totalOut = payments.filter(p => p < 0).reduce((s, p) => s + Math.abs(p), 0);
-  const totalIn = payments.filter(p => p > 0).reduce((s, p) => s + p, 0);
   if (totalOut > 0) {
     return (totalIn - totalOut) / totalOut;
   }
@@ -7667,20 +7656,25 @@ function calculateTrueMFXIRR() {
   // Find earliest dated transaction to anchor initial lump sums
   let earliestDate = new Date();
   txs.forEach(tx => {
-    if (tx.rawDate && !tx.isInitial) {
-      const dt = parseFlexibleDate(tx.rawDate);
-      if (dt < earliestDate) earliestDate = dt;
+    const rawD = tx.rawDate || tx.date;
+    if (rawD && !tx.isInitial) {
+      const dt = parseFlexibleDate(rawD);
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) earliestDate = dt;
     }
   });
   stkTx.forEach(tx => {
     if (isEquityEtf(tx) && (tx.rawDate || tx.date)) {
       const dt = parseFlexibleDate(tx.rawDate || tx.date);
-      if (dt < earliestDate) earliestDate = dt;
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) earliestDate = dt;
     }
   });
 
-  // Default inception anchor: 1st day of the earliest active month
-  const inceptionDate = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1);
+  const defaultInception = new Date();
+  defaultInception.setFullYear(defaultInception.getFullYear() - 1);
+  const spanFromEarliest = (new Date().getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24);
+  const inceptionDate = (spanFromEarliest >= 30)
+    ? new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1)
+    : defaultInception;
 
   const payments = [];
   const dates = [];
@@ -7722,14 +7716,15 @@ function calculateTrueMFXIRR() {
   }
 
   // Anchor unlisted capital basis if transactions don't cover full invested cost
-  const totalTrackedOutflow = payments.filter(p => p < 0).reduce((sum, p) => sum + Math.abs(p), 0);
-  const unlistedInitial = metrics.mfInv - totalTrackedOutflow;
+  const netTrackedOutflow = payments.reduce((sum, p) => sum - p, 0);
+  const mfInv = metrics.mfInv || 0;
+  const unlistedInitial = mfInv - netTrackedOutflow;
 
   if (unlistedInitial > 100) {
     payments.push(-unlistedInitial);
     dates.push(inceptionDate);
-  } else if (payments.length === 0 && metrics.mfInv > 0) {
-    payments.push(-metrics.mfInv);
+  } else if (payments.length === 0 && mfInv > 0) {
+    payments.push(-mfInv);
     dates.push(inceptionDate);
   }
 
@@ -7745,23 +7740,128 @@ function calculateTrueMFXIRR() {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    if (pct > -99 && pct < 200) {
+    if (pct > -99 && pct < 500) {
       const formatted = pct.toFixed(1);
-      try { localStorage.setItem('MOSBY_LAST_KNOWN_MF_XIRR', formatted); } catch(e) {}
+      try { localStorage.setItem('MOSBY_LAST_KNOWN_MF_XIRR_V2', formatted); } catch(e) {}
       return formatted;
     }
   }
   
-  try {
-    const cachedXirr = localStorage.getItem('MOSBY_LAST_KNOWN_MF_XIRR');
-    if (cachedXirr && isLiveSession) return cachedXirr;
-  } catch(e) {}
+  const spanYears = Math.max(0.25, (sortedDates[sortedDates.length - 1].getTime() - sortedDates[0].getTime()) / (365.25 * 86400000));
+  if (mfInv > 0 && mfCur > 0 && spanYears >= 0.5) {
+    const cagr = (Math.pow(mfCur / mfInv, 1 / spanYears) - 1) * 100;
+    if (!isNaN(cagr) && isFinite(cagr)) return cagr.toFixed(1);
+  }
 
   return parseFloat(metrics.totalProfitPct || 0).toFixed(1);
 }
 
 function calculateTruePortfolioXIRR() {
-  return calculateTrueMFXIRR();
+  const txs = AppState.sipTransactions || [];
+  const stkTx = AppState.stockTransactions || [];
+  const metrics = calculateTotals();
+  
+  // Total current value for MF + ETF + Gold (leaving Stocks and PPF out)
+  const targetCur = (metrics.mfCur || 0) + (metrics.goldCur || 0);
+  const targetInv = (metrics.mfInv || 0) + (metrics.goldInv || 0);
+  if (targetCur <= 0) return "0.0";
+
+  let earliestDate = new Date();
+  txs.forEach(tx => {
+    const rawD = tx.rawDate || tx.date;
+    if (rawD && !tx.isInitial) {
+      const dt = parseFlexibleDate(rawD);
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) earliestDate = dt;
+    }
+  });
+  stkTx.forEach(tx => {
+    if ((isEquityEtf(tx) || isGoldEtf(tx)) && (tx.rawDate || tx.date)) {
+      const dt = parseFlexibleDate(tx.rawDate || tx.date);
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) earliestDate = dt;
+    }
+  });
+
+  const defaultInception = new Date();
+  defaultInception.setFullYear(defaultInception.getFullYear() - 1);
+  const spanFromEarliest = (new Date().getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24);
+  const inceptionDate = (spanFromEarliest >= 30)
+    ? new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1)
+    : defaultInception;
+
+  const payments = [];
+  const dates = [];
+
+  // 1. SIP Transactions (Mutual Funds)
+  if (txs.length > 0) {
+    txs.forEach(tx => {
+      const rawAmt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
+      const amt = Math.abs(rawAmt);
+      if (amt > 0) {
+        const act = String(tx.action || tx.type || tx.transactionType || 'BUY').toUpperCase().trim();
+        const isRedeem = act.includes('REDEEM') || act.includes('SELL') || act.includes('WITHDRAW') || rawAmt < 0;
+        const parsedD = tx.isInitial ? inceptionDate : parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
+        payments.push(isRedeem ? amt : -amt);
+        dates.push(parsedD);
+      }
+    });
+  }
+
+  // 2. Index ETFs & Gold ETFs from Stock Transactions (Stocks and PPF left out)
+  if (stkTx.length > 0) {
+    stkTx.forEach(tx => {
+      if (!isEquityEtf(tx) && !isGoldEtf(tx)) return;
+
+      const rawAmt = parseFloat(tx.amount || (tx.qty * tx.price) || tx.totalInvested) || 0;
+      const amt = Math.abs(rawAmt);
+      if (amt > 0) {
+        const act = String(tx.action || tx.type || 'BUY').toUpperCase().trim();
+        const isSell = act.includes('SELL') || act.includes('REDEEM') || rawAmt < 0;
+        const parsedD = parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
+        payments.push(isSell ? amt : -amt);
+        dates.push(parsedD);
+      }
+    });
+  }
+
+  // Anchor unlisted capital basis if transactions don't cover full invested cost
+  const netTrackedCost = payments.reduce((sum, p) => sum - p, 0);
+  const unlistedInitial = targetInv - netTrackedCost;
+
+  if (unlistedInitial > 100) {
+    payments.push(-unlistedInitial);
+    dates.push(inceptionDate);
+  } else if (payments.length === 0 && targetInv > 0) {
+    payments.push(-targetInv);
+    dates.push(inceptionDate);
+  }
+
+  // Sort cash flows chronologically
+  const paired = payments.map((p, i) => ({ p, d: dates[i] })).sort((a, b) => a.d.getTime() - b.d.getTime());
+  const sortedPayments = paired.map(x => x.p);
+  const sortedDates = paired.map(x => x.d);
+
+  // Terminal positive value today: Mutual Funds + Index ETFs + Gold
+  sortedPayments.push(targetCur);
+  sortedDates.push(new Date());
+
+  const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
+  if (result !== null && !isNaN(result) && isFinite(result)) {
+    const pct = result * 100;
+    if (pct > -99 && pct < 500) {
+      const formatted = pct.toFixed(1);
+      try { localStorage.setItem('MOSBY_LAST_KNOWN_PORTFOLIO_XIRR_V2', formatted); } catch(e) {}
+      return formatted;
+    }
+  }
+
+  const spanYears = Math.max(0.25, (sortedDates[sortedDates.length - 1].getTime() - sortedDates[0].getTime()) / (365.25 * 86400000));
+  if (targetInv > 0 && targetCur > 0 && spanYears >= 0.5) {
+    const cagr = (Math.pow(targetCur / targetInv, 1 / spanYears) - 1) * 100;
+    if (!isNaN(cagr) && isFinite(cagr)) return cagr.toFixed(1);
+  }
+
+  const targetProfit = targetCur - targetInv;
+  return (targetInv > 0 ? ((targetProfit / targetInv) * 100) : 0).toFixed(1);
 }
 
 /* ==========================================================================
@@ -7922,13 +8022,15 @@ function calculateSchemeXIRR(fund) {
   const gainPct = invVal > 0 ? ((curVal - invVal) / invVal) * 100 : 0;
 
   let matchingTxs = [];
-  if (fund.isEtf) {
+  const isGold = Boolean(fund.isGold || (typeof isGoldEtf === 'function' && isGoldEtf(fund)));
+  if (fund.isEtf || isGold) {
     const fundKey = normalizeFundKey(fund.ticker || fund.name || fund.id);
     matchingTxs = stkTx.filter(tx => {
+      if (isGold && isGoldEtf(tx)) return true;
       const txKey = normalizeFundKey(tx.ticker || tx.name || tx.instrument);
       return txKey && (txKey.includes(fundKey) || fundKey.includes(txKey));
     }).map(tx => {
-      const rawAmt = parseFloat(tx.amount || (tx.qty * tx.price) || 0);
+      const rawAmt = parseFloat(tx.amount || (tx.qty * tx.price) || tx.totalInvested || 0);
       const act = String(tx.action || tx.type || 'BUY').toUpperCase().trim();
       const isRedeem = act.includes('SELL') || act.includes('REDEEM') || rawAmt < 0;
       return {
@@ -7959,26 +8061,29 @@ function calculateSchemeXIRR(fund) {
 
   let earliestDate = new Date();
   matchingTxs.forEach(t => {
-    if (t.date && !t.isInitial) {
-      const dt = parseFlexibleDate(t.date);
-      if (dt < earliestDate) earliestDate = dt;
+    const rawD = t.date;
+    if (rawD && !t.isInitial) {
+      const dt = parseFlexibleDate(rawD);
+      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) earliestDate = dt;
     }
   });
 
   const spanDays = Math.max(1, (new Date().getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24));
-  const inceptionDate = (matchingTxs.length > 0 && spanDays >= 30) ? earliestDate : defaultInception;
+  let inceptionDate = (matchingTxs.length > 0 && spanDays >= 30) ? earliestDate : defaultInception;
+  if (matchingTxs.length === 0 && (fund.rawDate || fund.date)) {
+    const fd = parseFlexibleDate(fund.rawDate || fund.date);
+    if (fd && !isNaN(fd.getTime())) inceptionDate = fd;
+  }
 
   // Build balanced cashflows
   const payments = [];
   const dates = [];
-  let totalTrackedOutflow = 0;
 
   matchingTxs.forEach(t => {
     if (t.amount > 0) {
       const parsedD = t.isInitial ? inceptionDate : parseFlexibleDate(t.date, inceptionDate);
       if (!t.isRedeem) {
         payments.push(-t.amount);
-        totalTrackedOutflow += t.amount;
       } else {
         payments.push(t.amount);
       }
@@ -7987,13 +8092,13 @@ function calculateSchemeXIRR(fund) {
   });
 
   // If transactions don't account for the full invested cost basis, anchor initial holding at inception
-  if (totalTrackedOutflow < invVal) {
-    const unlistedInitial = invVal - totalTrackedOutflow;
+  const netTrackedOutflow = payments.reduce((sum, p) => sum - p, 0);
+  const unlistedInitial = invVal - netTrackedOutflow;
+
+  if (unlistedInitial > 100) {
     payments.push(-unlistedInitial);
     dates.push(inceptionDate);
-  }
-
-  if (payments.length === 0 && invVal > 0) {
+  } else if (payments.length === 0 && invVal > 0) {
     payments.push(-invVal);
     dates.push(inceptionDate);
   }
@@ -8021,8 +8126,8 @@ function calculateSchemeXIRR(fund) {
   const result = solveNewtonRaphsonXIRR(sortedPayments, sortedDates);
   if (result !== null && !isNaN(result) && isFinite(result)) {
     const pct = result * 100;
-    // Guard against unrealistic divergences (e.g. absolute return -2.3% resulting in -54% XIRR)
-    if (Math.abs(pct - gainPct) < 35 || (gainPct > 0 && pct > 0) || (gainPct < 0 && pct < 0 && Math.abs(pct) < 25)) {
+    // Guard against unrealistic divergences
+    if (Math.abs(pct - gainPct) < 35 || (gainPct > 0 && pct > 0) || (gainPct < 0 && pct < 0 && Math.abs(pct) < 25) || (pct > -99 && pct < 500)) {
       return {
         raw: result,
         pct: pct,
@@ -8258,8 +8363,9 @@ function calculateShadowNiftyPME() {
   let earliestDate = new Date();
   let foundAnyDate = false;
   txs.forEach(tx => {
-    if (tx.rawDate && !tx.isInitial) {
-      const dt = parseFlexibleDate(tx.rawDate);
+    const rawD = tx.rawDate || tx.date;
+    if (rawD && !tx.isInitial) {
+      const dt = parseFlexibleDate(rawD);
       if (dt && !isNaN(dt.getTime()) && dt < earliestDate) {
         earliestDate = dt;
         foundAnyDate = true;
@@ -8611,16 +8717,17 @@ function renderCompleteDossiers() {
     kpiRetSub.innerText = "Capital Growth Factor";
   }
 
-  const mfXirr = calculateTrueMFXIRR();
+  const portXirr = calculateTruePortfolioXIRR();
   const xirrEl = document.getElementById('kpiXirr');
   if (xirrEl) {
-    xirrEl.innerText = `${parseFloat(mfXirr) >= 0 ? '+' : ''}${mfXirr}%`;
-    xirrEl.style.color = parseFloat(mfXirr) >= 0 ? '#60a5fa' : '#fca5a5';
+    xirrEl.innerText = `${parseFloat(portXirr) >= 0 ? '+' : ''}${portXirr}%`;
+    xirrEl.style.color = parseFloat(portXirr) >= 0 ? '#60a5fa' : '#fca5a5';
   }
   const xirrSub = document.getElementById('kpiXirrSub');
-  if (xirrSub) xirrSub.innerText = "Annualized Compounding";
+  if (xirrSub) xirrSub.innerText = "MFs, ETFs & Gold (Annualized)";
 
-  // Also update MF tab XIRR
+  // MF tab XIRR (pure MF + Index ETFs)
+  const mfXirr = calculateTrueMFXIRR();
   const mfXirrEl = document.getElementById('mfWeightedXirr');
   if (mfXirrEl) {
     mfXirrEl.innerText = `${parseFloat(mfXirr) >= 0 ? '+' : ''}${mfXirr}%`;
@@ -8937,9 +9044,7 @@ function renderCompleteDossiers() {
   renderSimulatorSection(metrics);
 
   // Cashflow & Alpha & Yield Stream
-  updateUpcomingSipWidget();
   updateBenchmarkAlphaCards();
-  renderRiskRadarSection(metrics);
   renderPassiveCashflowStream(metrics);
 
   // Update Mobile Folder Spine Preview Badges
@@ -8989,52 +9094,26 @@ const EQUITY_DIVIDEND_YIELDS = {
 /* ==========================================================================
    FEATURE: PORTFOLIO RISK & UNDERWATER DRAWDOWN RADAR + HEATMAP
    ========================================================================== */
-let currentRiskView = 'underwater';
-let cachedRiskSeries = [];
 
-window.switchRiskRadarView = function(view) {
-  currentRiskView = view;
-  const btnU = document.getElementById('btnRiskUnderwater');
-  const btnH = document.getElementById('btnRiskHeatmap');
-  const viewU = document.getElementById('riskUnderwaterView');
-  const viewH = document.getElementById('riskHeatmapView');
 
-  if (btnU) btnU.classList.toggle('active', view === 'underwater');
-  if (btnH) btnH.classList.toggle('active', view === 'heatmap');
-  if (viewU) viewU.style.display = view === 'underwater' ? 'block' : 'none';
-  if (viewH) viewH.style.display = view === 'heatmap' ? 'block' : 'none';
-
-  if (view === 'underwater') {
-    requestAnimationFrame(() => drawUnderwaterDrawdownChart());
-  }
-};
-
-function buildPortfolioRiskSeries(metrics) {
-  const curNW = metrics.totalNetWorth > 0 ? metrics.totalNetWorth : 0;
-  const curInv = (metrics.totalInv || metrics.totalInvested) > 0 ? (metrics.totalInv || metrics.totalInvested) : curNW;
-
-  // High-Precision Monthly Benchmark & Portfolio Return Curve (2024 to Sep 2026)
-  // Realistic blended asset returns: MFs (40%) + Stocks/Gold (43%) + PPF (17% fixed @ +0.59%/mo)
+function buildDemoRiskSeries(curNW, metrics) {
   const monthlyTimeline = [
-    // 2024: The Bull Market towards Sep 2024 ATH
     { year: 2024, month: 0, label: 'Jan 24', ret: 1.8 },
     { year: 2024, month: 1, label: 'Feb 24', ret: 0.9 },
     { year: 2024, month: 2, label: 'Mar 24', ret: 1.4 },
     { year: 2024, month: 3, label: 'Apr 24', ret: 1.1 },
-    { year: 2024, month: 4, label: 'May 24', ret: -0.4 }, // Pre-election consolidation
-    { year: 2024, month: 5, label: 'Jun 24', ret: 3.4 },  // Election bounce
-    { year: 2024, month: 6, label: 'Jul 24', ret: 2.5 },  // Post-budget momentum
+    { year: 2024, month: 4, label: 'May 24', ret: -0.4 },
+    { year: 2024, month: 5, label: 'Jun 24', ret: 3.4 },
+    { year: 2024, month: 6, label: 'Jul 24', ret: 2.5 },
     { year: 2024, month: 7, label: 'Aug 24', ret: 2.1 },
-    { year: 2024, month: 8, label: 'Sep 24', ret: 3.2 },  // ALL-TIME HIGH PEAK (Nifty 26,277)
-    { year: 2024, month: 9, label: 'Oct 24', ret: -3.8 }, // FII selloff
-    { year: 2024, month: 10, label: 'Nov 24', ret: -2.2 },// Continued consolidation
+    { year: 2024, month: 8, label: 'Sep 24', ret: 3.2 },
+    { year: 2024, month: 9, label: 'Oct 24', ret: -3.8 },
+    { year: 2024, month: 10, label: 'Nov 24', ret: -2.2 },
     { year: 2024, month: 11, label: 'Dec 24', ret: 1.1 },
-
-    // 2025: Market Volatility & Summer Rebound
     { year: 2025, month: 0, label: 'Jan 25', ret: -1.2 },
-    { year: 2025, month: 1, label: 'Feb 25', ret: -3.1 }, // Deepest Correction Low (MDD reached)
+    { year: 2025, month: 1, label: 'Feb 25', ret: -3.1 },
     { year: 2025, month: 2, label: 'Mar 25', ret: 1.2 },
-    { year: 2025, month: 3, label: 'Apr 25', ret: 3.5 },  // Strong rebound
+    { year: 2025, month: 3, label: 'Apr 25', ret: 3.5 },
     { year: 2025, month: 4, label: 'May 25', ret: 2.6 },
     { year: 2025, month: 5, label: 'Jun 25', ret: 2.1 },
     { year: 2025, month: 6, label: 'Jul 25', ret: 1.4 },
@@ -9043,8 +9122,6 @@ function buildPortfolioRiskSeries(metrics) {
     { year: 2025, month: 9, label: 'Oct 25', ret: -1.1 },
     { year: 2025, month: 10, label: 'Nov 25', ret: -0.7 },
     { year: 2025, month: 11, label: 'Dec 25', ret: 0.5 },
-
-    // 2026: YTD Consolidation leading to current valuation
     { year: 2026, month: 0, label: 'Jan 26', ret: 0.4 },
     { year: 2026, month: 1, label: 'Feb 26', ret: -1.1 },
     { year: 2026, month: 2, label: 'Mar 26', ret: -1.4 },
@@ -9053,37 +9130,13 @@ function buildPortfolioRiskSeries(metrics) {
     { year: 2026, month: 5, label: 'Jun 26', ret: 1.2 },
     { year: 2026, month: 6, label: 'Jul 26', ret: -0.5 },
     { year: 2026, month: 7, label: 'Aug 26', ret: -0.4 },
-    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }  // Base benchmark anchor
+    { year: 2026, month: 8, label: 'Sep 26', ret: -0.8 }
   ];
 
-  // Dynamically roll forward: append any subsequent months up to current system date
-  const nowCalendar = new Date();
-  const curCalendarYear = nowCalendar.getFullYear();
-  const curCalendarMonth = nowCalendar.getMonth();
-  const calMonthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-  let lastEntry = monthlyTimeline[monthlyTimeline.length - 1];
-  let rollYear = lastEntry.year;
-  let rollMonth = lastEntry.month + 1;
-  if (rollMonth > 11) { rollYear++; rollMonth = 0; }
-
-  while (rollYear < curCalendarYear || (rollYear === curCalendarYear && rollMonth <= curCalendarMonth)) {
-    monthlyTimeline.push({
-      year: rollYear,
-      month: rollMonth,
-      label: `${calMonthNames[rollMonth]} ${String(rollYear).slice(-2)}`,
-      ret: 0.0
-    });
-    rollMonth++;
-    if (rollMonth > 11) { rollYear++; rollMonth = 0; }
-  }
-
-  // Dynamically hook latest month return to live 1-month portfolio change
   if (metrics && metrics.totalMonthChangePct !== undefined && !isNaN(parseFloat(metrics.totalMonthChangePct))) {
     monthlyTimeline[monthlyTimeline.length - 1].ret = parseFloat(metrics.totalMonthChangePct);
   }
 
-  // Calculate Unitized Portfolio NAV Curve starting at 100.0
   let currentNAV = 100.0;
   let runningPeakNAV = 100.0;
   const navPoints = [];
@@ -9094,7 +9147,6 @@ function buildPortfolioRiskSeries(metrics) {
       runningPeakNAV = currentNAV;
     }
     const dd = runningPeakNAV > 0 ? ((currentNAV - runningPeakNAV) / runningPeakNAV) * 100 : 0;
-
     navPoints.push({
       ...m,
       nav: currentNAV,
@@ -9107,11 +9159,9 @@ function buildPortfolioRiskSeries(metrics) {
   const curDrawdown = latestPoint.drawdown;
   const athNetWorth = Math.round(curNW / (1 + (curDrawdown / 100)));
 
-  // Derive Rupee Net Worth along the curve anchored to current net worth
-  const series = navPoints.map((p, idx) => {
+  return navPoints.map((p, idx) => {
     const capitalAccumFactor = 0.72 + (0.28 * ((idx + 1) / navPoints.length));
     const estimatedVal = Math.round(athNetWorth * (p.nav / runningPeakNAV) * capitalAccumFactor);
-
     return {
       key: `${p.year}-${String(p.month + 1).padStart(2, '0')}`,
       label: p.label,
@@ -9123,318 +9173,240 @@ function buildPortfolioRiskSeries(metrics) {
       drawdown: p.drawdown
     };
   });
-
-  return series;
 }
 
-function renderRiskRadarSection(metrics) {
-  const series = buildPortfolioRiskSeries(metrics);
-  cachedRiskSeries = series;
+function buildPortfolioRiskSeries(metrics) {
+  const curNW = metrics.totalNetWorth > 0 ? metrics.totalNetWorth : 0;
+  const curMF = metrics.mfCur > 0 ? metrics.mfCur : 0;
+  const nonMfBase = Math.max(0, curNW - curMF);
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-  if (!series || series.length === 0) return;
+  const hasRealHistory = Array.isArray(AppState.history) && AppState.history.length > 0;
 
-  const lastPoint = series[series.length - 1];
-  const curDrawdown = lastPoint.drawdown;
-  const maxDrawdown = Math.min(...series.map(s => s.drawdown));
-  const maxPeakVal = Math.max(...series.map(s => s.peak));
-  const recoveryScore = Math.min(100, Math.max(0, 100 + curDrawdown));
-
-  // Update Scorecards
-  const curEl = document.getElementById('riskCurDrawdownVal');
-  const curSub = document.getElementById('riskCurDrawdownSub');
-  const maxEl = document.getElementById('riskMaxDrawdownVal');
-  const athEl = document.getElementById('riskAthNetWorthVal');
-  const recEl = document.getElementById('riskRecoveryScoreVal');
-  const badgeEl = document.getElementById('drawdownLiveBadge');
-
-  if (curEl) {
-    curEl.innerText = `${curDrawdown >= -0.1 ? '0.0%' : curDrawdown.toFixed(1) + '%'}`;
-    curEl.style.color = curDrawdown >= -1.0 ? '#6ee7b7' : (curDrawdown <= -3.5 ? '#f87171' : '#fde047');
-  }
-  if (curSub) {
-    if (curDrawdown >= -0.1) {
-      curSub.innerText = 'At All-Time High Mark';
-    } else {
-      const dipAmt = maxPeakVal - lastPoint.val;
-      curSub.innerText = `${formatValCompact(dipAmt)} below peak`;
-    }
-  }
-  if (maxEl) {
-    maxEl.innerText = `${maxDrawdown.toFixed(1)}%`;
-    maxEl.style.color = maxDrawdown < -5 ? '#f87171' : '#fca5a5';
-  }
-  if (athEl) {
-    athEl.innerText = formatVal(maxPeakVal);
-  }
-  if (recEl) {
-    recEl.innerText = `${recoveryScore.toFixed(1)}%`;
-  }
-  const recSub = document.getElementById('riskRecoveryScoreSub');
-  if (recSub) {
-    recSub.innerText = `${recoveryScore.toFixed(1)}% of peak intact (${Math.abs(curDrawdown).toFixed(1)}% dip)`;
-  }
-  if (badgeEl) {
-    if (curDrawdown >= -0.2) {
-      badgeEl.innerText = '● 0.0% ATH ZONE';
-      badgeEl.style.color = '#6ee7b7';
-      badgeEl.style.borderColor = 'rgba(16,185,129,0.3)';
-    } else {
-      badgeEl.innerText = `● ${curDrawdown.toFixed(1)}% FROM PEAK`;
-      badgeEl.style.color = '#fca5a5';
-      badgeEl.style.borderColor = 'rgba(239,68,68,0.3)';
-    }
+  if (!hasRealHistory && !isLiveSession) {
+    return buildDemoRiskSeries(curNW, metrics);
   }
 
-  // Draw chart and render heatmap
-  drawUnderwaterDrawdownChart();
-  renderRiskMonthlyHeatmap(series);
-}
-
-function drawUnderwaterDrawdownChart() {
-  const canvas = document.getElementById('underwaterDrawdownCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  const series = cachedRiskSeries;
-  if (!series || series.length < 2) return;
-
-  const dpr = window.devicePixelRatio || 1;
-  const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : 900;
-  const width = Math.max(320, parentW);
-  const height = 210;
-
-  canvas.width = Math.floor(width * dpr);
-  canvas.height = Math.floor(height * dpr);
-  ctx.scale(dpr, dpr);
-  ctx.clearRect(0, 0, width, height);
-
-  const padLeft = 45;
-  const padRight = 20;
-  const padTop = 26;
-  const padBottom = 28;
-  const plotW = width - padLeft - padRight;
-  const plotH = height - padTop - padBottom;
-
-  const minDD = Math.min(-6, Math.min(...series.map(s => s.drawdown)) * 1.25);
-  const getX = (idx) => padLeft + (idx / (series.length - 1)) * plotW;
-  const getY = (dd) => padTop + (Math.abs(dd) / Math.abs(minDD)) * plotH;
-
-  const steps = [0, -2, -4, -6];
-  if (minDD < -6) steps.push(Math.floor(minDD));
-
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
-  ctx.lineWidth = 1;
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-  ctx.font = '9px var(--font-mono, monospace)';
-  ctx.textAlign = 'right';
-
-  steps.forEach(val => {
-    if (val < minDD) return;
-    const y = getY(val);
-    ctx.beginPath();
-    ctx.moveTo(padLeft, y);
-    ctx.lineTo(width - padRight, y);
-    ctx.stroke();
-
-    ctx.fillText(`${val.toFixed(0)}%`, padLeft - 8, y + 3);
-  });
-
-  // 0% ATH Baseline Highlight
-  const yZero = getY(0);
-  ctx.strokeStyle = 'rgba(110, 231, 183, 0.55)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 4]);
-  ctx.beginPath();
-  ctx.moveTo(padLeft, yZero);
-  ctx.lineTo(width - padRight, yZero);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Draw Underwater Area Fill
-  const areaGrad = ctx.createLinearGradient(0, yZero, 0, padTop + plotH);
-  areaGrad.addColorStop(0, 'rgba(110, 231, 183, 0.30)');
-  areaGrad.addColorStop(0.35, 'rgba(96, 165, 250, 0.20)');
-  areaGrad.addColorStop(1, 'rgba(248, 113, 113, 0.45)');
-
-  ctx.fillStyle = areaGrad;
-  ctx.beginPath();
-  ctx.moveTo(getX(0), yZero);
-  ctx.lineTo(getX(0), getY(series[0].drawdown));
-
-  for (let i = 1; i < series.length; i++) {
-    const prevX = getX(i - 1);
-    const prevY = getY(series[i - 1].drawdown);
-    const curX = getX(i);
-    const curY = getY(series[i].drawdown);
-    const cpX = (prevX + curX) / 2;
-    ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
-  }
-
-  ctx.lineTo(getX(series.length - 1), yZero);
-  ctx.closePath();
-  ctx.fill();
-
-  // Draw Curve Outline Stroke
-  ctx.strokeStyle = '#6ee7b7';
-  ctx.lineWidth = 2.2;
-  ctx.beginPath();
-  ctx.moveTo(getX(0), getY(series[0].drawdown));
-
-  for (let i = 1; i < series.length; i++) {
-    const prevX = getX(i - 1);
-    const prevY = getY(series[i - 1].drawdown);
-    const curX = getX(i);
-    const curY = getY(series[i].drawdown);
-    const cpX = (prevX + curX) / 2;
-    ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
-  }
-  ctx.stroke();
-
-  // Draw Data Points
-  series.forEach((s, idx) => {
-    const x = getX(idx);
-    const y = getY(s.drawdown);
-    ctx.fillStyle = s.drawdown >= -0.5 ? '#6ee7b7' : (s.drawdown <= -3 ? '#f87171' : '#fde047');
-    ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = '#07090E';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-  });
-
-  // X-Axis Month Labels
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-  ctx.font = '9px var(--font-mono, monospace)';
-  const labelStep = Math.max(1, Math.floor(series.length / 6));
-
-  series.forEach((s, idx) => {
-    if (idx % labelStep === 0 || idx === series.length - 1) {
-      const x = getX(idx);
-      ctx.textAlign = idx === 0 ? 'left' : (idx === series.length - 1 ? 'right' : 'center');
-      ctx.fillText(s.label, x, height - 8);
-    }
-  });
-
-  // Interactive Tooltip
-  const tooltip = document.getElementById('underwaterTooltip');
-  canvas.style.cursor = 'crosshair';
-
-  canvas.onmousemove = (e) => {
-    if (!tooltip) return;
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    if (mouseX < padLeft || mouseX > width - padRight) {
-      tooltip.style.display = 'none';
-      return;
-    }
-
-    const relX = mouseX - padLeft;
-    const frac = Math.max(0, Math.min(1, relX / plotW));
-    const idx = Math.round(frac * (series.length - 1));
-    const p = series[idx];
-    if (!p) return;
-
-    tooltip.style.display = 'block';
-    const posX = Math.min(width - 190, Math.max(padLeft, mouseX - 70));
-    const posY = Math.max(10, mouseY - 70);
-    tooltip.style.left = `${posX}px`;
-    tooltip.style.top = `${posY}px`;
-
-    const isAth = p.drawdown >= -0.1;
-    tooltip.innerHTML = `
-      <div style="font-weight:700; color:#fff; margin-bottom:3px; display:flex; justify-content:space-between; gap:8px;">
-        <span>${p.label}</span>
-        <span style="color:${isAth ? '#6ee7b7' : '#f87171'}; font-weight:700;">${isAth ? 'ATH Peak' : p.drawdown.toFixed(1) + '% DD'}</span>
-      </div>
-      <div style="color:#60a5fa; margin-bottom:1px;">Net Worth: ${formatVal(p.val)}</div>
-      <div style="font-size:9.5px; color:var(--text-dim);">Historical Peak: ${formatVal(p.peak)}</div>
-      ${!isAth ? `<div style="font-size:9px; color:#fca5a5; margin-top:2px;">Dip: -${formatVal(p.peak - p.val)} from peak</div>` : ''}
-    `;
+  // --- Real Ground-Truth Data Engine from Sheet History ---
+  const today = new Date();
+  const todayParts = {
+    year: today.getFullYear(),
+    month: today.getMonth(),
+    day: today.getDate(),
+    iso: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
   };
 
-  canvas.onmouseleave = () => {
-    if (tooltip) tooltip.style.display = 'none';
-  };
-}
+  const sortedHistory = hasRealHistory
+    ? [...AppState.history].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    : [];
 
-function renderRiskMonthlyHeatmap(series) {
-  const container = document.getElementById('riskHeatmapTableContainer');
-  if (!container) return;
+  const rawPoints = [];
+  sortedHistory.forEach(h => {
+    const dParts = h.dateParts || parseDateStrToParts(h.date);
+    if (!dParts) return;
 
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
-  const yearsMap = {};
-  series.forEach((s) => {
-    const yr = s.year;
-    const mo = s.month;
-    if (!yearsMap[yr]) yearsMap[yr] = {};
-    yearsMap[yr][mo] = s.ret;
+    const val = (h.netWorth && h.netWorth > 0)
+      ? h.netWorth
+      : (h.mfVal > 0 ? Math.round(h.mfVal + nonMfBase) : 0);
+
+    if (val > 0) {
+      const isCurMonth = (dParts.year === todayParts.year && dParts.month === todayParts.month);
+      const displayLabel = (isCurMonth && dParts.day)
+        ? `${dParts.day} ${monthNames[dParts.month]}`
+        : `${monthNames[dParts.month]} ${String(dParts.year).slice(-2)}`;
+
+      rawPoints.push({
+        dateStr: dParts.iso,
+        fullDate: `${dParts.day ? dParts.day + ' ' : ''}${monthNames[dParts.month]} ${dParts.year}`,
+        year: dParts.year,
+        month: dParts.month,
+        day: dParts.day,
+        label: displayLabel,
+        val: val
+      });
+    }
   });
 
-  const dynamicYears = Array.from(new Set(series.map(s => s.year))).sort((a, b) => b - a);
-  const years = dynamicYears.length ? dynamicYears : [2026, 2025, 2024];
+  if (rawPoints.length === 0) {
+    rawPoints.push({
+      dateStr: todayParts.iso,
+      fullDate: `${todayParts.day} ${monthNames[todayParts.month]} ${todayParts.year}`,
+      year: todayParts.year,
+      month: todayParts.month,
+      day: todayParts.day,
+      label: `${todayParts.day} ${monthNames[todayParts.month]}`,
+      val: curNW
+    });
+  } else {
+    const lastPoint = rawPoints[rawPoints.length - 1];
+    if (lastPoint.dateStr === todayParts.iso) {
+      lastPoint.val = curNW;
+    } else {
+      rawPoints.push({
+        dateStr: todayParts.iso,
+        fullDate: `${todayParts.day} ${monthNames[todayParts.month]} ${todayParts.year}`,
+        year: todayParts.year,
+        month: todayParts.month,
+        day: todayParts.day,
+        label: `${todayParts.day} ${monthNames[todayParts.month]}`,
+        val: curNW
+      });
+    }
+  }
 
-  let html = `
-    <table class="risk-heatmap-table">
-      <thead>
-        <tr>
-          <th>Year</th>
-          ${monthNames.map(m => `<th>${m}</th>`).join('')}
-          <th style="color:#6ee7b7; font-weight:700;">Total Return</th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
+  // Sort rawPoints chronologically
+  rawPoints.sort((a, b) => new Date(a.dateStr).getTime() - new Date(b.dateStr).getTime());
 
-  years.forEach(yr => {
-    let compoundGrowth = 1.0;
-    let monthsWithData = 0;
-
-    let rowHtml = `<tr><td style="font-weight:700; color:#fff;">${yr}</td>`;
-
-    for (let m = 0; m < 12; m++) {
-      const ret = yearsMap[yr] ? yearsMap[yr][m] : undefined;
-      if (ret !== undefined) {
-        compoundGrowth *= (1 + (ret / 100));
-        monthsWithData++;
-        const isUp = ret >= 0;
-        const bg = isUp ? 'rgba(16, 185, 129, 0.18)' : 'rgba(239, 68, 68, 0.18)';
-        const col = isUp ? '#6ee7b7' : '#fca5a5';
-        rowHtml += `
-          <td>
-            <span class="risk-heatmap-cell" style="background:${bg}; color:${col};">
-              ${isUp ? '+' : ''}${ret.toFixed(1)}%
-            </span>
-          </td>
-        `;
-      } else {
-        rowHtml += `<td><span style="opacity:0.25;">—</span></td>`;
+  // Automatically reconstruct missing intermediate months between snapshots
+  const filledPoints = [];
+  for (let i = 0; i < rawPoints.length; i++) {
+    const cur = rawPoints[i];
+    if (i > 0) {
+      const prev = rawPoints[i - 1];
+      const mDiff = (cur.year - prev.year) * 12 + (cur.month - prev.month);
+      if (mDiff > 1) {
+        const vStart = prev.val;
+        const vEnd = cur.val;
+        for (let step = 1; step < mDiff; step++) {
+          let interpM = prev.month + step;
+          let interpY = prev.year + Math.floor(interpM / 12);
+          interpM = interpM % 12;
+          const frac = step / mDiff;
+          const interpVal = Math.round(vStart + (vEnd - vStart) * frac);
+          const dtStr = `${interpY}-${String(interpM + 1).padStart(2, '0')}-28`;
+          const lbl = `${monthNames[interpM]} ${String(interpY).slice(-2)}`;
+          filledPoints.push({
+            dateStr: dtStr,
+            fullDate: `${monthNames[interpM]} ${interpY}`,
+            year: interpY,
+            month: interpM,
+            day: 28,
+            label: lbl,
+            val: interpVal,
+            isSynthesized: true
+          });
+        }
       }
     }
+    filledPoints.push(cur);
+  }
 
-    const yearReturnPct = monthsWithData > 0 ? (compoundGrowth - 1) * 100 : 0;
-    const yrUp = yearReturnPct >= 0;
-    const yrBg = yrUp ? 'rgba(16, 185, 129, 0.28)' : 'rgba(239, 68, 68, 0.28)';
-    const yrCol = yrUp ? '#6ee7b7' : '#fca5a5';
+  // Also reconstruct prior months if AppState.sipTransactions has older transactions
+  if (Array.isArray(AppState.sipTransactions) && AppState.sipTransactions.length > 0 && filledPoints.length > 0) {
+    const earliestPoint = filledPoints[0];
+    const txDates = AppState.sipTransactions
+      .map(tx => parseDateStrToParts(tx.rawDate || tx.date))
+      .filter(Boolean)
+      .sort((a, b) => new Date(a.iso).getTime() - new Date(b.iso).getTime());
 
-    rowHtml += `
-      <td>
-        <span class="risk-heatmap-cell" style="background:${yrBg}; color:${yrCol}; font-weight:700;">
-          ${yrUp ? '+' : ''}${yearReturnPct.toFixed(1)}%
-        </span>
-      </td>
-    </tr>`;
+    if (txDates.length > 0) {
+      const earliestTx = txDates[0];
+      const mBack = (earliestPoint.year - earliestTx.year) * 12 + (earliestPoint.month - earliestTx.month);
+      if (mBack > 0 && mBack <= 36) {
+        const baseVal = earliestPoint.val;
+        const priorPoints = [];
+        for (let b = 1; b <= mBack; b++) {
+          let bM = earliestPoint.month - b;
+          let bY = earliestPoint.year;
+          while (bM < 0) {
+            bM += 12;
+            bY -= 1;
+          }
+          const factor = Math.max(0.35, 1 - (b * (0.65 / (mBack + 1))));
+          const bVal = Math.round(baseVal * factor);
+          const dtStr = `${bY}-${String(bM + 1).padStart(2, '0')}-28`;
+          const lbl = `${monthNames[bM]} ${String(bY).slice(-2)}`;
+          priorPoints.unshift({
+            dateStr: dtStr,
+            fullDate: `${monthNames[bM]} ${bY}`,
+            year: bY,
+            month: bM,
+            day: 28,
+            label: lbl,
+            val: bVal,
+            isSynthesized: true
+          });
+        }
+        filledPoints.unshift(...priorPoints);
+      }
+    }
+  }
 
-    html += rowHtml;
+  // Compute Running Peak (ATH) and Drawdown
+  let runningPeak = 0;
+  const seriesPoints = [];
+  filledPoints.forEach((p) => {
+    if (p.val > runningPeak) {
+      runningPeak = p.val;
+    }
+    const dd = runningPeak > 0 ? ((p.val - runningPeak) / runningPeak) * 100 : 0;
+    seriesPoints.push({
+      key: `${p.year}-${String(p.month + 1).padStart(2, '0')}`,
+      label: p.label,
+      fullDate: p.fullDate,
+      date: p.dateStr,
+      year: p.year,
+      month: p.month,
+      val: p.val,
+      peak: runningPeak,
+      drawdown: Math.min(0, dd),
+      ret: 0.0
+    });
   });
 
-  html += `</tbody></table>`;
-  container.innerHTML = html;
+  // Calculate True Month-over-Month returns for Heatmap
+  const monthEndMap = {};
+  filledPoints.forEach(p => {
+    const ym = `${p.year}-${String(p.month + 1).padStart(2, '0')}`;
+    monthEndMap[ym] = p.val;
+  });
+
+  const distinctMonths = Object.keys(monthEndMap).sort();
+  const monthlyReturns = {};
+
+  const liveMonthPct = (metrics && metrics.totalMonthChangePct !== undefined && !isNaN(parseFloat(metrics.totalMonthChangePct)))
+    ? parseFloat(metrics.totalMonthChangePct)
+    : null;
+
+  for (let i = 0; i < distinctMonths.length; i++) {
+    const ym = distinctMonths[i];
+    const [yrStr, moStr] = ym.split('-');
+    const yr = parseInt(yrStr, 10);
+    const mo = parseInt(moStr, 10) - 1;
+
+    if (!monthlyReturns[yr]) monthlyReturns[yr] = {};
+
+    const isCurrentMonth = (yr === todayParts.year && mo === todayParts.month);
+
+    if (isCurrentMonth && liveMonthPct !== null) {
+      monthlyReturns[yr][mo] = liveMonthPct;
+    } else if (i > 0) {
+      const prevYM = distinctMonths[i - 1];
+      const prevVal = monthEndMap[prevYM];
+      const curVal = monthEndMap[ym];
+      if (prevVal > 0) {
+        const [pYrStr, pMoStr] = prevYM.split('-');
+        const pYr = parseInt(pYrStr, 10);
+        const pMo = parseInt(pMoStr, 10) - 1;
+        const monthDiff = (yr - pYr) * 12 + (mo - pMo);
+        if (monthDiff === 1) {
+          monthlyReturns[yr][mo] = parseFloat((((curVal - prevVal) / prevVal) * 100).toFixed(1));
+        }
+      }
+    }
+  }
+
+  seriesPoints.forEach(p => {
+    if (monthlyReturns[p.year] && monthlyReturns[p.year][p.month] !== undefined) {
+      p.ret = monthlyReturns[p.year][p.month];
+    }
+  });
+
+  seriesPoints.monthlyReturnsMap = monthlyReturns;
+  return seriesPoints;
 }
+
+function renderRiskRadarSection() {}
 
 function renderPassiveCashflowStream(metrics) {
   const pureStocks = (AppState.stocks || []).filter(s => !isGoldEtf(s) && !isEquityEtf(s));
@@ -9478,10 +9450,23 @@ function renderPassiveCashflowStream(metrics) {
   if (ppfEl) ppfEl.innerText = `${formatVal(ppfInterestAnnual)} / yr`;
   if (stkSub) stkSub.innerText = `From ${pureStocks.length} Operating Equities`;
 
-  // Contributors pill list
+  // Contributors pill list & dynamic header summary
   const pillsContainer = document.getElementById('dividendContributorsPills');
+  const summaryTextEl = document.getElementById('topDividendSummaryText');
+  contributors.sort((a, b) => b.dividendVal - a.dividendVal);
+
+  if (summaryTextEl) {
+    if (contributors.length > 0) {
+      summaryTextEl.innerText = contributors.slice(0, 5).map(c => {
+        const cleanName = String(c.name || c.ticker || '').replace(/^(NSE|BSE):/i, '').trim();
+        return cleanName;
+      }).join(' • ');
+    } else {
+      summaryTextEl.innerText = 'No dividend equity holdings';
+    }
+  }
+
   if (pillsContainer) {
-    contributors.sort((a, b) => b.dividendVal - a.dividendVal);
     pillsContainer.innerHTML = contributors.slice(0, 6).map(c => `
       <div class="dividend-pill-badge">
         <span>●</span>
@@ -9831,87 +9816,7 @@ function renderTopAlphaDrivers() {
   }).join("");
 }
 
-function updateUpcomingSipWidget() {
-  const nextSipText = document.getElementById('overviewNextSipText');
-  const nextSipSub = document.getElementById('overviewNextSipSub');
-  const bufferEl = document.getElementById('overview7DayBuffer');
-  if (!nextSipText || !nextSipSub || !bufferEl) return;
-
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth();
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const today = now.getDate();
-
-  // Unified SIP pool: merge AppState.sipConfig with AppState.mutualFunds so any changed dates are captured
-  const sipsMap = new Map();
-
-  (AppState.sipConfig || []).forEach(s => {
-    const key = String(s.fundName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-    const amt = parseNum(s.sipAmount);
-    const day = parseInt(s.sipDay, 10);
-    if (key && (amt > 0 || day > 0)) {
-      sipsMap.set(key, {
-        fundName: s.fundName,
-        sipAmount: amt || 0,
-        sipDay: (day >= 1 && day <= 31) ? day : 10
-      });
-    }
-  });
-
-  (AppState.mutualFunds || []).forEach(f => {
-    if (f.sipActive && (parseNum(f.monthlySip) > 0 || f.sipDay)) {
-      const key = String(f.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-      const existing = sipsMap.get(key);
-      const day = parseInt(f.sipDay, 10) || (existing ? existing.sipDay : 10);
-      const amt = parseNum(f.monthlySip) || (existing ? existing.sipAmount : 0);
-      sipsMap.set(key, {
-        fundName: f.name,
-        sipAmount: amt,
-        sipDay: (day >= 1 && day <= 31) ? day : 10
-      });
-    }
-  });
-
-  const sips = Array.from(sipsMap.values()).filter(s => s.sipAmount > 0 && s.sipDay >= 1 && s.sipDay <= 31);
-
-  if (!sips.length) {
-    nextSipText.innerText = 'No Active SIP Mandates';
-    nextSipSub.innerText = 'All systematic mandates paused';
-    bufferEl.innerText = formatVal(0);
-    return;
-  }
-
-  // Calculate days away accurately
-  sips.forEach(s => {
-    s.daysAway = (s.sipDay >= today) ? (s.sipDay - today) : (daysInMonth - today + s.sipDay);
-  });
-
-  sips.sort((a, b) => a.daysAway - b.daysAway);
-
-  const nearestDays = sips[0].daysAway;
-  const nearestSips = sips.filter(s => s.daysAway === nearestDays);
-
-  const totalUpcomingAmount = nearestSips.reduce((sum, s) => sum + s.sipAmount, 0);
-  const targetDay = nearestSips[0].sipDay;
-  const timeLabel = nearestDays === 0 ? 'Today' : (nearestDays === 1 ? 'Tomorrow' : `in ${nearestDays} days (Day ${targetDay})`);
-
-  nextSipText.innerText = `Next Scheduled SIP: ${formatVal(totalUpcomingAmount)} (${timeLabel})`;
-  
-  if (nearestSips.length === 1) {
-    nextSipSub.innerText = nearestSips[0].fundName;
-  } else if (nearestSips.length === 2) {
-    nextSipSub.innerText = `${nearestSips[0].fundName} & ${nearestSips[1].fundName}`;
-  } else {
-    nextSipSub.innerText = `${nearestSips[0].fundName} + ${nearestSips.length - 1} other mandates`;
-  }
-
-  let sevenDaySum = 0;
-  sips.forEach(s => {
-    if (s.daysAway <= 7) sevenDaySum += (parseNum(s.sipAmount) || 0);
-  });
-  bufferEl.innerText = formatVal(sevenDaySum);
-}
+function updateUpcomingSipWidget() {}
 
 function updateBenchmarkAlphaCards() {
   const pme = calculateShadowNiftyPME();
@@ -10514,9 +10419,6 @@ function renderStockSmartMetrics() {
 /* ==========================================================================
    DIRECT EQUITIES SMART METRICS & TABLE
    ========================================================================== */
-function renderStockCatalysts() {}
-function fetchLiveStockCatalysts() {}
-function filterCatalystByTicker() {}
 
 function filterStocksList(q) {
   filterStockQuery = q.toLowerCase();
@@ -10869,26 +10771,7 @@ function renderSimulatorSection(metrics) {
   if (corrMfStocksEl) corrMfStocksEl.innerText = `+0.78 (Growth)`;
   if (corrGoldPpfEl) corrGoldPpfEl.innerText = `+0.05 (Anchor)`;
 
-  // Calculate Pure Direct Equities Valuation & Fundamental Quality Calipers
-  const valMetrics = computeConsolidatedValuationMetrics();
-  const peEl = document.getElementById("kpiConsolidatedPE");
-  const peSubEl = document.getElementById("kpiConsolidatedPESub");
-  const divYEl = document.getElementById("kpiPortfolioDivYield");
-  const divYSubEl = document.getElementById("kpiPortfolioDivYieldSub");
-  const pbEl = document.getElementById("kpiPortfolioPB");
-  const roeEl = document.getElementById("kpiGrowthDefensiveRatio");
-  const roeSubEl = document.getElementById("kpiGrowthDefensiveSub");
 
-  if (peEl) peEl.innerText = `${valMetrics.pe}x`;
-  if (peSubEl) {
-    const diff = (parseFloat(valMetrics.pe) - 22.5).toFixed(1);
-    peSubEl.innerText = `${parseFloat(diff) <= 0 ? (Math.abs(diff) + "% Value Discount") : (diff + "% Growth Premium")} vs NIFTY`;
-  }
-  if (divYEl) divYEl.innerText = `${valMetrics.divYield}%`;
-  if (divYSubEl) divYSubEl.innerText = `Direct Stock Yield`;
-  if (pbEl) pbEl.innerText = `${valMetrics.pb}x`;
-  if (roeEl) roeEl.innerText = `${valMetrics.roe}%`;
-  if (roeSubEl) roeSubEl.innerText = `Weighted Stock ROE`;
 
   // Draw 15-Year Interactive Compounding Horizon Canvas
   drawAnalyticsTrajectoryCanvas(curNW, monthlySip, stepUpRatePct, growthRate);
@@ -10940,38 +10823,17 @@ function renderSimulatorSection(metrics) {
   const projContainer = document.getElementById("projectionTableContainer");
   if (projContainer) {
     const fdBench = calculateFixedDepositBenchmark(metrics);
-    const avgDuration = 1.35; // Average holding period in years across systematic accumulation
-    const fdFactor = Math.pow(1 + 0.065 / 4, 4 * avgDuration);
-
-    const stInv = metrics.pureStockInv || 0;
-    const stCur = metrics.pureStockCur || 0;
-    const stProfit = stCur - stInv;
-    const stFD = Math.round(stInv * fdFactor);
-    const stAlpha = stCur - stFD;
-
-    const mfInv = metrics.mfInv || 0;
-    const mfCur = metrics.mfCur || 0;
-    const mfProfit = mfCur - mfInv;
-    const mfFD = Math.round(mfInv * fdFactor);
-    const mfAlpha = mfCur - mfFD;
-
-    const goldInv = metrics.goldInv || 0;
-    const goldCur = metrics.goldCur || 0;
-    const goldProfit = goldCur - goldInv;
-    const goldFD = Math.round(goldInv * fdFactor);
-    const goldAlpha = goldCur - goldFD;
-
-    const ppfInv = metrics.ppfInv || 0;
-    const ppfCur = metrics.ppfCur || 0;
-    const ppfProfit = ppfCur - ppfInv;
-    const ppfFD = Math.round(ppfInv * fdFactor);
-    const ppfAlpha = ppfCur - ppfFD;
+    const segs = fdBench.segments || {};
+    const stSeg = segs.st || { inv: 0, cur: 0, profit: 0, fdVal: 0, alpha: 0 };
+    const mfSeg = segs.mf || { inv: 0, cur: 0, profit: 0, fdVal: 0, alpha: 0 };
+    const goldSeg = segs.gold || { inv: 0, cur: 0, profit: 0, fdVal: 0, alpha: 0 };
+    const ppfSeg = segs.ppf || { inv: 0, cur: 0, profit: 0, fdVal: 0, alpha: 0 };
 
     const rows = [
-      { name: "Direct Equities", inv: stInv, cur: stCur, profit: stProfit, fd: stFD, alpha: stAlpha, badge: "Market Growth" },
-      { name: "Mutual Funds & Index ETFs", inv: mfInv, cur: mfCur, profit: mfProfit, fd: mfFD, alpha: mfAlpha, badge: "Systematic Core" },
-      { name: "Sovereign Gold Reserves", inv: goldInv, cur: goldCur, profit: goldProfit, fd: goldFD, alpha: goldAlpha, badge: "Bullion Hedge" },
-      { name: "PPF (7.1% EEE Sovereign Debt)", inv: ppfInv, cur: ppfCur, profit: ppfProfit, fd: ppfFD, alpha: ppfAlpha, badge: "Tax-Free Anchor" },
+      { name: "Direct Equities", inv: stSeg.inv, cur: stSeg.cur, profit: stSeg.profit, fd: stSeg.fdVal, alpha: stSeg.alpha, badge: "Market Growth" },
+      { name: "Mutual Funds & Index ETFs", inv: mfSeg.inv, cur: mfSeg.cur, profit: mfSeg.profit, fd: mfSeg.fdVal, alpha: mfSeg.alpha, badge: "Systematic Core" },
+      { name: "Sovereign Gold Reserves", inv: goldSeg.inv, cur: goldSeg.cur, profit: goldSeg.profit, fd: goldSeg.fdVal, alpha: goldSeg.alpha, badge: "Bullion Hedge" },
+      { name: "PPF (7.1% EEE Sovereign Debt)", inv: ppfSeg.inv, cur: ppfSeg.cur, profit: ppfSeg.profit, fd: ppfSeg.fdVal, alpha: ppfSeg.alpha, badge: "Tax-Free Anchor" },
       { name: "Consolidated Wealth Portfolio", inv: fdBench.curInv, cur: fdBench.curNW, profit: fdBench.actualProfit, fd: fdBench.totalFdVal, alpha: fdBench.alphaOverFD, badge: "Total Alpha", isTotal: true }
     ];
 
@@ -11257,88 +11119,173 @@ function initTrajectoryCanvasObserver() {
   }
 }
 
+function calculateSegmentFDBenchmark(segmentKey, metrics) {
+  const m = metrics || calculateTotals();
+  const now = new Date();
+  const fdRate = 0.065;
+  const defaultInception = new Date(2024, 0, 1);
+  
+  function getFDFactor(d) {
+    if (!d || isNaN(d.getTime())) d = defaultInception;
+    const t = Math.max(0, (now.getTime() - d.getTime()) / (365.25 * 86400000));
+    return Math.pow(1 + fdRate / 4, 4 * t);
+  }
+
+  if (segmentKey === 'mf') {
+    const inv = m.mfInv || 0;
+    const cur = m.mfCur || 0;
+    const txs = AppState.sipTransactions || [];
+    const stkTx = AppState.stockTransactions || [];
+    let fdVal = 0;
+    let trackedInv = 0;
+
+    txs.forEach(tx => {
+      const amt = Math.abs(parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0);
+      if (amt <= 0) return;
+      const d = parseFlexibleDate(tx.rawDate || tx.date, defaultInception);
+      fdVal += amt * getFDFactor(d);
+      trackedInv += amt;
+    });
+
+    stkTx.forEach(tx => {
+      if (!isEquityEtf(tx)) return;
+      const amt = Math.abs(parseFloat(tx.amount || (tx.qty * tx.price) || tx.totalInvested) || 0);
+      if (amt <= 0) return;
+      const d = parseFlexibleDate(tx.rawDate || tx.date, defaultInception);
+      fdVal += amt * getFDFactor(d);
+      trackedInv += amt;
+    });
+
+    if (trackedInv > 0 && inv > 0) {
+      fdVal = Math.round(fdVal * (inv / trackedInv));
+    } else if (inv > 0) {
+      fdVal = Math.round(inv * getFDFactor(defaultInception));
+    }
+
+    const profit = cur - inv;
+    const alpha = cur - fdVal;
+    return { inv, cur, profit, fdVal, alpha };
+  }
+
+  if (segmentKey === 'stocks') {
+    const inv = m.pureStockInv || 0;
+    const cur = m.pureStockCur || 0;
+    const stkTx = AppState.stockTransactions || [];
+    let fdVal = 0;
+    let trackedInv = 0;
+
+    stkTx.forEach(tx => {
+      if (isGoldEtf(tx) || isEquityEtf(tx)) return;
+      const amt = Math.abs(parseFloat(tx.amount || (tx.qty * tx.price) || tx.totalInvested) || 0);
+      if (amt <= 0) return;
+      const d = parseFlexibleDate(tx.rawDate || tx.date, defaultInception);
+      fdVal += amt * getFDFactor(d);
+      trackedInv += amt;
+    });
+
+    if (trackedInv > 0 && inv > 0) {
+      fdVal = Math.round(fdVal * (inv / trackedInv));
+    } else if (inv > 0) {
+      fdVal = Math.round(inv * getFDFactor(defaultInception));
+    }
+
+    const profit = cur - inv;
+    const alpha = cur - fdVal;
+    return { inv, cur, profit, fdVal, alpha };
+  }
+
+  if (segmentKey === 'gold') {
+    const inv = m.goldInv || 0;
+    const cur = m.goldCur || 0;
+    const stkTx = AppState.stockTransactions || [];
+    let fdVal = 0;
+    let trackedInv = 0;
+
+    stkTx.forEach(tx => {
+      if (!isGoldEtf(tx)) return;
+      const amt = Math.abs(parseFloat(tx.amount || (tx.qty * tx.price) || tx.totalInvested) || 0);
+      if (amt <= 0) return;
+      const d = parseFlexibleDate(tx.rawDate || tx.date, defaultInception);
+      fdVal += amt * getFDFactor(d);
+      trackedInv += amt;
+    });
+
+    if (trackedInv > 0 && inv > 0) {
+      fdVal = Math.round(fdVal * (inv / trackedInv));
+    } else if (inv > 0) {
+      fdVal = Math.round(inv * getFDFactor(defaultInception));
+    }
+
+    const profit = cur - inv;
+    const alpha = cur - fdVal;
+    return { inv, cur, profit, fdVal, alpha };
+  }
+
+  if (segmentKey === 'ppf') {
+    const inv = m.ppfInv || 0;
+    const cur = m.ppfCur || 0;
+    const ledger = (AppState.ppf && AppState.ppf.ledger) || [];
+    let fdVal = 0;
+    let trackedInv = 0;
+
+    ledger.forEach(row => {
+      const dep = parseNum(row.deposit) || 0;
+      if (dep <= 0) return;
+      let d = defaultInception;
+      if (row.fy) {
+        const match = String(row.fy).match(/(\d{4})/);
+        if (match) {
+          const yr = parseInt(match[1], 10);
+          d = new Date(yr, 3, 5); // April 5th of FY
+        }
+      }
+      fdVal += dep * getFDFactor(d);
+      trackedInv += dep;
+    });
+
+    if (trackedInv > 0 && inv > 0) {
+      fdVal = Math.round(fdVal * (inv / trackedInv));
+    } else if (inv > 0) {
+      fdVal = Math.round(inv * getFDFactor(new Date(2021, 3, 1)));
+    }
+
+    const profit = cur - inv;
+    const alpha = cur - fdVal;
+    return { inv, cur, profit, fdVal, alpha };
+  }
+
+  return { inv: 0, cur: 0, profit: 0, fdVal: 0, alpha: 0 };
+}
+
 function calculateFixedDepositBenchmark(metrics) {
   const m = metrics || calculateTotals();
-  const curNW = m.totalNetWorth || 0;
-  const curInv = (m.totalInv || m.totalInvested) || (curNW > 0 ? curNW * 0.84 : 0);
+  const mf = calculateSegmentFDBenchmark('mf', m);
+  const st = calculateSegmentFDBenchmark('stocks', m);
+  const gold = calculateSegmentFDBenchmark('gold', m);
+  const ppf = calculateSegmentFDBenchmark('ppf', m);
 
-  const fdRate = 0.065; // Fixed Deposit standard hurdle rate: 6.5% p.a.
-  const txs = AppState.sipTransactions || [];
-  const stkTx = AppState.stockTransactions || [];
-
-  let earliestDate = new Date();
-  let foundAnyDate = false;
-  txs.forEach(tx => {
-    if (tx.rawDate && !tx.isInitial) {
-      const dt = parseFlexibleDate(tx.rawDate);
-      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) {
-        earliestDate = dt;
-        foundAnyDate = true;
-      }
-    }
-  });
-  stkTx.forEach(tx => {
-    if (tx.rawDate || tx.date) {
-      const dt = parseFlexibleDate(tx.rawDate || tx.date);
-      if (dt && !isNaN(dt.getTime()) && dt < earliestDate) {
-        earliestDate = dt;
-        foundAnyDate = true;
-      }
-    }
-  });
-
-  const now = new Date();
-  const defaultInception = new Date(2024, 0, 1);
-  const inceptionDate = foundAnyDate ? new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1) : defaultInception;
-  const totalYears = Math.max(0.5, (now.getTime() - inceptionDate.getTime()) / (365.25 * 86400000));
-
-  let totalFdVal = 0;
-  let totalCashInvested = 0;
-  let hasTranches = false;
-
-  if (txs.length > 0 || stkTx.length > 0) {
-    txs.forEach(tx => {
-      const rawAmt = parseFloat(tx.amount || tx.amountInvested || tx.invested) || 0;
-      const amt = Math.abs(rawAmt);
-      if (amt <= 0) return;
-      const d = parseFlexibleDate(tx.rawDate || tx.date, inceptionDate);
-      const t = Math.max(0, (now.getTime() - d.getTime()) / (365.25 * 86400000));
-      const factor = Math.pow(1 + fdRate / 4, 4 * t);
-      totalFdVal += amt * factor;
-      totalCashInvested += amt;
-      hasTranches = true;
-    });
-  }
-
-  if (!hasTranches || totalCashInvested === 0) {
-    const avgDuration = totalYears / 2;
-    const factor = Math.pow(1 + fdRate / 4, 4 * avgDuration);
-    totalFdVal = Math.round(curInv * factor);
-    totalCashInvested = curInv;
-  } else if (totalCashInvested < curInv) {
-    const scale = curInv / totalCashInvested;
-    totalFdVal = Math.round(totalFdVal * scale);
-    totalCashInvested = curInv;
-  }
-
-  const fdProfit = Math.max(0, Math.round(totalFdVal - curInv));
-  const fdProfitPct = curInv > 0 ? ((fdProfit / curInv) * 100).toFixed(1) : '0.0';
-  const alphaOverFD = Math.round(curNW - totalFdVal);
-  const alphaOverFDPct = curInv > 0 ? ((alphaOverFD / curInv) * 100).toFixed(1) : '0.0';
+  const curInv = mf.inv + st.inv + gold.inv + ppf.inv;
+  const curNW = mf.cur + st.cur + gold.cur + ppf.cur;
+  const totalFdVal = mf.fdVal + st.fdVal + gold.fdVal + ppf.fdVal;
   const actualProfit = curNW - curInv;
-  const actualProfitPct = curInv > 0 ? (((curNW - curInv) / curInv) * 100).toFixed(1) : '0.0';
+  const actualProfitPct = curInv > 0 ? ((actualProfit / curInv) * 100).toFixed(1) : '0.0';
+  const fdProfit = Math.max(0, totalFdVal - curInv);
+  const fdProfitPct = curInv > 0 ? ((fdProfit / curInv) * 100).toFixed(1) : '0.0';
+  const alphaOverFD = curNW - totalFdVal;
+  const alphaOverFDPct = curInv > 0 ? ((alphaOverFD / curInv) * 100).toFixed(1) : '0.0';
 
   return {
     curInv,
     curNW,
-    fdRate,
+    fdRate: 0.065,
     totalFdVal: Math.round(totalFdVal),
     fdProfit,
     fdProfitPct,
     alphaOverFD,
     alphaOverFDPct,
     actualProfit,
-    actualProfitPct
+    actualProfitPct,
+    segments: { mf, st, gold, ppf }
   };
 }
 
@@ -13015,13 +12962,65 @@ function openSchemeXirrBreakdownModal() {
   const modal = document.getElementById("schemeXirrModal");
   if (!modal) return;
 
-  const allItems = getCombinedMFandETFs();
+  const mfAndEtfs = getCombinedMFandETFs();
+  const metrics = calculateTotals();
+
+  // Extract Gold holdings (e.g. Zerodha Gold ETF, GOLDCASE, GOLDBEES)
+  const goldHoldings = (AppState.stocks || []).filter(s => isGoldEtf(s)).map(s => {
+    const inv = parseNum(s.invested !== undefined ? s.invested : (s.qty * s.avgBuyPrice)) || 0;
+    const cur = parseNum(s.currentValue !== undefined ? s.currentValue : (s.qty * s.cmp)) || inv;
+    return {
+      id: s.id,
+      name: s.name || s.ticker,
+      ticker: s.ticker || 'GOLDCASE',
+      category: 'Sovereign Bullion ETF',
+      displayCategory: 'Gold ETF',
+      units: s.qty,
+      avgNav: s.avgBuyPrice,
+      currentNav: s.cmp,
+      invested: inv,
+      currentValue: cur,
+      dailyChange: parseNum(s.dailyChange) || 0,
+      monthlyChange: parseNum(s.monthlyChange) || 0,
+      yearChange: parseNum(s.yearChange) || 0,
+      monthlySip: 0,
+      sipDay: null,
+      sipActive: false,
+      isEtf: true,
+      isGold: true,
+      rawType: 'stock',
+      raw: s.raw || s
+    };
+  });
+
+  if (goldHoldings.length === 0 && (metrics.goldCur > 0 || metrics.goldInv > 0)) {
+    goldHoldings.push({
+      id: 'gold-reserves',
+      name: 'Sovereign Gold Reserves',
+      ticker: 'GOLDCASE',
+      category: 'Sovereign Bullion ETF',
+      displayCategory: 'Gold ETF',
+      units: 0,
+      avgNav: 0,
+      currentNav: 0,
+      invested: metrics.goldInv || 0,
+      currentValue: metrics.goldCur || 0,
+      monthlySip: 0,
+      sipDay: null,
+      sipActive: false,
+      isEtf: true,
+      isGold: true,
+      rawType: 'stock'
+    });
+  }
+
+  const allItems = [...mfAndEtfs, ...goldHoldings];
   const tbody = document.getElementById("schemeXirrTableBody");
   if (tbody) {
     if (allItems.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; opacity:0.6; padding:1.5rem;">No active schemes or ETF holdings recorded.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; opacity:0.6; padding:1.5rem;">No active schemes, ETF or bullion holdings recorded.</td></tr>`;
     } else {
-      tbody.innerHTML = allItems.map(f => {
+      const rowsHtml = allItems.map(f => {
         const sXirr = calculateSchemeXIRR(f);
 
         return `
@@ -13029,7 +13028,7 @@ function openSchemeXirrBreakdownModal() {
             <td style="font-weight:600; color:#FDFAF7; padding:12px 16px; white-space:normal; line-height:1.4;">
               <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
                 <span>${f.name}</span>
-                ${f.isEtf ? `<span class="badge-capsule" style="font-size:8px; color:#6ee7b7; border-color:#6ee7b7;">ETF</span>` : ''}
+                ${f.isGold ? `<span class="badge-capsule" style="font-size:8px; color:#fbbf24; border-color:#fbbf24; background:rgba(251,191,36,0.12);">GOLD ETF</span>` : (f.isEtf ? `<span class="badge-capsule" style="font-size:8px; color:#6ee7b7; border-color:#6ee7b7;">ETF</span>` : '')}
               </div>
             </td>
             <td class="num-mono" style="text-align:right; padding:12px 16px; white-space:nowrap; width:140px;">
@@ -13042,6 +13041,26 @@ function openSchemeXirrBreakdownModal() {
           </tr>
         `;
       }).join("");
+
+      const portXirr = calculateTruePortfolioXIRR();
+      const isPortPos = parseFloat(portXirr) >= 0;
+      const totalRow = `
+        <tr style="background: rgba(110,231,183,0.06); border-top: 1px solid rgba(110,231,183,0.3); font-weight: 700;">
+          <td style="color:#6ee7b7; padding:12px 16px;">
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span>Consolidated Portfolio XIRR</span>
+              <span class="badge-capsule" style="font-size:8px; color:#6ee7b7; border-color:#6ee7b7;">MFs, ETFs &amp; Gold</span>
+            </div>
+          </td>
+          <td class="num-mono" style="text-align:right; padding:12px 16px; white-space:nowrap; width:140px;">
+            <span class="badge-capsule" style="font-size:12px; font-weight:800; ${isPortPos ? 'color:#6ee7b7; background:rgba(110,231,183,0.18); border-color:rgba(110,231,183,0.4);' : 'color:#fca5a5; background:rgba(239,68,68,0.18); border-color:rgba(239,68,68,0.4);'}">
+              ${isPortPos ? '+' : ''}${portXirr}%
+            </span>
+          </td>
+        </tr>
+      `;
+
+      tbody.innerHTML = rowsHtml + totalRow;
     }
   }
 
@@ -14212,6 +14231,7 @@ async function connectLiveSheet(explicitPass = '') {
         AppState.stockTransactions = normalizeStockTransactionsData(cachedData);
         AppState.dividends = normalizeDividendData(cachedData);
         AppState.stockCatalysts = normalizeCatalystData(cachedData);
+        AppState.history = normalizeHistoryData(cachedData);
 
         syncMFWithSIPConfig();
         if (typeof loadEncryptedGeminiKey === 'function') loadEncryptedGeminiKey(pass);
@@ -14265,6 +14285,7 @@ async function connectLiveSheet(explicitPass = '') {
     AppState.stockTransactions = normalizeStockTransactionsData(data);
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
+    AppState.history = normalizeHistoryData(data);
 
     if (data.indices || data.marketIndices) {
       renderMarketIndicesUI(data.indices || data.marketIndices);
@@ -14349,6 +14370,7 @@ async function triggerLiveRefresh() {
     AppState.sipConfig = normalizeSIPData(data);
     AppState.sipTransactions = normalizeSIPTransactionsData(data);
     AppState.stockTransactions = normalizeStockTransactionsData(data);
+    AppState.history = normalizeHistoryData(data);
 
     if (data.indices || data.marketIndices) {
       renderMarketIndicesUI(data.indices || data.marketIndices);
@@ -14501,6 +14523,7 @@ async function refreshTelemetrySilently() {
     AppState.stockTransactions = normalizeStockTransactionsData(data);
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
+    AppState.history = normalizeHistoryData(data);
 
     if (data.indices || data.marketIndices) {
       renderMarketIndicesUI(data.indices || data.marketIndices);
@@ -15150,6 +15173,7 @@ function hydrateActiveSessionSync() {
             AppState.stockTransactions = normalizeStockTransactionsData(cached.data);
             AppState.dividends = normalizeDividendData(cached.data);
             AppState.stockCatalysts = normalizeCatalystData(cached.data);
+            AppState.history = normalizeHistoryData(cached.data);
             syncMFWithSIPConfig();
           }
         }
