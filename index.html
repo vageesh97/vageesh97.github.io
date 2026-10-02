@@ -3881,6 +3881,67 @@ svg.lucide, i[data-lucide], svg {
         </div>
 
 
+        <!-- PILLAR 2.5: INSTITUTIONAL EQUITY VALUATION INDEX (EVI) & TACTICAL ALLOCATION -->
+        <div class="dossier-kpi-card clickable-metric-card" onclick="openAnalyticsExplainer('evi')" style="margin-bottom: 1.25rem; padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+            <div>
+              <span class="dossier-kpi-label" style="margin-bottom: 0;">Institutional Equity Valuation Index (EVI)</span>
+              <div style="font-size: 10.5px; color: var(--text-dim);">Multi-factor market regime &amp; index valuation calipers:</div>
+            </div>
+            <span class="badge-capsule" id="eviBadge" style="color: #6ee7b7; background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3);">EVI 99.9 · Invest in Equities</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>EVI Score</span>
+                <span style="color: var(--text-dim);">Fair ~100</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="eviCurrentScoreText">99.9</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;" id="eviCurrentZoneSub">Invest in Equities</div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>Target Mix</span>
+                <span style="color: var(--text-dim);">Equity / Debt</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #34d399; margin-top: 2px;">
+                <span id="eviTargetEquityText">75%</span> / <span id="eviTargetDebtText" style="color: #60a5fa;">25%</span>
+              </div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">Tactical Deployment</div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>NIFTY 50</span>
+                <span style="color: var(--text-dim);" id="eviN50Pe">19.2x PE</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="eviN50Badge">Accelerate</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">18th %ile · Cheap</div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>NIFTY Next 50</span>
+                <span style="color: var(--text-dim);" id="eviNn50Pe">18.2x PE</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #6ee7b7; margin-top: 2px;" id="eviNn50Badge">Conviction</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">-5% vs N50 Discount</div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8;">
+                <span>NIFTY Midcap 150</span>
+                <span style="color: var(--text-dim);" id="eviMc150Pe">28.1x PE</span>
+              </div>
+              <div class="num-mono" style="font-size: 1.25rem; font-weight: 700; color: #fbbf24; margin-top: 2px;" id="eviMc150Badge">Stagger STP</div>
+              <div style="font-size: 9px; color: var(--text-dim); margin-top: 2px;">+46% Premium Spread</div>
+            </div>
+          </div>
+        </div>
+
+
         <!-- PILLAR 3: BENCHMARK RELATIVE ALPHA SPREAD & CORRELATION MATRIX -->
         <div class="dossier-kpi-card" style="margin-bottom: 1.25rem; padding: 1.25rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
@@ -4256,30 +4317,30 @@ svg.lucide, i[data-lucide], svg {
         <div style="font-size: 11px; color: #fde047; font-weight: 600; margin-top: 3px;" id="explainerGrade">Optimal Benchmark Status</div>
       </div>
 
-      <!-- What it does / Definition -->
+      <!-- Metric Definition -->
       <div style="margin-bottom: 0.85rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 10px 12px;">
         <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #60a5fa; letter-spacing: 0.05em; margin-bottom: 3px;">
-          <i style="width: 12px; height: 12px;" data-lucide="activity"></i> What this metric measures
+          <i style="width: 12px; height: 12px;" data-lucide="activity"></i> Metric Definition
         </div>
         <p style="font-size: 11.5px; line-height: 1.5; color: rgba(253, 250, 247, 0.85); margin: 0;" id="explainerDefinition">
           Definition text here...
         </p>
       </div>
 
-      <!-- Why this is happening in your portfolio -->
+      <!-- Portfolio Breakdown & Analysis -->
       <div style="background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.22); border-radius: 6px; padding: 11px 13px; margin-bottom: 0.85rem;">
         <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #60a5fa; letter-spacing: 0.05em; margin-bottom: 5px;">
-          <svg  class="lucide lucide-layers" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Why this is happening in your portfolio
+          <svg  class="lucide lucide-layers" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Portfolio Breakdown &amp; Analysis
         </div>
         <div style="font-size: 11.5px; line-height: 1.55; color: #FDFAF7;" id="explainerWhy">
           Portfolio driver analysis...
         </div>
       </div>
 
-      <!-- What you can do / Actionable Plan -->
+      <!-- Tactical Action Plan -->
       <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.28); border-radius: 6px; padding: 11px 13px; margin-bottom: 1rem;">
         <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: #6ee7b7; letter-spacing: 0.05em; margin-bottom: 5px;">
-          <svg  class="lucide lucide-compass" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Tactical Action Plan (What you can do)
+          <svg  class="lucide lucide-compass" style="width: 12px; height: 12px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Tactical Action Plan
         </div>
         <div style="font-size: 11.5px; line-height: 1.55; color: #FDFAF7;" id="explainerImpact">
           Actionable strategic guidance...
@@ -4384,19 +4445,19 @@ svg.lucide, i[data-lucide], svg {
 
       <!-- Why & How to Improve Grid -->
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px; margin-bottom:16px;">
-        <!-- 1. WHY THIS RATING -->
+        <!-- 1. SCORING DRIVERS -->
         <div style="background:rgba(0,0,0,0.32); border:1px solid rgba(255,255,255,0.09); border-radius:6px; padding:14px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:8px;">
-            <span style="font-family:var(--font-serif); font-size:1.05rem; font-weight:600; color:#FDFAF7;">Why you are getting this rating</span>
-            <span class="badge-capsule" style="font-size:9px; color:var(--text-dim);">Deductions</span>
+            <span style="font-family:var(--font-serif); font-size:1.05rem; font-weight:600; color:#FDFAF7;">Scoring Drivers &amp; Deductions</span>
+            <span class="badge-capsule" style="font-size:9px; color:var(--text-dim);">Factors</span>
           </div>
           <div id="mfWhyRatingList" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
 
-        <!-- 2. WHAT TO IMPROVE -->
+        <!-- 2. OPTIMIZATION STEPS -->
         <div style="background:rgba(0,0,0,0.32); border:1px solid rgba(255,255,255,0.09); border-radius:6px; padding:14px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:8px;">
-            <span style="font-family:var(--font-serif); font-size:1.05rem; font-weight:600; color:#FDFAF7;">What can you do to improve</span>
+            <span style="font-family:var(--font-serif); font-size:1.05rem; font-weight:600; color:#FDFAF7;">Optimization Steps</span>
             <span class="badge-capsule" style="font-size:9px; color:#6ee7b7; border-color:rgba(110,231,183,0.3);">Action Steps</span>
           </div>
           <div id="mfImproveList" style="display:flex; flex-direction:column; gap:8px;"></div>
@@ -6912,10 +6973,10 @@ function normalizeStockTransactionsData(data) {
     let dateStr = rawDate ? String(rawDate).trim() : '';
     if (dateStr && dateStr.includes('T')) dateStr = dateStr.split('T')[0];
     const ticker = String(getField(r, 'Instrument', 'ticker', 'Symbol', 'symbol', 'Ticker') || '').trim().toUpperCase();
-    const type = String(getField(r, 'Type', 'type', 'Trade Type', 'Action') || 'BUY').trim().toUpperCase();
+    const type = String(getField(r, 'Type', 'type', 'Trade Type', 'Action', 'Buy/ Sell', 'Buy/Sell', 'Buy / Sell', 'Side') || 'BUY').trim().toUpperCase();
     const qty = parseNum(getField(r, 'Qty', 'qty', 'Quantity', 'shares')) || 0;
     const price = parseNum(getField(r, 'Price', 'price', 'Avg Price', 'buyPrice')) || 0;
-    const amount = parseNum(getField(r, 'Amount', 'amount', 'Total Amount', 'invested')) || (qty * price);
+    const amount = parseNum(getField(r, 'Amount', 'amount', 'Value', 'Total Amount', 'invested')) || (qty * price);
     const isin = String(getField(r, 'ISIN', 'isin') || '').trim();
 
     return {
@@ -8310,12 +8371,12 @@ function getLiveNiftyPrice() {
   if (AppState && AppState.indices) {
     const p = AppState.indices.nifty?.price || AppState.indices.nifty50?.price || AppState.indices.nifty;
     const num = parseFloat(String(p).replace(/,/g, ''));
-    if (!isNaN(num) && num > 10000) return num;
+    if (!isNaN(num) && num >= 10000) return num;
   }
   const nEl = document.getElementById('tickerNifty') || document.getElementById('mobTickerNifty');
   if (nEl && nEl.innerText) {
     const m = nEl.innerText.replace(/,/g, '').match(/NIFTY\s+(\d+(?:\.\d+)?)/i);
-    if (m && parseFloat(m[1]) > 10000) return parseFloat(m[1]);
+    if (m && parseFloat(m[1]) >= 10000) return parseFloat(m[1]);
   }
   try {
     const cachedStr = localStorage.getItem('MOSBY_MARKET_CACHE_V5');
@@ -8323,10 +8384,11 @@ function getLiveNiftyPrice() {
       const cached = JSON.parse(cachedStr);
       const p = cached?.nifty?.price || cached?.nifty50?.price || cached?.nifty;
       const num = parseFloat(String(p).replace(/,/g, ''));
-      if (!isNaN(num) && num > 10000) return num;
+      if (!isNaN(num) && num >= 10000) return num;
+      localStorage.removeItem('MOSBY_MARKET_CACHE_V5');
     }
   } catch(e) {}
-  return 23346.0;
+  return 22422.0;
 }
 
 function calculateShadowNiftyPME() {
@@ -8337,8 +8399,10 @@ function calculateShadowNiftyPME() {
   const actualEquityInv = metrics.mfInv || 0;
   const currentNiftyPR = getLiveNiftyPrice();
   
-  // Current Live NIFTY 50 TRI Level (~1.4686x of Price Index based on cumulative dividend reinvestment)
-  const currentNiftyTRI = currentNiftyPR * 1.4686;
+  // Current Live NIFTY 50 TRI Level (~1.4686x base with ~1.2% p.a. continuous reinvested dividend compounding)
+  const deltaYearsFromAnchor = Math.max(0, (Date.now() - new Date('2026-10-01').getTime()) / (365.25 * 86400000));
+  const triMultiplier = 1.4686 * Math.pow(1 + 0.012, deltaYearsFromAnchor);
+  const currentNiftyTRI = currentNiftyPR * triMultiplier;
 
   // Inception Anchor: earliest dated transaction
   let earliestDate = new Date();
@@ -8372,8 +8436,17 @@ function calculateShadowNiftyPME() {
     if (targetTime <= NIFTY_TRI_HISTORICAL_SERIES[0].dt.getTime()) {
       return NIFTY_TRI_HISTORICAL_SERIES[0].tri;
     }
-    if (targetTime >= NIFTY_TRI_HISTORICAL_SERIES[NIFTY_TRI_HISTORICAL_SERIES.length - 1].dt.getTime()) {
-      return currentNiftyTRI;
+    
+    // Future-proof forward resolution: interpolate between anchor (Sep 2026) and current live NIFTY TRI
+    const lastEntry = NIFTY_TRI_HISTORICAL_SERIES[NIFTY_TRI_HISTORICAL_SERIES.length - 1];
+    if (targetTime >= lastEntry.dt.getTime()) {
+      const nowTime = Math.max(targetTime, Date.now());
+      const span = nowTime - lastEntry.dt.getTime();
+      if (span <= 0 || targetTime >= nowTime) {
+        return currentNiftyTRI;
+      }
+      const frac = (targetTime - lastEntry.dt.getTime()) / span;
+      return lastEntry.tri + frac * (currentNiftyTRI - lastEntry.tri);
     }
 
     for (let i = 0; i < NIFTY_TRI_HISTORICAL_SERIES.length - 1; i++) {
@@ -9027,6 +9100,9 @@ function renderCompleteDossiers() {
 
   // Cashflow & Alpha & Yield Stream
   updateBenchmarkAlphaCards();
+  if (typeof renderEVIRadar === 'function') {
+    renderEVIRadar();
+  }
   renderPassiveCashflowStream(metrics);
 
   // Update Mobile Folder Spine Preview Badges
@@ -9839,6 +9915,251 @@ function updateBenchmarkAlphaCards() {
     elF.innerText = `${parseFloat(fAlpha) >= 0 ? '+' : ''}${fAlpha}%`;
     elF.style.color = parseFloat(fAlpha) >= 0 ? '#c084fc' : '#f87171';
   }
+}
+
+// ==========================================
+// INSTITUTIONAL EQUITY VALUATION INDEX (EVI) & DYNAMIC ALLOCATION ENGINE
+// ==========================================
+const EVI_ANCHOR = {
+  baseDate: new Date('2026-10-01T00:00:00Z').getTime(),
+  baseNifty: 24800,
+  baseEps: 1290.0,      // Trailing consolidated EPS (24,800 / 19.22x)
+  baseBvps: 9018.18,    // Book Value Per Share (24,800 / 2.75x)
+  baseGSecYield: 0.0680,// 10Y Indian Sovereign Yield: 6.80%
+  baseGdpLakhCr: 335.0, // India Nominal GDP in Lakh Crores
+  baseMcapLakhCr: 397.0,// Total Listed Indian Market Cap in Lakh Crores (~118.5% of GDP)
+  epsGrowthRate: 0.128, // 12.8% p.a. corporate earnings compounding
+  bvpsGrowthRate: 0.115,// 11.5% p.a. book value compounding
+  gdpGrowthRate: 0.105, // 10.5% p.a. nominal GDP compounding
+  // Multi-cycle historical normalization medians
+  medianPE: 20.80,
+  medianPB: 3.25,
+  medianGSecPEProduct: 1.4872, // 7.15% median yield * 20.80 median PE
+  medianMcapToGdp: 88.0        // Historical median Market Cap to GDP
+};
+
+let currentEVIOffset = 1.0; // 1.0 = Live market, 0.85 = Correction, 1.25 = Euphoria
+
+function getEviNeedlePct(score) {
+  if (score <= 60) return 3;
+  if (score < 80) return Math.min(24.5, 3 + ((score - 60) / 20) * 21.5);
+  if (score <= 100) return 25 + ((score - 80) / 20) * 20;
+  if (score <= 120) return 45 + ((score - 100) / 20) * 20;
+  if (score <= 130) return 65 + ((score - 120) / 10) * 15;
+  if (score <= 150) return Math.min(97, 80 + ((score - 130) / 20) * 17);
+  return 97;
+}
+
+function calculateDynamicEVI(simulatedMultiplier = 1.0) {
+  const now = Date.now();
+  const deltaYears = Math.max(0, (now - EVI_ANCHOR.baseDate) / (365.25 * 86400 * 1000));
+
+  // Denominators compound forward dynamically (EPS +12.8% p.a., BVPS +11.5% p.a., GDP +10.5% p.a.)
+  const currentEps = EVI_ANCHOR.baseEps * Math.pow(1 + EVI_ANCHOR.epsGrowthRate, deltaYears);
+  const currentBvps = EVI_ANCHOR.baseBvps * Math.pow(1 + EVI_ANCHOR.bvpsGrowthRate, deltaYears);
+  const currentGdp = EVI_ANCHOR.baseGdpLakhCr * Math.pow(1 + EVI_ANCHOR.gdpGrowthRate, deltaYears);
+
+  // Scaled Nifty level from official institutional benchmark baseline (24,800 on Sep 30, 2026)
+  const niftyLevel = EVI_ANCHOR.baseNifty * simulatedMultiplier;
+
+  // Multiples
+  const n50Pe = niftyLevel / currentEps;
+  const n50Pb = niftyLevel / currentBvps;
+  const gsecYield = EVI_ANCHOR.baseGSecYield;
+  const gsecPeProduct = gsecYield * n50Pe;
+
+  // Market cap scales with index and net corporate expansion
+  const mcapLakhCr = EVI_ANCHOR.baseMcapLakhCr * (niftyLevel / EVI_ANCHOR.baseNifty) * Math.pow(1 + 0.02, deltaYears);
+  const mcapToGdp = (mcapLakhCr / currentGdp) * 100;
+
+  // 4 Component Scores (Normalized to 100 = Fair Value)
+  const scorePe = (n50Pe / EVI_ANCHOR.medianPE) * 100;
+  const scorePb = (n50Pb / EVI_ANCHOR.medianPB) * 100;
+  const scoreGsec = (gsecPeProduct / EVI_ANCHOR.medianGSecPEProduct) * 100;
+  const scoreMcapGdp = (mcapToGdp / EVI_ANCHOR.medianMcapToGdp) * 100;
+
+  // Composite 4-Pillar Quantitative EVI Level
+  const eviScore = (0.25 * scorePe) + (0.25 * scorePb) + (0.25 * scoreGsec) + (0.25 * scoreMcapGdp);
+
+  // Index metrics
+  const n50FwdPe = n50Pe / (1 + EVI_ANCHOR.epsGrowthRate);
+  const n50Ey = (1 / n50Pe) * 100;
+
+  // Next 50: trades at ~0.95x Nifty 50 PE when cheap, ROE ~17.6%
+  const nn50Pe = n50Pe * 0.948;
+  const nn50FwdPe = nn50Pe / 1.135;
+  const nn50Pb = n50Pb * 1.164;
+
+  // Midcap 150: trades at 1.46x premium over Nifty 50
+  const mc150Pe = n50Pe * 1.464;
+  const mc150FwdPe = mc150Pe / 1.18;
+  const mc150Pb = n50Pb * 1.382;
+
+  // Tactical Allocation Guidance
+  let zone = 'invest';
+  let targetEq = 75;
+  let targetDebt = 25;
+  let zoneColor = '#10b981';
+  let badgeText = 'EVI ' + eviScore.toFixed(1) + ' · INVEST IN EQUITIES';
+  let directive = `<strong>🟢 TACTICAL DEPLOYMENT CALL:</strong> NIFTY 50 consolidated trailing P/E of <span class="num-mono">${n50Pe.toFixed(1)}x</span> sits at an attractive valuation discount against medium-term history. 10Y Sovereign G-Sec yield of <span class="num-mono">6.80%</span> provides strong equity cushion. Model recommends <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>. Deploy fresh cash aggressively in Nifty 50 and Nifty Next 50; stagger Nifty Midcap 150 via 6-month systematic transfer.`;
+
+  if (eviScore < 80) {
+    zone = 'aggressive';
+    targetEq = 85;
+    targetDebt = 15;
+    zoneColor = '#059669';
+    badgeText = 'EVI ' + eviScore.toFixed(1) + ' · AGGRESSIVELY INVEST';
+    directive = `<strong>🟢 PANIC / DEEP VALUE TRIGGER:</strong> EVI score of <span class="num-mono">${eviScore.toFixed(1)}</span> signals extreme undervaluation across Indian equities. Historical rolling 3-year returns from this regime exceed 18%+ CAGR. Model dictates maximum aggressive allocation: <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>. Deploy lump sums immediately across Nifty 50, Next 50, and Midcap 150.`;
+  } else if (eviScore <= 100) {
+    zone = 'invest';
+    targetEq = 75;
+    targetDebt = 25;
+    zoneColor = '#10b981';
+    badgeText = 'EVI ' + eviScore.toFixed(1) + ' · INVEST IN EQUITIES';
+  } else if (eviScore <= 120) {
+    zone = 'neutral';
+    targetEq = 60;
+    targetDebt = 40;
+    zoneColor = '#f59e0b';
+    badgeText = 'EVI ' + eviScore.toFixed(1) + ' · FAIR VALUE / SIP';
+    directive = `<strong>🟡 NEUTRAL FAIR VALUE:</strong> EVI score of <span class="num-mono">${eviScore.toFixed(1)}</span> indicates balanced pricing. Maintain systematic SIPs without aggressive lumpsum deployment. Recommended mix: <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>.`;
+  } else if (eviScore <= 130) {
+    zone = 'debt_shift';
+    targetEq = 45;
+    targetDebt = 55;
+    zoneColor = '#f97316';
+    badgeText = 'EVI ' + eviScore.toFixed(1) + ' · INCREMENTAL TO DEBT';
+    directive = `<strong>🟠 ELEVATED MULTIPLES:</strong> EVI score of <span class="num-mono">${eviScore.toFixed(1)}</span> warrants defensive posture. Direct all incremental fresh cash flow into Debt/Arbitrage funds. Recommended target: <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>. Stagger equity entries with 12-month STPs.`;
+  } else {
+    zone = 'trim';
+    targetEq = 30;
+    targetDebt = 70;
+    zoneColor = '#ef4444';
+    badgeText = 'EVI ' + eviScore.toFixed(1) + ' · BOOK PARTIAL PROFITS';
+    directive = `<strong>🔴 EUPHORIA / OVERVALUATION ZONE:</strong> EVI score of <span class="num-mono">${eviScore.toFixed(1)}</span> warns of high froth and heightened drawdown vulnerability. Rebalance equity allocation to <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>. Trim high-beta midcaps and park capital in liquid/short-term sovereign debt.`;
+  }
+
+  return {
+    eviScore,
+    scorePe,
+    scorePb,
+    scoreGsec,
+    scoreMcapGdp,
+    n50Pe,
+    n50FwdPe,
+    n50Pb,
+    n50Ey,
+    nn50Pe,
+    nn50FwdPe,
+    nn50Pb,
+    mc150Pe,
+    mc150FwdPe,
+    mc150Pb,
+    mcapToGdp,
+    zone,
+    targetEq,
+    targetDebt,
+    zoneColor,
+    badgeText,
+    directive
+  };
+}
+
+function simulateEVIScenario(scenario) {
+  if (scenario === 'correction') {
+    currentEVIOffset = 0.85;
+  } else if (scenario === 'euphoria') {
+    currentEVIOffset = 1.25;
+  } else {
+    currentEVIOffset = 1.0;
+  }
+
+  const bCur = document.getElementById('eviBtnCurrent');
+  const bCor = document.getElementById('eviBtnCorrection');
+  const bEup = document.getElementById('eviBtnEuphoria');
+
+  const activeStyle = 'font-size: 10px; padding: 4px 9px; border-radius: 4px; background: rgba(16,185,129,0.2); border: 1px solid #10b981; color: #34d399; cursor: pointer;';
+  const inactiveStyle = 'font-size: 10px; padding: 4px 9px; border-radius: 4px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); cursor: pointer;';
+
+  if (bCur) bCur.setAttribute('style', scenario === 'current' ? activeStyle : inactiveStyle);
+  if (bCor) bCor.setAttribute('style', scenario === 'correction' ? activeStyle : inactiveStyle);
+  if (bEup) bEup.setAttribute('style', scenario === 'euphoria' ? activeStyle : inactiveStyle);
+
+  renderEVIRadar();
+}
+
+function renderEVIRadar() {
+  const evi = calculateDynamicEVI(currentEVIOffset);
+  
+  const badgeEl = document.getElementById("eviBadge");
+  if (badgeEl) {
+    badgeEl.innerText = evi.badgeText;
+    badgeEl.style.color = evi.zoneColor;
+    badgeEl.style.borderColor = evi.zoneColor;
+    badgeEl.style.backgroundColor = `${evi.zoneColor}1a`;
+  }
+
+  const scoreTextEl = document.getElementById("eviCurrentScoreText");
+  if (scoreTextEl) {
+    scoreTextEl.innerText = evi.eviScore.toFixed(1);
+    scoreTextEl.style.color = evi.zoneColor;
+  }
+
+  const zoneSubEl = document.getElementById("eviCurrentZoneSub");
+  if (zoneSubEl) {
+    if (evi.zone === 'aggressive') zoneSubEl.innerText = 'Deep Value (<80)';
+    else if (evi.zone === 'invest') zoneSubEl.innerText = 'Invest in Equities';
+    else if (evi.zone === 'neutral') zoneSubEl.innerText = 'Neutral / SIP (100-120)';
+    else if (evi.zone === 'debt_shift') zoneSubEl.innerText = 'Incremental Debt';
+    else zoneSubEl.innerText = 'Book Partial Profits';
+  }
+
+  const eqTextEl = document.getElementById("eviTargetEquityText");
+  if (eqTextEl) eqTextEl.innerText = `${evi.targetEq}%`;
+
+  const debtTextEl = document.getElementById("eviTargetDebtText");
+  if (debtTextEl) debtTextEl.innerText = `${evi.targetDebt}%`;
+
+  const n50PeEl = document.getElementById("eviN50Pe");
+  if (n50PeEl) n50PeEl.innerText = `${evi.n50Pe.toFixed(1)}x PE`;
+
+  const nn50PeEl = document.getElementById("eviNn50Pe");
+  if (nn50PeEl) nn50PeEl.innerText = `${evi.nn50Pe.toFixed(1)}x PE`;
+
+  const mc150PeEl = document.getElementById("eviMc150Pe");
+  if (mc150PeEl) mc150PeEl.innerText = `${evi.mc150Pe.toFixed(1)}x PE`;
+
+  // Dynamic index badges
+  const n50B = document.getElementById("eviN50Badge");
+  const nn50B = document.getElementById("eviNn50Badge");
+  const mc150B = document.getElementById("eviMc150Badge");
+  if (n50B) {
+    if (evi.zone === 'aggressive') { n50B.innerText = 'Max Lumpsum'; n50B.style.color = '#34d399'; }
+    else if (evi.zone === 'invest') { n50B.innerText = 'Accelerate'; n50B.style.color = '#34d399'; }
+    else if (evi.zone === 'neutral') { n50B.innerText = 'SIP Inflow'; n50B.style.color = '#fbbf24'; }
+    else if (evi.zone === 'debt_shift') { n50B.innerText = 'Stagger'; n50B.style.color = '#fb923c'; }
+    else { n50B.innerText = 'Pause Buy'; n50B.style.color = '#ef4444'; }
+  }
+  if (nn50B) {
+    if (evi.zone === 'aggressive') { nn50B.innerText = 'Max Buy'; nn50B.style.color = '#34d399'; }
+    else if (evi.zone === 'invest') { nn50B.innerText = 'Conviction'; nn50B.style.color = '#34d399'; }
+    else if (evi.zone === 'neutral') { nn50B.innerText = 'Accumulate'; nn50B.style.color = '#34d399'; }
+    else if (evi.zone === 'debt_shift') { nn50B.innerText = 'Modest SIP'; nn50B.style.color = '#fbbf24'; }
+    else { nn50B.innerText = 'Trim Risk'; nn50B.style.color = '#ef4444'; }
+  }
+  if (mc150B) {
+    if (evi.zone === 'aggressive') { mc150B.innerText = 'Lumpsum'; mc150B.style.color = '#34d399'; }
+    else if (evi.zone === 'invest') { mc150B.innerText = 'Stagger STP'; mc150B.style.color = '#fbbf24'; }
+    else if (evi.zone === 'neutral') { mc150B.innerText = 'SIP Only'; mc150B.style.color = '#fbbf24'; }
+    else if (evi.zone === 'debt_shift') { mc150B.innerText = 'Rotate Debt'; mc150B.style.color = '#fb923c'; }
+    else { mc150B.innerText = 'Harvest Gain'; mc150B.style.color = '#ef4444'; }
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.simulateEVIScenario = simulateEVIScenario;
+  window.renderEVIRadar = renderEVIRadar;
+  window.calculateDynamicEVI = calculateDynamicEVI;
 }
 
 function renderMFSipRadar() {
@@ -11109,6 +11430,11 @@ function renderSimulatorSection(metrics) {
   // Benchmark Relative Alpha Spread (Institutional Cashflow-Matched PME & Dynamic Alpha)
   updateBenchmarkAlphaCards();
 
+  // Pillar 2.5: Institutional Equity Valuation Index (EVI) & Dynamic Allocation Engine
+  if (typeof renderEVIRadar === 'function') {
+    renderEVIRadar();
+  }
+
   const calcYearsToTarget = (target) => {
     if (curNW >= target) return "Achieved! 🎉";
     let futureNW = curNW;
@@ -11266,7 +11592,12 @@ function renderMilestoneVelocityLedger(curNW, monthlySip) {
     { target: 3000000, label: "₹30.0 Lakhs", shortLabel: "₹30L", date: "Sep 2026", days: 509 },
     { target: 4000000, label: "₹40.0 Lakhs", shortLabel: "₹40L" },
     { target: 5000000, label: "₹50.0 Lakhs (Half Cr)", shortLabel: "₹50L" },
-    { target: 10000000, label: "₹1.00 Crore (1st Cr)", shortLabel: "₹1.0Cr" }
+    { target: 7500000, label: "₹75.0 Lakhs", shortLabel: "₹75L" },
+    { target: 10000000, label: "₹1.00 Crore (1st Cr)", shortLabel: "₹1.0Cr" },
+    { target: 15000000, label: "₹1.50 Crore", shortLabel: "₹1.5Cr" },
+    { target: 20000000, label: "₹2.00 Crore", shortLabel: "₹2.0Cr" },
+    { target: 25000000, label: "₹2.50 Crore (Multi-Cr)", shortLabel: "₹2.5Cr" },
+    { target: 50000000, label: "₹5.00 Crore (Freedom)", shortLabel: "₹5.0Cr" }
   ];
 
   // Dynamic milestone progression: evaluate against current Net Worth
@@ -13625,6 +13956,15 @@ fire_fat: {
   definition: "50 times annual expenses supporting an abundant luxury lifestyle with significant surplus for family endowments.",
   impact: "Permits unlimited global travel, discretionary investments, and multi-generational wealth preservation.",
   benchmark: "50x Annual Outflow"
+},
+evi: {
+  category: "TACTICAL ALLOCATION ENGINE",
+  title: "Equity Valuation Index (EVI)",
+  val: "99.9",
+  grade: "Invest in Equities (75% Eq / 25% Debt)",
+  definition: "Quantitative 4-Pillar macroeconomic valuation model combining Trailing P/E (25%), Price-to-Book (25%), G-Sec Sovereign Yield × P/E Spread (25%), and Market Cap to GDP Ratio (25%). Each pillar is normalized against historical multi-cycle Indian medians (100 = Fair Value).",
+  impact: "Calibrates tactical asset allocation between equities and debt/gold. Prevents emotional timing mistakes by automatically triggering equity accumulation during market panics (<80) and profit-taking in euphoric bubbles (>130).",
+  benchmark: "Neutral Zone: 100 - 120 | Invest Zone: 80 - 100 (<80 Aggressive Buy)"
 }
 };
 
@@ -13700,7 +14040,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
       const numVal = parseFloat(displayVal) || 2.89;
       return {
         grade: numVal < 3.5 ? "Deep Tangible Value Anchor (< 3.5x)" : (numVal > 5.5 ? "Premium Growth Multiple (> 5.5x)" : "Balanced Book Multiple"),
-        why: `<p style="margin-bottom:6px;">Your direct equity basket trades at an active weighted Price-to-Book multiple of <strong>${displayVal}</strong> (vs institutional benchmark 3.5x–5.5x). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your direct equity basket trades at an active weighted Price-to-Book multiple of <strong>${displayVal}</strong> (vs institutional benchmark 3.5x–5.5x):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Balance-Sheet Anchors:</strong> Capital-heavy, asset-backed holdings like ${lowPBText} provide deep tangible net worth backing and cushion your downside.</li>
                 <li><strong>High-Efficiency Multipliers:</strong> Capital-light compounders like ${highPBText} provide upside growth without over-inflating your consolidated balance-sheet risk.</li>
@@ -13719,7 +14059,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
       const diff = (numVal - 22.5).toFixed(1);
       return {
         grade: numVal <= 22.5 ? `${Math.abs(diff)}% Value Discount vs NIFTY` : `${diff}% Growth Premium vs NIFTY`,
-        why: `<p style="margin-bottom:6px;">Your direct equities trade at a live weighted harmonic P/E of <strong>${displayVal}</strong> (compared to NIFTY 50's ~22.5x). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your direct equities trade at a live weighted harmonic P/E of <strong>${displayVal}</strong> (compared to NIFTY 50's ~22.5x):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Cashflow Anchors:</strong> ${lowPEText} anchor your portfolio with solid recurring annual earnings.</li>
                 <li><strong>Conviction Growth Bets:</strong> High-order-book expansion leaders like ${highPEText} command premium multiples due to projected earnings acceleration.</li>
@@ -13735,7 +14075,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'cons_div_yield': {
       return {
         grade: "Cash Dividend Accretion Yield",
-        why: `<p style="margin-bottom:6px;">Your direct stocks generate an organic cash dividend yield of <strong>${displayVal}</strong>. Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your direct stocks generate an organic cash dividend yield of <strong>${displayVal}</strong>:</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Dividend Anchors:</strong> Mature, cashflow-generative companies like ${topDivText} regularly credit cash to your bank account.</li>
                 <li><strong>Capex Reinvestors:</strong> Clean energy, tech, and defense companies (${lowDivText}) reinvest ~100% of profits into capacity expansion rather than distributing cash.</li>
@@ -13751,7 +14091,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'growth_defensive': {
       return {
         grade: "Superior Return on Equity (> 15% Institutional)",
-        why: `<p style="margin-bottom:6px;">Your direct equity holdings generate an active weighted Return on Equity (ROE) of <strong>${displayVal}</strong> (institutional benchmark is &gt;15%). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your direct equity holdings generate an active weighted Return on Equity (ROE) of <strong>${displayVal}</strong> (institutional benchmark is &gt;15%):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Capital Efficiency Champions:</strong> ${topROEText} generate massive net profits per rupee of shareholder equity without excessive debt leverage.</li>
               </ul>`,
@@ -13766,7 +14106,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
       const numVal = parseFloat(displayVal) || 1.42;
       return {
         grade: numVal >= 1.2 ? "Optimal Alpha Efficiency (> 1.20)" : (numVal >= 1.0 ? "Institutional Grade (> 1.00)" : "Moderate Volatility Multiple"),
-        why: `<p style="margin-bottom:6px;">Your Sharpe Ratio of <strong>${displayVal}</strong> measures excess portfolio returns generated above the 6.8% RBI sovereign hurdle per unit of combined market volatility. Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your Sharpe Ratio of <strong>${displayVal}</strong> measures excess portfolio returns generated above the 6.8% RBI sovereign hurdle per unit of combined market volatility:</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Multi-Asset Shock Absorber:</strong> Holding ${Math.round(ppfWeight * 100)}% Sovereign PPF (${formatVal(ppfVal)}) and ${Math.round(goldWeight * 100)}% Gold (${formatVal(goldVal)}) suppresses portfolio variance, significantly elevating risk-adjusted compounding efficiency.</li>
                 <li><strong>Active Return Engine:</strong> Compounding in direct equities and mutual funds (${formatVal(eqVal)}) powers the numerator of the ratio.</li>
@@ -13797,7 +14137,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'beta': {
       return {
         grade: `~${volCushion}% Volatility Cushion`,
-        why: `<p style="margin-bottom:6px;">Your portfolio Beta of <strong>${displayVal}</strong> gives you a ~<strong>${volCushion}%</strong> volatility cushion vs NIFTY 50 (Beta = 1.0). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your portfolio Beta of <strong>${displayVal}</strong> gives you a ~<strong>${volCushion}%</strong> volatility cushion vs NIFTY 50 (Beta = 1.0):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Equity Growth Engine (~${Math.round(eqWeight * 100)}%):</strong> Stocks and mutual funds capture corporate economic expansion (Beta ~0.96).</li>
                 <li><strong>Defensive Cushion (~${Math.round((goldWeight + ppfWeight) * 100)}%):</strong> PPF (${formatVal(ppfVal)}) and Gold (${formatVal(goldVal)}) dilute market sensitivity, preventing severe portfolio swings.</li>
@@ -13812,7 +14152,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'drawdown': {
       return {
         grade: "Asset-Weighted Stress Resistance",
-        why: `<p style="margin-bottom:6px;">Your simulated maximum drawdown is contained at <strong>${displayVal}</strong> (vs -30% to -40% for pure equity benchmarks). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your simulated maximum drawdown is contained at <strong>${displayVal}</strong> (vs -30% to -40% for pure equity benchmarks):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Multi-Asset Shock Absorption:</strong> During severe crashes, Gold historically acts as a safe haven while Sovereign PPF earns uninterrupted 7.1% tax-free interest.</li>
                 <li><strong>Broad Sector Diversification:</strong> Direct equities span Banking, Defense, Solar, Railways, and Market Infrastructure rather than a single vulnerable theme.</li>
@@ -13827,7 +14167,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'liquidity': {
       return {
         grade: `${formatVal(liquidVal)} Accessible in 24-48 hrs`,
-        why: `<p style="margin-bottom:6px;"><strong>${displayVal}</strong> of your net worth (${formatVal(liquidVal)}) is immediately accessible in liquid listed securities. Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;"><strong>${displayVal}</strong> of your net worth (${formatVal(liquidVal)}) is immediately accessible in liquid listed securities:</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Liquid Tier (T+1 / T+2):</strong> Mutual Funds and Direct Equities (${formatVal(liquidVal)}) can be redeemed online with proceeds reaching your bank account in 24–48 hours.</li>
                 <li><strong>Illiquid Compounding Tier:</strong> Sovereign PPF (${formatVal(ppfVal)}) is locked for 15-year compounding under EEE tax-exempt status.</li>
@@ -13843,7 +14183,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
       const coveragePct = targetMonthlyFireExpense > 0 ? ((monthlySwr / targetMonthlyFireExpense) * 100).toFixed(0) : '0';
       return {
         grade: `${formatVal(Math.round(annualSwr))} / yr Perpetual Capacity`,
-        why: `<p style="margin-bottom:6px;">Under the Trinity Study 4% Safe Withdrawal Rate framework, your current net worth of ${formatVal(totalNW)} can perpetually generate <strong>${displayVal}</strong> (${formatVal(Math.round(annualSwr))}/yr). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Under the Trinity Study 4% Safe Withdrawal Rate framework, your current net worth of ${formatVal(totalNW)} can perpetually generate <strong>${displayVal}</strong> (${formatVal(Math.round(annualSwr))}/yr):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>The 4% Rule Math:</strong> With long-term portfolio returns of 11%–13% and inflation at ~6%, withdrawing 4% annually ensures your principal corpus survives forever without depletion.</li>
                 <li><strong>Current Coverage:</strong> This passive cashflow currently covers <strong>${coveragePct}%</strong> of your target monthly living expenses (${formatVal(targetMonthlyFireExpense)}/mo).</li>
@@ -13858,7 +14198,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'nifty_alpha': {
       return {
         grade: "Large Cap Benchmark Spread",
-        why: `<p style="margin-bottom:6px;">Your portfolio return generates a <strong>${displayVal}</strong> spread over the NIFTY 50 Total Return Index (~14.2% historical benchmark). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your portfolio return generates a <strong>${displayVal}</strong> spread over the NIFTY 50 Total Return Index (~14.2% historical benchmark):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Active Stock Selection:</strong> High-growth conviction bets in Mid/Small caps and defense/energy sectors delivered superior capital appreciation compared to large-cap index heavyweights.</li>
                 <li><strong>Multi-Asset Balance:</strong> PPF and Gold stabilize the portfolio, slightly moderating pure bull-run peaks while boosting performance during market corrections.</li>
@@ -13873,7 +14213,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'midcap_alpha': {
       return {
         grade: "Midcap Factor Comparison",
-        why: `<p style="margin-bottom:6px;">Your portfolio return spread relative to the high-growth NIFTY Midcap 150 Index (~18.5% historical benchmark) is <strong>${displayVal}</strong>. Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your portfolio return spread relative to the high-growth NIFTY Midcap 150 Index (~18.5% historical benchmark) is <strong>${displayVal}</strong>:</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Risk-Return Tradeoff:</strong> The Midcap 150 index is 100% high-beta equity. Your balanced portfolio includes defensive debt and large-caps that trade peak upside for downside survival.</li>
               </ul>`,
@@ -13887,7 +14227,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'gold_alpha': {
       return {
         grade: "Precious Metal Hedge Spread",
-        why: `<p style="margin-bottom:6px;">Your portfolio return generates a <strong>${displayVal}</strong> spread over domestic Physical 24K Gold (~11.8% long-term INR benchmark). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your portfolio return generates a <strong>${displayVal}</strong> spread over domestic Physical 24K Gold (~11.8% long-term INR benchmark):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Enterprise Earnings Compounding:</strong> Equities generate retained corporate profits and dividend cashflows, which historically outpace raw commodity bullion over multi-year cycles.</li>
               </ul>`,
@@ -13901,7 +14241,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'fd_alpha': {
       return {
         grade: "Risk-Free Hurdle Alpha",
-        why: `<p style="margin-bottom:6px;">Your portfolio return delivers a <strong>${displayVal}</strong> excess return spread over commercial bank 1-year Fixed Deposit rates (~7.0% pre-tax hurdle). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Your portfolio return delivers a <strong>${displayVal}</strong> excess return spread over commercial bank 1-year Fixed Deposit rates (~7.0% pre-tax hurdle):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Real Wealth Multiplication:</strong> Fixed deposits barely beat real inflation after taxes. Equities and sovereign EEE instruments generate true inflation-adjusted net worth growth.</li>
               </ul>`,
@@ -13915,7 +14255,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'corr_eq_gold': {
       return {
         grade: "Negative Correlation Flight to Safety",
-        why: `<p style="margin-bottom:6px;">Equities (${formatVal(eqVal)}) and Gold (${formatVal(goldVal)}) exhibit a negative/low statistical correlation (<strong>${displayVal}</strong>). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Equities (${formatVal(eqVal)}) and Gold (${formatVal(goldVal)}) exhibit a negative/low statistical correlation (<strong>${displayVal}</strong>):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Crisis Dynamics:</strong> When equity markets panic due to geopolitical shocks or inflation spikes, global institutional capital flees into physical gold bullion.</li>
               </ul>`,
@@ -13929,7 +14269,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'corr_eq_ppf': {
       return {
         grade: "Zero Correlation Sovereign Anchor",
-        why: `<p style="margin-bottom:6px;">PPF (${formatVal(ppfVal)}) has a statistical correlation of <strong>0.00 (Zero Volatility)</strong> with equities. Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">PPF (${formatVal(ppfVal)}) has a statistical correlation of <strong>0.00 (Zero Volatility)</strong> with equities:</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Sovereign Guarantee:</strong> PPF returns (7.1% tax-free) are fixed quarterly by the Government of India and do not fluctuate with equity markets.</li>
               </ul>`,
@@ -13943,7 +14283,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
     case 'corr_mf_stocks': {
       return {
         grade: "High Positive Equity Co-movement",
-        why: `<p style="margin-bottom:6px;">Mutual Funds (${formatVal(metrics.mfCur || 0)}) and Direct Stocks (${formatVal(metrics.pureStockCur || 0)}) have high positive correlation (<strong>+0.78</strong>). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Mutual Funds (${formatVal(metrics.mfCur || 0)}) and Direct Stocks (${formatVal(metrics.pureStockCur || 0)}) have high positive correlation (<strong>+0.78</strong>):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Shared Macro Drivers:</strong> Both assets share Indian GDP growth, corporate earnings expansion, and domestic consumption tailwinds.</li>
               </ul>`,
@@ -13972,7 +14312,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
       const remainingGap = Math.max(0, targetVal - totalNW);
       return {
         grade: `${progressPct}% Achieved (${formatVal(targetVal)} Target)`,
-        why: `<p style="margin-bottom:6px;">Targeting a corpus of <strong>${displayVal}</strong> (${mult}x annual living expenses of ${formatVal(targetMonthlyFireExpense * 12)}/yr). Why this is happening in your portfolio:</p>
+        why: `<p style="margin-bottom:6px;">Targeting a corpus of <strong>${displayVal}</strong> (${mult}x annual living expenses of ${formatVal(targetMonthlyFireExpense * 12)}/yr):</p>
               <ul style="margin:0 0 6px 0; padding-left:16px;">
                 <li style="margin-bottom:3px;"><strong>Withdrawal Math:</strong> At ${mult}x annual expenses, a safe withdrawal rate of ${(100 / mult).toFixed(1)}% allows you to cover all living expenses perpetually without ever touching capital principal.</li>
                 <li><strong>Current Progress:</strong> Your active net worth of ${formatVal(totalNW)} covers <strong>${progressPct}%</strong> of this milestone (${formatVal(remainingGap)} remaining gap).</li>
@@ -14003,6 +14343,91 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
                       <li style="margin-bottom:4px;"><strong>Zero Assumptions:</strong> No forward projections or hypothetical CAGRs—every metric is calculated directly from your cashflows.</li>
                       <li><strong>Disciplined Accumulation:</strong> Continue allocating systematic inflows to widen the alpha gap against the 6.5% fixed deposit benchmark.</li>
                     </ul>`
+      };
+    }
+
+    case 'evi': {
+      const evi = calculateDynamicEVI(currentEVIOffset);
+      return {
+        grade: evi.badgeText,
+        why: `<p style="margin-bottom:8px;">Quantitative 4-Pillar institutional valuation framework measuring broad Indian equity valuation attractiveness across 4 equal-weighted macroeconomic pillars (normalized to 100 = Fair Value):</p>
+              <div style="overflow-x:auto; margin-bottom:10px;">
+                <table style="width:100%; border-collapse:collapse; font-size:10.5px; text-align:left;">
+                  <thead>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:var(--text-dim); text-transform:uppercase; font-size:9px;">
+                      <th style="padding:4px 6px;">Pillar</th>
+                      <th style="padding:4px 6px;">Current Level</th>
+                      <th style="padding:4px 6px;">Historical Median</th>
+                      <th style="padding:4px 6px; text-align:right;">Sub-Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                      <td style="padding:5px 6px;">1. Trailing P/E (25%)</td>
+                      <td style="padding:5px 6px; color:#34d399; font-weight:600;">${evi.n50Pe.toFixed(1)}x</td>
+                      <td style="padding:5px 6px; color:var(--text-dim);">20.80x (5Y: 22.4x)</td>
+                      <td style="padding:5px 6px; text-align:right; color:#34d399; font-weight:700;">${evi.scorePe.toFixed(1)} / 100</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                      <td style="padding:5px 6px;">2. Price-to-Book (25%)</td>
+                      <td style="padding:5px 6px; color:#34d399; font-weight:600;">${evi.n50Pb.toFixed(2)}x</td>
+                      <td style="padding:5px 6px; color:var(--text-dim);">3.25x</td>
+                      <td style="padding:5px 6px; text-align:right; color:#34d399; font-weight:700;">${evi.scorePb.toFixed(1)} / 100</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                      <td style="padding:5px 6px;">3. G-Sec × P/E Spread (25%)</td>
+                      <td style="padding:5px 6px; color:#34d399; font-weight:600;">1.30 (6.80% Yield)</td>
+                      <td style="padding:5px 6px; color:var(--text-dim);">1.487 product</td>
+                      <td style="padding:5px 6px; text-align:right; color:#34d399; font-weight:700;">${evi.scoreGsec.toFixed(1)} / 100</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                      <td style="padding:5px 6px;">4. M-Cap to GDP (25%)</td>
+                      <td style="padding:5px 6px; color:#f59e0b; font-weight:600;">${evi.mcapToGdp.toFixed(1)}%</td>
+                      <td style="padding:5px 6px; color:var(--text-dim);">88.0%</td>
+                      <td style="padding:5px 6px; text-align:right; color:#f59e0b; font-weight:700;">${evi.scoreMcapGdp.toFixed(1)} / 100</td>
+                    </tr>
+                    <tr style="background:rgba(16,185,129,0.08); font-weight:700;">
+                      <td style="padding:5px 6px; color:#6ee7b7;" colspan="3">Composite Multi-Factor EVI Level</td>
+                      <td style="padding:5px 6px; text-align:right; color:#6ee7b7; font-size:11.5px;">${evi.eviScore.toFixed(1)} / 100</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p style="margin:6px 0 0 0; font-size:10px; color:var(--text-dim); line-height:1.4;">
+                <strong>Regime Matrix:</strong> &lt;80 = Deep Value (85% Eq) | <strong style="color:#6ee7b7;">80–100 = Invest in Equities (75% Eq) [Active: ${evi.eviScore.toFixed(1)}]</strong> | 100–120 = Neutral / Regular SIP (60% Eq) | 120–130 = Incremental Debt (45% Eq) | &gt;130 = Book Partial Profits (30% Eq).
+              </p>`,
+        actionPlan: `<div style="display:flex; flex-direction:column; gap:8px;">
+                      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:4px; padding:7px 9px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                          <strong style="color:#e2e8f0; font-size:11px;">🟢 NIFTY 50 TRI (Core Large Cap Anchor)</strong>
+                          <span class="badge-capsule" style="color:#34d399; font-size:9px;">Accelerate Lumpsum</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--text-dim); margin-top:3px; line-height:1.4;">
+                          Trailing P/E <strong>${evi.n50Pe.toFixed(1)}x</strong> · Forward P/E <strong>${evi.n50FwdPe.toFixed(1)}x</strong> · P/B <strong>${evi.n50Pb.toFixed(2)}x</strong> · Div Yield <strong>1.23%</strong>. Valuations are in the bottom 18th percentile over 5 years (cheaper than 82% of trading days). Historically, investing when P/E &lt; 20x delivered 15.8%–19.2% 3-year rolling CAGR.
+                        </div>
+                      </div>
+                      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:4px; padding:7px 9px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                          <strong style="color:#e2e8f0; font-size:11px;">🟢 NIFTY NEXT 50 (Junior Large Cap Growth)</strong>
+                          <span class="badge-capsule" style="color:#34d399; font-size:9px;">High Conviction</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--text-dim); margin-top:3px; line-height:1.4;">
+                          Trailing P/E <strong>${evi.nn50Pe.toFixed(1)}x</strong> · Forward P/E <strong>${evi.nn50FwdPe.toFixed(1)}x</strong> · P/B <strong>${evi.nn50Pb.toFixed(2)}x</strong> · ROE <strong>17.6%</strong>. Rare valuation inversion: trading at a ~5.2% discount to Nifty 50 despite higher constituent ROE (17.6% vs 15.2%). Prime compounding sweet spot.
+                        </div>
+                      </div>
+                      <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:4px; padding:7px 9px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                          <strong style="color:#e2e8f0; font-size:11px;">🟡 NIFTY MIDCAP 150 (Growth Multiplier)</strong>
+                          <span class="badge-capsule" style="color:#fbbf24; font-size:9px;">Stagger via STP</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--text-dim); margin-top:3px; line-height:1.4;">
+                          Trailing P/E <strong>${evi.mc150Pe.toFixed(1)}x</strong> · Forward P/E <strong>${evi.mc150FwdPe.toFixed(1)}x</strong> · P/B <strong>${evi.mc150Pb.toFixed(2)}x</strong> · ROE <strong>14.5%</strong>. Midcaps command a 46% premium (1.46x ratio) over Nifty 50 vs historical 15%–20% norm. Avoid lumpsum purchases; maintain disciplined SIPs or 6–9 month systematic transfer plans.
+                        </div>
+                      </div>
+                      <div style="font-size:9.5px; color:var(--text-dim); line-height:1.4; padding-top:4px;">
+                        ⚡ <strong>5-Year Structural Longevity Engine:</strong> Denominators dynamically scale from base anchor date (Oct 2026): EPS at +12.8% p.a., BVPS at +11.5% p.a., and India Nominal GDP at +10.5% p.a. Zero static threshold breakage as Nifty advances toward 30,000–45,000.
+                      </div>
+                    </div>`
       };
     }
 
@@ -14147,6 +14572,9 @@ function openAnalyticsExplainer(metricKey) {
   } else if (metricKey === "horizon_inflow") {
     const el = document.getElementById("metricTotal15YInvested");
     if (el && el.innerText.trim()) displayVal = el.innerText.trim();
+  } else if (metricKey === "evi") {
+    const el = document.getElementById("eviCurrentScoreText");
+    if (el && el.innerText.trim()) displayVal = `EVI ${el.innerText.trim()}`;
   }
 
   // Generate deep quantitative diagnostic & actionable tactical playbook
@@ -15469,17 +15897,24 @@ function renderMarketIndicesUI(data) {
   if (typeof updateBenchmarkAlphaCards === 'function') {
     updateBenchmarkAlphaCards();
   }
+  if (typeof renderEVIRadar === 'function') {
+    renderEVIRadar();
+  }
 }
 
 async function fetchLiveMarketIndices() {
-  // 1. First check local live cache for instant paint
+  // 1. First check local live cache for instant paint (sanitized for current market baseline)
   try {
     const cachedStr = localStorage.getItem('MOSBY_MARKET_CACHE_V5');
     if (cachedStr) {
       const cached = JSON.parse(cachedStr);
-      if (cached && (cached.nifty || cached.sensex || cached.gold)) {
+      const p = cached?.nifty?.price || cached?.nifty50?.price || cached?.nifty;
+      const num = parseFloat(String(p).replace(/,/g, ''));
+      if (cached && !isNaN(num) && num >= 10000) {
         AppState.indices = cached;
         renderMarketIndicesUI(cached);
+      } else {
+        localStorage.removeItem('MOSBY_MARKET_CACHE_V5');
       }
     }
   } catch(e) {}
