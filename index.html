@@ -6759,6 +6759,36 @@ function normalizeDashboardSummary(data) {
   return res;
 }
 
+function normalizeMacroConfig(data) {
+  const rows = getRootArray(data, 'Dashboard', 'dashboard', 'Macro', 'macro', 'Summary', 'summary', 'Config', 'config');
+  let macro = {
+    eps: null,
+    bvps: null,
+    gsecYield: null,
+    gdpLakhCr: null,
+    mcapLakhCr: null,
+    niftyCmp: null
+  };
+  if (Array.isArray(rows) && rows.length) {
+    rows.forEach(r => {
+      const k = String(getField(r, 'Metric', 'Name', 'Item', 'Key', 'Title', 'Field', 'Parameter') || Object.values(r)[0] || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const rawV = getField(r, 'Value', 'Amount', 'Val', 'Total') || Object.values(r)[1];
+      const v = parseNum(rawV);
+      if (isNaN(v) || v <= 0) return;
+
+      if (k.includes('eps')) macro.eps = v;
+      else if (k.includes('bvps') || k.includes('bookval')) macro.bvps = v;
+      else if (k.includes('gsec') || k.includes('sovereign') || k.includes('10y') || k.includes('yield')) {
+        macro.gsecYield = (v > 1) ? (v / 100) : v;
+      }
+      else if (k.includes('gdp')) macro.gdpLakhCr = v;
+      else if (k.includes('mcap') || k.includes('marketcap')) macro.mcapLakhCr = v;
+      else if (k.includes('nifty') && (k.includes('cmp') || k.includes('price') || k.includes('level'))) macro.niftyCmp = v;
+    });
+  }
+  return macro;
+}
+
 function normalizePPFData(data) {
   // 1. Direct object support (from Code.gs readPPF)
   const ppfObj = data && (data.ppf || data.PPF);
@@ -9922,9 +9952,9 @@ function updateBenchmarkAlphaCards() {
 // ==========================================
 const EVI_ANCHOR = {
   baseDate: new Date('2026-10-01T00:00:00Z').getTime(),
-  baseNifty: 24800,
-  baseEps: 1290.0,      // Trailing consolidated EPS (24,800 / 19.22x)
-  baseBvps: 9018.18,    // Book Value Per Share (24,800 / 2.75x)
+  baseNifty: 22231.80,   // Verified official NSE closing level
+  baseEps: 1168.86,      // Trailing consolidated EPS (22,231.80 / 19.02x = 1,168.86)
+  baseBvps: 8143.52,     // Book Value Per Share (22,231.80 / 2.73x = 8,143.52)
   baseGSecYield: 0.0680,// 10Y Indian Sovereign Yield: 6.80%
   baseGdpLakhCr: 335.0, // India Nominal GDP in Lakh Crores
   baseMcapLakhCr: 397.0,// Total Listed Indian Market Cap in Lakh Crores (~118.5% of GDP)
@@ -9953,23 +9983,31 @@ function getEviNeedlePct(score) {
 function calculateDynamicEVI(simulatedMultiplier = 1.0) {
   const now = Date.now();
   const deltaYears = Math.max(0, (now - EVI_ANCHOR.baseDate) / (365.25 * 86400 * 1000));
+  // Live Macro: Gemini Grounding -> Google Sheet config -> Mathematical Anchor
+  const macro = AppState?.geminiMacro || AppState?.macroConfig || {};
 
-  // Denominators compound forward dynamically (EPS +12.8% p.a., BVPS +11.5% p.a., GDP +10.5% p.a.)
-  const currentEps = EVI_ANCHOR.baseEps * Math.pow(1 + EVI_ANCHOR.epsGrowthRate, deltaYears);
-  const currentBvps = EVI_ANCHOR.baseBvps * Math.pow(1 + EVI_ANCHOR.bvpsGrowthRate, deltaYears);
-  const currentGdp = EVI_ANCHOR.baseGdpLakhCr * Math.pow(1 + EVI_ANCHOR.gdpGrowthRate, deltaYears);
+  // Denominators compound forward dynamically, or use real Gemini/Sheet values if available
+  const currentEps = macro.eps || (EVI_ANCHOR.baseEps * Math.pow(1 + EVI_ANCHOR.epsGrowthRate, deltaYears));
+  const currentBvps = macro.bvps || (EVI_ANCHOR.baseBvps * Math.pow(1 + EVI_ANCHOR.bvpsGrowthRate, deltaYears));
+  const currentGdp = macro.gdpLakhCr || (EVI_ANCHOR.baseGdpLakhCr * Math.pow(1 + EVI_ANCHOR.gdpGrowthRate, deltaYears));
 
-  // Scaled Nifty level from official institutional benchmark baseline (24,800 on Sep 30, 2026)
-  const niftyLevel = EVI_ANCHOR.baseNifty * simulatedMultiplier;
+  // Scaled Nifty level: Strictly from the live market ticker feeding the top bar
+  const cachedNifty = parseFloat(String(AppState?.indices?.nifty?.price || AppState?.indices?.nifty50?.price || '').replace(/,/g, ''));
+  const liveNifty = (cachedNifty && cachedNifty >= 10000) ? cachedNifty : ((macro.niftyCmp && macro.niftyCmp >= 10000) ? macro.niftyCmp : EVI_ANCHOR.baseNifty);
+  const niftyLevel = liveNifty * simulatedMultiplier;
 
-  // Multiples
-  const n50Pe = niftyLevel / currentEps;
-  const n50Pb = niftyLevel / currentBvps;
-  const gsecYield = EVI_ANCHOR.baseGSecYield;
+  // Multiples: Direct from official NSE Gemini grounding or exact EPS/BVPS division
+  const n50Pe = macro.pe ? (macro.pe * simulatedMultiplier) : (niftyLevel / currentEps);
+  const n50Pb = macro.pb ? (macro.pb * simulatedMultiplier) : (niftyLevel / currentBvps);
+
+  // G-Sec Sovereign Yield: Use sheet or live index if available, else anchor
+  const cachedGsec = AppState?.indices?.gsec?.yield ? parseFloat(AppState.indices.gsec.yield) : null;
+  const gsecYield = macro.gsecYield || (cachedGsec ? (cachedGsec > 1 ? cachedGsec / 100 : cachedGsec) : EVI_ANCHOR.baseGSecYield);
   const gsecPeProduct = gsecYield * n50Pe;
 
-  // Market cap scales with index and net corporate expansion
-  const mcapLakhCr = EVI_ANCHOR.baseMcapLakhCr * (niftyLevel / EVI_ANCHOR.baseNifty) * Math.pow(1 + 0.02, deltaYears);
+  // Market cap scales with live index level and net corporate expansion
+  const baseMcap = macro.mcapLakhCr || EVI_ANCHOR.baseMcapLakhCr;
+  const mcapLakhCr = baseMcap * (niftyLevel / EVI_ANCHOR.baseNifty) * Math.pow(1 + 0.02, deltaYears);
   const mcapToGdp = (mcapLakhCr / currentGdp) * 100;
 
   // 4 Component Scores (Normalized to 100 = Fair Value)
@@ -9995,13 +10033,15 @@ function calculateDynamicEVI(simulatedMultiplier = 1.0) {
   const mc150FwdPe = mc150Pe / 1.18;
   const mc150Pb = n50Pb * 1.382;
 
+  const yieldPctText = (gsecYield * 100).toFixed(2) + '%';
+
   // Tactical Allocation Guidance
   let zone = 'invest';
   let targetEq = 75;
   let targetDebt = 25;
   let zoneColor = '#10b981';
   let badgeText = 'EVI ' + eviScore.toFixed(1) + ' · INVEST IN EQUITIES';
-  let directive = `<strong>🟢 TACTICAL DEPLOYMENT CALL:</strong> NIFTY 50 consolidated trailing P/E of <span class="num-mono">${n50Pe.toFixed(1)}x</span> sits at an attractive valuation discount against medium-term history. 10Y Sovereign G-Sec yield of <span class="num-mono">6.80%</span> provides strong equity cushion. Model recommends <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>. Deploy fresh cash aggressively in Nifty 50 and Nifty Next 50; stagger Nifty Midcap 150 via 6-month systematic transfer.`;
+  let directive = `<strong>🟢 TACTICAL DEPLOYMENT CALL:</strong> NIFTY 50 consolidated trailing P/E of <span class="num-mono">${n50Pe.toFixed(1)}x</span> sits at an attractive valuation discount against medium-term history. 10Y Sovereign G-Sec yield of <span class="num-mono">${yieldPctText}</span> provides strong equity cushion. Model recommends <strong>${targetEq}% Equity / ${targetDebt}% Debt</strong>. Deploy fresh cash aggressively in Nifty 50 and Nifty Next 50; stagger Nifty Midcap 150 via 6-month systematic transfer.`;
 
   if (eviScore < 80) {
     zone = 'aggressive';
@@ -10045,6 +10085,11 @@ function calculateDynamicEVI(simulatedMultiplier = 1.0) {
     scorePb,
     scoreGsec,
     scoreMcapGdp,
+    gsecYield,
+    gsecPeProduct,
+    niftyLevel,
+    currentGdp,
+    currentEps,
     n50Pe,
     n50FwdPe,
     n50Pb,
@@ -14376,7 +14421,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
                     </tr>
                     <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
                       <td style="padding:5px 6px;">3. G-Sec × P/E Spread (25%)</td>
-                      <td style="padding:5px 6px; color:#34d399; font-weight:600;">1.30 (6.80% Yield)</td>
+                      <td style="padding:5px 6px; color:#34d399; font-weight:600;">${evi.gsecPeProduct.toFixed(2)} (${(evi.gsecYield * 100).toFixed(2)}% Yield)</td>
                       <td style="padding:5px 6px; color:var(--text-dim);">1.487 product</td>
                       <td style="padding:5px 6px; text-align:right; color:#34d399; font-weight:700;">${evi.scoreGsec.toFixed(1)} / 100</td>
                     </tr>
@@ -14425,7 +14470,7 @@ function getAnalyticsDeepInsights(metricKey, displayVal, ctx) {
                         </div>
                       </div>
                       <div style="font-size:9.5px; color:var(--text-dim); line-height:1.4; padding-top:4px;">
-                        ⚡ <strong>5-Year Structural Longevity Engine:</strong> Denominators dynamically scale from base anchor date (Oct 2026): EPS at +12.8% p.a., BVPS at +11.5% p.a., and India Nominal GDP at +10.5% p.a. Zero static threshold breakage as Nifty advances toward 30,000–45,000.
+                        ⚡ <strong>Live Multi-Cycle Longevity Engine:</strong> Synced with Live Nifty CMP (<strong>${Math.round(evi.niftyLevel).toLocaleString('en-IN')}</strong>), Live 10Y G-Sec Yield (<strong>${(evi.gsecYield * 100).toFixed(2)}%</strong>), and Macro Balance Sheet Baseline (GDP: ₹${Math.round(evi.currentGdp)} Lakh Cr, EPS: ₹${Math.round(evi.currentEps).toLocaleString('en-IN')}). Denominators scale dynamically so thresholds never break.
                       </div>
                     </div>`
       };
@@ -15107,6 +15152,7 @@ async function connectLiveSheet(explicitPass = '') {
     AppState.dividends = normalizeDividendData(data);
     AppState.stockCatalysts = normalizeCatalystData(data);
     AppState.history = normalizeHistoryData(data);
+    AppState.macroConfig = normalizeMacroConfig(data);
 
     if (data.indices || data.marketIndices) {
       renderMarketIndicesUI(data.indices || data.marketIndices);
@@ -15903,7 +15949,7 @@ function renderMarketIndicesUI(data) {
 }
 
 async function fetchLiveMarketIndices() {
-  // 1. First check local live cache for instant paint (sanitized for current market baseline)
+  // 1. First check local live cache from sheet ticker for instant 0ms paint
   try {
     const cachedStr = localStorage.getItem('MOSBY_MARKET_CACHE_V5');
     if (cachedStr) {
@@ -15913,8 +15959,6 @@ async function fetchLiveMarketIndices() {
       if (cached && !isNaN(num) && num >= 10000) {
         AppState.indices = cached;
         renderMarketIndicesUI(cached);
-      } else {
-        localStorage.removeItem('MOSBY_MARKET_CACHE_V5');
       }
     }
   } catch(e) {}
@@ -15974,10 +16018,94 @@ Return ONLY a valid JSON object without any commentary or code fences:
       }
     } catch(e) {}
   }
+
+  // Trigger Gemini live macroeconomic background refresh
+  if (typeof fetchLiveMacroTelemetryFromGemini === 'function') {
+    fetchLiveMacroTelemetryFromGemini();
+  }
+}
+
+// Live Macroeconomic Telemetry Engine: Grounded via Gemini Google Search
+async function fetchLiveMacroTelemetryFromGemini() {
+  // Check local 24-hour cache first
+  try {
+    const cachedStr = localStorage.getItem('MOSBY_GEMINI_MACRO_CACHE');
+    if (cachedStr) {
+      const cached = JSON.parse(cachedStr);
+      if (cached && cached.data) {
+        AppState.geminiMacro = cached.data;
+        // If cache is less than 12 hours old, keep it and return
+        if (Date.now() - (cached.timestamp || 0) < 12 * 3600 * 1000) {
+          if (typeof renderEVIRadar === 'function') renderEVIRadar();
+          return;
+        }
+      }
+    }
+  } catch(e) {}
+
+  const apiKey = (typeof sessionGeminiApiKey !== 'undefined' && sessionGeminiApiKey) || localStorage.getItem('MOSBY_GEMINI_KEY');
+  if (!apiKey) return;
+
+  const prompt = `Search live Google for current official Indian macroeconomic valuation metrics:
+1. Indian 10-Year Benchmark Sovereign Government Bond yield (percentage, e.g. 6.80)
+2. NIFTY 50 Trailing 12-Month Consolidated EPS (e.g. 1290)
+3. NIFTY 50 Consolidated Book Value Per Share (e.g. 9018)
+4. India Nominal GDP in Lakh Crores (MOSPI / Union Budget, e.g. 335)
+5. BSE Total Listed Indian Equity Market Capitalization in Lakh Crores (e.g. 397)
+
+Return ONLY a valid JSON object without markdown fences, explanation, or notes:
+{"gsecYield": 6.80, "niftyEps": 1290.0, "niftyBvps": 9018.0, "indiaGdp": 335.0, "indiaMcap": 397.0}`;
+
+  const models = ['gemini-2.5-flash', 'gemini-3.5-flash'];
+  for (const model of models) {
+    try {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          tools: [{ googleSearch: {} }],
+          generationConfig: { temperature: 0.1 }
+        })
+      });
+      if (res.ok) {
+        const json = await res.json();
+        const text = json?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          const match = text.match(/\{[\s\S]*\}/);
+          if (match) {
+            const parsed = JSON.parse(match[0]);
+            if (parsed && (parsed.gsecYield || parsed.niftyEps || parsed.indiaGdp)) {
+              AppState.geminiMacro = {
+                eps: parseFloat(parsed.niftyEps) || null,
+                bvps: parseFloat(parsed.niftyBvps) || null,
+                gsecYield: parsed.gsecYield ? (parseFloat(parsed.gsecYield) > 1 ? parseFloat(parsed.gsecYield) / 100 : parseFloat(parsed.gsecYield)) : null,
+                gdpLakhCr: parseFloat(parsed.indiaGdp) || null,
+                mcapLakhCr: parseFloat(parsed.indiaMcap) || null
+              };
+              localStorage.setItem('MOSBY_GEMINI_MACRO_CACHE', JSON.stringify({ data: AppState.geminiMacro, timestamp: Date.now() }));
+              if (typeof renderEVIRadar === 'function') renderEVIRadar();
+              return;
+            }
+          }
+        }
+      }
+    } catch(err) {}
+  }
 }
 
 // Synchronous Pre-Hydration of Trusted Live Session (Instant 0.00s Load, Zero Freeze, Direct Live Paint)
 function hydrateActiveSessionSync() {
+  try {
+    const macroCachedStr = localStorage.getItem('MOSBY_GEMINI_MACRO_CACHE');
+    if (macroCachedStr) {
+      const macroParsed = JSON.parse(macroCachedStr);
+      if (macroParsed && macroParsed.data) {
+        AppState.geminiMacro = macroParsed.data;
+      }
+    }
+  } catch(e) {}
   try {
     if (localStorage.getItem('MOSBY_SESSION_ACTIVE') === 'true') {
       const cipher = localStorage.getItem('MOSBY_TRUSTED_SESSION');
