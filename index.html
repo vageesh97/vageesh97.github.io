@@ -9418,21 +9418,36 @@ function renderCompleteDossiers() {
   const specMfSub = document.getElementById('specMfSub');
   if (specMfPct) specMfPct.innerText = `${mfPct}%`;
   if (specMfVal) specMfVal.innerText = formatVal(metrics.mfCur);
-  if (specMfSub) specMfSub.innerText = `Principal: ${formatVal(metrics.mfInv)}`;
+  if (specMfSub) {
+    const mfProfit = metrics.mfCur - metrics.mfInv;
+    const mfProfitPct = metrics.mfInv > 0 ? ((mfProfit / metrics.mfInv) * 100).toFixed(1) : '0.0';
+    const isP = mfProfit >= 0;
+    specMfSub.innerHTML = `Principal: <span class="privacy-blur num-mono">${formatVal(metrics.mfInv)}</span> • Returns: <span class="privacy-blur num-mono" style="color: ${isP ? '#6ee7b7' : '#fca5a5'}; font-weight: 600;">${isP ? '+' : ''}${formatVal(mfProfit)} (${isP ? '+' : ''}${mfProfitPct}%)</span>`;
+  }
 
   const specStockPct = document.getElementById('specStockPct');
   const specStockVal = document.getElementById('specStockVal');
   const specStockSub = document.getElementById('specStockSub');
   if (specStockPct) specStockPct.innerText = `${stockPct}%`;
   if (specStockVal) specStockVal.innerText = formatVal(metrics.stCur);
-  if (specStockSub) specStockSub.innerText = `Principal: ${formatVal(metrics.stInv)}`;
+  if (specStockSub) {
+    const stProfit = metrics.stCur - metrics.stInv;
+    const stProfitPct = metrics.stInv > 0 ? ((stProfit / metrics.stInv) * 100).toFixed(1) : '0.0';
+    const isP = stProfit >= 0;
+    specStockSub.innerHTML = `Principal: <span class="privacy-blur num-mono">${formatVal(metrics.stInv)}</span> • Returns: <span class="privacy-blur num-mono" style="color: ${isP ? '#6ee7b7' : '#fca5a5'}; font-weight: 600;">${isP ? '+' : ''}${formatVal(stProfit)} (${isP ? '+' : ''}${stProfitPct}%)</span>`;
+  }
 
   const specPpfPct = document.getElementById('specPpfPct');
   const specPpfVal = document.getElementById('specPpfVal');
   const specPpfSub = document.getElementById('specPpfSub');
   if (specPpfPct) specPpfPct.innerText = `${ppfPct}%`;
   if (specPpfVal) specPpfVal.innerText = formatVal(metrics.sovereignCur);
-  if (specPpfSub) specPpfSub.innerText = `Accrued: +${formatVal(metrics.sovereignProfit)}`;
+  if (specPpfSub) {
+    const sovProfit = metrics.sovereignProfit;
+    const sovProfitPct = metrics.sovereignInv > 0 ? ((sovProfit / metrics.sovereignInv) * 100).toFixed(1) : '0.0';
+    const isP = sovProfit >= 0;
+    specPpfSub.innerHTML = `Principal: <span class="privacy-blur num-mono">${formatVal(metrics.sovereignInv)}</span> • Interest: <span class="privacy-blur num-mono" style="color: ${isP ? '#6ee7b7' : '#fca5a5'}; font-weight: 600;">+${formatVal(sovProfit)} (+${sovProfitPct}%)</span>`;
+  }
 
   // Rebalancing Radar
   const targetMf = totalNW * 0.50;
@@ -10247,17 +10262,17 @@ function renderConsolidatedPortfolioOverview(metrics) {
     ].filter(s => s.val > 0);
 
     if (ovAllocationTotal) {
-      ovAllocationTotal.innerText = `${formatVal(totalAnalyzedVal)} Tracked (${Math.round((totalAnalyzedVal / totalNW) * 100)}% of Portfolio)`;
+      ovAllocationTotal.innerText = `${formatVal(totalAnalyzedVal)} Tracked (${((totalAnalyzedVal / totalNW) * 100).toFixed(1)}% of Portfolio)`;
     }
 
     ovSpectrumBar.innerHTML = segments.map(s => {
       const widthPct = Math.max(0.5, ((s.val / totalAnalyzedVal) * 100)).toFixed(1);
-      const nwPct = Math.round((s.val / totalNW) * 100);
+      const nwPct = ((s.val / totalNW) * 100).toFixed(1);
       return `<div class="overview-spectrum-seg" style="width: ${widthPct}%; background: ${s.color};" title="${s.label}: ${nwPct}% Portfolio (${formatVal(s.val)})"></div>`;
     }).join('');
 
     ovSpectrumLegend.innerHTML = segments.map(s => {
-      const nwPct = Math.round((s.val / totalNW) * 100);
+      const nwPct = ((s.val / totalNW) * 100).toFixed(1);
       return `
         <div style="display: flex; align-items: center; gap: 5px;">
           <span style="width: 8px; height: 8px; border-radius: 2px; background: ${s.color}; display: inline-block;"></span>
@@ -10275,17 +10290,21 @@ function renderConsolidatedPortfolioOverview(metrics) {
   const mfListEl = document.getElementById('ovMfList');
 
   const totalNW = metrics.totalNetWorth || totalAnalyzedVal || 1;
-  const mfNwPct = totalNW > 0 ? Math.round((mfCur / totalNW) * 100) : 0;
+  const mfNwPct = totalNW > 0 ? ((mfCur / totalNW) * 100).toFixed(1) : '0.0';
   const mfProfit = mfCur - mfInv;
   const mfProfitPct = mfInv > 0 ? ((mfProfit / mfInv) * 100).toFixed(1) : '0.0';
 
   if (mfCountSub) {
     const etfCount = combinedFunds.filter(f => f.isEtf).length;
-    mfCountSub.innerText = etfCount > 0 
+    const countText = etfCount > 0 
       ? `${combinedFunds.length} Active (${combinedFunds.length - etfCount} Funds + ${etfCount} ETF)` 
       : `${combinedFunds.length} Schemes Active`;
+    mfCountSub.innerHTML = `${countText} • <span style="color: rgba(255,255,255,0.75);">Invested: <span class="num-mono privacy-blur" style="color: #cbd5e1; font-weight: 600;">${formatVal(mfInv)}</span></span>`;
   }
-  if (mfHeaderVal) mfHeaderVal.innerText = formatVal(mfCur);
+  if (mfHeaderVal) {
+    mfHeaderVal.innerText = formatVal(mfCur);
+    mfHeaderVal.title = `Current Valuation: ${formatVal(mfCur)} | Invested: ${formatVal(mfInv)}`;
+  }
   if (mfHeaderShare) {
     const isP = mfProfit >= 0;
     mfHeaderShare.innerHTML = `${mfNwPct}% Portfolio • <span class="num-mono" style="color:${isP ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${isP ? '+' : ''}${mfProfitPct}%</span>`;
@@ -10308,7 +10327,7 @@ function renderConsolidatedPortfolioOverview(metrics) {
       const safeId = String(f.id || f.name).replace(/'/g, "\'");
 
       return `
-        <div class="overview-item-row" onclick="openInspectionFromType('${rawType}', '${safeId}')" title="Inspect ${f.name}">
+        <div class="overview-item-row" onclick="openInspectionFromType('${rawType}', '${safeId}')" title="${f.name} | Current: ${formatVal(cur)} | Invested: ${formatVal(inv)} | Returns: ${isP ? '+' : ''}${pPct}%">
           <div style="min-width: 0; flex: 1; padding-right: 8px;">
             <div class="overview-item-title" title="${f.name}">${f.name}</div>
           </div>
@@ -10327,13 +10346,18 @@ function renderConsolidatedPortfolioOverview(metrics) {
   const stockHeaderShare = document.getElementById('ovStockHeaderShare');
   const stockListEl = document.getElementById('ovStockList');
 
-  const stockSharePct = totalAnalyzedVal > 0 ? Math.round((stCur / totalAnalyzedVal) * 100) : 0;
-  const stockNwPct = totalNW > 0 ? Math.round((stCur / totalNW) * 100) : stockSharePct;
+  const stockSharePct = totalAnalyzedVal > 0 ? ((stCur / totalAnalyzedVal) * 100).toFixed(1) : '0.0';
+  const stockNwPct = totalNW > 0 ? ((stCur / totalNW) * 100).toFixed(1) : stockSharePct;
   const stockProfit = stCur - stInv;
   const stockProfitPct = stInv > 0 ? ((stockProfit / stInv) * 100).toFixed(1) : '0.0';
 
-  if (stockCountSub) stockCountSub.innerText = `${pureStocks.length} Securities Held`;
-  if (stockHeaderVal) stockHeaderVal.innerText = formatVal(stCur);
+  if (stockCountSub) {
+    stockCountSub.innerHTML = `${pureStocks.length} Securities Held • <span style="color: rgba(255,255,255,0.75);">Invested: <span class="num-mono privacy-blur" style="color: #cbd5e1; font-weight: 600;">${formatVal(stInv)}</span></span>`;
+  }
+  if (stockHeaderVal) {
+    stockHeaderVal.innerText = formatVal(stCur);
+    stockHeaderVal.title = `Current Valuation: ${formatVal(stCur)} | Invested: ${formatVal(stInv)}`;
+  }
   if (stockHeaderShare) {
     const isP = stockProfit >= 0;
     stockHeaderShare.innerHTML = `${stockNwPct}% Portfolio • <span class="num-mono" style="color:${isP ? '#6ee7b7' : '#fca5a5'}; font-weight:600;">${isP ? '+' : ''}${stockProfitPct}%</span>`;
@@ -10357,7 +10381,7 @@ function renderConsolidatedPortfolioOverview(metrics) {
       const safeId = String(s.id || s.ticker || s.name).replace(/'/g, "\'");
 
       return `
-        <div class="overview-item-row" onclick="openInspectionFromType('stock', '${safeId}')" title="Inspect ${s.name || s.ticker}">
+        <div class="overview-item-row" onclick="openInspectionFromType('stock', '${safeId}')" title="${s.name || s.ticker} | Current: ${formatVal(cur)} | Invested: ${formatVal(inv)} | Returns: ${isP ? '+' : ''}${pPct}%">
           <div style="min-width: 0; flex: 1; padding-right: 8px;">
             <div class="overview-item-title" title="${s.name || s.ticker}">${s.name || s.ticker}</div>
           </div>
